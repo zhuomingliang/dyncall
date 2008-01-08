@@ -38,8 +38,18 @@ include $(TOP)/build/gmake/targets.gmake
 include $(TOP)/build/gmake/common.gmake
 
 ifdef BUILD_TOOL_gcc
+
+ifdef BUILD_OS_psp
+$(BUILD_DIR)/%:
+	@echo "APP  $@"
+	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) $(OUTPUT_OPTION) 
+	psp-fixup-imports $@
+else
 $(BUILD_DIR)/%:
 	@echo "APP  $@"
 	$(LINK.cc) $^ $(LOADLIBES) $(LDLIBS) $(OUTPUT_OPTION) 
 endif
+
+endif
+
 

@@ -3,7 +3,7 @@ include $(TOP)/build/gmake/prolog.gmake
 LINK_LIBPATHS	+= $(TOP)/test/testmain/$(BUILD_DIR) 
 LINK_LIBS	+= testmain_s 
 
-ifdef BUILD_OS_PSP
+ifdef BUILD_OS_psp
 PSPSDK		=  $(shell psp-config --pspsdk-path)
 CPPFLAGS	=  -I$(PSPSDK)/include
 LINK_LIBPATHS   += $(PSPSDK)/lib

@@ -8,6 +8,15 @@ LIB_SUFFIX	= .a
 
 as_FLAGS        += --defsym DC_PREFIX_SYMBOLS=1
 
+CC  =gcc
+CXX =g++
+AR  =ar
+AS  =as
+LD  =ld
+
+CXXFLAGS	= -fno-rtti -fno-exceptions
+
+
 # implicit dll rules
 
 $(BUILD_DIR)/%.def: $(BUILD_DIR)/%.dll

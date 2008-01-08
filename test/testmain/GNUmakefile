@@ -12,12 +12,12 @@ include $(TOP)/build/gmake/prolog.gmake
 
 LIBRARY = testmain
 
-ifdef BUILD_OS_PSP
+ifdef BUILD_OS_psp
 MODS		= main_PSP
 PSPSDK		= $(shell psp-config --pspsdk-path)
 CPPFLAGS	= -I$(PSPSDK)/include
 else
-ifdef BUILD_OS_NDS
+ifdef BUILD_OS_nds
 MODS		= main_NDS
 else
 MODS		= main_ansic

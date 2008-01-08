@@ -1,0 +1,8 @@
+CC  =psp-gcc
+CXX =psp-g++
+AR  =psp-ar
+AS  =psp-as
+LD  =psp-ld
+
+CXXFLAGS	= -fno-rtti -fno-exceptions
+

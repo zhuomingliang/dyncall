@@ -21,3 +21,7 @@ ifdef BUILD_TOOL_gcc
 LINK_LIBS	+= stdc++
 endif
 
+ifdef BUILD_TOOL_psp
+LINK_LIBS	+= c
+endif
+

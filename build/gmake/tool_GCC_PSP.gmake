@@ -61,12 +61,4 @@ ifdef BUILD_OS_windows
 include $(TOP)/build/gmake/mingw.gmake
 endif
 
-# --- Build executable --------------------------------------------------------
-# this rule should be last (lowest prio)
-
-$(BUILD_DIR)/%:
-	@echo "APP  $@"
-	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) $(OUTPUT_OPTION) 
-	psp-fixup-imports $@
-
 
