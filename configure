@@ -67,6 +67,8 @@ guess_os()
     BUILD_OS="darwin"
   elif [[ $OS = "CYGWIN_NT-5.1" ]]; then
     BUILD_OS="windows"
+  elif [[ $OS = "Linux" ]]; then
+    BUILD_OS="linux"
   fi
   info "guess operating system $BUILD_OS"
 }
