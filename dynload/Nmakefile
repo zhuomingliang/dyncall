@@ -1,0 +1,39 @@
+#///////////////////////////////////////////////////
+#
+#	nmake makefile
+#	Copyright 2007 Tassilo Philipp
+#	Nmakefile
+#
+#///////////////////////////////////////////////////
+
+
+TOP=..
+
+!INCLUDE $(TOP)\build\nmake\prolog.nmake
+
+
+!IF "$(BUILD_OS)" == "Windows"
+
+TARGETS = libdynload_s.lib
+OBJS = dynload_win32.obj
+
+$(TARGETS): $(OBJS)
+	echo Creating library $@ ...
+	lib $(ARFLAGS) /OUT:"$@" $(OBJS) > nul
+
+
+!ELSE IF "$(BUILD_OS)" == "NDS"
+
+TARGETS = libdynload_s.a
+OBJS = dynload_unix.o
+
+$(TARGETS):# $(OBJS)
+	echo Not building dynload: There is no dynload support on this platform.
+#	echo Creating library $@ ...
+#	$(AR) -rc $(ARFLAGS) "$@" $(OBJS)
+
+!ENDIF
+
+
+!INCLUDE $(TOP)\build\nmake\epilog.nmake
+

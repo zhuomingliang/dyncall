@@ -1,0 +1,196 @@
+\newpage
+\section{Bindings to programming languages}
+
+Through binding of the \product{dyncall} library into a scripting environment,
+the scripting language can gain system programming status to a certain degree.\\
+The \product{dyncall} library provides bindings to Python, R and Ruby.
+
+\subsection{Common Architecture}
+
+The binding interface of the \product{dyncall} library to various scripting
+languages share a common set of functionality to invoke a function call.
+
+\subsubsection{Dynamic loading of code}
+
+The helper library \emph{dynload} which accompanies the \product{dyncall}
+library provides an abstract interface to operating-system specific mechanisms
+for loading a code module.
+
+\subsubsection{Functions}
+
+The \product{dyncall} library currently supports bindings to R, Ruby, Python
+and Java. All bindings are based on a common interface convention.\\
+All bindings provide a common set of 4 functions:
+\begin{description}
+\item [load] loading a module of compiled code
+\item [free] unloading a module of compiled code
+\item [find] finding function pointer by symbolic names
+\item [call] invoking a function call
+\end{description}
+
+\pagebreak
+
+\subsubsection{Signatures}
+
+A signature is a character string that represents a function's arguments and
+return value types. It is used in the scripting language bindings invoke
+functions to perform automatic type-conversion of the languages' types to the
+low-level C/C++ data types.
+The high-level C interface functions \capi{dcCallF()} and \capi{dcCallFV()}
+also make use of the \product{dyncall} signature string.\\
+\\
+The format of a \product{dyncall} signature string is as depicted below:
+
+
+\paragraph{\product{dyncall} signature string format}
+
+\begin{center}
+\group{input parameter type signature character}* \sigchar{)} \group{return
+type signature character} \\
+\end{center}
+
+The \group{input parameter type signature character} sequence left to the
+\sigchar{)} is in left-to-right order of the corresponding C function
+parameter type list.\\
+The special \group{return type signature character} \sigchar{v} specifies
+that the function does not return a value and corresponds to \capi{void}
+functions in C.
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular*}{0.75\textwidth}{cl}
+\hline
+Signature character & C/C++ data type \\
+\hline
+\sigchar{B} & \_Bool,bool\footnote{C++ type},int \\
+\sigchar{c} & char \\
+\sigchar{s} & short \\
+\sigchar{i} & int \\
+\sigchar{l} & long \\
+\sigchar{L} & long long,int64\_t \\
+\sigchar{f} & float \\
+\sigchar{d} & double \\
+\sigchar{p} & void* \\
+\sigchar{S} & const char* \\
+\sigchar{v} & void\footnote{used on the {\it return type} side} \\
+\hline
+\end{tabular*}
+\caption{Type signature encoding for function call data types}
+\label{sigchar}
+\end{center}
+\end{table}
+
+While the size and encoding scheme (integer, float or double) is an important
+property for the \product{dyncall} library to establish the function in a
+correct way, the distinction between \capi{signed} and \capi{unsigned} integer
+data types (\capi{char}, \capi{short}, \capi{int}, \capi{long},
+\capi{long long}) in C is not of importance as these types share the same
+machine storage semantics in regard to register usage, size and alignment.
+
+
+\paragraph{Examples of C function prototypes}
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular*}{0.75\textwidth}{rll}
+\hline
+& C function prototype & dyncall signature \\
+\hline
+void      & f1();                                     & \sigstr{)v}\\
+int       & f2(int, int);                             & \sigstr{ii)i}\\
+long long & f3(void* data);                           & \sigstr{p)L}\\
+double    & f4(int, bool, char, double, const char*); & \sigstr{iBcdS)d}\\
+\hline
+\end{tabular*}
+\caption{Type signature examples of C function prototypes}
+\label{sigex}
+\end{center}
+\end{table}
+
+
+
+\pagebreak
+
+\subsection{Python language bindings}
+
+The python module {\tt pydc} implements the Python language bindings,
+namely {\tt load}, {\tt find}, {\tt free}, {\tt call}.
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular*}{0.75\textwidth}{ll}
+\hline
+Signature character & accepted Python data types\\
+\hline
+\sigchar{B} & bool \\
+\sigchar{c} & if string, take first item\\
+\sigchar{s} & int, check in range\\
+\sigchar{i} & int\\
+\sigchar{l} & int\\
+\sigchar{L} & long, casted to long long\\
+\sigchar{f} & float\\
+\sigchar{d} & double\\
+\sigchar{p} & string or long casted to void*\\
+\sigchar{v} & no return type\\
+\hline
+\end{tabular*}
+\caption{Type signature encoding for Python bindings}
+\label{Pysigchar}
+\end{center}
+\end{table}
+
+\subsection{R language bindings}
+
+The R package {\tt rdc} implements the R langugae bindings providing
+four functions, namely {\tt rdcLoad}, {\tt rdcFree}, {\tt rdcFind} and {\tt rdcCall}.
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular*}{0.75\textwidth}{ll}
+\hline
+Signature character & accepted R data types\\
+\hline
+\sigchar{B} & coerced to logical vector, first item\\
+\sigchar{i} & coerced to integer vector, first item\\
+\sigchar{f} & coerced to numeric, first item casted to float\\
+\sigchar{d} & coerced to numeric, first item\\
+\sigchar{L} & coerced to numeric, first item casted to long long\\
+\sigchar{p} & external pointer or coerced to string vector, first item\\
+\sigchar{S} & coerced to string vector, first item\\
+\sigchar{v} & no return type\\
+\hline
+\end{tabular*}
+\caption{Type signature encoding for R bindings}
+\label{Rsigchar}
+\end{center}
+\end{table}
+
+\pagebreak
+
+\subsection{Ruby language bindings}
+
+The Ruby gem {\tt rbdc}  implements the Ruby language binding. @@@
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular*}{0.75\textwidth}{ll}
+\hline
+Signature character & accepted R data types\\
+\hline
+\sigchar{B} & TrueClass, FalseClass, NilCalss, Fixnum casted to bool\\
+\sigchar{c} & Fixnum casted to char\\
+\sigchar{s} & Fixnum casted to short\\
+\sigchar{i} & Fixnum casted to int\\
+\sigchar{l} & Fixnum casted to long\\
+\sigchar{L} & Fixnum casted to long long\\
+\sigchar{f} & Float casted to float\\
+\sigchar{d} & Float casted to double\\
+\sigchar{p} & String cased to void*\\
+\sigchar{v} & no return type\\
+\hline
+\end{tabular*}
+\caption{Type signature encoding for Ruby bindings}
+\label{Rubysigchar}
+\end{center}
+\end{table}
+

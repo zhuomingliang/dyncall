@@ -1,0 +1,57 @@
+\newpage
+\section{Developers}
+
+\subsection{Project root}
+\begin{verbatim}
+configure     -- configuration tool (unix-shell)
+configure.bat -- configuration tool (windows batch)
+ConfigRules   -- configuration tool output
+BSDmakefile   -- BSD makefile
+GNUmakefile   -- GNU makefile
+Nmakefile     -- MS nmake makefile
+LICENSE       -- license information
+README.txt    -- general information
+build         -- build systems ({BSD,GNU,N}make)
+bindings/     -- language bindings directory
+doc/          -- manual
+dyncall/      -- dyncall library source code
+dynload/      -- dynload library source code
+test/         -- test suites
+\end{verbatim}
+
+\subsection{Test suites}
+
+\paragraph{plain}
+
+Identity function calls for all supported types and calling conventions,
+plus this and msthis C++ calls.
+
+\paragraph{suite}
+
+All combinations of parameter type and count are tested on void function calls.
+A script written in Python ({\tt mkcase.py}) generates the tests up to
+an upper MAXARG limit.
+
+\paragraph{ellipsis}
+
+All combinations of parameter type and count are tested on void ellipsis 
+function calls. A script written in Python ({\tt mkcase.py}) generates the 
+tests up to an upper MAXARG limit.
+
+\paragraph{suite2}
+
+Designed mass test suite for void function calls.
+Tests individual void functions with a varying count of arguments and type.
+
+\paragraph{callf}
+
+Tests the \emph{formatted call} \product{dyncall} C API.
+
+\subsection{Porting Hints}
+
+@@@
+
+\subsection{Binding Guidelines}
+
+@@@
+

@@ -1,0 +1,18 @@
+/*/////////////////////////////////////////////////////////////////////////////
+
+  main_NDS.c
+  Copyright 2008 Tassilo Philipp
+
+  dyncall test suite stub for Nintendo DS.
+
+/////////////////////////////////////////////////////////////////////////////*/
+
+
+int test_main(int argc, char* argv[]);
+
+
+int main(int argc, char* argv[])
+{
+	test_main(argc, argv);
+}
+

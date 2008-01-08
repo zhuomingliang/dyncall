@@ -1,0 +1,25 @@
+#///////////////////////////////////////////////////
+#
+#	nmake makefile
+#	Copyright 2007 Tassilo Philipp
+#	Nmakefile
+#
+#///////////////////////////////////////////////////
+
+
+TOP = .
+
+!INCLUDE $(TOP)\build\nmake\prolog.nmake
+
+
+DIRS = dyncall dynload
+
+test: dummy 
+	!echo Building tests ... && cd test && $(MAKE) /NOLOGO /F Nmakefile && cd ..
+
+# Pseudo-targets are always out of date...
+dummy:
+
+
+!INCLUDE $(TOP)\build\nmake\epilog.nmake
+

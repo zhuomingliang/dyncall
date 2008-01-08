@@ -1,0 +1,34 @@
+# --- os configuration --------------------------------------------------------
+
+ifeq ("$(BUILD_UNIX)","1")
+
+ include $(TOP)/build/gmake/unix.gmake
+
+ ifeq ($(BUILD_OS),Darwin)
+  include $(TOP)/build/gmake/darwin.gmake
+ endif
+
+ ifeq ($(BUILD_OS),Linux)
+  include $(TOP)/build/gmake/linux.gmake
+ endif
+
+ ifeq ($(BUILD_OS),SunOS)
+  include $(TOP)/build/gmake/sunos.gmake
+ endif
+else
+
+ include $(TOP)/build/gmake/win32.gmake
+
+endif
+
+# --- tool configuration ------------------------------------------------------
+
+ifdef BUILD_TOOL
+include $(TOP)/build/gmake/tool_$(BUILD_TOOL).gmake
+endif
+
+# --- targets -----------------------------------------------------------------
+
+include $(TOP)/build/gmake/targets.gmake
+include $(TOP)/build/gmake/common.gmake
+

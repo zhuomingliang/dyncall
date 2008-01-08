@@ -1,0 +1,16 @@
+ports
+  Dreamcast/NetBSD/Hitachi (tassi)
+  Linksys WRT54GS/Kamikaze Linux/MIPS (plex)
+
+bindings 
+  Java (plex)
+
+windows/cl/link
+  figure out why link creates implibs for executables
+
+python binding
+  README.txt is out-of-date, not all supported types are listed
+
+Tests
+  plain crashes under windows when built with msvc
+

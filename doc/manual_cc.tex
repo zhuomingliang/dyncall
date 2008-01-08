@@ -1,0 +1,24 @@
+\newpage
+
+% ==================================================
+% Calling Conventions
+% ==================================================
+
+\section{Calling Conventions}
+
+\paragraph{Before we go any further\ldots}
+
+It is of {\bf great} importance to be aware that this section isn't a general
+purpose description of the present calling conventions.
+It merely explains the calling conventions {\bf for the parameter/return types
+supported by \dc}, not for aggregates (structures, unions and classes), SIMD
+data types (\_\_m64, \_\_m128, \_\_m128i, \_\_m128d), etc\ldots\\
+We strongly advise the reader not to use this document as a general purpose
+calling convention reference.
+
+\input{callconvs/callconv_x86}\newpage
+\input{callconvs/callconv_x64}\newpage
+\input{callconvs/callconv_ppc32}\newpage
+\input{callconvs/callconv_ppc64}\newpage
+\input{callconvs/callconv_arm9e}
+

@@ -1,0 +1,16 @@
+#///////////////////////////////////////////////////
+#
+#	dyncall bsdmake build system
+#	Copyright 2007 Tassilo Philipp
+#
+#	osx.bsdmake
+#
+#///////////////////////////////////////////////////
+
+
+DLL_SUFFIX	= .dylib
+as_FLAGS	=
+
+LINK_DLL_CMD	= $(CXX) -o $(.TARGET) -dynamiclib $(LDFLAGS) $(.ALLSRC) $(LIBS)
+#LINK_DLL_CMD	= $(LD) -o $(.TARGET) -dylib $(LDFLAGS) $(.ALLSRC) $(LIBS)
+

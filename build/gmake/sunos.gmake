@@ -1,0 +1,5 @@
+# dyncall gmake build system - SunOS with GNU tools
+# (C) 2007 Tassilo Philipp
+
+as_FLAGS += #--defsym DC_PREFIX_SYMBOLS=1
+nasm_FLAGS += -D DC_PREFIX_SYMBOLS

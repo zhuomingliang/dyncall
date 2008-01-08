@@ -1,0 +1,19 @@
+#///////////////////////////////////////////////////
+#
+#	nmake makefile
+#	Copyright 2007 Tassilo Philipp
+#	Nmakefile
+#
+#///////////////////////////////////////////////////
+
+
+TOP = ..  
+
+!INCLUDE $(TOP)\build\nmake\prolog.nmake
+
+
+DIRS = [:suite, :suite2, :callf, :ellipse, :plain, :nm]
+
+
+!INCLUDE $(TOP)\build\nmake\epilog.nmake
+

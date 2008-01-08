@@ -1,0 +1,167 @@
+% Set the normal line height for the entire document (some command depend on it).
+\newcommand{\normallineheight}{10pt}
+\documentclass[\normallineheight,a4paper]{article}
+
+
+% Value multiplier.
+\newlength\mrbraceheight
+\newcommand{\tassimultiply}[2]{%
+\setlength{\mrbraceheight}{0pt}%
+\newcount\qq%
+\qq=1	% Subtract 1 by starting at 1 .
+\loop%
+	\addtolength\mrbraceheight{#2}%
+	\advance\qq by 1%
+\ifnum\qq < #1 \repeat%
+}
+
+
+
+% Packages.
+\usepackage{a4wide}
+\usepackage{multirow}
+\usepackage{color}
+\usepackage{hhline}
+\usepackage{bigdelim}
+\usepackage{rotating}
+\usepackage{graphicx}
+\usepackage{moreverb}
+\usepackage{listings}
+\usepackage{hyperref}
+
+
+% Define own commands and style.
+\newcommand{\dc}{\emph{dyncall}}
+\newcommand{\capi}[1]{%
+	\noindent%
+%	\begin{verbatim}%
+		{\tt #1}%
+%	\end{verbatim}%
+}
+\newcommand{\tab}{\indent}
+
+\newcommand{\shell}[1]{\noindent{\tt #1}}
+
+% Empty column (kills vline of column).
+\newcommand{\ec}{\multicolumn{1}{c}{}}
+
+% Multiline table row with left or right curly brace.
+%\newcommand{\mrrbrace}[2]{\tassimultiply{#1}{5pt} \multirow{#1}{*}{$\smash{\left. {\vrule height 0pt depth \mrbraceheight width 0pt}\right\}}$#2}}
+\newcommand{\mrrbrace}[2]{\rdelim\}{#1}{\normallineheight} \multirow{#1}{*}{#2}                                 }
+\newcommand{\mrlbrace}[2]{                                 \multirow{#1}{*}{#2} \ldelim\{{#1}{\normallineheight}}
+
+
+\newcommand{\tablewidth}{130mm}
+%\setlength{\oddsidemargin}{10mm}
+%\setlength{\textwidth}{140mm}
+%\setlength{\parindent}{0mm}
+%\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+
+\newcommand{\ninetyb}{\begin{sideways}}
+\newcommand{\ninetye}{\end{sideways}}
+
+\renewcommand{\paragraph}[1]{%
+	\par\vspace{12pt}%
+	\noindent%
+	{\bf#1}%
+	\par%
+	\vspace{6pt}%
+}%
+
+
+% Use a sans-serif font.
+\renewcommand{\familydefault}{\sfdefault}
+
+
+\definecolor{defbkgd}{gray}{1.0}
+\definecolor{gray1}{gray}{0.9}
+\definecolor{gray2}{gray}{0.8}
+\definecolor{gray3}{gray}{0.7}
+\definecolor{gray4}{gray}{0.6}
+
+% Check some command line arguments.
+\newif\ifcoloredtables
+
+\ifcoloredtables
+	\usepackage{colortbl}
+
+	\newcommand{\cellcA}{\cellcolor{gray1}}
+	\newcommand{\cellcB}{\cellcolor{gray2}}
+	\newcommand{\cellcC}{\cellcolor{gray3}}
+	\newcommand{\cellcD}{\cellcolor{gray4}}
+	\newcolumntype{1}{>{\columncolor{gray1}}l}
+	\newcolumntype{2}{>{\columncolor{gray2}}l}
+	\newcolumntype{3}{>{\columncolor{gray3}}l}
+	\newcolumntype{4}{>{\columncolor{gray4}}l}
+	\newcolumntype{5}{>{\columncolor{gray1}}r}
+	\newcolumntype{6}{>{\columncolor{gray2}}r}
+	\newcolumntype{7}{>{\columncolor{gray3}}r}
+	\newcolumntype{8}{>{\columncolor{gray4}}r}
+	\newcolumntype{A}{>{\columncolor{gray1}}p{\tablewidth}}
+	\newcolumntype{B}{>{\columncolor{gray2}}p{\tablewidth}}
+	\newcolumntype{C}{>{\columncolor{gray3}}p{\tablewidth}}
+	\newcolumntype{D}{>{\columncolor{gray4}}p{\tablewidth}}
+
+	% Fix bizarre coloring of double line table borders of hhline package.
+	\doublerulesepcolor{defbkgd}
+\else
+	\usepackage{array}
+
+	\newcommand{\cellcA}{}
+	\newcommand{\cellcB}{}
+	\newcommand{\cellcC}{}
+	\newcommand{\cellcD}{}
+	\newcolumntype{1}{l}
+	\newcolumntype{2}{l}
+	\newcolumntype{3}{l}
+	\newcolumntype{4}{l}
+	\newcolumntype{5}{r}
+	\newcolumntype{6}{r}
+	\newcolumntype{7}{r}
+	\newcolumntype{8}{r}
+	\newcolumntype{A}{p{\tablewidth}}
+	\newcolumntype{B}{p{\tablewidth}}
+	\newcolumntype{C}{p{\tablewidth}}
+	\newcolumntype{D}{p{\tablewidth}}
+\fi
+
+% listings package related settings
+
+\lstset{captionpos=b}
+\lstset{frame=tblr}
+\lstset{frameround=tttt}
+\lstset{basicstyle=\ttfamily}
+
+% text building blocks
+\newcommand{\group}[1]{{\it$<$#1$>$}}
+\newcommand{\sigchar}[1]{'{\tt #1}'}
+\newcommand{\sigstr}[1]{"{\tt #1}"}
+\newcommand{\cenum}[1]{#1}
+\newcommand{\product}[1]{\emph{#1}}
+
+% table of contents config
+\setcounter{tocdepth}{3}
+
+\begin{document}
+\input{manual_title}
+\newpage
+\tableofcontents
+\newpage
+\listoftables
+\listoffigures
+\lstlistoflistings
+\newpage
+\input{manual_motivation}
+\input{manual_overview}
+\input{manual_build}
+\input{manual_bindings}
+\input{manual_design}
+\input{manual_devel}
+\input{manual_epilog}
+\appendix
+\addtocontents{toc}{\protect\pagebreak}
+\input{manual_dyncall_api}
+\input{manual_dynload_api}
+\input{manual_cc}
+\input{manual_literature}
+\end{document}

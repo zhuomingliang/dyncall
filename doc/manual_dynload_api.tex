@@ -1,0 +1,19 @@
+\newpage
+\section{\product{Dynload} C library API}
+
+The \product{dynload} library encapsulates dynamic loading mechanisms and
+gives access to functions in foreign dynamic libraries and code modules.
+
+\subsection{Loading code}
+
+\begin{lstlisting}[language=c,label=dl-load]
+void* dlLoadLibrary(const char* libpath);
+void  dlFreeLibrary(void* libhandle);
+\end{lstlisting}
+
+\subsection{Retrieving functions}
+
+\begin{lstlisting}[language=c]
+void* dlFindSymbol(void* libhandle, const char* symbol);
+\end{lstlisting}
+

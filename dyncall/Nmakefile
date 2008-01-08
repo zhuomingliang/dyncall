@@ -1,0 +1,48 @@
+#///////////////////////////////////////////////////
+#
+#	nmake makefile
+#	Copyright 2007 Tassilo Philipp
+#	Nmakefile
+#
+#///////////////////////////////////////////////////
+
+
+TOP=..
+
+!INCLUDE $(TOP)\build\nmake\prolog.nmake
+
+
+!IF "$(BUILD_OS)" == "Windows"
+
+TARGETS = libdyncall_s.lib #libdyncall.lib libdyncall.dll
+
+!IF "$(BUILD_ARCH)" == "X86"
+OBJS = dyncall.obj dyncall_callf.obj dyncall_callvm_x86.obj dyncall_vector.obj dyncall_x86_win32.obj
+!ELSE IF "$(BUILD_ARCH)" == "X64"
+OBJS = dyncall.obj dyncall_callf.obj dyncall_callvm_x64.obj dyncall_vector.obj dyncall_x64_win64.obj
+!ENDIF
+
+libdyncall_s.lib: $(OBJS)
+	echo Creating library $@ ...
+	$(AR) $(ARFLAGS) /OUT:"$@" $(OBJS) > nul
+
+libdyncall.dll libdyncall.lib: $(OBJS)
+	echo Creating shared/import library $@ ...
+	$(LD) /DLL $(LDFLAGS) $(OBJS) > nul
+
+
+!ELSE IF "$(BUILD_OS)" == "NDS"
+
+TARGETS = libdyncall_s.a
+
+OBJS = dyncall.o dyncall_callf.o dyncall_callvm_arm9e_arm.o dyncall_vector.o dyncall_arm9e_arm.o
+
+libdyncall_s.a: $(OBJS)
+	echo Creating library $@ ...
+	$(AR) -rc $(ARFLAGS) "$@" $(OBJS)
+
+!ENDIF
+
+
+!INCLUDE $(TOP)\build\nmake\epilog.nmake
+

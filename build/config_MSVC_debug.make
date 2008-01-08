@@ -1,0 +1,3 @@
+CFLAGS   = /Zi
+CXXFLAGS = /Zi
+

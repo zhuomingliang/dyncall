@@ -1,0 +1,28 @@
+#///////////////////////////////////////////////////
+#
+#	dyncall bsdmake build system
+#	Copyright 2007 Tassilo Philipp
+#	unix.bsdmake
+#
+#///////////////////////////////////////////////////
+
+
+# Set default unix *fixes if unspecified.
+OBJ_SUFFIX	?= .o
+LIB_PREFIX	?= lib
+LIB_SUFFIX	?= _s.a
+APP_PREFIX	?=
+APP_SUFFIX	?=
+DLL_PREFIX	?= lib
+DLL_SUFFIX	?= .so
+
+# Assembler flags.
+as_FLAGS	?= --defsym BUILD_OS_$(BUILD_OS)=1 --defsym BUILD_ARCH_$(BUILD_ARCH)=1
+nasm_FLAGS	?= -D BUILD_OS_$(BUILD_OS)=1 -D BUILD_ARCH_$(BUILD_ARCH)=1
+
+LINK_LIB_CMD	= $(AR) $(ARFLAGS) $(.TARGET) $(.ALLSRC)
+LINK_DLL_CMD	= $(CXX) -o $(.TARGET) -shared $(LDFLAGS) $(.ALLSRC) $(LIBS)
+LINK_APP_CMD	= $(CXX) -o $(.TARGET) $(LDFLAGS) $(.ALLSRC) $(LIBS)
+#LINK_DLL_CMD	= $(LD) -o $(.TARGET) -shared $(LDFLAGS) $(.ALLSRC) $(LIBS)
+#LINK_APP_CMD	= $(LD) -o $(.TARGET) $(LDFLAGS) $(.ALLSRC) $(LIBS)
+

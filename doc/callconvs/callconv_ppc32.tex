@@ -1,0 +1,123 @@
+% ==================================================
+% PowerPC 32
+% ==================================================
+\subsection{PowerPC (32bit) Calling Convention}
+
+\paragraph{Overview}
+
+\begin{itemize}
+\item word size is 32 bits
+\item big endian
+\item processor only processes double precision floating point (IEEE-754) values directly (single precision is converted on the fly)
+\end{itemize}
+
+
+\paragraph{\product{dyncall} support}
+
+\product{Dyncall} supports PowerPC (32bit) on Darwin.
+
+
+\subsubsection{Darwin (Mac OS X)}
+
+\paragraph{Registers and register usage}
+
+\begin{table}[h]
+\begin{tabular}{3 B}
+\hline
+Name                & Brief description\\
+\hline
+{\bf gpr0}          & scratch\\
+{\bf gpr1}          & stack pointer\\
+{\bf gpr2}          & scratch\\
+{\bf gpr3}          & return value, parameter 0 if integer or pointer\\
+{\bf gpr4-gpr10}    & return value, parameter 1-7 for integer or pointer parameters\\
+{\bf gpr11}         & permanent\\
+{\bf gpr12}         & branch target for dynamic code generation\\
+{\bf gpr13-31}      & permanent\\
+{\bf fpr0}          & scratch\\
+{\bf fpr1-fpr13}    & parameter 0-12 for floating point (always double precision)\\
+{\bf fpr14-fpr31}   & permanent\\
+{\bf v0-v1}         & scratch\\
+{\bf v2-v13}        & vector parameters\\
+{\bf v14-v19}       & scratch\\
+{\bf v20-v31}       & permanent\\
+{\bf lr}            & scratch, link-register\\
+{\bf ctr}           & scratch, count-register\\
+{\bf cr0-cr1}       & scratch\\
+{\bf cr2-cr4}       & permanent\\
+{\bf cr5-cr7}       & scratch\\
+\hline
+\end{tabular}
+\caption{Register usage on ppc32 Darwin}
+\end{table}
+
+\paragraph{Parameter passing}
+
+\begin{itemize}
+\item stack parameter order: right-to-left@@@?
+\item caller cleans up the stack@@@?
+\item the first 8 integer parameters are passed in registers gpr3-gpr10
+\item the first 12 floating point parameters are passed in registers fpr1-fpr13
+\item if a float parameter is passed via a register, gpr registers are skipped for subsequent integer parameters (based on the size of
+the float - 1 register for single precision and 2 for double precision floating point values)
+\item the caller pushes subsequent parameters onto the stack
+\item for every parameter passed via a register, space is reserved in the stack parameter area (in order to spill the parameters if
+needed - e.g. varargs)
+\item ellipse calls take floating point values in int and float registers (single precision floats are promoted to double precision
+as defined for ellipse calls)
+\item all nonvector parameters are aligned on 4-byte boundaries
+\item vector parameters are aligned on 16-byte boundaries
+\item integer parameters \textless\ 32 bit occupy high-order bytes of their 4-byte area
+\item composite parameters with size of 1 or 2 bytes occupy low-order bytes of their 4-byte area. INCONSISTENT with other 32-bit PPC
+binary interfaces. In AIX and OS 9, padding bytes always follow the data structure
+\item composite parameters 3 bytes or larger in size occupy high-order bytes
+\end{itemize}
+
+
+\paragraph{Return values}
+
+\begin{itemize}
+\item return values of integer \textless=\ 32bit or pointer type use gpr3
+\item 64 bit integers use gpr3 and gpr4 (hiword in gpr3, loword in gpr4)
+\item floating point values are returned via fpr1
+\item structures \textless=\ 64 bits use gpr3 and gpr4
+\item for types \textgreater\ 64 bits, a secret first parameter with an address to the return value is passed
+\end{itemize}
+
+\pagebreak
+
+\paragraph{Stack layout}
+
+Stack frame is always 16-byte aligned.\\
+\\
+\begin{figure}[h]
+\begin{tabular}{5|3|1 1}
+\hhline{~-~~}
+                                  & \vdots              &                                      &                               \\
+\hhline{~=~~}
+local data                        &                     &                                      & \mrrbrace{13}{caller's frame} \\
+\hhline{~-~~}
+\mrlbrace{6}{parameter area}      & \ldots              & \mrrbrace{3}{stack parameters}       &                               \\
+                                  & \ldots              &                                      &                               \\
+                                  & \ldots              &                                      &                               \\
+                                  & \ldots              & \mrrbrace{3}{spill area (as needed)} &                               \\
+                                  & \ldots              &                                      &                               \\
+                                  & gpr3 or fpr1        &                                      &                               \\
+\hhline{~-~~}
+\mrlbrace{6}{linkage area}        & reserved            &                                      &                               \\
+                                  & reserved            &                                      &                               \\
+                                  & reserved            &                                      &                               \\
+                                  & return address      &                                      &                               \\
+                                  & reserved for callee &                                      &                               \\
+                                  & saved by callee     &                                      &                               \\
+\hhline{~=~~}
+local data                        &                     &                                      & \mrrbrace{3}{current frame}   \\
+\hhline{~-~~}
+parameter area                    &                     &                                      &                               \\
+\hhline{~-~~}
+linkage area                      & \vdots              &                                      &                               \\
+\hhline{~-~~}
+\end{tabular}
+\caption{Stack layout on ppc32 Darwin}
+\end{figure}
+

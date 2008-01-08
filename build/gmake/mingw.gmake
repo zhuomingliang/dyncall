@@ -1,0 +1,32 @@
+# dyncall gmake build system
+# (C) 2007 Daniel Adler
+# windows mingw tool specifics 
+
+OBJ_SUFFIX	= .o
+LIB_PREFIX	= lib
+LIB_SUFFIX	= .a
+
+as_FLAGS        += --defsym DC_PREFIX_SYMBOLS=1
+
+# implicit dll rules
+
+$(BUILD_DIR)/%.def: $(BUILD_DIR)/%.dll
+	pexports $< >$@
+
+$(BUILD_DIR)/%.dll $(BUILD_DIR)/%.lib:
+	@ECHO "DLL  $@"
+	$(LINK.o) -shared -Wl,--out-implib,$(BUILD_DIR)/$(*F).lib $(OUTPUT_OPTION) $^ $(LDLIBS)
+
+# implicit exe rules
+
+$(BUILD_DIR)/%.exe:
+	@ECHO "EXE  $@"
+	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) $(OUTPUT_OPTION)
+
+# target refinement DLL
+
+ifdef DLL
+TARGETS	+= $(BUILD_DIR)/$(DLL).def $(BUILD_DIR)/$(DLL).lib
+#$(BUILD_DIR)/$(DLL).def $(BUILD_DIR)/$(DLL).lib: $(BUILD_DIR)/$(DLL).dll
+endif
+

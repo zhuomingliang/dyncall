@@ -1,0 +1,16 @@
+include $(TOP)/build/gmake/prolog.gmake
+
+LINK_LIBPATHS	+= $(TOP)/test/testmain/$(BUILD_DIR) 
+LINK_LIBS	+= testmain_s 
+
+ifdef BUILD_OS_PSP
+PSPSDK		=  $(shell psp-config --pspsdk-path)
+CPPFLAGS	=  -I$(PSPSDK)/include
+LINK_LIBPATHS   += $(PSPSDK)/lib
+LINK_LIBS	+= pspdebug pspdisplay pspge pspctrl \
+pspsdk c pspnet pspnet_inet pspnet_apctl pspnet_resolver \
+psputility pspuser pspkernel
+endif
+
+include $(TOP)/build/gmake/epilog.gmake
+

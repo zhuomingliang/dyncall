@@ -1,0 +1,44 @@
+#///////////////////////////////////////////////////
+#
+#	dyncall bsdmake build system
+#	Copyright 2007 Tassilo Philipp
+#	common.bsdmake
+#
+#///////////////////////////////////////////////////
+
+
+# --- phony targets ------------------------------------------------------------
+
+.PHONY: build autos clean dirs distclean depend $(DIRS)
+
+build: config dirs autos $(TARGETS)
+
+clean: dirs .SILENT
+	echo Cleaning $(.CURDIR)...
+	rm -f $(TARGETS) $(OBJS)
+
+distclean: clean .SILENT
+	echo Cleaning auto-generated files in $(.CURDIR)...
+	rm -f $(AUTOS) $(AUTO_DIRS)
+
+
+# --- auto generated -----------------------------------------------------------
+
+autos: $(AUTOS)
+
+
+# --- handling sub directories -------------------------------------------------
+
+.if defined(DIRS)
+dirs: $(DIRS)
+$(DIRS): .SILENT
+	echo Handling sub-directory $(.TARGET)...
+	cd $(.TARGET) && $(MAKE) $(.MAKEFLAGS) $(.TARGETS)
+.else
+dirs:
+.endif
+
+
+## nasm @@@
+#ASFLAGS		= $($(BUILD_ASM)_FLAGS)
+

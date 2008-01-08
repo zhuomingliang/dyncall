@@ -1,0 +1,66 @@
+# dyncall gmake build system - prolog
+# Copyright 2007 Daniel Adler.
+
+# --- default rule ------------------------------------------------------------
+
+.PHONY: all default
+all: default
+
+
+# --- default build directory -------------------------------------------------
+
+include $(TOP)/build/build_dir.make
+
+# --- include ProjectRules ----------------------------------------------------
+
+-include $(TOP)/ProjectRules
+
+# --- include ConfigRules -----------------------------------------------------
+
+-include $(TOP)/ConfigRules
+
+# --- include BuildRules ------------------------------------------------------
+
+ifdef BUILD_TOP
+ifneq (, $(wildcard $(BUILD_TOP)/BuildRules))
+include $(TOP)/BuildRules
+endif
+endif
+
+# --- auto-generate ConfigRules -----------------------------------------------
+
+ifndef BUILD_OS
+config: $(TOP)/ConfigRules
+$(TOP)/ConfigRules:
+	@echo "Library not configured!"
+	@echo "Run"
+	@echo -e "\ton unix:\t./configure"
+	@echo -e "\ton windows:\t.\\\\configure.bat"
+	@echo "from the library source's root directory first!"
+	exit -1
+endif
+
+# --- include SiteRules -------------------------------------------------------
+
+ifneq (, $(wildcard $(TOP)/SiteRules))
+include $(TOP)/SiteRules
+endif
+
+# --- define build vars -------------------------------------------------------
+
+BUILD_OS_$(BUILD_OS)=1
+BUILD_ARCH_$(BUILD_ARCH)=1
+BUILD_TOOL_$(BUILD_TOOL)=1
+BUILD_ASM ?= as
+BUILD_ASM_$(BUILD_ASM)=1
+BUILD_CONFIG ?= debug
+
+# --- include build config ----------------------------------------------------
+
+-include $(TOP)/build/config_$(BUILD_TOOL)_$(BUILD_CONFIG).make
+
+# --- setup build directory ---------------------------------------------------
+
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)
+

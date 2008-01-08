@@ -1,0 +1,151 @@
+% ==================================================
+% ARM9E
+% ==================================================
+\subsection{ARM9E Calling Convention}
+
+\paragraph{Overview}
+
+The ARM9E family of processors is based on the ARM processor architecture (32 bit RISC). The word size is 32 bits (and the programming model is LLP64).\\
+Basically, this family of microprocessors can be run in 2 major modes:\\
+\\
+\begin{tabular}{2 B}
+\hline
+Mode          & Description\\
+\hline
+{\bf ARM}     & 32bit instruction set\\
+{\bf THUMB}   & compressed instruction set using 16bit wide instruction encoding\\
+\hline
+\end{tabular}
+\\
+\\
+Take a look at the ARM-THUMB procedure call standard (ATPCS) \cite{ATPCS} for more details.
+
+
+\paragraph{\product{dyncall} support}
+
+Currently, the \product{dyncall} library only supports the ARM mode of the ARM9E family. THUMB mode will be supported in the near future. Although it's quite possible that the current implementation runs on other ARM processor families as well, please note that only the ARM9E family has been thoroughly tested at the time of writing. Please report if the code runs on other ARM families, too.\\
+It is important to note, that dyncall supports the ARM architecture calling convention variant {\bf with floating point hardware disabled} (meaning that the FPA and the VFP (scalar mode) procedure call standards are not supported).
+This processor family features some instruction sets accelerating DSP and multimedia application like the ARM Jazelle Technology (direct Java bytecode execution, providing acceleration for some bytecodes while calling software code for others), etc... that are not supported by the dyncall library.\\
+
+
+
+
+\subsubsection{ARM mode}
+
+
+\paragraph{Registers and register usage}
+
+In ARM mode, the ARM9E processor has sixteen 32 bit general purpose registers, namely r0-15:\\
+\\
+\begin{table}[h]
+\begin{tabular}{3 B}
+\hline
+Name         & Brief description\\
+\hline
+{\bf r0}     & parameter 0, scratch, return value\\
+{\bf r1}     & parameter 1, scratch, return value\\
+{\bf r2-r3}  & parameters 2 and 3, general purpose\\
+{\bf r4-r10} & permanent\\
+{\bf r11}    & frame pointer, permanent\\
+{\bf r12}    & scratch\\
+{\bf r13}    & stack pointer, permanent\\
+{\bf r14}    & link register, permanent\\
+{\bf r15}    & program counter\\
+\hline
+\end{tabular}
+\caption{Register usage on ARM9E}
+\end{table}
+
+\paragraph{Parameter passing}
+
+\begin{itemize}
+\item stack parameter order: right-to-left
+\item caller cleans up the stack
+\item first four words are passed using r0-r3
+\item subsequent parameters are pushed onto the stack (in right to left order, such that the stack pointer points to the first of the remaining parameters)
+\item if the callee takes the address of one of the parameters and uses it to address other parameters (e.g. varargs) it has to copy - in its prolog - the first four words to a reserved stack area adjacent to the other parameters on the stack
+\item parameters \textless=\ 32 bits are passed as 32 bit words
+\item 64 bit parameters are passed as two 32 bit parts (even partly via the register and partly via the stack - GCC needs them to be aligned on 8 byte boundaries, although this doesn't seem to be specified in the ATPCS), with the loword coming first
+\item structures and unions are passed by value, with the first four words of the parameters in r0-r3
+\item if return value is a structure, a pointer pointing to the return value's space is passed in r0, the first parameter in r1, etc... (see {\bf return values})
+\item keeping the stack eight-byte aligned can improve memory access performance and is required by LDRD and STRD on ARMv5TE processors which are part of the ARM9E family, so, in order to avoid problems one should always align the stack (tests have shown, that GCC does care about the alignment when using the ellipsis)
+\end{itemize}
+
+\paragraph{Return values}
+\begin{itemize}
+\item return values \textless=\ 32 bits use r0
+\item 64 bit return values use r0 and r1
+\item if return value is a structure, the caller allocates space for the return value on the stack in its frame and passes a pointer to it in r0
+\end{itemize}
+
+\paragraph{Stack layout}
+
+Stack directly after function prolog:\\
+
+\begin{figure}[h]
+\begin{tabular}{5|3|1 1}
+\hhline{~-~~}
+                                         & \vdots &                                      &                              \\
+\hhline{~=~~}
+register save area                       &        &                                      & \mrrbrace{5}{caller's frame} \\
+\hhline{~-~~}
+local data                               &        &                                      &                              \\
+\hhline{~-~~}
+\mrlbrace{6}{parameter area}             & \ldots & \mrrbrace{3}{stack parameters}       &                              \\
+                                         & \ldots &                                      &                              \\
+                                         & \ldots &                                      &                              \\
+\hhline{~=~~}
+                                         & r3     & \mrrbrace{4}{spill area (if needed)} & \mrrbrace{7}{current frame}  \\
+                                         & r2     &                                      &                              \\
+                                         & r1     &                                      &                              \\
+                                         & r0     &                                      &                              \\
+\hhline{~-~~}
+register save area (with return address) &        &                                      &                              \\
+\hhline{~-~~}
+local data                               &        &                                      &                              \\
+\hhline{~-~~}
+parameter area                           & \vdots &                                      &                              \\
+\hhline{~-~~}
+\end{tabular}
+\caption{Stack layout on ARM9E}
+\end{figure}
+
+
+\newpage
+
+\subsubsection{THUMB mode}
+
+
+\paragraph{Registers and register usage}
+
+In THUMB mode, the ARM9E processor family supports eight 32 bit general purpose registers r0-r7 and access to high order registers r8-r15.\\
+@@@ table not quite right.... stack ptr, link, etc... ?\\
+\begin{table}[h]
+\begin{tabular}{3 B}
+\hline
+Name         & Brief description\\
+\hline
+{\bf r0}     & parameter 0, scratch, return value\\
+{\bf r1}     & parameter 1, scratch, return value\\
+{\bf r2-r3}  & parameters 2 and 3, general purpose\\
+{\bf r4-r6}  & permanent\\
+{\bf r7}     & frame pointer, permanent\\
+\hline
+\end{tabular}
+\caption{Register usage on ARM9E THUMB mode}
+\end{table}
+
+\paragraph{Parameter passing}
+
+@@@
+
+
+\paragraph{Return values}
+
+@@@
+
+
+\paragraph{Stack layout}
+
+@@@
+

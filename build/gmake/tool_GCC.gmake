@@ -1,0 +1,70 @@
+.SUFFIXES:
+.SUFFIXES: .o .c .cpp .s .a
+OBJ_SUFFIX=.o
+
+# --- Built-in GNU rule overwrites --------------------------------------------
+
+CC  =gcc
+CXX =g++
+AR  =ar
+AS  =as
+LD  =ld
+
+CXXFLAGS	= -fno-rtti -fno-exceptions
+
+# --- Assemble ----------------------------------------------------------------
+
+$(BUILD_DIR)/%.o: %.s
+	@echo "ASM  $<"
+	$(COMPILE.s) $(OUTPUT_OPTION) $<
+
+# --- Compile C ---------------------------------------------------------------
+
+$(BUILD_DIR)/%.o: %.c
+	@echo "C    $<"
+	$(COMPILE.c) $(OUTPUT_OPTION) $<
+
+# --- Compile C++ -------------------------------------------------------------
+
+$(BUILD_DIR)/%.o: %.cpp
+	@echo "C++  $<"
+	$(COMPILE.cpp) $(OUTPUT_OPTION) $<
+
+# --- LINK_FLAGS --------------------------------------------------------------
+
+ifdef LINK_LIBPATHS
+LDFLAGS=$(foreach X,$(LINK_LIBPATHS),-L$X)
+endif
+
+ifdef LINK_LIBS
+LDLIBS =$(foreach X,$(LINK_LIBS),-l$X)
+endif
+
+LDFLAGS+=$(LINK_LDFLAGS)
+
+# --- Build static lib --------------------------------------------------------
+
+$(BUILD_DIR)/%.a:
+	@echo "LIB  $@"
+	$(RM) $@
+	$(AR) -cr $@ $^ $(LINK_FILES)
+
+# --- Info tool ---------------------------------------------------------------
+
+info-tool:
+	@echo "LDFLAGS\t=$(LDFLAGS)"
+	@echo "LDLIBS\t=$(LDLIBS)"
+
+info: info-tool
+
+ifdef BUILD_OS_Windows
+include $(TOP)/build/gmake/mingw.gmake
+endif
+
+# --- Build executable --------------------------------------------------------
+# this rule should be last (lowest prio)
+
+$(BUILD_DIR)/%:
+	@echo "APP  $@"
+	$(LINK.cc) $^ $(LOADLIBES) $(LDLIBS) $(OUTPUT_OPTION) 
+

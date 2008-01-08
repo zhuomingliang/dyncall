@@ -1,0 +1,46 @@
+#///////////////////////////////////////////////////
+#
+#	nmake rules
+#	Copyright 2007 Tassilo Philipp
+#	prolog.nmake
+#
+#///////////////////////////////////////////////////
+
+
+.SILENT:
+
+# Default "build all" target.
+all: build
+
+
+!INCLUDE $(TOP)/build/build_dir.make
+
+
+# Check if library has been 'configured' properly. If not, tell the user and abort.
+!IF !DEFINED(BUILD_OS) || !DEFINED(BUILD_ARCH) || !DEFINED(BUILD_UNIX)
+config: $(TOP)/ConfigRules
+$(TOP)/ConfigRules:
+	echo "Library not configured! Run configure.bat from the library's root directory first!"
+	false
+!ELSE
+config:
+!ENDIF
+
+
+# Include config rules.
+!IF EXISTS($(TOP)/ConfigRules)
+!  INCLUDE $(TOP)/ConfigRules
+!ENDIF
+
+
+# Include site rules.
+!IF EXISTS($(TOP)/SiteRules)
+!  INCLUDE $(TOP)/SiteRules
+!ENDIF
+
+
+!IF "$(BUILD_TOOL)" == "GCC_NDS"
+!	INCLUDE tool_GCC_NDS.nmake
+!ELSE
+!	INCLUDE tool_MSVC.nmake
+!ENDIF

@@ -1,0 +1,53 @@
+#///////////////////////////////////////////////////
+#
+#	dyncall bsdmake build system
+#	Copyright 2007 Tassilo Philipp
+#	prolog.bsdmake
+#
+#///////////////////////////////////////////////////
+
+
+# Standard 'build all' target.
+.PHONY: all
+all: build
+
+
+.include "$(TOP)/build/build_dir.make"
+
+# Include config rules.
+.if exists($(TOP)/ConfigRules)
+.  include "$(TOP)/ConfigRules"
+.endif
+
+
+# Check if library has been 'configured' properly. If not, tell the user and abort.
+.if !defined(BUILD_OS) || !defined(BUILD_ARCH) || !defined(BUILD_UNIX)
+config: $(TOP)/ConfigRules
+$(TOP)/ConfigRules: .SILENT
+	echo "Library not configured! Run ./configure from the library's root directory first!"
+	false
+.else
+config:
+.endif
+
+
+# Local config.
+.if exists($(TOP)/SiteRules)
+.  include "$(TOP)/SiteRules"
+.endif
+
+# Configuration defs.
+BUILD_OS_$(BUILD_OS)		= 1
+BUILD_ARCH_$(BUILD_ARCH)	= 1
+BUILD_TOOL_$(BUILD_TOOL)	= 1
+BUILD_ASM			?= as
+BUILD_ASM_$(BUILD_ASM)		= 1
+BUILD_CONFIG			?= debug
+
+
+#.if defined(BUILD_TOOL_GCC) && exists($(TOP)/build/config_gcc_$(BUILD_CONFIG).make)
+.if exists($(TOP)/build/config_gcc_$(BUILD_CONFIG).make)
+.  include "$(TOP)/build/config_gcc_$(BUILD_CONFIG).make"
+.else
+.  warning "Didn't find config file for this build."
+.endif

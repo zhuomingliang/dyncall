@@ -1,0 +1,43 @@
+#///////////////////////////////////////////////////
+#
+#	common nmake rules
+#	Copyright 2007 Tassilo Philipp
+#	common.nmake
+#
+#///////////////////////////////////////////////////
+
+
+build: config dirs $(TARGETS)
+
+
+dirs: $(DIRS)
+!IF DEFINED(DIRS) && "$(DIRS)" != ""
+	!echo Handling sub-directory $** ... && cd $** && $(MAKE) /NOLOGO /F Nmakefile && cd ..
+#	!echo Handling sub-directory $** ... && cd $** && $(MAKE) /NOLOGO /F Nmakefile $** && cd ..
+!ENDIF
+
+
+clean: $(DIRS)
+!IF DEFINED(DIRS) && "$(DIRS)" != ""
+	!echo Handling sub-directory $** ... && cd $** && $(MAKE) /NOLOGO /F Nmakefile $@ && cd ..
+!ENDIF
+!IF (DEFINED(TARGETS) && "$(TARGETS)" != "") || (DEFINED(OBJS) && "$(OBJS)" != "")
+	echo Cleaning $(MAKEDIR) ...
+	del $(TARGETS) *.exp *.lib $(OBJS)
+#	del $(TARGETS) $(TARGETS:.exe=.lib) $(TARGETS:.dll=.lib) $(TARGETS:.exe=.exp) $(TARGETS:.dll=.exp) $(OBJS)
+!ENDIF
+
+
+distclean: $(DIRS)
+!IF DEFINED(DIRS) && "$(DIRS)" != ""
+	!echo Handling sub-directory $** ... && cd $** && $(MAKE) /NOLOGO /F Nmakefile $@ && cd ..
+!ENDIF
+!IF DEFINED(AUTOS) && "$(AUTOS)" != ""
+	echo Cleaning auto-generated files in $(MAKEDIR) ...
+	del $(AUTOS)
+!ENDIF
+!IF (DEFINED(TARGETS) && "$(TARGETS)" != "") || (DEFINED(OBJS) && "$(OBJS)" != "")
+	echo Cleaning $(MAKEDIR) ...
+	del $(TARGETS) *.exp *.lib $(OBJS)
+#	del $(TARGETS) $(TARGETS:.exe=.lib) $(TARGETS:.dll=.lib) $(TARGETS:.exe=.exp) $(TARGETS:.dll=.exp) $(OBJS)
+!ENDIF

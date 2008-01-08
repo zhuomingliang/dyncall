@@ -1,0 +1,62 @@
+# dyncall gmake build system
+# (C) 2007 Daniel Adler
+# common
+
+# --- auto-generated files ---------------------------------------------------
+
+.PHONY: autos
+autos: $(AUTOS)
+build: autos
+
+# --- phony targets -----------------------------------------------------------
+
+.PHONY: build targets clean dirs distclean $(DIRS)
+
+default: build
+
+build: dirs autos targets
+
+# --- clean -------------------------------------------------------------------
+
+clean: dirs
+	@echo "CLEAN"
+	$(RM) $(TARGETS) $(OBJS)
+
+distclean: clean
+	$(RM) -R $(AUTOS) $(AUTO_DIRS)
+
+ifdef TARGETS
+targets: $(TARGETS)
+endif
+
+# --- handling sub directories -----------------------------------------------
+
+ifdef DIRS
+dirs: $(DIRS)
+$(DIRS):
+	@echo "CD   $@"
+	@$(MAKE) -C $@ $(MAKECMDGOALS)
+endif
+# --- x86/nasm common ---------------------------------------------------------
+
+NASM		?= nasm
+
+%.o: %.nasm
+	$(NASM) $(nasm_FLAGS) $< $(OUTPUT_OPTION)
+
+ASFLAGS		= $($(BUILD_ASM)_FLAGS)
+
+# --- Create pdf from tex files ----------------------------------------------
+
+PDFLATEX=pdflatex -quiet
+%.pdf: %.tex
+	@echo "pdf $<"
+	$(PDFLATEX) $<
+
+# --- build/gmake debugging ---------------------------------------------------
+
+.PHONY: info
+info:
+	@echo "BUILD_TOOL\t=$(BUILD_TOOL)"
+	@echo "TARGETS\t=$(TARGETS)"
+

@@ -1,0 +1,51 @@
+#///////////////////////////////////////////////////
+#
+#	dyncall bsdmake makefile
+#	Copyright 2007 Tassilo Philipp
+#	BSDmakefile
+#
+#///////////////////////////////////////////////////
+
+
+TOP		= ..
+
+
+.include "$(TOP)/build/bsdmake/prolog.bsdmake"
+
+
+# Overrides.
+
+DLL		= dyncall
+LIBRARY		= dyncall
+
+CFLAGS		+= -fPIC
+CXXFLAGS	+= -fPIC
+
+# Gather needed modules to build.
+
+MODS += dyncall
+MODS += dyncall_callf
+MODS += dyncall_vector
+
+.if defined(BUILD_ARCH_X86)
+MODS += dyncall_callvm_x86
+MODS += dyncall_x86_$(BUILD_ASM)
+.endif
+
+.if defined(BUILD_ARCH_PPC32)
+MODS += dyncall_callvm_ppc32
+MODS += dyncall_ppc32
+.endif
+
+.if defined(BUILD_ARCH_ARM9E)
+MODS += dyncall_callvm_arm9e_arm
+MODS += dyncall_arm9e_arm
+.endif
+
+.if defined(BUILD_ARCH_X64)
+MODS += dyncall_callvm_x64
+MODS += dyncall_x64_system_v
+.endif
+
+.include "$(TOP)/build/bsdmake/epilog.bsdmake"
+

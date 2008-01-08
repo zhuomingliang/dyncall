@@ -1,0 +1,116 @@
+\newpage
+
+\section{Overview}
+
+The \product{dyncall} library encapsulates architecture-, OS- and compiler-specific
+function call semantics in a virtual
+
+\begin{center}
+\emph{bind argument parameters from left to right and then call}
+\end{center}
+ 
+interface allowing programmers to call C functions 
+in a completely dynamic manner. In other words, instead of calling a function 
+directly, the \product{dyncall} library provides a mechanism to push the function parameters 
+manually and to issue the call afterwards.\\
+Since the idea behind this concept is similar to call dispatching mechanisms
+of virtual machines, the object that can be dynamically loaded with arguments,
+and then used to actually invoke the call, is called CallVM. It is possible to
+change the calling convention used by the CallVM at run-time.
+Due to the fact that nearly every platform comes with one or more calling
+conventions, the \product{dyncall} library project intends to be an open-source approach
+to the variety of compiler-specific binary interfaces, platform specific
+subtleties, and so on\ldots\\
+\\
+The core of the library consists of dynamic implementations of different 
+calling conventions written in assembler.
+Although the library aims to be highly portable, some assembler code needs to 
+be written for nearly every platform/compiler/OS combination.
+Unfortunately, there are architectures we just don't have at home or work. If 
+you want to see \product{dyncall} running on such a platform, feel free to send
+in code and patches, or even to donate hardware you don't need anymore.
+Check the {\bf supported platforms} section for an overview of the supported 
+platforms and the different calling convention sections for details about the 
+support.
+\\
+\begin{comment}
+@@@
+A typical binary library consists of symbolic names that map to variables and
+functions, the latter being pre-compiled for a
+specific calling convention and architecture. Given \product{dyncall} has been ported to
+that binary platform, it is possible to call such a function dynamically 
+without writing glue code or prototypes or even knowing its C declaration - 
+all that is needed is a pointer to it.\\
+To avoid confusion, note that from the point of view of the library all 
+parameters are handled the same way, even though the implementation might use
+other ways to pass parameters in order to suit specific calling conventions.\\
+\end{comment}
+
+
+\subsection{Features}
+
+\begin{itemize}
+\item A portable and extendable function call interface for the C programming 
+language.
+\item Ports to major platforms including Windows, Mac OS X, Linux, BSD derivates and Nintendo DS.
+\item Add-on language bindings to Java,Python,R,Ruby.
+\item High-level state machine design using C to model calling convention
+parameter transfer.
+\item One assembly \emph{hybrid} call routine per calling convention.
+\item Formatted call, ellipsis function API.
+\item Comprehensive test suite.
+\end{itemize}
+
+\pagebreak
+
+\subsection{Showcase}
+
+\paragraph{Foreign function call in C}
+This section demonstrates how the foreign function call is issued without, and then 
+with, the help of the \product{dyncall} library and scripting language
+bindings.
+
+\begin{lstlisting}[language=c,caption=Foreign function call in C]
+double call_as_sqrt(void* funptr, double x)
+{
+  return ( ( double (*)(double) )funptr)(x);
+}
+\end{lstlisting}
+
+\paragraph{\product{Dyncall} C library example}
+
+The same operation can be broken down into atomic pieces 
+(specify calling convention, binding arguments, invoking the call)
+using the \dc\ library.
+
+\begin{lstlisting}[language=c,caption=Dyncall C library example]
+#include <dyncall.h>
+double call_as_sqrt(void* funptr, double x)
+{
+  double r;
+  DCCallVM* vm = dcNewCallVM(4096);
+  dcMode(vm, DC_CALL_C_DEFAULT);
+  dcArgDouble(vm, x);  
+  r = dcCallDouble(vm, funptr);
+  dcFreeCallVM(vm);
+  return r;
+}
+\end{lstlisting}
+
+\paragraph{Python example}
+
+\begin{lstlisting}[language=python,caption=Dyncall Python bindings example]
+import pydc
+def call_as_sqrt(funptr,x):
+  return pydc.call(funptr,"d)d", x)
+\end{lstlisting}
+
+
+\paragraph{R example}
+
+\begin{lstlisting}[language=R,caption=Dyncall R bindings example]
+library(rdc)
+call.as.sqrt <- function(funptr,x)
+  rdc.call(funptr,"d)d", x)
+\end{lstlisting}
+

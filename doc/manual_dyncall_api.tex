@@ -1,0 +1,201 @@
+\newpage
+\section{\emph{Dyncall} C library API}
+
+The library provides low-level functionality to make foreign function calls
+from different run-time environments. The flexibility is constrained by the
+set of supported types.
+
+\paragraph{C interface style conventions}
+
+This manual and the \product{dyncall} library's C interface {\tt "dyncall.h"}
+uses the following C source code style.
+
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular*}{0.8\textwidth}{llll}
+\hline
+Subject    & C symbol & Details & Example \\
+\hline  
+Types      
+  & {\tt DC\group{type name}}      
+  & lower-case & \capi{DCint}, \capi{DCfloat}, \capi{DClong}, \ldots\\
+Structures 
+  & {\tt DC\group{structure name}} 
+  & camel-case 
+  & \capi{DCCallVM}\\
+Functions  & {\tt dc\group{function name}}  & camel-case & \capi{dcNewCallVM}, \capi{dcArgInt}, \ldots\\
+\hline
+\end{tabular*}
+\caption{C interface conventions}
+\label{sourecode}
+\end{center}
+\end{table}
+
+\subsection{Supported C/C++ argument and return types}
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular*}{0.75\textwidth}{ll}
+\hline
+Type alias & C/C++ data type\\
+\hline
+DCbool  & \_Bool, bool\\
+DCchar  & char\\
+DCshort & short\\
+DCint   & int\\
+DClong  & long\\
+DClonglong & long long\\
+DCfloat & float\\
+DCdouble & double\\
+DCpointer & void*\\
+DCvoid    & void\\
+\hline
+\end{tabular*}
+\caption{Supported C/C++ argument and return types}
+\label{types}
+\end{center}
+\end{table}
+
+\pagebreak
+
+\subsection{Call Virtual Machine - CallVM}
+
+This \emph{CallVM} is the main entry to the functionality of the library.
+
+\paragraph{Types}
+
+\begin{lstlisting}[language=c]
+typedef void DCCallVM; /* abstract handle */
+\end{lstlisting}
+
+\paragraph{Details}
+The \emph{CallVM} is a state machine that manages all aspects of a function 
+call from configuration, argument passing up the actual function call on
+the processor.
+
+\subsection{Allocation}
+
+\paragraph{Functions}
+
+\begin{lstlisting}[language=c]
+DCCallVM* dcNewCallVM (DCsize size);
+void      dcFreeCallVM(DCCallVM* vm);
+\end{lstlisting}
+
+\lstinline{size} specifies the amount of memory that will be allocated for
+the preparation of the function call in the binding phase (\ref{phases}).
+
+% \paragraph{Explicit allocation}
+% \capi{dcGetSizeOfCallVM()}
+% \capi{dcInitCallVM()}
+% \capi{dcShutdownCallVM()}
+
+\subsection{Configuration}
+
+\paragraph{Function}
+
+\begin{lstlisting}[language=c]
+void dcMode (DCCallVM* vm, DCint mode);
+\end{lstlisting}
+
+\paragraph{Modes}
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular*}{0.75\textwidth}{ll}
+\hline
+Constant & Description\\
+\hline
+\lstinline@DC_CALL_C_DEFAULT@            & Default C function call\\
+\lstinline@DC_CALL_C_X86_WIN32_STD@      & X86 Windows standard call\\
+\lstinline@DC_CALL_C_X86_WIN32_FAST_MS@  & X86 Windows Microsoft fast call\\
+\lstinline@DC_CALL_C_X86_WIN32_THIS_MS@  & X86 Windows Microsoft this call\\
+\lstinline@DC_CALL_C_X86_WIN32_THIS_GNU@ & X86 Windows MinGW this call\\
+\lstinline@DC_CALL_C_X86_WIN32_FAST_GNU@ & X86 Windows MinGW fast call\\
+\lstinline@DC_CALL_C_X64_WIN64@          & X64 Windows standard C call\\
+\lstinline@DC_CALL_C_PPC32_DARWIN@       & PPC32 Mac OS X standard C call\\
+\lstinline@DC_CALL_ARM@                  & ARM standard call\\
+\hline
+\end{tabular*}
+\caption{CallVM calling convention modes}
+\label{functioncalls}
+\end{center}
+\end{table}
+
+\paragraph{Details}
+
+\lstinline@DC_CALL_C_DEFAULT@ is the default standard C call on the target platform.
+On most platforms, there is only one C calling convention. Only the X86 platform
+provides a rich family of different calling conventions.
+
+
+\subsection{Machine state reset}
+
+\begin{lstlisting}[language=c]
+void dcReset(DCCallVM* vm);
+\end{lstlisting}
+
+Resets the internal stack of arguments. This function should be called prior 
+to binding new arguments to the CallVM, because arguments don't get flushed
+automatically after a call invocation.
+
+
+\subsection{Argument forwarding}
+
+\paragraph{Functions}
+
+\begin{lstlisting}[language=c]
+void dcArgBool    (DCCallVM* vm, DCbool     arg);
+void dcArgChar    (DCCallVM* vm, DCchar     arg);
+void dcArgShort   (DCCallVM* vm, DCshort    arg);
+void dcArgInt     (DCCallVM* vm, DCint      arg);
+void dcArgLong    (DCCallVM* vm, DClong     arg);
+void dcArgLongLong(DCCallVM* vm, DClonglong arg);
+void dcArgFloat   (DCCallVM* vm, DCfloat    arg);
+void dcArgDouble  (DCCallVM* vm, DCdouble   arg);
+void dcArgPointer (DCCallVM* vm, DCpointer  arg);
+\end{lstlisting}
+
+\paragraph{Details}
+
+Arguments should be bound in \emph{left-to-right} order.
+
+\subsection{Call invocation}
+
+\paragraph{Functions}
+
+\begin{lstlisting}[language=c]
+DCvoid     dcCallVoid    (DCCallVM* vm, DCpointer funcptr);
+DCbool     dcCallBool    (DCCallVM* vm, DCpointer funcptr);
+DCchar     dcCallChar    (DCCallVM* vm, DCpointer funcptr);
+DCshort    dcCallShort   (DCCallVM* vm, DCpointer funcptr);
+DCint      dcCallInt     (DCCallVM* vm, DCpointer funcptr);
+DClong     dcCallLong    (DCCallVM* vm, DCpointer funcptr);
+DClonglong dcCallLongLong(DCCallVM* vm, DCpointer funcptr);
+DCfloat    dcCallFloat   (DCCallVM* vm, DCpointer funcptr);
+DCdouble   dcCallDouble  (DCCallVM* vm, DCpointer funcptr);
+DCpointer  dcCallPointer (DCCallVM* vm, DCpointer funcptr);
+\end{lstlisting}
+
+\paragraph{Details}
+
+After the invocation of the call, the arguments are still bounded and a second call using the
+same arguments can be issued. If you need to clear the argument bindings, 
+you have to reset the \emph{CallVM}.
+
+\pagebreak
+
+\subsection{Formatted calls (ANSI C ellipsis interface)}
+
+\paragraph{Functions}
+
+\begin{lstlisting}[language=c]
+void dcCallF (DCCallVM* vm, DCValue* result, DCpointer funcptr, 
+              const DCsigchar* signature, ...);
+void dcVCallF(DCCallVM* vm, DCValue* result, DCpointer funcptr, 
+              const DCsigchar* signature, va_list args);
+\end{lstlisting}
+
+
+

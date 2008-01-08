@@ -1,0 +1,27 @@
+#///////////////////////////////////////////////////
+#
+#	dyncall bsdmake build system
+#	Copyright 2007 Tassilo Philipp
+#	epilog.bsdmake
+#
+#///////////////////////////////////////////////////
+
+
+.if defined(BUILD_TOOL_GCC)
+.  include "$(TOP)/build/bsdmake/gcc.make"
+.else
+#.  error "Unsupported build tool selected."
+.endif
+
+
+.if defined(BUILD_UNIX) && $(BUILD_UNIX) == 1
+. include "$(TOP)/build/bsdmake/unix.bsdmake"
+. if $(BUILD_OS) == Darwin
+.  include "$(TOP)/build/bsdmake/osx.bsdmake"
+. endif
+.endif
+
+.include "$(TOP)/build/bsdmake/targets.bsdmake"
+.include "$(TOP)/build/bsdmake/common.bsdmake"
+.include "$(TOP)/build/bsdmake/implied.bsdmake"
+

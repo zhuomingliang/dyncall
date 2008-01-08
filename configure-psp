@@ -1,0 +1,63 @@
+#!/bin/sh
+
+# dyncall - unix configure script
+# (C) 2007 Daniel Adler, Tassilo Philipp
+
+# --- predefined defaults -----------------------------------------------------
+
+TOOL="GCC"
+# @@@ guess unix C compilers such as from Sun?
+
+# --- guess host system -------------------------------------------------------
+
+# System/kernel name (e.g. Linux, OpenBSD, SunOS, ...).
+OS=`uname -s`
+
+# on mingw environment:
+if [[ $OS = "WindowsNT" ]]; then
+
+  OS="Windows"
+  UNIX=0
+  INSTALL_DIR=`pwd`/installed
+
+# on cygwin environment:
+#elif [[ $OS =~ "_NT" ]]; then 
+#
+#  OS="Windows"
+#  UNIX=0
+#  INSTALL_DIR="/usr/local"
+
+# on unix environment:
+else
+  UNIX=1
+  INSTALL_DIR="/usr/local"
+fi
+
+if [[ "$1" != "" ]]; then
+  INSTALL_DIR=$1
+fi
+
+
+# --- guess architecture ------------------------------------------------------
+
+# Machine hardware name (e.g. i{3,4,5,6}86, amd64, i86pc, ... - this depends on the OS).
+ARCH=`uname -m`    
+
+if [[ $ARCH = "Power Macintosh" ]]; then
+  ARCH="PPC32"
+elif [[ $ARCH = "i386" || $ARCH = "i486" || $ARCH = "i586" || $ARCH = "i686" || $ARCH = "i86pc" ]]; then
+  ARCH="X86"
+elif [[ $ARCH = "amd64" ]]; then
+  ARCH="X64"
+fi
+
+# --- output ConfigRules file -------------------------------------------------
+
+cat >ConfigRules <<EOF
+BUILD_UNIX  = 1
+BUILD_OS    = PSP
+BUILD_ARCH  = MIPS32
+BUILD_TOOL  = GCC_PSP
+INSTALL_DIR = $INSTALL_DIR
+EOF
+

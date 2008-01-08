@@ -1,0 +1,17 @@
+#///////////////////////////////////////////////////
+#
+#	bsdmake makefile
+#	Copyright 2007 Tassilo Philipp
+#	BSDmakefile
+#
+#///////////////////////////////////////////////////
+
+
+TOP = ..
+
+.include "$(TOP)/build/bsdmake/prolog.bsdmake"
+
+DIRS = suite suite2 ellipse callf plain#nm
+
+.include "$(TOP)/build/bsdmake/epilog.bsdmake"
+

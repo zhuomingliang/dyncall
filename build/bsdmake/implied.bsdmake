@@ -1,0 +1,29 @@
+#///////////////////////////////////////////////////
+#
+#	dyncall bsdmake build system
+#	Copyright 2007 Tassilo Philipp
+#	implied.bsdmake
+#
+#///////////////////////////////////////////////////
+
+
+.SUFFIXES:
+.SUFFIXES: .o .c .cpp .s .pdf .tex
+
+
+.c.o: .SILENT
+	echo .c.o: Compiling $(.IMPSRC)...
+	$(CC) $(CFLAGS) -c $(.IMPSRC) -o $(.TARGET)
+
+.cpp.o: .SILENT
+	echo .cpp.o: Compiling $(.IMPSRC)...
+	$(CXX) $(CXXFLAGS) -c $(.IMPSRC) -o $(.TARGET)
+
+.s.o: .SILENT
+	echo .s.o: Compiling $(.IMPSRC)...
+	$(AS) $(ASFLAGS) -o $(.TARGET) $(.IMPSRC)
+
+.tex.pdf: .SILENT
+	echo .tex.pdf: Creating $(.TARGET)...
+	pdflatex $(.IMPSRC)
+

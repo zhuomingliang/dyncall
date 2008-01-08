@@ -1,0 +1,97 @@
+\newpage
+\section{Building the library}
+
+The library has been built and used successfully on several 
+platform/architecture configurations and build systems.
+@@@ Please see notes on specfic platforms to check that the target
+architecture is currently supported.
+
+
+\subsection{Requirements}
+
+The following tools are supported directly to build the \product{dyncall} library.
+However, as the number of source files to be compiled for a given
+platform is small, it shouldn't be difficult to build it manually with
+another toolchain.
+\begin{itemize}
+\item C compiler to build the \product{dyncall} library (GCC or Microsoft C/C++ compiler)
+\item C++ compiler to build the optional test cases (GCC or Microsoft C/C++ compiler)
+\item Python (optional - for generation of some test cases)
+\item BSD make, GNU make, or Microsoft nmake as automated build tools
+\end{itemize}
+
+
+\subsection{Supported/tested platforms and build systems}
+
+Although it is possible to build the \product{dyncall} library on more platforms
+than the ones outlined here, this section doesn't list operating systems or
+architectures the authors didn't test. However, untested platforms using
+the same build tools (e.g. the BSD family of operating systems using similar
+flavors of the BSD make utility along with GCC, etc.) should work without
+modification. If you have problems building the \product{dyncall} library on one of the
+platforms mentioned below, or if you successfully built it on a yet unlisted
+one, please let us know.\\
+\\
+
+\begin{tabular}{l l}
+{\bf{\large x86}} &                                           \\
+\hline\hline
+{\bf Windows}     & nmake, GNU make (via MinGW)               \\
+{\bf Linux}       & GNU make                                  \\
+{\bf SunOS}       & GNU make (tested on GNU-centric NexentaOS)\\
+{\bf FreeBSD}     & BSD make                                  \\
+{\bf OpenBSD}     & BSD make                                  \\
+\hline
+                  &                                           \\
+                  &                                           \\
+
+
+{\bf{\large x64}} &                                           \\
+\hline\hline
+{\bf Windows}     & nmake                                     \\
+{\bf OpenBSD}     & BSD make                                  \\
+\hline
+                  &                                           \\
+                  &                                           \\
+
+
+{\bf{\large PowerPC (32bit)}} &                               \\
+\hline\hline
+{\bf Darwin}                  & GNU make, BSD make            \\
+\hline
+                  &                                           \\
+                  &                                           \\
+
+
+{\bf{\large ARM9E (ARM mode)}} &                             \\
+\hline\hline
+{\bf Nintendo DS} & ARMv5TE (of ARM9E family) binary manually built with \cite{devkitPro}\\
+\hline
+\end{tabular}\\
+
+\pagebreak
+
+\subsection{Build instructions}
+
+\begin{enumerate}
+\item Configure the sources
+\begin{lstlisting}
+./configure [install-prefix-path] # on unix shell
+.\configure [ x86 | x64 ]         # on windows shell
+\end{lstlisting}
+\item Build the static libraries \product{dyncall} and \product{dynload}
+\begin{lstlisting}
+make                              # using {GNU,BSD} Make
+nmake /f Nmakefile                # using NMake on Windows
+\end{lstlisting}
+\item Install libraries and includes
+\begin{lstlisting}
+make install 
+\end{lstlisting}
+\item Optionally, build the test suites (Python required)
+\begin{lstlisting}
+make test
+name /f Namekfile test
+\end{lstlisting}
+\end{enumerate}
+

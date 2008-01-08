@@ -1,0 +1,27 @@
+#///////////////////////////////////////////////////
+#
+#	implied nmake rules
+#	Copyright 2007 Tassilo Philipp
+#	implied.nmake
+#
+#///////////////////////////////////////////////////
+
+
+.SUFFIXES:
+.SUFFIXES: .obj .exe .dll .lib .pdf .c .cpp .asm .tex
+
+
+.asm.obj:
+	echo .asm.obj: Compiling $< ...
+	$(AS) $(AFLAGS) /c /nologo $< > nul
+
+.c.obj:
+	echo .c.obj: Compiling $< ...
+	$(CC) $(CFLAGS) /c /nologo $< > nul
+
+.cpp.obj:
+	echo .cpp.obj: Compiling $< ...
+	$(CPP) $(CPPFLAGS) /c /nologo $< > nul
+
+.tex.pdf:
+	pdflatex $<

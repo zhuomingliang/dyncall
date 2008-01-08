@@ -1,0 +1,42 @@
+'helloworld', first public release
+
+  todo
+    bugfix 
+    documentation (tassi)
+    port Dreamcast/NetBSD/Hitachi (tassi)
+    port Linksys WRT54GS/Kamikaze Linux/MIPS (plex)
+    bindings Python (plex)
+    bindings Java (plex)
+    bindings Ruby (tassi)
+    interface dcCallf(); (plex)
+    test suite2 (plex)
+
+  technology preview release to the public for early 
+  discussion on the library design.
+    
+
+  ports (done)
+    Windows/x86 (plex)
+    Windows 64-bit/x64 (tassi)
+    Nintendo DS/arm9e (tassi)
+    Mac OS X/ppc32 (plex)
+    Linux/x86 (plex)
+
+  ports (scheduled)
+    Dreamcast/NetBSD/Hitachi (tassi)
+    Linksys WRT54GS/Kamikaze Linux/MIPS (plex)
+
+  bindings (done)
+    R, contrib/rdc R package (plex)
+
+  bindings (scheduled)
+    Python (plex)
+    Java (plex)
+    Ruby (tassi)
+  
+'ring-ring-and-bind'
+
+  more language bindings
+  more insider-know-how on language bindings for a general purpose ellipse-call interface.
+  discussion for an efficient networked remote procedure call daemon.
+

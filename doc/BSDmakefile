@@ -1,0 +1,18 @@
+#///////////////////////////////////////////////////
+#
+#	bsdmake makefile
+#	Copyright 2007 Tassilo Philipp
+#	BSDmakefile
+#
+#///////////////////////////////////////////////////
+
+
+TOP   = ..  
+
+.include "$(TOP)/build/bsdmake/prolog.bsdmake"
+
+TARGETS=manual.pdf
+manual.pdf!
+
+.include "$(TOP)/build/bsdmake/epilog.bsdmake"
+

@@ -1,0 +1,29 @@
+#///////////////////////////////////////////////////
+#
+#	dyncall bsdmake makefile
+#	Copyright 2007 Tassilo Philipp
+#	BSDmakefile
+#
+#///////////////////////////////////////////////////
+
+
+TOP		= ..
+
+
+.include "$(TOP)/build/bsdmake/prolog.bsdmake"
+
+
+# Overrides.
+
+LIBRARY		= dynload
+
+CFLAGS		+=
+CXXFLAGS	+=
+
+# Modules to build.
+
+MODS += dynload_unix
+
+
+.include "$(TOP)/build/bsdmake/epilog.bsdmake"
+

@@ -1,0 +1,23 @@
+#///////////////////////////////////////////////////
+#
+#	bsdmake makefile
+#	Copyright 2007 Tassilo Philipp
+#	BSDmakefile
+#
+#///////////////////////////////////////////////////
+
+
+TOP=../..
+
+.include "$(TOP)/build/bsdmake/prolog.bsdmake"
+
+
+MODS	=	main
+APP	=	callf
+
+CPPFLAGS	=
+LDFLAGS		=
+LIBS	=	"$(TOP)/dyncall/libdyncall_s.a"
+
+.include "$(TOP)/build/bsdmake/epilog.bsdmake"
+

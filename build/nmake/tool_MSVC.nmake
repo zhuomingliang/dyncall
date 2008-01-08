@@ -1,0 +1,60 @@
+#///////////////////////////////////////////////////
+#
+#	MSVC nmake rules
+#	Copyright 2007 Tassilo Philipp
+#	tool_MSVC.nmake
+#
+#///////////////////////////////////////////////////
+
+
+!IF "$(BUILD_ARCH)" == "X64"
+
+CC  =cl
+CXX =cl
+AR  =lib
+AS  =ml64
+LD  =link
+
+ASFLAGS =
+CFLAGS = /EHsc /GR- /GS- /Ox
+CXXFLAGS = $(CFLAGS)
+LDFLAGS = /OPT:REF /OPT:ICF /NOLOGO
+ARFLAGS = /NOLOGO
+
+!ELSE IF "$(BUILD_ARCH)" == "X86"
+
+CC  =cl
+CXX =cl
+AR  =lib
+AS  =ml
+LD  =link
+
+ASFLAGS   =
+CFLAGS   = /EHsc /GR- /GS- /Ox
+CXXFLAGS = $(CFLAGS)
+LDFLAGS  = /OPT:REF /OPT:ICF /NOLOGO
+ARFLAGS  = /NOLOGO
+
+!ENDIF
+
+
+
+
+.SUFFIXES:
+.SUFFIXES: .obj .exe .dll .lib .pdf .c .cpp .asm .tex
+
+
+.asm.obj:
+	echo .asm.obj: Compiling $< ...
+	$(AS) $(ASFLAGS) /c /nologo /Fo$@ $< > nul
+
+.c.obj:
+	echo .c.obj: Compiling $< ...
+	$(CC) $(CFLAGS) /c /nologo /Fo$@ $< > nul
+
+.cpp.obj:
+	echo .cpp.obj: Compiling $< ...
+	$(CXX) $(CXXFLAGS) /c /nologo /Fo$@ $< > nul
+
+.tex.pdf:
+	pdflatex $<
