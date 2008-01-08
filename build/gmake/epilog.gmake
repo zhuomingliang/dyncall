@@ -1,24 +1,29 @@
 # --- os configuration --------------------------------------------------------
 
-ifeq ("$(BUILD_UNIX)","1")
-
+ifdef BUILD_OS_windows
+ include $(TOP)/build/gmake/win32.gmake
+else
  include $(TOP)/build/gmake/unix.gmake
 
- ifeq ($(BUILD_OS),Darwin)
+ ifdef BUILD_OS_psp
+  include $(TOP)/build/gmake/psp.gmake
+ endif
+
+ ifdef BUILD_OS_nds
+  include $(TOP)/build/gmake/nds.gmake
+ endif
+
+ ifdef BUILD_OS_darwin
   include $(TOP)/build/gmake/darwin.gmake
  endif
 
- ifeq ($(BUILD_OS),Linux)
+ ifdef BUILD_OS_linux
   include $(TOP)/build/gmake/linux.gmake
  endif
 
- ifeq ($(BUILD_OS),SunOS)
+ ifdef BUILD_OS_sunos
   include $(TOP)/build/gmake/sunos.gmake
  endif
-else
-
- include $(TOP)/build/gmake/win32.gmake
-
 endif
 
 # --- tool configuration ------------------------------------------------------
@@ -31,4 +36,10 @@ endif
 
 include $(TOP)/build/gmake/targets.gmake
 include $(TOP)/build/gmake/common.gmake
+
+ifdef BUILD_TOOL_gcc
+$(BUILD_DIR)/%:
+	@echo "APP  $@"
+	$(LINK.cc) $^ $(LOADLIBES) $(LDLIBS) $(OUTPUT_OPTION) 
+endif
 

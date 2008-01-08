@@ -15,7 +15,7 @@
 ; CSYM macro
 ;///////////////////////////////////////////////////////////////////////
 
-%ifdef DC_PERFIX_SYMBOLS
+%ifdef DC_PREFIX_SYMBOLS
 
 %macro CSYM 1
   global _%1

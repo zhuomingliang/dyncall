@@ -57,14 +57,7 @@ info-tool:
 
 info: info-tool
 
-ifdef BUILD_OS_Windows
+ifdef BUILD_OS_windows
 include $(TOP)/build/gmake/mingw.gmake
 endif
-
-# --- Build executable --------------------------------------------------------
-# this rule should be last (lowest prio)
-
-$(BUILD_DIR)/%:
-	@echo "APP  $@"
-	$(LINK.cc) $^ $(LOADLIBES) $(LDLIBS) $(OUTPUT_OPTION) 
 

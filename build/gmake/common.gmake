@@ -41,7 +41,7 @@ endif
 
 NASM		?= nasm
 
-%.o: %.nasm
+$(BUILD_DIR)/%.o: %.nasm
 	$(NASM) $(nasm_FLAGS) $< $(OUTPUT_OPTION)
 
 ASFLAGS		= $($(BUILD_ASM)_FLAGS)
@@ -59,4 +59,5 @@ PDFLATEX=pdflatex -quiet
 info:
 	@echo "BUILD_TOOL\t=$(BUILD_TOOL)"
 	@echo "TARGETS\t=$(TARGETS)"
+	@echo "OBJS\t=$(OBJS)"
 

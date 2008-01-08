@@ -57,7 +57,7 @@ info-tool:
 
 info: info-tool
 
-ifdef BUILD_OS_Windows
+ifdef BUILD_OS_windows
 include $(TOP)/build/gmake/mingw.gmake
 endif
 

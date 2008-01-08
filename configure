@@ -1,61 +1,201 @@
 #!/bin/sh
 
-# dyncall - unix configure script
-# (C) 2007 Daniel Adler, Tassilo Philipp
+# --- output error message ---------------------------------------------------
 
-# --- predefined defaults -----------------------------------------------------
+error() 
+{
+  echo "error: $*"
+  exit 1
+}
 
-TOOL="GCC"
-# @@@ guess unix C compilers such as from Sun?
+# --- output warning message -------------------------------------------------
 
-# --- guess host system -------------------------------------------------------
+warning()
+{
+  echo "warning: $*"
+}
 
-# System/kernel name (e.g. Linux, OpenBSD, SunOS, ...).
-OS=`uname -s`
+# --- output info message ----------------------------------------------------
 
-# on mingw environment:
-if [[ $OS = "WindowsNT" ]]; then
+info()
+{
+  echo "$*"
+}
 
-  OS="Windows"
-  UNIX=0
-  INSTALL_DIR=`pwd`/installed
+# --- print usage ------------------------------------------------------------
 
-# on cygwin environment:
-#elif [[ $OS =~ "_NT" ]]; then 
-#
-#  OS="Windows"
-#  UNIX=0
-#  INSTALL_DIR="/usr/local"
+usage()
+{
+  echo "dyncall configure shell-script"
+  echo "Usage:"
+  echo "  configure [ options ]"
+  echo
+  echo "Options:"
+  echo "  --help"
+  echo "   -h                 print this page"
+  echo
+  echo "  --prefix <path>     set installation prefix (defaults '/usr/local')"
+  echo
+  echo "  --arch-x86          build for x86 architecture"
+  echo "  --arch-x64          build for x64 architecture"
+  echo
+  echo "  --target-psp        build for Playstation Portable platform (PSPSDK)"
+  echo "  --target-nds        build for Nintendo DS platform (DevKit Pro)"
+  echo
+  echo "  --tool-gcc          use GNU Compiler Collection"
+  echo "  --tool-msvc         use Microsoft Visual C++"
+  echo 
+  echo "  --asm-nasm          use NASM Assembler"
+  echo "  --asm-ml            use Microsoft Macro Assembler"
+  echo
+  exit 0
+}
 
-# on unix environment:
-else
-  UNIX=1
-  INSTALL_DIR="/usr/local"
+# --- installation prefix directory ------------------------------------------
+
+INSTALL_DIR="/usr/local"
+
+# --- guess operating system -------------------------------------------------
+
+BUILD_OS=""
+guess_os()
+{
+  OS=`uname -s`
+  if [[ $OS = "WindowsNT" ]]; then
+    BUILD_OS="windows"
+  elif [[ $OS = "Darwin" ]]; then
+    BUILD_OS="darwin"
+  elif [[ $OS = "CYGWIN_NT-5.1" ]]; then
+    BUILD_OS="windows"
+  fi
+  info "guess operating system $BUILD_OS"
+}
+
+# --- guess architecture -----------------------------------------------------
+
+BUILD_ARCH=""
+guess_arch()
+{
+  ARCH=`uname -m`
+  if [[ $ARCH = "Power Macintosh" ]]; then
+    BUILD_ARCH="ppc32"
+  elif [[ $ARCH = "x86" || $ARCH = "i386" || $ARCH = "i486" || $ARCH = "i586" || $ARCH = "i686" || $ARCH = "i86pc" ]]; then
+    BUILD_ARCH="x86"
+  elif [[ $ARCH = "amd64" ]]; then
+    BUILD_ARCH="x64"
+  fi
+  info "guess arch $BUILD_ARCH"
+}
+
+# --- guess tool chain -------------------------------------------------------
+
+BUILD_TOOL=""
+guess_tool()
+{
+  BUILD_TOOL="gcc"
+  info "guess tool $BUILD_TOOL"
+}
+
+# --- guess assembler --------------------------------------------------------
+
+BUILD_ASM=""
+guess_asm()
+{
+  if [[ $BUILD_TOOL == "gcc" ]]; then
+    BUILD_ASM="as"
+  elif [[ $BUILD_TOOL == "msvc" ]]; then
+    BUILD_ASM="ml"
+  fi
+  info "guess assembler $BUILD_ASM"
+}
+
+# --- process arguments ------------------------------------------------------
+
+while [[ 0 -lt $# ]]; do
+  OPT=$1
+  shift 1
+  case $OPT in
+    --help|-h)
+      usage
+      ;;
+    --prefix)
+      INSTALL_DIR=$1
+      shift 1
+      ;;
+    --arch-x64)
+      BUILD_ARCH=x64
+      ;;
+    --target-psp) 
+      BUILD_OS=psp
+      BUILD_ARCH=mips32
+      BUILD_TOOL=gcc
+      ;;
+    --target-nds)
+      BUILD_OS=nds
+      BUILD_ARCH=arm9e
+      BUILD_TOOL=gcc
+      ;;
+    --tool-gcc)
+      BUILD_TOOL=gcc
+      ;;
+    --tool-msvc)
+      BUILD_TOOL=msvc
+      ;;
+    --asm-nasm)
+      BUILD_ASM=nasm
+      ;;
+    --asm-ml)
+      BUILD_ASM=ml
+      ;;
+    *)
+      warning "unknown option $OPT"
+      ;;
+  esac
+done
+
+# --- guess variables --------------------------------------------------------
+
+info "running configure.."
+
+if [[ -z "$BUILD_OS" ]]; then 
+  guess_os
+  if [[ -z "$BUILD_OS" ]]; then
+    error "unsupported operating system $OS"
+  fi
 fi
 
-if [[ "$1" != "" ]]; then
-  INSTALL_DIR=$1
+if [[ -z "$BUILD_ARCH" ]]; then
+  guess_arch 
+  if [[ -z "$BUILD_ARCH" ]]; then
+    error "unsupported architecture $ARCH"
+  fi
 fi
 
-
-# --- guess architecture ------------------------------------------------------
-
-# Machine hardware name (e.g. i{3,4,5,6}86, amd64, i86pc, ... - this depends on the OS).
-ARCH=`uname -m`    
-
-if [[ $ARCH = "Power Macintosh" ]]; then
-  ARCH="PPC32"
-elif [[ $ARCH = "i386" || $ARCH = "i486" || $ARCH = "i586" || $ARCH = "i686" || $ARCH = "i86pc" ]]; then
-  ARCH="X86"
-elif [[ $ARCH = "amd64" ]]; then
-  ARCH="X64"
+if [[ -z "$BUILD_TOOL" ]]; then
+  guess_tool
+  if [[ -z "$BUILD_TOOL" ]]; then
+    error "no tool"
+  fi
 fi
 
-# --- output ConfigRules file -------------------------------------------------
+if [[ -z "$BUILD_ASM" ]]; then
+  guess_asm
+  if [[ -z "$BUILD_ASM" ]]; then
+    error " no assembler tool"
+  fi
+fi
 
-echo BUILD_UNIX  = $UNIX        > ConfigRules
-echo BUILD_OS    = $OS          >> ConfigRules
-echo BUILD_ARCH  = $ARCH        >> ConfigRules
-echo BUILD_TOOL  = $TOOL        >> ConfigRules
-echo INSTALL_DIR = $INSTALL_DIR >> ConfigRules
+# --- write ConfigRules files ------------------------------------------------
 
+writeVars()
+{
+  echo "BUILD_OS=$BUILD_OS" >$1
+  echo "BUILD_ARCH=$BUILD_ARCH" >>$1
+  echo "BUILD_TOOL=$BUILD_TOOL" >>$1
+  echo "BUILD_ASM=$BUILD_ASM" >>$1
+  echo "INSTALL_DIR=$INSTALL_DIR" >>$1
+  echo "" >>$1
+}
+
+writeVars ConfigRules
+info "done"

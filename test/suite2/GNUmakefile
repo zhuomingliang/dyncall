@@ -15,7 +15,7 @@ MODS		= case main
 CPPFLAGS	= -I$(TOP)/dyncall
 CXXFLAGS	= -fno-exceptions -fno-rtti
 LINK_LIBPATHS   = $(TOP)/dyncall/$(BUILD_DIR) 
-LINK_LIBS       = dyncall_s testmain_s m
+LINK_LIBS       = dyncall_s testmain_s 
 
 include $(TOP)/test/testmain/GNUmakerules
 

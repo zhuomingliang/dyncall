@@ -13,8 +13,11 @@ APP		= test
 MODS		= test_main
 CPPFLAGS	= -I$(TOP)/dyncall
 LINK_LIBPATHS   = $(TOP)/dyncall/$(BUILD_DIR)
-LINK_LIBS       = dyncall_s stdc++
+LINK_LIBS       = dyncall_s 
 
 include $(TOP)/test/testmain/GNUmakerules
 
+ifdef BUILD_TOOL_gcc
+LINK_LIBS	+= stdc++
+endif
 
