@@ -69,6 +69,8 @@ guess_os()
     BUILD_OS="windows"
   elif [[ $OS = "Linux" ]]; then
     BUILD_OS="linux"
+  elif [[ $OS = "SunOS" ]]; then
+    BUILD_OS="sunos"
   fi
   info "guess operating system $BUILD_OS"
 }
