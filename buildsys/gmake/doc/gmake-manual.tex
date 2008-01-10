@@ -1,0 +1,127 @@
+\documentclass{article}
+
+\newcommand{\var}[1]{{\tt #1}}
+\newcommand{\val}[1]{{\tt #1}}
+
+\begin{document}
+
+\section{Configuration variables}
+  
+\subsection{BUILD\_OS}
+
+Specifies the target operating system or embedded run-time platform:
+
+\begin{tabular}{ll}
+Value         & Description           \\
+\hline
+\val{windows} & Microsoft Windows     \\
+\val{darwin}  & Mac OS                \\
+\val{linux}   & Linux                 \\
+\val{sunos}   & SunOS                 \\
+\val{psp}     & Playstation Portable  \\
+\val{nds}     & Nintendo DS           \\
+\end{tabular}
+
+\subsection{BUILD\_ARCH}
+
+Specifies the  processor architecture:
+
+\begin{tabular}{ll}
+Value        & Description                 \\
+\hline
+\val{x86}    & X86 32-bit Architecture     \\
+\val{x64}    & X86 64-bit Architecture     \\
+\val{ppc32}  & PowerPC 32-bit Architecture \\
+\val{arm9e}  & ARM9E Architecture          \\
+\val{mips32} & MIPS 32-bit Architecture    \\
+\end{tabular}
+
+\subsection{BUILD\_TOOL}
+
+Specifies the build tool chain:
+
+\begin{tabular}{ll}
+Value      & Description             \\
+\hline
+\val{gcc}  & GNU Compiler Collection \\
+\val{msvc} & Microsoft Visual C++    \\
+\end{tabular}
+
+\subsection{BUILD\_ASM}
+
+Specifies the assembler tool:
+
+\begin{tabular}{ll}
+Value      & Description              \\
+\hline
+\val{as}   & GNU Assembler            \\
+\val{nasm} & NASM Assembler           \\
+\val{ml}   & Micrsoft Macro Assembler \\
+\end{tabular}
+
+\section{OS-specific variables}
+
+\begin{tabular}{ll}
+Variable Name    & Description                   \\
+\hline
+\var{APP\_SUFFIX} & application suffix            \\
+\var{LIB\_SUFFIX} & static library suffix         \\
+\var{DLL\_SUFFIX} & dynamic linked library suffix \\
+\end{tabular}
+
+\section{Tool-specific variables}
+
+\begin{tabular}{ll}
+Variable Name    & Description                   \\
+\hline
+\var{OBJ\_SUFFIX} & object file suffix            \\
+\end{tabular}
+
+\section{Installation variables}
+
+\begin{tabular}{ll}
+Variable name		& Description		\\
+\hline
+\var{INSTALL\_DIR}	& Installation directory		\\
+\var{INSTALL\_APP}	& 0 or 1 to install executable to bin sub-directory \\
+\var{INSTALL\_LIB}	& 0 or 1 to install library to lib sub-directory \\
+\var{INSTALL\_INCLUDES} & List of header files to copy to include sub-directory \\
+\end{tabular}
+
+\section{Misc}
+
+\begin{tabular}{ll}
+Variable name		& Description		\\
+\hline
+\var{PDF}		& build pdf manual (sources in latex) \\
+\end{tabular}
+
+\section{Project variables}
+
+\begin{tabular}{ll}
+Variable name            & Description                       \\
+\hline
+\var{MODS}               & list of module names to link      \\
+\var{APP}                & build application name            \\
+\var{LIBRARY}            & build static library name         \\
+\var{DLL}                & build dynamic library name        \\
+\var{LINKER}             & specify application linker, values: \val{c} or \val{cxx} otherwise default linker\\
+\var{USE\_CXX\_EXCEPTIONS} & use C++ Exceptions                \\
+\var{USE\_CXX\_RTTI}       & use C++ Run-time Type Information \\
+\end{tabular}
+
+\section{OS notes}
+
+\paragraph{Windows}
+\begin{tabular}{ll}
+\var{BUILD\_TOOL} & \val{gcc}, \val{msvc} \\
+\end{tabular}
+
+\paragraph{psp}
+We support PSP SDK.
+
+\paragraph{linux,darwin}
+gcc
+
+\end{document}
+

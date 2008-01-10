@@ -1,0 +1,10 @@
+.PHONY: force
+
+ifdef PDF
+TARGETS += $(PDF)
+$(PDF): force
+endif
+
+%.pdf: %.tex
+	pdflatex -quiet $<
+

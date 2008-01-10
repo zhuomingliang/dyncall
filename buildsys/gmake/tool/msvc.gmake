@@ -1,0 +1,41 @@
+#//////////////////////////////////////////////////////////////////////////////
+# GNU Make Buildsystem
+# Microsoft Visual C++
+#//////////////////////////////////////////////////////////////////////////////
+
+OBJ_SUFFIX	 = .obj
+LIB_SUFFIX	 = .lib
+
+CXXFLAGS	+= /EHsc
+
+# --- assemble to coff --------------------------------------------------------
+
+$(BUILD_DIR)/%.obj: %.asm
+	ml /nologo /c /coff $(ASFLAGS) /Fo$@ $<
+
+# --- compile C ---------------------------------------------------------------
+
+$(BUILD_DIR)/%.obj: %.c
+	cl $< /nologo /c $(CPPFLAGS) $(CFLAGS) /Fo$@ 
+
+
+# --- compile C++ -------------------------------------------------------------
+
+$(BUILD_DIR)/%.obj: %.cpp
+	cl $< /NOLOGO /C $(CPPFLAGS) $(CXXFLAGS) /Fo$@ 
+
+# --- build static library ----------------------------------------------------
+
+$(BUILD_DIR)/%.lib: 
+	lib /OUT:$@ /NOLOGO $^
+
+# --- build dynamic linked library --------------------------------------------
+
+$(BUILD_DIR)/%.dll: 
+	link /OUT:$@ /NOLOGO /MACHINE:X86 /DLL $(LINK_FLAGS) $^
+
+# --- build executable --------------------------------------------------------
+
+$(BUILD_DIR)/%.exe: 
+	link /OUT:$@ /NOLOGO /MACHINE:x86 $(LINK_FLAGS) $^
+

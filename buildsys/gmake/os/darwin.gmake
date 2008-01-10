@@ -1,0 +1,3 @@
+DLL_SUFFIX=.dylib
+include $(GMAKE_TOP)/tool_$(BUILD_TOOL).gmake
+

@@ -1,0 +1,14 @@
+GMAKE_TOP=$(TOP)/build/gmake
+
+.PHONY: default build
+default: build
+
+include $(TOP)/ConfigRules
+
+BUILD_CONFIG ?= debug
+
+BUILD_OS_$(BUILD_OS)=1
+BUILD_ARCH_$(BUILD_ARCH)=1
+BUILD_TOOL_$(BUILD_TOOL)=1
+BUILD_ASM_$(BUILD_ASM)=1
+

@@ -1,0 +1,89 @@
+# --- objects -----------------------------------------------------------------
+
+OBJ_SUFFIX ?= .o
+
+OBJS += $(foreach X,$(MODS),$(BUILD_DIR)/$X$(OBJ_SUFFIX))
+
+# --- build application -------------------------------------------------------
+
+ifdef APP
+APP_FILE	 = $(BUILD_DIR)/$(APP)$(APP_SUFFIX)
+TARGETS		+= $(APP_FILE)
+$(APP_FILE): $(OBJS)
+build: $(BUILD_DIR)
+endif
+
+# --- dynamic libraries -------------------------------------------------------
+
+ifdef DLL
+DLL_FILE	= $(BUILD_DIR)/$(DLL_PREFIX)$(DLL)$(DLL_SUFFIX)
+TARGETS		+= $(DLL_FILE)
+$(DLL_FILE): $(OBJS)
+build: $(BUILD_DIR)
+endif
+
+# --- static library ----------------------------------------------------------
+
+ifdef LIBRARY
+LIB_FILE	= $(BUILD_DIR)/$(LIB_PREFIX)$(LIBRARY)_s$(LIB_SUFFIX)
+TARGETS		+= $(LIB_FILE)
+$(LIB_FILE): $(OBJS)
+build: $(BUILD_DIR)
+INSTALL_LIBS	+= $(LIB_FILE)
+endif
+
+# --- sub-directories ---------------------------------------------------------
+
+.PHONY: dirs $(DIRS)
+dirs: $(DIRS)
+ifdef DIRS
+$(DIRS):
+	$(MAKE) -C $@ $(MAKECMDGOALS)
+endif
+build: dirs
+
+# --- clean -------------------------------------------------------------------
+
+.PHONY: clean
+clean: dirs
+	$(RM) $(OBJS) $(TARGETS)
+
+# --- install -----------------------------------------------------------------
+
+.PHONY: install install-libs install-bins install-includes
+install: build install-libs install-bins install-includes
+
+ifdef INSTALL_DIR
+$(INSTALL_DIR):
+	mkdir -p $(INSTALL_DIR)
+endif
+
+ifeq ($(INSTALL_LIB),1)
+
+$(INSTALL_DIR)/lib:
+	mkdir -p $(INSTALL_DIR)/lib
+
+install-libs: $(INSTALL_DIR)/lib
+	cp -Rf $(LIB_FILE) $(INSTALL_DIR)/lib
+endif
+
+ifeq ($(INSTALL_APP),1)
+
+$(INSTALL_DIR)/bin:
+	mkdir -p $(INSTALL_DIR)/bin
+
+install-bins: $(INSTALL_DIR)/bin
+	cp -Rf $(APP_FILE) $(INSTALL_DIR)/bin
+
+endif
+
+ifdef INSTALL_INCLUDES
+
+$(INSTALL_DIR)/include:
+	mkdir -p $(INSTALL_DIR)/include
+
+install-includes: $(INSTALL_DIR)/include
+	cp -Rf $(INSTALL_INCLUDES) $(INSTALL_DIR)/include
+
+endif
+

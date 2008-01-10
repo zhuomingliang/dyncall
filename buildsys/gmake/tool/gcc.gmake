@@ -1,0 +1,75 @@
+#//////////////////////////////////////////////////////////////////////////////
+# GNU Make Buildsystem
+# GNU Compiler Collection configuration
+#//////////////////////////////////////////////////////////////////////////////
+
+CC	= gcc
+CXX	= g++
+AR	= ar
+AS	= as
+LD	= ld
+
+OBJ_SUFFIX	= .o
+LIB_PREFIX	= lib
+LIB_SUFFIX	= .a
+
+ifeq ($(USE_CXX_EXCEPTIONS),0)
+CXXFLAGS	+= -fno-exceptions
+endif
+
+ifeq ($(USE_CXX_RTTI),0)
+CXXFLAGS	+= -fno-rtti
+endif
+
+# --- Assemble ----------------------------------------------------------------
+
+$(BUILD_DIR)/%.o: %.s
+	$(COMPILE.s) $(OUTPUT_OPTION) $<
+
+# --- Compile C ---------------------------------------------------------------
+
+$(BUILD_DIR)/%.o: %.c
+	$(COMPILE.c) $(OUTPUT_OPTION) $<
+
+# --- Compile C++ -------------------------------------------------------------
+
+$(BUILD_DIR)/%.o: %.cpp
+	$(COMPILE.cpp) $(OUTPUT_OPTION) $<
+
+# --- Build static lib --------------------------------------------------------
+
+$(BUILD_DIR)/%.a:
+	$(RM) $@
+	$(AR) -cr $@ $^
+
+# --- Linking -----------------------------------------------------------------
+
+ifdef LINK_PATHS
+LDFLAGS	+=$(foreach X,$(LINK_PATHS),-L$X)
+endif
+
+ifdef LINK_LIBS
+LDLIBS	+=$(foreach X,$(LINK_LIBS),-l$X)
+endif
+
+# --- Build dynamic library ---------------------------------------------------
+
+DLL_SUFFIX ?= .so
+$(BUILD_DIR)/%$(DLL_SUFFIX):
+	echo unimplemented
+
+# --- Build executable --------------------------------------------------------
+
+LINKER=$(LD)
+
+ifeq ("$(APP_LINKER)","cxx")
+LINKER=$(CXX)
+endif
+
+ifeq ("$(APP_LINKER)","c")
+LINKER=$(CC)
+endif
+
+$(BUILD_DIR)/%$(APP_SUFFIX):
+	$(LINKER) $^ $(LDFLAGS) $(LDLIBS) $(OUTPUT_OPTION) 
+
