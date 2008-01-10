@@ -12,12 +12,13 @@ include $(TOP)/build/gmake/prolog.gmake
 
 LIBRARY=dynload
 INSTALL_HEADERS=dynload.h
+INSTALL_LIB=1
 
-ifdef BUILD_OS_WINDOWS
+ifdef BUILD_OS_windows
 MODS += dynload_win32
 else
 
-ifdef ($(BUILD_UNIX),1)
+ifdef BUILD_OS_linux
 MODS += dynload_unix
 endif
 

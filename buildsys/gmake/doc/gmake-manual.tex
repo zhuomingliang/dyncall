@@ -2,8 +2,53 @@
 
 \newcommand{\var}[1]{{\tt #1}}
 \newcommand{\val}[1]{{\tt #1}}
+\newcommand{\file}[1]{{\tt #1}}
 
 \begin{document}
+
+\title{buildsys/gmake}
+\author{Daniel Adler}
+\maketitle
+
+\section{Usage}
+
+\subsection{Building}
+
+Before building a project, one has to configure the project.
+
+\begin{verbatim}
+./configure
+.\configure.bat
+gmake or make
+\end{verbatim}
+
+The configure script creates a top-level \file{ConfigRules} that
+specifies all \var{BUILD\_*} and \var{INSTALL\_*} variables.
+
+Here's a sample \file{ConfigRules} file:
+
+\begin{verbatim}
+BUILD_OS=windows
+BUILD_ARCH=x86
+BUILD_TOOL=gcc
+BUILD_ASM=as
+INSTALL_DIR=/usr/local
+\end{verbatim}
+
+\subsection{Project setup}
+
+Write up a \file{GNUmakefile} file in some project folder. Specify the
+relative path to the top-level project directory which contains the \file{buildsys} folder
+using the \var{TOP} variable. Your project settings are embedded between
+two includes, namely the prolog and the epilog files.
+
+\begin{verbatim}
+# Sample GNUmakefile for buildsys/gmake
+TOP	= ../..
+include $(TOP)/buildsys/gmake/prolog.gmake
+# ... project specific variables ...
+include $(TOP)/buildsys/gmake/epilog.gmake
+\end{verbatim}
 
 \section{Configuration variables}
   
@@ -24,7 +69,7 @@ Value         & Description           \\
 
 \subsection{BUILD\_ARCH}
 
-Specifies the  processor architecture:
+Specifies the processor architecture:
 
 \begin{tabular}{ll}
 Value        & Description                 \\
@@ -44,7 +89,7 @@ Specifies the build tool chain:
 Value      & Description             \\
 \hline
 \val{gcc}  & GNU Compiler Collection \\
-\val{msvc} & Microsoft Visual C++    \\
+\val{msvc} & Microsoft Visual C++ (windows) \\
 \end{tabular}
 
 \subsection{BUILD\_ASM}
@@ -55,10 +100,17 @@ Specifies the assembler tool:
 Value      & Description              \\
 \hline
 \val{as}   & GNU Assembler            \\
-\val{nasm} & NASM Assembler           \\
-\val{ml}   & Micrsoft Macro Assembler \\
+\val{nasm} & NASM Assembler (x86/x64) \\
+\val{ml}   & Micrsoft Macro Assembler (x86/x64)\\
 \end{tabular}
 
+\subsection{Others}
+
+\begin{tabular}{ll}
+Variable name		& Description		\\
+\hline
+\var{INSTALL\_DIR}	& Installation directory \\
+\end{tabular}
 \section{OS-specific variables}
 
 \begin{tabular}{ll}
@@ -77,16 +129,6 @@ Variable Name    & Description                   \\
 \var{OBJ\_SUFFIX} & object file suffix            \\
 \end{tabular}
 
-\section{Installation variables}
-
-\begin{tabular}{ll}
-Variable name		& Description		\\
-\hline
-\var{INSTALL\_DIR}	& Installation directory		\\
-\var{INSTALL\_APP}	& 0 or 1 to install executable to bin sub-directory \\
-\var{INSTALL\_LIB}	& 0 or 1 to install library to lib sub-directory \\
-\var{INSTALL\_INCLUDES} & List of header files to copy to include sub-directory \\
-\end{tabular}
 
 \section{Misc}
 
@@ -101,27 +143,31 @@ Variable name		& Description		\\
 \begin{tabular}{ll}
 Variable name            & Description                       \\
 \hline
+\var{TOP}		 & relative path to top directory    \\
+\var{DIRS}		 & sub-project directory names	     \\
 \var{MODS}               & list of module names to link      \\
 \var{APP}                & build application name            \\
 \var{LIBRARY}            & build static library name         \\
 \var{DLL}                & build dynamic library name        \\
 \var{LINKER}             & specify application linker, values: \val{c} or \val{cxx} otherwise default linker\\
-\var{USE\_CXX\_EXCEPTIONS} & use C++ Exceptions                \\
-\var{USE\_CXX\_RTTI}       & use C++ Run-time Type Information \\
+\var{LINK\_PATHS}	 & list of library paths \\
+\var{LINK\_LIBS}		 & list of library names \\
+\var{USE\_CXX\_EXCEPTIONS} & 0 or 1 to use C++ Exceptions                \\
+\var{USE\_CXX\_RTTI}       & 0 or 1 to use C++ Run-time Type Information \\
+\var{CPPFLAGS}		   & C Preprocessor flags (e.g. -Iincludename) \\
+\var{CFLAGS}		& C Compiler flags \\
+\var{CXXFLAGS}		& C++ Compiler flags \\
+\var{INSTALL\_APP}	& 0 or 1 to install executable to bin sub-directory \\
+\var{INSTALL\_LIB}	& 0 or 1 to install library to lib sub-directory \\
+\var{INSTALL\_INCLUDES} & List of header files to copy to include sub-directory \\
 \end{tabular}
 
 \section{OS notes}
 
-\paragraph{Windows}
-\begin{tabular}{ll}
-\var{BUILD\_TOOL} & \val{gcc}, \val{msvc} \\
-\end{tabular}
-
-\paragraph{psp}
-We support PSP SDK.
-
-\paragraph{linux,darwin}
-gcc
+\begin{description}
+\item [windows] gcc and msvc tool-chain support
+\item [psp] gcc only
+\end{description}
 
 \end{document}
 

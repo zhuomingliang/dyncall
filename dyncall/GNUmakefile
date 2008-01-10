@@ -2,25 +2,22 @@
 # Copyright 2007 Daniel Adler.
 
 TOP         = ..
-include $(TOP)/build/gmake/prolog.gmake
+include $(TOP)/buildsys/gmake/prolog.gmake
 
 # targets
 
 LIBRARY         = dyncall
-INSTALL_HEADERS = dyncall.h dyncall_types.h dyncall_config.h
+INSTALL_INCLUDES= dyncall.h dyncall_types.h dyncall_config.h
+INSTALL_LIB	= 1
+
 # modules
 
-MODS = dyncall 
-
-# feature formated call API
-MODS += dyncall_callf
-
-# common utilities
-MODS += dyncall_vector
+MODS	= dyncall dyncall_vector dyncall_callf
 
 # arch-specific modules
 
 ifdef BUILD_ARCH_x86
+
 MODS += dyncall_callvm_x86
 
 ifndef BUILD_TOOL_msvc
