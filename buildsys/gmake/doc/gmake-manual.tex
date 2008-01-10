@@ -1,7 +1,7 @@
 \documentclass{article}
 
 \newcommand{\var}[1]{{\tt #1}}
-\newcommand{\val}[1]{{\tt #1}}
+\newcommand{\val}[1]{"{\tt #1}"}
 \newcommand{\file}[1]{{\tt #1}}
 
 \begin{document}
@@ -12,20 +12,19 @@
 
 \section{Usage}
 
-\subsection{Building}
+\subsection{Configuring the project}
 
 Before building a project, one has to configure the project.
 
 \begin{verbatim}
 ./configure
 .\configure.bat
-gmake or make
 \end{verbatim}
 
-The configure script creates a top-level \file{ConfigRules} that
+The configure script creates a top-level \file{ConfigVars} that
 specifies all \var{BUILD\_*} and \var{INSTALL\_*} variables.
 
-Here's a sample \file{ConfigRules} file:
+Here's a sample \file{ConfigVars} file:
 
 \begin{verbatim}
 BUILD_OS=windows
@@ -35,7 +34,25 @@ BUILD_ASM=as
 INSTALL_DIR=/usr/local
 \end{verbatim}
 
-\subsection{Project setup}
+\subsection{Building the project}
+
+Type {\tt gmake} or {\tt make}\footnote{some platforms use a different Make tool which is accessible as
+{\tt make} from the command-line. Platforms that need to use {\tt gmake} are: Solaris and all BSD platforms.} on the shell.
+
+\subsection{Phony targets}
+
+\begin{tabular}{ll}
+Target  & Description				\\
+\hline
+\val{default}	& Default rule, depends on build	\\
+\val{dirs}	& Traverse sub-directories		\\
+\val{build}	& Build project, depends on dirs	\\
+\val{install}	& Install project, depends on build and dirs \\
+\val{clean}	& Clean project, depends on dirs	\\
+\end{tabular}
+
+
+\subsection{Project directory setup}
 
 Write up a \file{GNUmakefile} file in some project folder. Specify the
 relative path to the top-level project directory which contains the \file{buildsys} folder
@@ -46,10 +63,11 @@ two includes, namely the prolog and the epilog files.
 # Sample GNUmakefile for buildsys/gmake
 TOP	= ../..
 include $(TOP)/buildsys/gmake/prolog.gmake
-# ... project specific variables ...
+# ... project directory settings goes here ...
 include $(TOP)/buildsys/gmake/epilog.gmake
 \end{verbatim}
 
+\pagebreak
 \section{Configuration variables}
   
 \subsection{BUILD\_OS}
@@ -60,9 +78,12 @@ Specifies the target operating system or embedded run-time platform:
 Value         & Description           \\
 \hline
 \val{windows} & Microsoft Windows     \\
-\val{darwin}  & Mac OS                \\
+\val{darwin}  & Mac OS X              \\
 \val{linux}   & Linux                 \\
 \val{sunos}   & SunOS                 \\
+\val{freebsd} & FreeBSD		      \\
+\val{openbsd} & OpenBSD		      \\
+\val{netbsd}  & NetBSD		      \\
 \val{psp}     & Playstation Portable  \\
 \val{nds}     & Nintendo DS           \\
 \end{tabular}
@@ -110,57 +131,89 @@ Value      & Description              \\
 Variable name		& Description		\\
 \hline
 \var{INSTALL\_DIR}	& Installation directory \\
-\end{tabular}
-\section{OS-specific variables}
-
-\begin{tabular}{ll}
-Variable Name    & Description                   \\
-\hline
-\var{APP\_SUFFIX} & application suffix            \\
-\var{LIB\_SUFFIX} & static library suffix         \\
-\var{DLL\_SUFFIX} & dynamic linked library suffix \\
+\var{BUILD\_CONFIG}	& Build configuration ("release", "debug") \\
 \end{tabular}
 
-\section{Tool-specific variables}
-
-\begin{tabular}{ll}
-Variable Name    & Description                   \\
-\hline
-\var{OBJ\_SUFFIX} & object file suffix            \\
-\end{tabular}
-
-
-\section{Misc}
+\section{Predefined variables}
 
 \begin{tabular}{ll}
 Variable name		& Description		\\
 \hline
-\var{PDF}		& build pdf manual (sources in latex) \\
+\var{GMAKE\_TOP}	& Relative path to folder \file{buildsys/gmake} \\
+\var{BUILD\_DIR}	& Build directory (e.g. "out-$<$os$>$-$<$arch$>$-$<$tool$>$-$<$config$>$")\\
+\hline
+& OS-specific \\
+\hline
+\var{APP\_SUFFIX} & Application suffix            \\
+\var{LIB\_SUFFIX} & Static library suffix         \\
+\var{DLL\_SUFFIX} & Dynamic linked library suffix \\
+\hline
+& Tool-specific \\
+\hline
+\var{OBJ\_SUFFIX} & Object file suffix            \\
 \end{tabular}
+
+All suffixes should include the "." (dot) .
 
 \section{Project variables}
 
 \begin{tabular}{ll}
-Variable name            & Description                       \\
+Variable name              & Description                       \\
 \hline
-\var{TOP}		 & relative path to top directory    \\
-\var{DIRS}		 & sub-project directory names	     \\
-\var{MODS}               & list of module names to link      \\
-\var{APP}                & build application name            \\
-\var{LIBRARY}            & build static library name         \\
-\var{DLL}                & build dynamic library name        \\
-\var{LINKER}             & specify application linker, values: \val{c} or \val{cxx} otherwise default linker\\
-\var{LINK\_PATHS}	 & list of library paths \\
-\var{LINK\_LIBS}		 & list of library names \\
-\var{USE\_CXX\_EXCEPTIONS} & 0 or 1 to use C++ Exceptions                \\
-\var{USE\_CXX\_RTTI}       & 0 or 1 to use C++ Run-time Type Information \\
-\var{CPPFLAGS}		   & C Preprocessor flags (e.g. -Iincludename) \\
-\var{CFLAGS}		& C Compiler flags \\
-\var{CXXFLAGS}		& C++ Compiler flags \\
-\var{INSTALL\_APP}	& 0 or 1 to install executable to bin sub-directory \\
-\var{INSTALL\_LIB}	& 0 or 1 to install library to lib sub-directory \\
-\var{INSTALL\_INCLUDES} & List of header files to copy to include sub-directory \\
+\var{TOP}		   & Relative path to top directory    \\
+\var{DIRS}		   & Sub-project directory names       \\
+\var{MODS}                 & List of module names to link      \\
+\hline
+& targets \\
+\hline
+\var{APP}                  & Build application name              \\
+\var{LIBRARY}              & Build static library name           \\
+\var{DLL}                  & Build dynamic library name          \\
+\var{PDF}		   & Build PDF manual (sources in latex) \\
+\hline
+& build related \\
+\hline
+\var{CPPFLAGS}		   & C Preprocessor flags \\
+\var{CFLAGS}		   & C Compiler flags \\
+\var{CXXFLAGS}		   & C++ Compiler flags \\
+\var{LINK}                 & Application linker: \val{c}, \val{c++} or empty (default linker)\\
+\var{LINK\_PATHS}	   & List of library paths \\
+\var{LINK\_LIBS}	   & List of library names \\
+\var{CXX\_EXCEPTIONS}      & If set to \val{1}, use C++ Exceptions                \\
+\var{CXX\_RTTI}       	   & If set to \val{1}, use C++ Run-time Type Information \\
+\hline
+& installation related \\
+\hline
+\var{INSTALL\_APP}	   & If set to \val{1}, install executable to bin install-directory \\
+\var{INSTALL\_LIB}	   & If set to \val{1}, install library to lib install-directory \\
+\var{INSTALL\_INCLUDES}    & List of header files to copy to include install-directory \\
 \end{tabular}
+
+\pagebreak
+
+\section{Inclusion order}
+
+\begin{enumerate}
+\item \file{prolog.gmake}
+\begin{itemize}
+\item Set \var{GMAKE\_TOP} variable
+\item Define \val{default} rule
+\item Include \file{ConfigVars}
+\item Define build value variables (\var{BUILD\_*\_*} variables)
+\item Define \var{BUILD\_DIR} variable and a mkdir rule.
+\end{itemize}
+\item \file{epilog.gmake}
+\begin{itemize}
+\item Inlcude \file{os/\$(\var{BUILD\_OS}).gmake}
+\item Include \file{tool/latex.gmake}
+\item Include \file{targets.gmake}
+\end{itemize}
+\end{enumerate}
+
+The os-specific gmake files will typically include 
+\file{tool/\$(\var{BUILD\_TOOL}).gmake} file. 
+Other more-specific platforms such as psp and nds might preclude and append additional information
+depending on platform and tool quirks.
 
 \section{OS notes}
 

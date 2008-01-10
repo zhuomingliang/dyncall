@@ -22,20 +22,25 @@ $(BUILD_DIR)/%.obj: %.c
 # --- compile C++ -------------------------------------------------------------
 
 $(BUILD_DIR)/%.obj: %.cpp
-	cl $< /NOLOGO /C $(CPPFLAGS) $(CXXFLAGS) /Fo$@ 
+	cl $< /nologo /c $(CPPFLAGS) $(CXXFLAGS) /Fo$@ 
 
 # --- build static library ----------------------------------------------------
 
 $(BUILD_DIR)/%.lib: 
 	lib /OUT:$@ /NOLOGO $^
 
+# --- Link flags --------------------------------------------------------------
+
+LDFLAGS += $(foreach X,$(LINK_PATHS),/LIBPATH:$X)
+LDFLAGS += $(foreach X,$(LINK_LIBS),$X.lib)
+
 # --- build dynamic linked library --------------------------------------------
 
 $(BUILD_DIR)/%.dll: 
-	link /OUT:$@ /NOLOGO /MACHINE:X86 /DLL $(LINK_FLAGS) $^
+	link /OUT:$@ /NOLOGO /MACHINE:X86 /DLL $(LDFLAGS) $^
 
 # --- build executable --------------------------------------------------------
 
 $(BUILD_DIR)/%.exe: 
-	link /OUT:$@ /NOLOGO /MACHINE:x86 $(LINK_FLAGS) $^
+	link /OUT:$@ /NOLOGO /MACHINE:x86 $(LDFLAGS) $^
 

@@ -1,4 +1,3 @@
 APP_SUFFIX=.exe
-ASFLAGS=--defsym DC_PREFIX_SYMBOLS=1
 include $(GMAKE_TOP)/tool/$(BUILD_TOOL).gmake
 

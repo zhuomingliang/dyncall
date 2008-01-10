@@ -9,19 +9,14 @@
 
 TOP		= ../..
 
+include $(TOP)/buildsys/gmake/prolog.gmake
+
 APP		= test
 MODS		= test_main
 CPPFLAGS	= -I$(TOP)/dyncall
-LINK_LIBPATHS   = $(TOP)/dyncall/$(BUILD_DIR)
-LINK_LIBS       = dyncall_s 
+LINK_PATHS	= $(TOP)/dyncall/$(BUILD_DIR)
+LINK_LIBS       = dyncall_s
+LINK		= c++
 
-include $(TOP)/test/testmain/GNUmakerules
-
-ifdef BUILD_TOOL_gcc
-LINK_LIBS	+= stdc++
-endif
-
-ifdef BUILD_TOOL_psp
-LINK_LIBS	+= c
-endif
+include $(TOP)/buildsys/gmake/epilog.gmake
 

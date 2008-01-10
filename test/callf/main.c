@@ -14,7 +14,7 @@ void vf_iii(int x,int y,int z)
 
 /* main */
 
-int test_main(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
   DCCallVM* vm;
   DCValue r;

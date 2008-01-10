@@ -9,23 +9,22 @@
 
 TOP		= ../..
 
+include $(TOP)/buildsys/gmake/prolog.gmake
+
 APP		= suite
 MODS		= case main
-AUTOS		= config.h case.h
 CPPFLAGS	= -I$(TOP)/dyncall
-#CXXFLAGS	= -fno-exceptions -fno-rtti
-LINK_LIBPATHS   = $(TOP)/dyncall/$(BUILD_DIR) 
+CXX_EXCEPTIONS 	= 0
+CXX_RTTI	= 0
+LINK_PATHS	= $(TOP)/dyncall/$(BUILD_DIR) 
 LINK_LIBS       = dyncall_s 
 
-include $(TOP)/test/testmain/GNUmakerules
+include $(TOP)/buildsys/gmake/epilog.gmake
 
+# AUTOS		= config.h case.h
 .PHONY: config 
 config: case.h config.h
 
 config.h case.h: mkcase.py
 	python mkcase.py >case.h 2>config.h
-
-ifdef BUILD_TOOL_gcc
-LINK_LIBS	+= m
-endif
 

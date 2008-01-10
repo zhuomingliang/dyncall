@@ -71,6 +71,14 @@ guess_os()
     BUILD_OS="linux"
   elif [[ $OS = "SunOS" ]]; then
     BUILD_OS="sunos"
+  elif [[ $OS = "OpenBSD" ]]; then
+    BUILD_OS="openbsd"
+  elif [[ $OS = "FreeBSD" ]]; then
+    BUILD_OS="freebsd"
+  elif [[ $OS = "NetBSD" ]]; then
+    BUILD_OS="netbsd"
+  elif [[ $OS = "DragonFly" ]]; then
+    BUILD_OS="dragonfly"
   fi
   info "guess operating system $BUILD_OS"
 }
@@ -201,5 +209,5 @@ writeVars()
   echo "" >>$1
 }
 
-writeVars ConfigRules
+writeVars ConfigVars
 info "done"

@@ -13,18 +13,22 @@ OBJ_SUFFIX	= .o
 LIB_PREFIX	= lib
 LIB_SUFFIX	= .a
 
-ifeq ($(USE_CXX_EXCEPTIONS),0)
-CXXFLAGS	+= -fno-exceptions
-endif
-
-ifeq ($(USE_CXX_RTTI),0)
-CXXFLAGS	+= -fno-rtti
-endif
-
 # --- Assemble ----------------------------------------------------------------
+
+ASFLAGS		+= --defsym BUILD_OS_$(BUILD_OS)=1 --defsym BUILD_ARCH_$(BUILD_ARCH)=1
 
 $(BUILD_DIR)/%.o: %.s
 	$(COMPILE.s) $(OUTPUT_OPTION) $<
+
+# --- C++ Compiler flags ------------------------------------------------------
+
+ifeq ("$(CXX_EXCEPTIONS)","0")
+CXXFLAGS	+= -fno-exceptions
+endif
+
+ifeq ("$(CXX_RTTI)","0")
+CXXFLAGS	+= -fno-rtti
+endif
 
 # --- Compile C ---------------------------------------------------------------
 
@@ -60,16 +64,17 @@ $(BUILD_DIR)/%$(DLL_SUFFIX):
 
 # --- Build executable --------------------------------------------------------
 
-LINKER=$(LD)
+LINK	?= "c"
+LINKCMD	?= $(CC)
 
-ifeq ("$(APP_LINKER)","cxx")
-LINKER=$(CXX)
+ifeq ("$(LINK)","c++")
+LINKCMD=$(CXX)
 endif
 
-ifeq ("$(APP_LINKER)","c")
-LINKER=$(CC)
+ifeq ("$(LINK)","c")
+LINKCMD=$(CC)
 endif
 
 $(BUILD_DIR)/%$(APP_SUFFIX):
-	$(LINKER) $^ $(LDFLAGS) $(LDLIBS) $(OUTPUT_OPTION) 
+	$(LINKCMD) $^ $(LDFLAGS) $(LDLIBS) $(OUTPUT_OPTION) 
 

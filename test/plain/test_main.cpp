@@ -469,7 +469,7 @@ DC_DEFINE_TEST_FUNC_END
 
 extern "C" {
 
-int test_main(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
   int b = TRUE;
   

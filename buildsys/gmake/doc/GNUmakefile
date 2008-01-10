@@ -1,5 +1,4 @@
 TOP	= ../../..
-include $(TOP)/build/gmake/prolog.gmake
+include $(TOP)/buildsys/gmake/prolog.gmake
 PDF	= gmake-manual.pdf
-include $(TOP)/build/gmake/epilog.gmake
-
+include $(TOP)/buildsys/gmake/epilog.gmake

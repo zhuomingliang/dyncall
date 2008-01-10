@@ -51,5 +51,5 @@ LDFLAGS += -L$(PSPSDK)/lib
 LDLIBS += -lpsplibc
 endif
 
-include $(TOP)/build/gmake/epilog.gmake
+include $(TOP)/buildsys/gmake/epilog.gmake
 

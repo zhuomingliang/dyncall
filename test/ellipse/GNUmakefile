@@ -9,14 +9,18 @@
 
 TOP		= ../..
 
+include $(TOP)/buildsys/gmake/prolog.gmake
+
 APP		= suite
 AUTOS		= config.h case.h
 MODS		= ellipse main
 CPPFLAGS	= -I$(TOP)/dyncall
-LINK_LIBPATHS   = $(TOP)/dyncall/$(BUILD_DIR)
+CXX_EXCEPTIONS	= 0
+CXX_RTTI	= 0
+LINK_PATHS	= $(TOP)/dyncall/$(BUILD_DIR)
 LINK_LIBS       = dyncall_s 
 
-include $(TOP)/test/testmain/GNUmakerules
+include $(TOP)/buildsys/gmake/epilog.gmake
 
 .PHONY: config
 config: config.h case.h

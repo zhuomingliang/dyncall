@@ -122,7 +122,7 @@ bool run_range(int from, int to)
 
 extern "C" {
 
-int test_main(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
   bool success = false;
   init();

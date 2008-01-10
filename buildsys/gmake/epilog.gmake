@@ -1,10 +1,7 @@
-BUILD_DIR ?= out_$(BUILD_OS)_$(BUILD_ARCH)_$(BUILD_TOOL)
-
-$(BUILD_DIR):
-	mkdir -p $(BUILD_DIR)
 
 include $(GMAKE_TOP)/os/$(BUILD_OS).gmake
 include $(GMAKE_TOP)/tool/latex.gmake
 include $(GMAKE_TOP)/targets.gmake
+
 build: $(TARGETS)
 

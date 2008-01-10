@@ -7,7 +7,7 @@
 
 
 TOP	=  ..
-include $(TOP)/build/gmake/prolog.gmake
-DIRS	+= testmain suite ellipse suite2 callf plain
-include $(TOP)/build/gmake/epilog.gmake
+include $(TOP)/buildsys/gmake/prolog.gmake
+DIRS	+= suite ellipse suite2 callf plain
+include $(TOP)/buildsys/gmake/epilog.gmake
 
