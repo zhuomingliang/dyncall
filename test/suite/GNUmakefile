@@ -17,7 +17,11 @@ CPPFLAGS	= -I$(TOP)/dyncall
 CXX_EXCEPTIONS 	= 0
 CXX_RTTI	= 0
 LINK_PATHS	= $(TOP)/dyncall/$(BUILD_DIR) 
-LINK_LIBS       = dyncall_s 
+LINK_LIBS       = dyncall_s
+
+ifdef BUILD_OS_linux
+LINK_LIBS	+= m
+endif
 
 include $(TOP)/buildsys/gmake/epilog.gmake
 
