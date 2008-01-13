@@ -15,7 +15,11 @@ LIB_SUFFIX	= .a
 
 # --- Assemble ----------------------------------------------------------------
 
+ifdef BUILD_ARCH_ppc32
+
+else
 ASFLAGS		+= --defsym BUILD_OS_$(BUILD_OS)=1 --defsym BUILD_ARCH_$(BUILD_ARCH)=1
+endif
 
 $(BUILD_DIR)/%.o: %.s
 	$(COMPILE.s) $(OUTPUT_OPTION) $<
