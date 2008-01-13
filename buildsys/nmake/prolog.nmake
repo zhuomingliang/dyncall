@@ -39,4 +39,4 @@ config:
 !ENDIF
 
 
-!INCLUDE tool_$(BUILD_TOOL).nmake
+!INCLUDE tool_$(BUILD_TOOL)_.nmake
