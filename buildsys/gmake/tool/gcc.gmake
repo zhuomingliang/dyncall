@@ -15,7 +15,7 @@ LIB_SUFFIX	= .a
 
 # --- Assemble ----------------------------------------------------------------
 
-ifdef BUILD_ARCH_ppc32
+ifdef BUILD_OS_darwin
 
 else
 ASFLAGS		+= --defsym BUILD_OS_$(BUILD_OS)=1 --defsym BUILD_ARCH_$(BUILD_ARCH)=1
