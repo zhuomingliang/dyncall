@@ -7,7 +7,7 @@
 #///////////////////////////////////////////////////
 
 
-!IF "$(BUILD_ARCH)" == "X64"
+!IF "$(BUILD_ARCH)" == "x64"
 
 CC  =cl
 CXX =cl
@@ -21,7 +21,7 @@ CXXFLAGS = $(CFLAGS)
 LDFLAGS = /OPT:REF /OPT:ICF /NOLOGO
 ARFLAGS = /NOLOGO
 
-!ELSE IF "$(BUILD_ARCH)" == "X86"
+!ELSE IF "$(BUILD_ARCH)" == "x86"
 
 CC  =cl
 CXX =cl

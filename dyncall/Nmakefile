@@ -9,18 +9,15 @@
 
 TOP=..
 
-!INCLUDE $(TOP)\build\nmake\prolog.nmake
+!INCLUDE $(TOP)\buildsys\nmake\prolog.nmake
 
 
-!IF "$(BUILD_OS)" == "Windows"
+!IF "$(BUILD_OS)" == "windows"
 
 TARGETS = libdyncall_s.lib #libdyncall.lib libdyncall.dll
 
-!IF "$(BUILD_ARCH)" == "X86"
-OBJS = dyncall.obj dyncall_callf.obj dyncall_callvm_x86.obj dyncall_vector.obj dyncall_x86_win32.obj
-!ELSE IF "$(BUILD_ARCH)" == "X64"
-OBJS = dyncall.obj dyncall_callf.obj dyncall_callvm_x64.obj dyncall_vector.obj dyncall_x64_win64.obj
-!ENDIF
+OBJS = dyncall.obj dyncall_callf.obj dyncall_callvm_$(BUILD_ARCH).obj dyncall_vector.obj dyncall_$(BUILD_ARCH)_windows.obj
+
 
 libdyncall_s.lib: $(OBJS)
 	echo Creating library $@ ...
@@ -31,7 +28,7 @@ libdyncall.dll libdyncall.lib: $(OBJS)
 	$(LD) /DLL $(LDFLAGS) $(OBJS) > nul
 
 
-!ELSE IF "$(BUILD_OS)" == "NDS"
+!ELSE IF "$(BUILD_OS)" == "nds"
 
 TARGETS = libdyncall_s.a
 
@@ -44,5 +41,5 @@ libdyncall_s.a: $(OBJS)
 !ENDIF
 
 
-!INCLUDE $(TOP)\build\nmake\epilog.nmake
+!INCLUDE $(TOP)\buildsys\nmake\epilog.nmake
 

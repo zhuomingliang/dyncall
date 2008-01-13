@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 
-int test_main(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
   int i, n;
   const char* libpath = argv[1];

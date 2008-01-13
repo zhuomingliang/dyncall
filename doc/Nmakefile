@@ -9,7 +9,7 @@
 
 TOP   = ..  
 
-!INCLUDE $(TOP)/build/nmake/prolog.nmake
+!INCLUDE $(TOP)/buildsys/nmake/prolog.nmake
 
 TARGETS=manual.pdf
 manual.pdf: dummy
@@ -17,5 +17,5 @@ manual.pdf: dummy
 # Pseudo-targets are always out of date...
 dummy:
 
-!INCLUDE $(TOP)/build/nmake/epilog.nmake
+!INCLUDE $(TOP)/buildsys/nmake/epilog.nmake
 

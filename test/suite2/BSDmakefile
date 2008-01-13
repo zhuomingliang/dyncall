@@ -9,7 +9,7 @@
 
 TOP=../..
 
-.include "$(TOP)/build/bsdmake/prolog.bsdmake"
+.include "$(TOP)/buildsys/bsdmake/prolog.bsdmake"
 
 
 MODS	=	case main
@@ -22,12 +22,11 @@ LIBS	=	"$(TOP)/dyncall/libdyncall_s.a"
 AUTOS	=	config.h case.h
 
 
-.include "$(TOP)/build/bsdmake/epilog.bsdmake"
-
-
 .PHONY: config 
 config: $(AUTOS)
 $(AUTOS): mkcase.py .SILENT
 	echo Generating test cases...
 	python mkcase.py >case.h 2>config.h
+
+.include "$(TOP)/buildsys/bsdmake/epilog.bsdmake"
 

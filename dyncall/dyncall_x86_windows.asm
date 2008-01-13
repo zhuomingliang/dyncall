@@ -1,6 +1,6 @@
 ;///////////////////////////////////////////////////////////////////////
 ;
-;	dyncall_x86_win32.asm
+;	dyncall_x86_windows.asm
 ;	Copyright 2007 Daniel Adler.
 ;
 ;	MS Windows x86 calls (for MASM)

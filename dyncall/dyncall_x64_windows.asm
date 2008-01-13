@@ -1,6 +1,6 @@
 ;///////////////////////////////////////////////////////////////////////
 ;
-;	dyncall_x64_win64.asm
+;	dyncall_x64_windows.asm
 ;	Copyright 2007 Tassilo Philipp.
 ;
 ;	MS Windows x64 calls (for MASM)

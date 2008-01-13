@@ -9,7 +9,7 @@
 
 TOP   = .
 
-.include "$(TOP)/build/bsdmake/prolog.bsdmake"
+.include "$(TOP)/buildsys/bsdmake/prolog.bsdmake"
 
 # directories:
 DIRS  = dyncall dynload test
@@ -18,5 +18,5 @@ AUTOS = ConfigRules
 # dependencies:
 test: dyncall dynload
 
-.include "$(TOP)/build/bsdmake/epilog.bsdmake"
+.include "$(TOP)/buildsys/bsdmake/epilog.bsdmake"
 

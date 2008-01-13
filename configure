@@ -40,7 +40,7 @@ usage()
   echo "  --arch-x64          build for x64 architecture"
   echo
   echo "  --target-psp        build for Playstation Portable platform (PSPSDK)"
-  echo "  --target-nds        build for Nintendo DS platform (DevKit Pro)"
+  echo "  --target-nds        build for Nintendo DS platform (devkitPro)"
   echo
   echo "  --tool-gcc          use GNU Compiler Collection"
   echo "  --tool-msvc         use Microsoft Visual C++"

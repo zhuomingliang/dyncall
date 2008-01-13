@@ -9,23 +9,23 @@
 
 TOP = ..\..
 
-!INCLUDE $(TOP)\build\nmake\prolog.nmake
+!INCLUDE $(TOP)\buildsys\nmake\prolog.nmake
 
 
-!IF "$(BUILD_OS)" == "Windows"
+!IF "$(BUILD_OS)" == "windows"
 
 TARGETS = callf.exe
-OBJS = main.obj ..\main_Windows.obj
+OBJS = main.obj# ..\testmain\main_ansic.obj
 
 $(TARGETS): $(OBJS)
 	echo Linking $@ ...
 	$(LD) /OUT:"$@" $(LDFLAGS) $(OBJS) $(TOP)\dyncall\libdyncall_s.lib > nul
 
 
-!ELSE IF "$(BUILD_OS)" == "NDS"
+!ELSE IF "$(BUILD_OS)" == "nds"
 
 TARGETS = callf.nds
-OBJS = main.o ..\main_NDS.o
+OBJS = main.o# ..\testmain\main_NDS.o
 
 $(TARGETS): $(OBJS)
 	echo Linking $@ ...
@@ -37,5 +37,5 @@ $(TARGETS): $(OBJS)
 !ENDIF
 
 
-!INCLUDE $(TOP)\build\nmake\epilog.nmake
+!INCLUDE $(TOP)\buildsys\nmake\epilog.nmake
 

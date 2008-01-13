@@ -9,7 +9,7 @@
 
 TOP = .
 
-!INCLUDE $(TOP)\build\nmake\prolog.nmake
+!INCLUDE $(TOP)\buildsys\nmake\prolog.nmake
 
 
 DIRS = dyncall dynload
@@ -21,5 +21,5 @@ test: dummy
 dummy:
 
 
-!INCLUDE $(TOP)\build\nmake\epilog.nmake
+!INCLUDE $(TOP)\buildsys\nmake\epilog.nmake
 

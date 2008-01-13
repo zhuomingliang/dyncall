@@ -10,7 +10,7 @@
 TOP		= ..
 
 
-.include "$(TOP)/build/bsdmake/prolog.bsdmake"
+.include "$(TOP)/buildsys/bsdmake/prolog.bsdmake"
 
 
 # Overrides.
@@ -47,5 +47,5 @@ MODS += dyncall_callvm_x64
 MODS += dyncall_x64_system_v
 .endif
 
-.include "$(TOP)/build/bsdmake/epilog.bsdmake"
+.include "$(TOP)/buildsys/bsdmake/epilog.bsdmake"
 

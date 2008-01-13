@@ -9,26 +9,26 @@
 
 TOP = ..\..
 
-!INCLUDE $(TOP)\build\nmake\prolog.nmake
+!INCLUDE $(TOP)\buildsys\nmake\prolog.nmake
 
 
 AUTOS = config.h case.h
 
 
-!IF "$(BUILD_OS)" == "Windows"
+!IF "$(BUILD_OS)" == "windows"
 
 TARGETS = suite.exe
-OBJS = main.obj case.obj ..\main_Windows.obj
+OBJS = main.obj case.obj# ..\testmain\main_ansic.obj
 
 $(TARGETS): $(OBJS)
 	echo Linking $@ ...
 	$(LD) /OUT:"$@" $(LDFLAGS) $(OBJS) $(TOP)\dyncall\libdyncall_s.lib > nul
 
 
-!ELSE IF "$(BUILD_OS)" == "NDS"
+!ELSE IF "$(BUILD_OS)" == "nds"
 
 TARGETS = suite.nds
-OBJS = main.o case.o ..\main_NDS.o
+OBJS = main.o case.o# ..\testmain\main_NDS.o
 
 $(TARGETS): $(OBJS)
 	echo Linking $@ ...
@@ -47,5 +47,5 @@ $(AUTOS): mkcase.py
 	mkcase.py >case.h 2>config.h
 
 
-!INCLUDE $(TOP)\build\nmake\epilog.nmake
+!INCLUDE $(TOP)\buildsys\nmake\epilog.nmake
 

@@ -9,23 +9,23 @@
 
 TOP = ..\..
 
-!INCLUDE $(TOP)\build\nmake\prolog.nmake
+!INCLUDE $(TOP)\buildsys\nmake\prolog.nmake
 
 
-!IF "$(BUILD_OS)" == "Windows"
+!IF "$(BUILD_OS)" == "windows"
 
 TARGETS = nm.exe
-OBJS = nm.obj ..\main_Windows.obj
+OBJS = nm.obj# ..\testmain\main_ansic.obj
 
 $(TARGETS): $(OBJS)
 	echo Linking $@ ...
 	$(LD) /OUT:"$@" $(LDFLAGS) $(OBJS) $(TOP)\dynload\libdynload_s.lib $(TOP)\dyncall\libdyncall_s.lib > nul
 
 
-!ELSE IF "$(BUILD_OS)" == "NDS"
+!ELSE IF "$(BUILD_OS)" == "nds"
 
 TARGETS = nm.nds
-OBJS = nm.o ..\main_NDS.o
+OBJS = nm.o# ..\testmain\main_NDS.o
 
 $(TARGETS):# $(OBJS)
 	echo Not building dynload: There is no dynload support on this platform.
@@ -38,5 +38,5 @@ $(TARGETS):# $(OBJS)
 !ENDIF
 
 
-!INCLUDE $(TOP)\build\nmake\epilog.nmake
+!INCLUDE $(TOP)\buildsys\nmake\epilog.nmake
 

@@ -39,8 +39,4 @@ config:
 !ENDIF
 
 
-!IF "$(BUILD_TOOL)" == "GCC_NDS"
-!	INCLUDE tool_GCC_NDS.nmake
-!ELSE
-!	INCLUDE tool_MSVC.nmake
-!ENDIF
+!INCLUDE tool_$(BUILD_TOOL).nmake

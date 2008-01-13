@@ -9,10 +9,10 @@
 
 TOP=..
 
-!INCLUDE $(TOP)\build\nmake\prolog.nmake
+!INCLUDE $(TOP)\buildsys\nmake\prolog.nmake
 
 
-!IF "$(BUILD_OS)" == "Windows"
+!IF "$(BUILD_OS)" == "windows"
 
 TARGETS = libdynload_s.lib
 OBJS = dynload_win32.obj
@@ -22,7 +22,7 @@ $(TARGETS): $(OBJS)
 	lib $(ARFLAGS) /OUT:"$@" $(OBJS) > nul
 
 
-!ELSE IF "$(BUILD_OS)" == "NDS"
+!ELSE IF "$(BUILD_OS)" == "nds"
 
 TARGETS = libdynload_s.a
 OBJS = dynload_unix.o
@@ -35,5 +35,5 @@ $(TARGETS):# $(OBJS)
 !ENDIF
 
 
-!INCLUDE $(TOP)\build\nmake\epilog.nmake
+!INCLUDE $(TOP)\buildsys\nmake\epilog.nmake
 

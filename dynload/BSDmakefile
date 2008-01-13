@@ -10,7 +10,7 @@
 TOP		= ..
 
 
-.include "$(TOP)/build/bsdmake/prolog.bsdmake"
+.include "$(TOP)/buildsys/bsdmake/prolog.bsdmake"
 
 
 # Overrides.
@@ -25,5 +25,5 @@ CXXFLAGS	+=
 MODS += dynload_unix
 
 
-.include "$(TOP)/build/bsdmake/epilog.bsdmake"
+.include "$(TOP)/buildsys/bsdmake/epilog.bsdmake"
 
