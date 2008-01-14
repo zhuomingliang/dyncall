@@ -23,7 +23,7 @@ MODS += dyncall_callvm_x86
 ifndef BUILD_TOOL_msvc
 MODS += dyncall_x86_$(BUILD_ASM)
 else
-MODS += dyncall_x86_win32
+MODS += dyncall_x86_windows
 endif
 
 nasm_FLAGS += -DBUILD_OS=$(BUILD_OS)=1 -DBUILD_ARCH_$(BUILD_ARCH)=1
