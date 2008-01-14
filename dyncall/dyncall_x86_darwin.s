@@ -15,6 +15,7 @@
 
 # -----------------------------------------------------------------------------
 # Calling Convention IA32 standard C
+# - stack is 16 byte aligned
 # - all arguments are on the stack
 # - caller cleans up stack
 #

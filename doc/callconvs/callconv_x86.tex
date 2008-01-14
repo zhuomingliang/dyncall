@@ -49,7 +49,7 @@ Name          & Brief description\\
 \item stack parameter order: right-to-left
 \item caller cleans up the stack@@@ doesn't belong to "parameter passing"
 \item all parameters are pushed onto the stack
-\item stack is usually 4 byte aligned (GCC \textgreater=\ 3.x seems to use a 16byte alignement)
+\item stack is usually 4 byte aligned (GCC \textgreater=\ 3.x seems to use a 16byte alignement - this is required on darwin/i386 platforms)
 \end{itemize}
 
 
@@ -403,10 +403,11 @@ Name          & Brief description\\
 \paragraph{Parameter passing}
 
 \begin{itemize}
-\item stack parameter order: right-to-left
-\item called function cleans up the stack
-\item all parameters are pushed onto the stack
-\item stack is usually 4 byte aligned (GCC \textgreater=\ 3.x seems to use a 16byte alignement@@@)
+\item Stack parameter order: right-to-left
+\item Called function cleans up the stack
+\item All parameters are pushed onto the stack
+\item Stack is usually 4 byte aligned (GCC \textgreater=\ 3.x seems to use a 16byte alignement@@@)
+\item Function name is decorated by prepending an underscore character and appending a '@' character and the number of bytes of stack space required
 \end{itemize}
 
 
@@ -477,6 +478,7 @@ Name          & Brief description\\
 \item called function cleans up the stack
 \item first parameter (this pointer) is passed via ecx
 \item all other parameters are pushed onto the stack
+\item Function name is decorated by prepending a '@' character and appending a '@' character and the number of bytes (decimal) of stack space required
 \end{itemize}
 
 
