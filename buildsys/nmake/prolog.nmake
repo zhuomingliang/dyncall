@@ -18,8 +18,8 @@ all: build
 
 # Check if library has been 'configured' properly. If not, tell the user and abort.
 !IF !DEFINED(BUILD_OS) || !DEFINED(BUILD_ARCH) || !DEFINED(BUILD_UNIX)
-config: $(TOP)/ConfigRules
-$(TOP)/ConfigRules:
+config: $(TOP)/ConfigVars
+$(TOP)/ConfigVars:
 	echo "Library not configured! Run configure.bat from the library's root directory first!"
 	false
 !ELSE
@@ -28,15 +28,15 @@ config:
 
 
 # Include config rules.
-!IF EXISTS($(TOP)/ConfigRules)
-!  INCLUDE $(TOP)/ConfigRules
+!IF EXISTS($(TOP)/ConfigVars)
+!  INCLUDE $(TOP)/ConfigVars
 !ENDIF
 
 
 # Include site rules.
-!IF EXISTS($(TOP)/SiteRules)
-!  INCLUDE $(TOP)/SiteRules
+!IF EXISTS($(TOP)/SiteVars)
+!  INCLUDE $(TOP)/SiteVars
 !ENDIF
 
 
-!INCLUDE tool_$(BUILD_TOOL)_.nmake
+!INCLUDE tool_$(BUILD_TOOL).nmake

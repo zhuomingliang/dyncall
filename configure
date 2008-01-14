@@ -197,7 +197,7 @@ if [[ -z "$BUILD_ASM" ]]; then
   fi
 fi
 
-# --- write ConfigRules files ------------------------------------------------
+# --- write ConfigVars files ------------------------------------------------
 
 writeVars()
 {

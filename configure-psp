@@ -51,9 +51,9 @@ elif [[ $ARCH = "amd64" ]]; then
   ARCH="X64"
 fi
 
-# --- output ConfigRules file -------------------------------------------------
+# --- output ConfigVars file -------------------------------------------------
 
-cat >ConfigRules <<EOF
+cat >ConfigVars <<EOF
 BUILD_UNIX  = 1
 BUILD_OS    = PSP
 BUILD_ARCH  = MIPS32

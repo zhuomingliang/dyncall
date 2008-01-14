@@ -4,7 +4,7 @@ Copyright 2007 Tassilo Philipp
 configuration:
 
 Prior to running "make" the library, one should run "configure" first.
-This will create the file 'ConfigRules' defining some variables identifying
+This will create the file 'ConfigVars' defining some variables identifying
 the system to build the library for.
 
 BUILD_OS   - "{Free,Net,Open,DragonFly}BSD","SunOS","Darwin"
@@ -17,7 +17,7 @@ BUILD_ASM
 
 site configuration:
 
-  file 'SiteRules' overrides 'ConfigRules'
+  file 'SiteVars' overrides 'ConfigVars'
 
 
 targets:
