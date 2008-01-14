@@ -12,11 +12,8 @@ TOP   = .
 .include "$(TOP)/buildsys/bsdmake/prolog.bsdmake"
 
 # directories:
-DIRS  = dyncall dynload test
-AUTOS = ConfigRules
-
-# dependencies:
-test: dyncall dynload
+DIRS  = dyncall dynload
+AUTOS = ConfigVars
 
 .include "$(TOP)/buildsys/bsdmake/epilog.bsdmake"
 

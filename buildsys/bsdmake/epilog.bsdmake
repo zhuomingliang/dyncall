@@ -7,21 +7,18 @@
 #///////////////////////////////////////////////////
 
 
-.if defined(BUILD_TOOL_GCC)
-.  include "$(TOP)/build/bsdmake/gcc.make"
+.if $(BUILD_TOOL) == gcc
+.  include "$(TOP)/buildsys/bsdmake/gcc.bsdmake"
 .else
-#.  error "Unsupported build tool selected."
+.  error "Unsupported build tool selected."
 .endif
 
-
-.if defined(BUILD_UNIX) && $(BUILD_UNIX) == 1
-. include "$(TOP)/build/bsdmake/unix.bsdmake"
-. if $(BUILD_OS) == Darwin
-.  include "$(TOP)/build/bsdmake/osx.bsdmake"
-. endif
+.include "$(TOP)/buildsys/bsdmake/unix.bsdmake"
+.if $(BUILD_OS) == darwin
+.  include "$(TOP)/buildsys/bsdmake/osx.bsdmake"
 .endif
 
-.include "$(TOP)/build/bsdmake/targets.bsdmake"
-.include "$(TOP)/build/bsdmake/common.bsdmake"
-.include "$(TOP)/build/bsdmake/implied.bsdmake"
+.include "$(TOP)/buildsys/bsdmake/targets.bsdmake"
+.include "$(TOP)/buildsys/bsdmake/common.bsdmake"
+.include "$(TOP)/buildsys/bsdmake/implied.bsdmake"
 

@@ -2,5 +2,5 @@ CC		= gcc
 CXX		= g++
 AR		= ar
 AS		= as
-LD		= ld
+LD		= g++ # to link in standard libs automatically
 
