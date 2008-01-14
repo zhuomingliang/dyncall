@@ -369,6 +369,7 @@ void testCallValue(DCCallVM* pc)
 #ifdef DC__OS_Win32
 DC_DEFINE_TEST_FUNC_BEGIN(testCallThisMS)
   DCCallVM* pc = dcNewCallVM(4096);
+  dcMode(pc,DC_CALL_C_X86_WIN32_THIS_MS);
   testCallValue<ValueMS>(pc); 
 DC_DEFINE_TEST_FUNC_END
 #endif
