@@ -13,7 +13,7 @@
 all: build
 
 
-!INCLUDE $(TOP)/build/build_dir.make
+#!INCLUDE $(TOP)/build/build_dir.make
 
 
 # Check if library has been 'configured' properly. If not, tell the user and abort.
@@ -39,4 +39,6 @@ config:
 !ENDIF
 
 
-!INCLUDE tool_$(BUILD_TOOL).nmake
+!IF DEFINED(BUILD_TOOL)
+!  INCLUDE tool_$(BUILD_TOOL).nmake
+!ENDIF
