@@ -5,12 +5,12 @@
 The MIPS family of processors is based on the MIPS processor architecture.
 Multiple revisions of the MIPS Instruction sets, namely MIPS I, MIPS II, MIPS III, MIPS IV, MIPS32 and MIPS64.
 Today, MIPS32 and MIPS64 for 32-bit and 64-bit respectively.\\
-Several add-on extensions exists for the MIPS family: 
+Several add-on extensions exist for the MIPS family: 
 
 \begin{description}
-\item [MIPS-3D] simple floating-point SIMD instructions dedicated to common 3D tasks
+\item [MIPS-3D] simple floating-point SIMD instructions dedicated to common 3D tasks.
 \item [MDMX] (MaDMaX) more extensive integer SIMD instruction set using 64 bit floating-point registers.
-\item [MIPS16e] adds compression to the instruction stream to make programs take up less room (allegedly a repsonse to the Thumb encoding in the ARM architecture)
+\item [MIPS16e] adds compression to the instruction stream to make programs take up less room (allegedly a response to the THUMB instruction set of the ARM architecture).
 \item [MIPS MT] multithreading additions to the system similar to HyperThreading.
 \end{description}
 
@@ -29,23 +29,23 @@ As documentation for this EABI is unofficial, this port is currently experimenta
 \begin{table}[h]
 \begin{tabular}{lll}
 \hline
-Name          & Alias & Brief description\\
+Name                                   & Alias                   & Brief description\\
 \hline
-\$0        & \$zero      & Hardware zero \\
-\$1        & \$at        & Assembler temporary \\
-\$2-\$3    & \$v0-\$v1   & Integer results \\
-\$4-\$11   & \$a0-\$a7   & Integer arguments\\
-\$12-\$15,\$24,\$25  & \$t4-\$t7,\$8,\$9   & Integer temporaries \\
-\$16-\$23   & \$s0-\$s7   & Preserved \\
-\$26-\$27   & \$kt0-\$kt1 & Reserved for kernel \\
-\$28       & \$gp       & Global pointer \\
-\$29       & \$sp       & Stack pointer \\
-\$30       & \$s8       & Frame pointer \\
-\$31       & \$ra       & Return address \\
-hi, lo    &           & Multiply/divide special registers \\
-\$f0,\$f2   &           & Float results \\
-\$f1,\$f3,\$f4-\$f11,\$f20-\$f23   &           & Float temporaries \\
-\$f12-\$f19 &           & Float arguments\\
+{\bf \$0}                              & {\bf \$zero}            & Hardware zero \\
+{\bf \$1}                              & {\bf \$at}              & Assembler temporary \\
+{\bf \$2-\$3}                          & {\bf \$v0-\$v1}         & Integer results \\
+{\bf \$4-\$11}                         & {\bf \$a0-\$a7}         & Integer arguments\\
+{\bf \$12-\$15,\$24,\$25}              & {\bf \$t4-\$t7,\$8,\$9} & Integer temporaries \\
+{\bf \$16-\$23}                        & {\bf \$s0-\$s7}         & Preserved \\
+{\bf \$26-\$27}                        & {\bf \$kt0-\$kt1}       & Reserved for kernel \\
+{\bf \$28}                             & {\bf \$gp}              & Global pointer \\
+{\bf \$29}                             & {\bf \$sp}              & Stack pointer \\
+{\bf \$30}                             & {\bf \$s8}              & Frame pointer \\
+{\bf \$31}                             & {\bf \$ra}              & Return address \\
+{\bf hi, lo}                           &                         & Multiply/divide special registers \\
+{\bf \$f0,\$f2}                        &                         & Float results \\
+{\bf \$f1,\$f3,\$f4-\$f11,\$f20-\$f23} &                         & Float temporaries \\
+{\bf \$f12-\$f19}                      &                         & Float arguments \\
 \end{tabular}
 \caption{Register usage on MIPS EABI calling convention}
 \end{table}

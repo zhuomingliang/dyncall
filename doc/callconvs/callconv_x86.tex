@@ -47,11 +47,12 @@ Name          & Brief description\\
 
 \begin{itemize}
 \item stack parameter order: right-to-left
-\item caller cleans up the stack@@@ doesn't belong to "parameter passing"
+\item caller cleans up the stack%@@@ doesn't belong to "parameter passing"
 \item all parameters are pushed onto the stack
 \item stack is usually 4 byte aligned (GCC \textgreater=\ 3.x seems to use a 16byte alignement - this is required on darwin/i386 platforms)
 \end{itemize}
 
+\pagebreak
 
 \paragraph{Return values}
 
@@ -90,6 +91,7 @@ parameter area                    &                            &                
 \caption{Stack layout on x86 cdecl calling convention}
 \end{figure}
 
+
 \subsubsection{MS fastcall}
 
 \paragraph{Registers and register usage}
@@ -113,6 +115,9 @@ Name          & Brief description\\
 \end{tabular}
 \caption{Register usage on x86 MS fastcall calling convention}
 \end{table}
+
+
+\pagebreak
 
 \paragraph{Parameter passing}
 
@@ -159,6 +164,7 @@ parameter area                    &                            &                
 \end{figure}
 
 
+\pagebreak
 
 \subsubsection{GNU fastcall}
 
@@ -204,6 +210,8 @@ Name          & Brief description\\
 \end{itemize}
 
 
+\pagebreak
+
 \paragraph{Stack layout}
 
 \begin{figure}[h]
@@ -229,8 +237,6 @@ parameter area                    &                            &                
 \caption{Stack layout on GNU fastcall calling convention}
 \end{figure}
 
-
-\pagebreak
 
 \subsubsection{Borland fastcall}
 
@@ -267,6 +273,8 @@ Name          & Brief description\\
 \end{itemize}
 
 
+\pagebreak
+
 \paragraph{Return values}
 
 \begin{itemize}
@@ -276,7 +284,6 @@ Name          & Brief description\\
 \end{itemize}
 
 
-\pagebreak
 
 \paragraph{Stack layout}
 
