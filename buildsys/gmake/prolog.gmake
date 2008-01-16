@@ -1,9 +1,10 @@
-GMAKE_TOP=$(TOP)/buildsys/gmake
+GMAKE_TOP=$(TOP)/gmake
 
 .PHONY: default build
 default: build
 
 include $(TOP)/ConfigVars
+-include $(TOP)/ProjectVars
 
 BUILD_CONFIG ?= debug
 

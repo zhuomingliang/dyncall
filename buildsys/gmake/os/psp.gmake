@@ -13,3 +13,5 @@ AR	= psp-ar
 AS	= psp-as
 LD	= psp-ld
 
+CPPFLAGS += -I$(PSPSDK)/include
+
