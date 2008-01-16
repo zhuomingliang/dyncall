@@ -114,3 +114,47 @@ call.as.sqrt <- function(funptr,x)
   rdc.call(funptr,"d)d", x)
 \end{lstlisting}
 
+
+\pagebreak
+
+\subsection{Supported platforms/architectures}
+
+The feature matrix below gives a brief overview of the currently supported
+platforms. Different colors are used, where a green cell indicates a supported
+platform, yellow a platform that might work (but is untested) and red a platform
+that is currently unsupported. Gray cells are combinations that don't exist
+at the time of writing, or that are not taken into account.\\
+Please note that a green cell doesn't imply that all existing calling
+conventions are supported for that platform (but the most important). For
+details about the support consult the appendix.
+
+\begin{table}[h]
+\begin{tabular}{r|cccccccccc}
+
+\LCC \marknull                 &                            &                       &                         &                             &                             &                         &                          &                            &                            \\
+                               & \ninetyb {\bf ARM}\ninetye & \ninetyb {\bf MIPS}\ninetye & \ninetyb {\bf SuperH}\ninetye & \ninetyb {\bf PowerPC (32)}\ninetye & \ninetyb {\bf PowerPC (64)}\ninetye & \ninetyb {\bf x86}\ninetye & \ninetyb {\bf x64}\ninetye & \ninetyb {\bf Itanium}\ninetye & \ninetyb {\bf SPARC}\ninetye \\ \ECC
+\hline
+\LCC                           & \markunkn                  & \markunkn                   & \marknimp                     & \marknotx                           & \marknotx                           & \markimpl                  & \markimpl                  & \marknimp                      & \marknotx                    \\
+{\bf Windows/Windows CE}       &                            &                             &                               &                                     &                                     &                            &                            &                                &                              \\ \ECC
+\LCC                           & \markunkn                  & \markunkn                   & \marknimp                     & \markunkn                           & \marknimp                           & \markimpl                  & \markimpl                  & \marknimp                      & \marknimp                    \\
+{\bf Linux}                    &                            &                             &                               &                                     &                                     &                            &                            &                                &                              \\ \ECC
+\LCC                           & \markunkn                  & \marknotx                   & \marknotx                     & \markimpl                           & \marknimp                           & \markimpl                  & \markunkn                  & \marknotx                      & \marknotx                    \\
+{\bf MacOS X}                  &                            &                             &                               &                                     &                                     &                            &                            &                                &                              \\ \ECC
+\LCC                           & \marknotx                  & \marknotx                   & \marknimp                     & \markunkn                           & \marknimp                           & \markimpl                  & \markimpl                  & \marknimp                      & \marknimp                    \\
+{\bf FreeBSD}                  &                            &                             &                               &                                     &                                     &                            &                            &                                &                              \\ \ECC
+\LCC                           & \markunkn                  & \markunkn                   & \marknimp                     & \markunkn                           & \marknimp                           & \markimpl                  & \markimpl                  & \marknimp                      & \marknimp                    \\
+{\bf NetBSD}                   &                            &                             &                               &                                     &                                     &                            &                            &                                &                              \\ \ECC
+\LCC                           & \markunkn                  & \markunkn                   & \marknimp                     & \markunkn                           & \marknimp                           & \markimpl                  & \markimpl                  & \marknimp                      & \marknimp                    \\
+{\bf OpenBSD}                  &                            &                             &                               &                                     &                                     &                            &                            &                                &                              \\ \ECC
+\LCC                           & \marknotx                  & \marknotx                   & \marknotx                     & \marknotx                           & \marknotx                           & \markimpl                  & \marknotx                  & \marknotx                      & \marknotx                    \\
+{\bf DragonFlyBSD}             &                            &                             &                               &                                     &                                     &                            &                            &                                &                              \\ \ECC
+\LCC                           & \marknotx                  & \marknotx                   & \marknotx                     & \marknotx                           & \marknotx                           & \markimpl                  & \markimpl                  & \marknotx                      & \marknimp                    \\
+{\bf Solaris}                  &                            &                             &                               &                                     &                                     &                            &                            &                                &                              \\ \ECC
+\LCC                           & \marknotx                  & \markimpl                   & \marknotx                     & \marknotx                           & \marknotx                           & \marknotx                  & \marknotx                  & \marknotx                      & \marknotx                    \\
+{\bf Playstation Portable}     &                            &                             &                               &                                     &                                     &                            &                            &                                &                              \\ \ECC
+\LCC                           & \markimpl                  & \marknotx                   & \marknotx                     & \marknotx                           & \marknotx                           & \marknotx                  & \marknotx                  & \marknotx                      & \marknotx                    \\
+{\bf Nintendo DS}              &                            &                             &                               &                                     &                                     &                            &                            &                                &                              \\ \ECC
+\end{tabular}
+\caption{Supported platforms}
+\end{table}
+

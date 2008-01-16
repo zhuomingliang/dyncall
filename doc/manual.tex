@@ -21,6 +21,7 @@
 \usepackage{a4wide}
 \usepackage{multirow}
 \usepackage{color}
+\usepackage{colortab}
 \usepackage{hhline}
 \usepackage{bigdelim}
 \usepackage{rotating}
@@ -138,6 +139,13 @@
 \newcommand{\sigstr}[1]{"{\tt #1}"}
 \newcommand{\cenum}[1]{#1}
 \newcommand{\product}[1]{\emph{#1}}
+
+% colors used to signalize undefined, not used, supported, etc. states.
+\newcommand{\marknull}{\color{white}}
+\newcommand{\markimpl}{\color{green}}
+\newcommand{\marknimp}{\color{red}}
+\newcommand{\markunkn}{\color{yellow}}
+\newcommand{\marknotx}{\color{gray1}}
 
 % table of contents config
 \setcounter{tocdepth}{3}
