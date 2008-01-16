@@ -1,4 +1,4 @@
-GMAKE_TOP=$(TOP)/gmake
+GMAKE_TOP=$(TOP)/buildsys/gmake
 
 .PHONY: default build
 default: build
