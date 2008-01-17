@@ -7,4 +7,6 @@ See doc/manual.pdf for information.
 
 TODO
 - doc/manual: footnotes
+- configure.bat: install path
+- rename test/ellipse -> test/ellipsis
 
