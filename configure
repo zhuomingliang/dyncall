@@ -26,7 +26,7 @@ info()
 
 usage()
 {
-  echo "dyncall configure shell-script"
+  echo "dyncall configuration shell-script"
   echo "Usage:"
   echo "  configure [ options ]"
   echo
