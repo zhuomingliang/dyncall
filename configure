@@ -36,9 +36,8 @@ usage()
   echo
   echo "  --prefix <path>     set installation prefix (defaults '/usr/local')"
   echo
-  echo "  --arch-x86          build for x86 architecture"
-  echo "  --arch-x64          build for x64 architecture"
-  echo
+  echo "  --target-x86        build for x86 architecture platform"
+  echo "  --target-x64        build for x64 architecture platform"
   echo "  --target-psp        build for Playstation Portable platform (PSPSDK)"
   echo "  --target-nds        build for Nintendo DS platform (devkitPro)"
   echo
@@ -134,7 +133,10 @@ while [[ 0 -lt $# ]]; do
       INSTALL_DIR=$1
       shift 1
       ;;
-    --arch-x64)
+    --target-x86)
+      BUILD_ARCH=x86
+      ;;
+    --target-x64)
       BUILD_ARCH=x64
       ;;
     --target-psp) 
