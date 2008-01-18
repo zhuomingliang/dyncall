@@ -187,10 +187,9 @@ DCCallVM* dcNewCallVM_x86_win32_std(DCsize size)
   return dc_callvm_new_x86( &gVT_x86_win32_std, size );
 }
 
+/* --- fastcall common (ms/gnu) -------------------------------------------- */
 
-/* --- fastcall ------------------------------------------------------------- */
-
-/* call win32/fast */
+/* call win32 ms fast */
 
 static void dc_callvm_call_x86_win32_fast(DCCallVM* in_self, DCpointer target)
 {
@@ -207,74 +206,77 @@ static void dc_callvm_reset_x86_win32_fast(DCCallVM* in_self)
   self->mIntRegs = 0;
 }
 
+
+/* --- fastcall ms --------------------------------------------------------- */
+
 /* arg int - probably hold in ECX and EDX */
 
-static void dc_callvm_argInt_x86_win32_fast(DCCallVM* in_self, DCint x)
+static void dc_callvm_argInt_x86_win32_fast_ms(DCCallVM* in_self, DCint x)
 {
   DCCallVM_x86* self = (DCCallVM_x86*) in_self;
   if (self->mIntRegs < 2) {
     *( (int*) dcVecAt(&self->mVecHead, sizeof(DCint) * self->mIntRegs ) ) = x;
-    ++self->mIntRegs;
+    ++( self->mIntRegs );
   } else
     dcVecAppend(&self->mVecHead, &x, sizeof(DCint) );
 }
 
 /* arg bool - promote to int */
 
-static void dc_callvm_argBool_x86_win32_fast(DCCallVM* in_self, DCbool x)
+static void dc_callvm_argBool_x86_win32_fast_ms(DCCallVM* in_self, DCbool x)
 {
   DCint v = (DCint) x;
-  dc_callvm_argInt_x86_win32_fast(in_self,v);
+  dc_callvm_argInt_x86_win32_fast_ms(in_self,v);
 }
 
 /* arg char - promote to int */
 
-static void dc_callvm_argChar_x86_win32_fast(DCCallVM* in_self, DCchar x)
+static void dc_callvm_argChar_x86_win32_fast_ms(DCCallVM* in_self, DCchar x)
 {
   DCint v = (DCint) x;
-  dc_callvm_argInt_x86_win32_fast(in_self,v);
+  dc_callvm_argInt_x86_win32_fast_ms(in_self,v);
 }
 
 /* arg short - promote to int */
 
-static void dc_callvm_argShort_x86_win32_fast(DCCallVM* in_self, DCshort x)
+static void dc_callvm_argShort_x86_win32_fast_ms(DCCallVM* in_self, DCshort x)
 {
   DCint v = (DCint) x;
-  dc_callvm_argInt_x86_win32_fast(in_self,v);
+  dc_callvm_argInt_x86_win32_fast_ms(in_self,v);
 }
 
 /* arg long - promote to int */
 
-static void dc_callvm_argLong_x86_win32_fast(DCCallVM* in_self, DClong x)
+static void dc_callvm_argLong_x86_win32_fast_ms(DCCallVM* in_self, DClong x)
 {
-  DCCallVM_x86* self = (DCCallVM_x86*) in_self;
-  dcVecAppend(&self->mVecHead, &x, sizeof(DClong) );
+  DCint v = (DCint) x;
+  dc_callvm_argInt_x86_win32_fast_ms(in_self,v);
 }
 
 /* arg pointer - promote to int */
 
-static void dc_callvm_argPointer_x86_win32_fast(DCCallVM* in_self, DCpointer x)
+static void dc_callvm_argPointer_x86_win32_fast_ms(DCCallVM* in_self, DCpointer x)
 {
   DCint v = (DCint) x;
-  dc_callvm_argInt_x86_win32_fast(in_self,v);
+  dc_callvm_argInt_x86_win32_fast_ms(in_self,v);
 }
 
 /* win32/fast vt */
 
-DCCallVM_vt gVT_x86_win32_fast =
+DCCallVM_vt gVT_x86_win32_fast_ms =
 {
   &dc_callvm_free_x86
 , &dc_callvm_reset_x86_win32_fast
 , &dc_callvm_mode_x86
-, &dc_callvm_argBool_x86_win32_fast
-, &dc_callvm_argChar_x86_win32_fast
-, &dc_callvm_argShort_x86_win32_fast
-, &dc_callvm_argInt_x86_win32_fast
-, &dc_callvm_argLong_x86_win32_fast
+, &dc_callvm_argBool_x86_win32_fast_ms
+, &dc_callvm_argChar_x86_win32_fast_ms
+, &dc_callvm_argShort_x86_win32_fast_ms
+, &dc_callvm_argInt_x86_win32_fast_ms
+, &dc_callvm_argLong_x86_win32_fast_ms
 , &dc_callvm_argLongLong_x86
 , &dc_callvm_argFloat_x86
 , &dc_callvm_argDouble_x86
-, &dc_callvm_argPointer_x86_win32_fast
+, &dc_callvm_argPointer_x86_win32_fast_ms
 , (DCvoidvmfunc*)       &dc_callvm_call_x86_win32_fast
 , (DCboolvmfunc*)       &dc_callvm_call_x86_win32_fast
 , (DCcharvmfunc*)       &dc_callvm_call_x86_win32_fast
@@ -287,9 +289,124 @@ DCCallVM_vt gVT_x86_win32_fast =
 , (DCpointervmfunc*)    &dc_callvm_call_x86_win32_fast
 };
 
-DCCallVM* dcNewCallVM_x86_win32_fast(DCsize size) 
+DCCallVM* dcNewCallVM_x86_win32_fast_ms(DCsize size) 
 { 
-  return dc_callvm_new_x86( &gVT_x86_win32_fast, size );
+  return dc_callvm_new_x86( &gVT_x86_win32_fast_ms, size );
+}
+
+/* --- gnu fastcall -------------------------------------------------------- */
+
+/* arg int - probably hold in ECX and EDX */
+
+static void dc_callvm_argInt_x86_win32_fast_gnu(DCCallVM* in_self, DCint x)
+{
+  DCCallVM_x86* self = (DCCallVM_x86*) in_self;
+  if (self->mIntRegs < 2) {
+    *( (int*) dcVecAt(&self->mVecHead, sizeof(DCint) * self->mIntRegs ) ) = x;
+    ++( self->mIntRegs );
+  } else
+    dcVecAppend(&self->mVecHead, &x, sizeof(DCint) );
+}
+
+/* arg bool - promote to int */
+
+static void dc_callvm_argBool_x86_win32_fast_gnu(DCCallVM* in_self, DCbool x)
+{
+  DCint v = (DCint) x;
+  dc_callvm_argInt_x86_win32_fast_gnu(in_self,v);
+}
+
+/* arg char - promote to int */
+
+static void dc_callvm_argChar_x86_win32_fast_gnu(DCCallVM* in_self, DCchar x)
+{
+  DCint v = (DCint) x;
+  dc_callvm_argInt_x86_win32_fast_gnu(in_self,v);
+}
+
+/* arg short - promote to int */
+
+static void dc_callvm_argShort_x86_win32_fast_gnu(DCCallVM* in_self, DCshort x)
+{
+  DCint v = (DCint) x;
+  dc_callvm_argInt_x86_win32_fast_gnu(in_self,v);
+}
+
+/* arg long - promote to int */
+
+static void dc_callvm_argLong_x86_win32_fast_gnu(DCCallVM* in_self, DClong x)
+{
+  DCint v = (DCint) x;
+  dc_callvm_argInt_x86_win32_fast_gnu(in_self,v);
+}
+
+/* arg pointer - promote to int */
+
+static void dc_callvm_argPointer_x86_win32_fast_gnu(DCCallVM* in_self, DCpointer x)
+{
+  DCint v = (DCint) x;
+  dc_callvm_argInt_x86_win32_fast_gnu(in_self,v);
+}
+
+/* arg long long - push on stack */
+
+static void dc_callvm_argLongLong_x86_win32_fast_gnu(DCCallVM* in_self, DClonglong x)
+{
+  DCCallVM_x86* self = (DCCallVM_x86*) in_self;
+  self->mIntRegs = 2;
+  dc_callvm_argLongLong_x86(in_self,x);
+}
+
+/* arg float - probably skip, push on stack */
+
+static void dc_callvm_argFloat_x86_win32_fast_gnu(DCCallVM* in_self, DCfloat x)
+{
+  DCCallVM_x86* self = (DCCallVM_x86*) in_self;
+  if (self->mIntRegs < 2) self->mIntRegs++; 
+  // = 2;
+  dc_callvm_argFloat_x86(in_self,x);
+}
+
+/* arg double - push on stack */
+
+static void dc_callvm_argDouble_x86_win32_fast_gnu(DCCallVM* in_self, DCdouble x)
+{
+  DCCallVM_x86* self = (DCCallVM_x86*) in_self;
+  self->mIntRegs = 2;
+  dc_callvm_argDouble_x86(in_self,x);
+}
+
+/* win32/fast/gnu vt */
+
+DCCallVM_vt gVT_x86_win32_fast_gnu =
+{
+  &dc_callvm_free_x86
+, &dc_callvm_reset_x86_win32_fast
+, &dc_callvm_mode_x86
+, &dc_callvm_argBool_x86_win32_fast_gnu
+, &dc_callvm_argChar_x86_win32_fast_gnu
+, &dc_callvm_argShort_x86_win32_fast_gnu
+, &dc_callvm_argInt_x86_win32_fast_gnu
+, &dc_callvm_argLong_x86_win32_fast_gnu
+, &dc_callvm_argLongLong_x86_win32_fast_gnu
+, &dc_callvm_argFloat_x86_win32_fast_gnu
+, &dc_callvm_argDouble_x86_win32_fast_gnu
+, &dc_callvm_argPointer_x86_win32_fast_gnu
+, (DCvoidvmfunc*)       &dc_callvm_call_x86_win32_fast
+, (DCboolvmfunc*)       &dc_callvm_call_x86_win32_fast
+, (DCcharvmfunc*)       &dc_callvm_call_x86_win32_fast
+, (DCshortvmfunc*)      &dc_callvm_call_x86_win32_fast
+, (DCintvmfunc*)        &dc_callvm_call_x86_win32_fast
+, (DClongvmfunc*)       &dc_callvm_call_x86_win32_fast
+, (DClonglongvmfunc*)   &dc_callvm_call_x86_win32_fast
+, (DCfloatvmfunc*)      &dc_callvm_call_x86_win32_fast
+, (DCdoublevmfunc*)     &dc_callvm_call_x86_win32_fast
+, (DCpointervmfunc*)    &dc_callvm_call_x86_win32_fast
+};
+
+DCCallVM* dcNewCallVM_x86_win32_fast_gnu(DCsize size) 
+{ 
+  return dc_callvm_new_x86( &gVT_x86_win32_fast_gnu, size );
 }
 
 /* --- this ms ------------------------------------------------------------- */
@@ -351,11 +468,13 @@ void dc_callvm_mode_x86(DCCallVM* in_self, DCint mode)
   switch(mode) {
     case DC_CALL_C_DEFAULT:            vt = &gVT_x86_cdecl;         break;
     case DC_CALL_C_X86_WIN32_STD:      vt = &gVT_x86_win32_std;     break;
-    case DC_CALL_C_X86_WIN32_FAST_MS:  vt = &gVT_x86_win32_fast;    break;
+    case DC_CALL_C_X86_WIN32_FAST_MS:  vt = &gVT_x86_win32_fast_ms; break;
     case DC_CALL_C_X86_WIN32_THIS_MS:  vt = &gVT_x86_win32_this_ms; break;
+    case DC_CALL_C_X86_WIN32_FAST_GNU: vt = &gVT_x86_win32_fast_gnu; break;
     case DC_CALL_C_X86_WIN32_THIS_GNU: vt = &gVT_x86_cdecl;         break;
     default: return;
   }
   self->mInterface.mVTpointer = vt;
+  dcReset(in_self);
 }
 

@@ -36,6 +36,8 @@ typedef struct DCCallVM_    DCCallVM;
 #define DC_CALL_C_X86_WIN32_THIS_MS     3
 /** Win32/X86 platform: (gnu-) thiscall calling convention mode */
 #define DC_CALL_C_X86_WIN32_THIS_GNU    4
+/** Win32/X86 platform: (gnu-) fastcall calling convention mode */
+#define DC_CALL_C_X86_WIN32_FAST_GNU    9
 /** X64 Win64 platform: default c calling convention mode */
 #define DC_CALL_C_X64_WIN64             5
 /** PPC32/Darwin platform: default c calling convention mode */

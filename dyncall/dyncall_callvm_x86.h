@@ -31,7 +31,8 @@ struct DCCallVM_x86_
 
 DCCallVM* dcNewCallVM_x86_cdecl(DCsize size);
 DCCallVM* dcNewCallVM_x86_win32_std(DCsize size);
-DCCallVM* dcNewCallVM_x86_win32_fast(DCsize size);
+DCCallVM* dcNewCallVM_x86_win32_fast_ms(DCsize size);
+DCCallVM* dcNewCallVM_x86_win32_fast_gnu(DCsize size);
 DCCallVM* dcNewCallVM_x86_win32_this_ms(DCsize size);
 
 #endif /* DYNCALL_CALLVM_X86_H */
