@@ -1,0 +1,33 @@
+#///////////////////////////////////////////////////
+#
+#	bsdmake makefile
+#	Copyright 2007 Tassilo Philipp
+#	BSDmakefile
+#
+#///////////////////////////////////////////////////
+
+
+TOP=../..
+
+.include "$(TOP)/buildsys/bsdmake/prolog.bsdmake"
+
+
+MODS	=	case main
+APP	=	suite
+
+CPPFLAGS	=
+LDFLAGS		=
+LIBS	=	"$(TOP)/dyncall/libdyncall_s.a"
+
+AUTOS	=	config.h case.h
+
+
+.PHONY: config 
+config: $(AUTOS)
+$(AUTOS): mkcase.py .SILENT
+	echo Generating test cases...
+	python mkcase.py >case.h 2>config.h
+
+
+.include "$(TOP)/buildsys/bsdmake/epilog.bsdmake"
+

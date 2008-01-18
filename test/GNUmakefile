@@ -10,10 +10,10 @@ TOP	=  ..
 include $(TOP)/buildsys/gmake/prolog.gmake
 DIRS	+= suite ellipsis suite2 callf plain
 
-ifdef BUILD_OS_Windows
-DIRS	+= suite_x86win32fastms
-DIRS	+= suite2_x86win32fastms
+ifdef BUILD_OS_windows
+DIRS	+= suite_x86win32fast
 DIRS	+= suite_x86win32std
+DIRS	+= suite2_x86win32fast
 DIRS	+= suite2_x86win32std
 endif
 
