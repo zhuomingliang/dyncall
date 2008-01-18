@@ -171,7 +171,11 @@ DEF_FUNCS(__fastcall,fast)
 
 DC_DEFINE_TEST_FUNC_BEGIN(testCallFast)
   DCCallVM* pc = dcNewCallVM(4096);
+#ifdef DC__C_GNU
+  dcMode(pc,DC_CALL_C_X86_WIN32_FAST_GNU);
+#else
   dcMode(pc,DC_CALL_C_X86_WIN32_FAST_MS);
+#endif
   /* void */
   dcReset(pc);
   dcCallVoid(pc, (DCpointer) &fun_fast_v);
@@ -476,18 +480,29 @@ int main(int argc, char* argv[])
   
   b = b && testCallC();
   printf("C:%d\n",b);
+
   b = b && testCallThisC();
   printf("ThisC:%d\n",b);
+
 #ifdef DC__OS_Win32
-#ifdef _MSC_VER
+
+#ifdef DC__C_MSVC
   b = b && testCallThisMS();
   printf("ThisMS:%d\n",b);
 #endif
+
   b = b && testCallStd();
   printf("Std:%d\n",b);
+
   b = b && testCallFast();
-  printf("Fast:%d\n",b);
+#ifdef DC__C_GNU
+  printf("FastGNU:%d\n",b);
+#else
+  printf("FastMS:%d\n",b);
 #endif
+
+#endif
+
   printf("ok\n");
   return b;
 }

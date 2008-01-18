@@ -1,6 +1,7 @@
 #include "../../dyncall/dyncall.h"
 #include "config.h"
 #include "../../dyncall/dyncall_value.h"
+#include "../../dyncall/dyncall_macros.h"
 #include "funcinfo.h"
 #include <stdlib.h>
 #include <stdio.h>

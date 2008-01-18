@@ -26,6 +26,7 @@ include $(TOP)/buildsys/gmake/epilog.gmake
 $(AUTOS): mkcase.py
 	python mkcase.py >case.h 2>config.h
 
+.PHONY: config
 config: case.h
 case.o: case.cpp case.h config.h
 case.h: design.cfg
