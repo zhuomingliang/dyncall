@@ -11,9 +11,9 @@ TOP		= ../..
 
 include $(TOP)/buildsys/gmake/prolog.gmake
 
-APP		= suite
+APP		= ellipsis
 AUTOS		= config.h case.h
-MODS		= ellipse main
+MODS		= ellipsis main
 CPPFLAGS	= -I$(TOP)/dyncall
 CXX_EXCEPTIONS	= 0
 CXX_RTTI	= 0

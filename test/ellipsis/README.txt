@@ -1,5 +1,5 @@
-dyncall stress test suite: testing ellipse C calls
-==================================================
+dyncall stress test suite: testing ellipsis C calls
+===================================================
 (C) 2007 Daniel Adler
 
 requirements:
@@ -16,16 +16,16 @@ configuration:
 
 usage:
 
-  suite         	        - run full range
-  suite <id> 			- run test id <id>
-  suite <from> <to>		- run test id <from> to id <to> (inclusive).
+  ellipsis         	        - run full range
+  ellipsis <id> 		- run test id <id>
+  ellipsis <from> <to>		- run test id <from> to id <to> (inclusive).
 
   see test details in case.h
 
 
 description:
 
-  the test invokes 'void'-ellipse functions that effectively overwrite global 
+  the test invokes 'void'-ellipsis functions that effectively overwrite global 
   variables in a structured way.
   
   functions are identified by an id (a number starting at 0).
@@ -37,6 +37,3 @@ description:
     sets all arguments into type-specific value vectors at the given position
   
 
-   
-  
-  
