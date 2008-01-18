@@ -35,6 +35,7 @@ IF [%1]==[] (
 	ECHO.  /tool-gcc     use GNU Compiler Collection
 	ECHO.  /tool-msvc    use Microsoft Visual C++ compiler
 	ECHO.
+	ECHO.  /asm-as       use the GNU Assembler
 	ECHO.  /asm-nasm     use NASM Assembler
 	ECHO.  /asm-ml       use Microsoft Macro Assembler
 	ECHO.
@@ -46,13 +47,17 @@ IF [%1]==[] (
 ) ELSE IF [%1]==[/target-x64] (
 	SET BUILD_ARCH=x64
 ) ELSE IF [%1]==[/target-psp] (
-	SET BUILD_ARCH=psp
+	SET BUILD_ARCH=mips32
+	SET BUILD_OS=psp
 ) ELSE IF [%1]==[/target-nds] (
-	SET BUILD_ARCH=nds
+	SET BUILD_ARCH=arm9e_arm
+	SET BUILD_OS=nds
 ) ELSE IF [%1]==[/tool-gcc] (
 	SET BUILD_TOOL=gcc
 ) ELSE IF [%1]==[/tool-msvc] (
 	SET BUILD_TOOL=msvc
+) ELSE IF [%1]==[/asm-as] (
+	SET BUILD_ASM=as
 ) ELSE IF [%1]==[/asm-nasm] (
 	SET BUILD_ASM=nasm
 ) ELSE IF [%1]==[/asm-ml] (

@@ -7,7 +7,7 @@
 #///////////////////////////////////////////////////
 
 
-!IF "$(BUILD_ARCH)" == "arm_thumb"
+!IF "$(BUILD_ARCH)" == "arm9e_thumb"
 
 CC  =arm-eabi-gcc
 CXX =arm-eabi-g++
@@ -22,7 +22,7 @@ CXXFLAGS = $(CFLAGS) -fno-rtti -fno-exceptions
 LDFLAGS  = -specs=ds_arm9.specs -g -mthumb -mthumb-interwork -mno-fpu #-Wl,-Map,$(notdir $*.map)
 ARFLAGS  =
 
-!ELSE IF "$(BUILD_ARCH)" == "arm_arm"
+!ELSE IF "$(BUILD_ARCH)" == "arm9e_arm"
 
 CC  =arm-eabi-gcc
 CXX =arm-eabi-g++
