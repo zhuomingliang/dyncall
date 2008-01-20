@@ -88,33 +88,27 @@ one, please let us know.\\
 
 \paragraph{*nix flavour}
 \begin{lstlisting}
-./configure [options]
+./configure [--option ...]
+\end{lstlisting}
+
+\paragraph{windows flavour}
+
+\begin{lstlisting}
+.\configure [/option ...]
 \end{lstlisting}
 
 Available options:
 
 \begin{tabular}{ll}	
-{\tt --prefix path } & specify installation prefix \\
-{\tt --target-x86 } & build for x86 architecture \\
-{\tt --target-x64 } & build for x64 architecture \\
-{\tt --target-psp } & cross-compile build for Playstation Portable \\
-{\tt --target-nds } & cross-compile build for Nintendo DS \\
-{\tt --tool-gcc } & use GNU Compiler Collection tool-chain \\
-{\tt --tool-msvc } & use Microsoft Visual C++ \\
-{\tt --asm-nasm } & use NASM Assembler \\
-{\tt --asm-ml } & use Microsoft Macro Assembler \\
-\end{tabular}
-
-
-\paragraph{windows flavour}
-
-\begin{lstlisting}
-.\configure [options]
-\end{lstlisting}
-
-\begin{tabular}{ll}
-{\tt /x86 } & build for x86 architecture \\
-{\tt /x64 } & build for x64 architecture \\
+{\tt prefix} {\it path} & specify installation prefix \\
+{\tt target-x86} & build for x86 architecture \\
+{\tt target-x64} & build for x64 architecture \\
+{\tt target-psp} & cross-compile build for Playstation Portable \\
+{\tt target-nds} & cross-compile build for Nintendo DS \\
+{\tt tool-gcc} & use GNU Compiler Collection tool-chain \\
+{\tt tool-msvc} & use Microsoft Visual C++ \\
+{\tt asm-nasm} & use NASM Assembler \\
+{\tt asm-ml} & use Microsoft Macro Assembler \\
 \end{tabular}
 
 \item Build the static libraries \product{dyncall} and \product{dynload}
