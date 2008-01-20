@@ -1,6 +1,0 @@
-# dyncall gmake build system - linux
-# (C) 2007 Daniel Adler
-
-as_FLAGS += #--defsym DC_PREFIX_SYMBOLS=1
-nasm_FLAGS += -D DC_PREFIX_SYMBOLS -f elf
-

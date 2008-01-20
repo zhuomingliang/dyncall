@@ -1,3 +1,0 @@
-CFLAGS   = -O2
-CXXFLAGS = -O2
-
