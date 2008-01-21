@@ -27,7 +27,13 @@ else
 ifdef BUILD_TOOL_msvc
 MODS += dyncall_x86_windows
 else
+
+ifdef BUILD_OS_darwin
+MODS += dyncall_x86_darwin
+else
 MODS += dyncall_x86_as
+endif
+
 endif
 
 endif

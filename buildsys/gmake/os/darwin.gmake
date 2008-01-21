@@ -1,3 +1,23 @@
 DLL_SUFFIX=.dylib
 include $(GMAKE_TOP)/tool/$(BUILD_TOOL).gmake
 
+# cross-compilation support on darwin/gcc
+
+ifdef BUILD_ARCH_x86
+ASFLAGS+=-arch i386
+CFLAGS+=-arch i386
+CXXFLAGS+=-arch i386
+endif
+
+ifdef BUILD_ARCH_ppc32
+ASFLAGS+=-arch ppc
+CFLAGS+=-arch ppc
+CXXFLAGS+=-arch ppc
+endif
+
+ifdef BUILD_ARCH_x64
+ASFLAGS+=-arch x86_64
+CFLAGS+=-arch x86_64
+CXXFLAGS+=-arch x86_64
+endif
+

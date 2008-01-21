@@ -140,6 +140,9 @@ while [[ 0 -lt $# ]]; do
     --target-x64)
       BUILD_ARCH=x64
       ;;
+    --target-ppc32)
+      BUILD_ARCH=ppc32
+      ;;
     --target-psp) 
       BUILD_OS=psp
       BUILD_ARCH=mips32

@@ -1,0 +1,3 @@
+DLL_SUFFIX=.so
+include $(GMAKE_TOP)/tool/$(BUILD_TOOL).gmake
+
