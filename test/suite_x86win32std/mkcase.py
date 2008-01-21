@@ -3,7 +3,7 @@ import sys
 
 # parameters
 
-nargs  = 4
+nargs  = 3
 
 types  = ["DCbool","DCint","DClonglong","DCdouble","DCpointer","DCfloat"]
 

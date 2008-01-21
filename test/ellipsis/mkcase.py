@@ -3,7 +3,7 @@ import sys
 
 # parameters
 
-nargs  = 5
+nargs  = 3
 
 # all types without (float)
 

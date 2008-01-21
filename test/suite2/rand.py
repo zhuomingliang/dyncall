@@ -3,7 +3,7 @@
 import random
 import sys
 
-N = 10000
+N = 100
 MINARG = 0
 MAXARG = 19
 
