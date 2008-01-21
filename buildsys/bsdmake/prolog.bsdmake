@@ -21,7 +21,7 @@ all: build
 
 
 # Check if library has been 'configured' properly. If not, tell the user and abort.
-.if !defined(BUILD_OS) || !defined(BUILD_ARCH) || !defined(BUILD_UNIX)
+.if !defined(BUILD_OS) || !defined(BUILD_ARCH) || !defined(BUILD_TOOL)
 config: $(TOP)/ConfigVars
 $(TOP)/ConfigVars: .SILENT
 	echo "Library not configured! Run ./configure from the library's root directory first!"
@@ -35,12 +35,4 @@ config:
 .if exists($(TOP)/SiteVars)
 .  include "$(TOP)/SiteVars"
 .endif
-
-# Configuration defs.
-BUILD_OS_$(BUILD_OS)		= 1
-BUILD_ARCH_$(BUILD_ARCH)	= 1
-BUILD_TOOL_$(BUILD_TOOL)	= 1
-BUILD_ASM			?= as
-BUILD_ASM_$(BUILD_ASM)		= 1
-BUILD_CONFIG			?= debug
 

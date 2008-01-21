@@ -7,14 +7,12 @@
 #///////////////////////////////////////////////////
 
 
-.if $(BUILD_TOOL) == gcc
+.if defined(BUILD_TOOL) && $(BUILD_TOOL) == gcc
 .  include "$(TOP)/buildsys/bsdmake/gcc.bsdmake"
-.else
-.  error "Unsupported build tool selected."
 .endif
 
 .include "$(TOP)/buildsys/bsdmake/unix.bsdmake"
-.if $(BUILD_OS) == darwin
+.if defined(BUILD_OS) && $(BUILD_OS) == darwin
 .  include "$(TOP)/buildsys/bsdmake/osx.bsdmake"
 .endif
 
