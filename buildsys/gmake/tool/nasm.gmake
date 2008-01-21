@@ -1,0 +1,16 @@
+ifdef BUILD_OS_windows
+ifdef BUILD_ARCH_x86
+NASMFLAGS=-f win32
+endif
+ifdef BUILD_ARCH_x64
+NASMFLAGS=-f win64
+endif
+else
+NASMFLAGS=-f elf
+endif
+
+NASMFLAGS+=-DBUILD_OS_$(BUILD_OS)=1 -DBUILD_ARCH_$(BUILD_ARCH)=1
+
+$(BUILD_DIR)/%.o: %.nasm
+	nasm $(NASMFLAGS) $< -o $@
+
