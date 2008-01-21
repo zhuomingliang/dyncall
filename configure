@@ -44,6 +44,7 @@ usage()
   echo "  --tool-gcc          use GNU Compiler Collection"
   echo "  --tool-msvc         use Microsoft Visual C++"
   echo 
+  echo "  --asm-as            use GNU Assembler"
   echo "  --asm-nasm          use NASM Assembler"
   echo "  --asm-ml            use Microsoft Macro Assembler"
   echo
@@ -154,6 +155,9 @@ while [[ 0 -lt $# ]]; do
       ;;
     --tool-msvc)
       BUILD_TOOL=msvc
+      ;;
+    --asm-as)
+      BUILD_ASM=as
       ;;
     --asm-nasm)
       BUILD_ASM=nasm

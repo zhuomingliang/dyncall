@@ -1,7 +1,7 @@
 dynamic function call library project
 =====================================
-Copyright (C) 2007 D. Adler and T. Philipp
-This project is under two-clause BSD License.
+Copyright (C) 2007 Daniel Adler and Tassilo Philipp
+This project is released under a two-clause BSD License.
 
 See doc/manual.pdf for information.
 
