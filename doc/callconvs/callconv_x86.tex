@@ -14,7 +14,7 @@ convention, etc\ldots
 
 \paragraph{\product{dyncall} support}
 
-Currently, only cdecl, MS fastcall, MS thiscall and GNU thiscall are
+Currently cdecl, stdcall, fastcall (MS and GNU) and thiscall (MS and GNU) are
 supported.\\
 \\
 
@@ -113,7 +113,7 @@ Name          & Brief description\\
 {\bf st1-st7} & scratch\\
 \hline
 \end{tabular}
-\caption{Register usage on x86 MS fastcall calling convention}
+\caption{Register usage on x86 fastcall (MS) calling convention}
 \end{table}
 
 
@@ -160,7 +160,7 @@ parameter area                    &                            &                
                                   & \vdots                     &                                &                              \\
 \hhline{~-~~}
 \end{tabular}
-\caption{Stack layout on x86 MS fastcall calling convention}
+\caption{Stack layout on x86 fastcall (MS) calling convention}
 \end{figure}
 
 
@@ -187,7 +187,7 @@ Name          & Brief description\\
 {\bf st1-st7} & scratch\\
 \hline
 \end{tabular}
-\caption{Register usage on x86 GNU fastcall calling convention}
+\caption{Register usage on x86 fastcall (GNU) calling convention}
 \end{table}
 
 \paragraph{Parameter passing}
@@ -234,7 +234,7 @@ parameter area                    &                            &                
                                   & \vdots                     &                                &                              \\
 \hhline{~-~~}
 \end{tabular}
-\caption{Stack layout on GNU fastcall calling convention}
+\caption{Stack layout on x86 fastcall (GNU) calling convention}
 \end{figure}
 
 
@@ -259,7 +259,7 @@ Name          & Brief description\\
 {\bf st1-st7} & scratch\\
 \hline
 \end{tabular}
-\caption{Register usage on Borland fastcall calling convention}
+\caption{Register usage on x86 fastcall (Borland) calling convention}
 \end{table}
 
 \paragraph{Parameter passing}
@@ -307,7 +307,7 @@ parameter area                    &                            &                
                                   & \vdots                     &                                &                              \\
 \hhline{~-~~}
 \end{tabular}
-\caption{Stack layout on Borland fastcall calling convention}
+\caption{Stack layout on x86 fastcall (Borland) calling convention}
 \end{figure}
 
 
@@ -333,7 +333,7 @@ Name          & Brief description\\
 {\bf st1-st7} & scratch\\
 \hline
 \end{tabular}
-\caption{Register usage on Watcom fastcall calling convention}
+\caption{Register usage on x86 fastcall (Watcom) calling convention}
 \end{table}
 
 \paragraph{Parameter passing}
@@ -378,7 +378,7 @@ parameter area                    &                            &                
                                   & \vdots                     &                                &                              \\
 \hhline{~-~~}
 \end{tabular}
-\caption{Stack layout on Watcom fastcall calling convention}
+\caption{Stack layout on x86 fastcall (Watcom) calling convention}
 \end{figure}
 
 
@@ -475,7 +475,7 @@ Name          & Brief description\\
 {\bf st1-st7} & scratch\\
 \hline
 \end{tabular}
-\caption{Register usage on MS thiscall calling convention}
+\caption{Register usage on x86 thiscall (MS) calling convention}
 \end{table}
 
 \paragraph{Parameter passing}
@@ -520,7 +520,7 @@ parameter area                    &                            &                
                                   & \vdots                     &                                &                              \\
 \hhline{~-~~}
 \end{tabular}
-\caption{Stack layout on MS thiscall calling convention}
+\caption{Stack layout on x86 thiscall (MS) calling convention}
 \end{figure}
 
 
@@ -546,7 +546,7 @@ Name          & Brief description\\
 {\bf st1-st7} & scratch\\
 \hline
 \end{tabular}
-\caption{Register usage on x86 GNU thiscall calling convention}
+\caption{Register usage on x86 thiscall (GNU) calling convention}
 \end{table}
 
 \paragraph{Parameter passing}
@@ -589,7 +589,7 @@ parameter area                    &                            &                
                                   & \vdots                     &                                &                              \\
 \hhline{~-~~}
 \end{tabular}
-\caption{Stack layout on x86 GNU thiscall calling convention}
+\caption{Stack layout on x86 thiscall (GNU) calling convention}
 \end{figure}
 
 
