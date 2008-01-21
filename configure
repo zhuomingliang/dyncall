@@ -93,7 +93,7 @@ guess_arch()
     BUILD_ARCH="ppc32"
   elif [[ $ARCH = "x86" || $ARCH = "i386" || $ARCH = "i486" || $ARCH = "i586" || $ARCH = "i686" || $ARCH = "i86pc" ]]; then
     BUILD_ARCH="x86"
-  elif [[ $ARCH = "amd64" ]]; then
+  elif [[ $ARCH = "amd64" || $ARCH = "x86_64" || $ARCH = "x64" ]]; then
     BUILD_ARCH="x64"
   fi
   info "guess arch $BUILD_ARCH"
