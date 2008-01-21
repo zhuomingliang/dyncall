@@ -81,31 +81,13 @@ ECHO INSTALL_DIR=%INSTALL_DIR%#>>ConfigVars
 
 
 REM We have to transform some pathes for the nds/devkitPro build.
-IF [%BUILD_ARCH%]==[nds] (
+IF [%BUILD_OS%]==[nds] (
 
 REM Check if DEVKITPRO is set.
-IF [X%DEVKITPRO%]==[X] (
-GOTO END_ABORT
-)
-
-REM Wee need at least 2 characters in the path.
-IF [%DEVKITPRO:~0,1%]==[%DEVKITPRO%] (
-GOTO END_ABORT
-)
-
-IF [%DEVKITPRO:~0,1%]==[/] (
-ECHO DEVKITPRO_PATH=%DEVKITPRO:~1,1%:%DEVKITPRO:~2%#>>ConfigVars
-) ELSE IF [%DEVKITPRO:~1,1%]==[:] (
-ECHO DEVKITPRO_PATH=%DEVKITPRO%#>>ConfigVars
+IF [%DEVKITPRO%]==[] (
+	ECHO ERROR: Environment variable DEVKITPRO must be set to absolute devkitPro path.
 ) ELSE (
-GOTO END_ABORT
+	conf-nds.bat
 )
 
-GOTO END
-
-:END_ABORT
-ECHO ERROR: Environment variable DEVKITPRO must be set to absolute devkitPro path.
-DEL ConfigVars
 )
-:END
-
