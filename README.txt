@@ -8,3 +8,4 @@ See doc/manual.pdf for information.
 TODO
 - doc/manual: footnotes
 - x86/win32/fast/gnu bug
+- configure.bat: dev
