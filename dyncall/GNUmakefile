@@ -20,13 +20,19 @@ ifdef BUILD_ARCH_x86
 
 MODS += dyncall_callvm_x86
 
-ifndef BUILD_TOOL_msvc
-MODS += dyncall_x86_$(BUILD_ASM)
+ifdef BUILD_ASM_nasm
+MODS += dyncall_x86_nasm
 else
+
+ifdef BUILD_TOOL_msvc
 MODS += dyncall_x86_windows
+else
+MODS += dyncall_x86_as
 endif
 
-nasm_FLAGS += -DBUILD_OS=$(BUILD_OS)=1 -DBUILD_ARCH_$(BUILD_ARCH)=1
+endif
+
+# nasm_FLAGS += -DBUILD_OS=$(BUILD_OS)=1 -DBUILD_ARCH_$(BUILD_ARCH)=1
 endif
 
 ifdef BUILD_ARCH_ppc32

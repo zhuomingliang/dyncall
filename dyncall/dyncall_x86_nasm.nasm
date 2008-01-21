@@ -15,16 +15,16 @@
 ; CSYM macro
 ;///////////////////////////////////////////////////////////////////////
 
-%ifdef DC_PREFIX_SYMBOLS
+%ifdef BUILD_OS_windows
 
-%macro CSYM 1
+%macro EXPORT_C 1
   global _%1
 _%1:
 %endmacro
 
 %else
 
-%macro CSYM 1
+%macro EXPORT_C 1
   global %1
 %1:
 %endmacro
@@ -40,7 +40,7 @@ _%1:
 ;   dcCallC(DCptr funptr, DCptr args, DCsize size)
 ; -----------------------------------------------------------------------------
 
-CSYM dcCall_x86_cdecl
+EXPORT_C dcCall_x86_cdecl
 
     push ebp              ; prolog 
     mov  ebp, esp         
@@ -83,7 +83,7 @@ CSYM dcCall_x86_cdecl
 ; C proto
 ;   dcCallThisMS(DCptr funptr, DCptr args, DCsize size)
 ; -----------------------------------------------------------------------------
-CSYM dcCall_x86_win32_msthis
+EXPORT_C dcCall_x86_win32_msthis
     
     push ebp              ; prolog 
     mov  ebp, esp         
@@ -129,7 +129,8 @@ CSYM dcCall_x86_win32_msthis
 ; C proto
 ;   dcCallStd(DCptr funptr, DCptr args, DCsize size)
 ; -----------------------------------------------------------------------------
-CSYM dcCall_x86_win32_std
+EXPORT_C dcCall_x86_win32_std
+
     push ebp              ; prolog 
     mov  ebp, esp         
 
@@ -169,7 +170,7 @@ CSYM dcCall_x86_win32_std
 ; C proto
 ;   dcCallFast(DCptr funptr, DCptr args, DCsize size)
 ; -----------------------------------------------------------------------------
-CSYM dcCall_x86_win32_fast
+EXPORT_C dcCall_x86_win32_fast
 
     push ebp              ; prolog 
     mov  ebp, esp
