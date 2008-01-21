@@ -12,8 +12,7 @@ TOP = ..
 !INCLUDE $(TOP)\buildsys\nmake\prolog.nmake
 
 
-DIRS = suite suite2 callf ellipse plain nm
+DIRS = suite suite2 callf ellipsis plain nm
 
 
 !INCLUDE $(TOP)\buildsys\nmake\epilog.nmake
-
