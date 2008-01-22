@@ -103,12 +103,12 @@ Available options:
 {\tt prefix} {\it path} & specify installation prefix \\
 {\tt target-x86}   & build for x86 architecture \\
 {\tt target-x64}   & build for x64 architecture \\
-{\tt target-ppc32} & build for ppc 32-bit architecture \\
+{\tt target-ppc32} & build for ppc 32-bit architecture (not on windows batch)\\
 {\tt target-psp}   & cross-compile build for Playstation Portable \\
 {\tt target-nds}   & cross-compile build for Nintendo DS \\
 {\tt tool-gcc}     & use GNU Compiler Collection tool-chain \\
 {\tt tool-msvc}    & use Microsoft Visual C++ \\
-{\tt asm-as}       & use the GNU Assembler @@@ add to ./configure, too\\
+{\tt asm-as}       & use the GNU Assembler \\
 {\tt asm-nasm}     & use NASM Assembler \\
 {\tt asm-ml}       & use Microsoft Macro Assembler \\
 \end{tabular}
@@ -126,5 +126,10 @@ make install
 \begin{lstlisting}
 make test
 name /f Namekfile test
+\end{lstlisting}
+\item Optionally, build the manual (Latex required)
+\begin{lstlisting}
+cd doc
+make
 \end{lstlisting}
 \end{enumerate}

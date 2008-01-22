@@ -56,7 +56,7 @@ Name                                   & Alias                   & Brief descrip
 \item Stack parameter order: right-to-left
 \item Caller cleans up the stack
 \item Stack always aligned to 8 bytes.
-\item first 8 integers and floats are passed independently in registers using \$a0-\$a7 and \$f4-\$f11, respectively.
+\item first 8 integers and floats are passed independently in registers using \$a0-\$a7 and \$f12-\$f19, respectively.
 \item if either integer or float registers are consumed up, the stack is used.
 \item 64-bit floats and integers are passed on two integer registers starting at an even register number, probably skipping one odd register.
 \item \$a0-\$a7 and \$f12-\$f19 are not required to be preserved.

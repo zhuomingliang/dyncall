@@ -107,17 +107,18 @@ void dcMode (DCCallVM* vm, DCint mode);
 \hline
 Constant & Description\\
 \hline
-\lstinline@DC_CALL_C_DEFAULT@            & Default C function call\\
-\lstinline@DC_CALL_C_X86_WIN32_STD@      & X86 Windows standard call\\
-\lstinline@DC_CALL_C_X86_WIN32_FAST_MS@  & X86 Windows Microsoft fast call\\
-\lstinline@DC_CALL_C_X86_WIN32_FAST_GNU@ & X86 Windows GCC fast call\\
-\lstinline@DC_CALL_C_X86_WIN32_THIS_MS@  & X86 Windows Microsoft this call\\
-\lstinline@DC_CALL_C_X86_WIN32_THIS_GNU@ & X86 Windows GCC this call\\
-\lstinline@DC_CALL_C_X64_WIN64@          & X64 Windows standard C call\\
-\lstinline@DC_CALL_C_PPC32_DARWIN@       & PPC32 Mac OS X standard C call\\
-\lstinline@DC_CALL_C_ARM@                & ARM standard call\\
-\lstinline@DC_CALL_C_MIPS32_EABI@        & MIPS 32-bit EABI call\\
-\lstinline@DC_CALL_C_MIPS32_PSPSDK@      & MIPS 32-bit Playstation Portable Homebrew SDK call\\
+\lstinline@DC_CALL_C_DEFAULT@            & C default function call\\
+\lstinline@DC_CALL_C_X86_CDECL@          & C x86 platforms standard call\\
+\lstinline@DC_CALL_C_X86_WIN32_STD@      & C x86 Windows standard call\\
+\lstinline@DC_CALL_C_X86_WIN32_FAST_MS@  & C x86 Windows Microsoft fast call\\
+\lstinline@DC_CALL_C_X86_WIN32_FAST_GNU@ & C x86 Windows GCC fast call\\
+\lstinline@DC_CALL_C_X86_WIN32_THIS_MS@  & C x86 Windows Microsoft this call\\
+\lstinline@DC_CALL_C_X86_WIN32_THIS_GNU@ & C x86 Windows GCC this call\\
+\lstinline@DC_CALL_C_X64_WIN64@          & C x64 Windows standard call\\
+\lstinline@DC_CALL_C_PPC32_DARWIN@       & C ppc32 Mac OS X standard call\\
+\lstinline@DC_CALL_C_ARM@                & C arm standard call\\
+\lstinline@DC_CALL_C_MIPS32_EABI@        & C mips32 eabi call\\
+\lstinline@DC_CALL_C_MIPS32_PSPSDK@      & C mips32 default PSP Homebrew SDK call (uses eabi)\\
 \hline
 \end{tabular*}
 \caption{CallVM calling convention modes}

@@ -11,8 +11,7 @@ GNUmakefile   -- GNU makefile
 Nmakefile     -- MS nmake makefile
 LICENSE       -- license information
 README.txt    -- general information
-build         -- build systems ({BSD,GNU,N}make)
-bindings/     -- language bindings directory
+buildsys/     -- build systems ({BSD,GNU,N}make)
 doc/          -- manual
 dyncall/      -- dyncall library source code
 dynload/      -- dynload library source code
@@ -21,29 +20,53 @@ test/         -- test suites
 
 \subsection{Test suites}
 
-\paragraph{plain}
+\begin{description}
 
-Identity function calls for all supported types and calling conventions,
-plus this and msthis C++ calls.
+\item [plain] 
+Identity function calls for all supported return types and calling conventions,
+plus this C++ calls (GNU and MS).
 
-\paragraph{suite}
-
+\item [suite] 
 All combinations of parameter type and count are tested on void function calls.
 A script written in Python ({\tt mkcase.py}) generates the tests up to
 an upper MAXARG limit.
 
-\paragraph{ellipsis}
+\item [suite\_x86win32std] 
+All combinations of parameter type and count are tested on {\tt \_\_stdcall} void function calls.
+A script written in Python ({\tt mkcase.py}) generates the tests up to
+an upper MAXARG limit. This is a x86/Windows only test.
+
+\item [suite\_x86win32fast] 
+All combinations of parameter type and count are tested on {\tt \_\_fastcall} (MS or GNU, depending on the build tool) void function calls.
+A script written in Python ({\tt mkcase.py}) generates the tests up to
+an upper MAXARG limit. This is a x86/Windows only test.
+
+\item [ellipsis]
 
 All combinations of parameter type and count are tested on void ellipsis 
 function calls. A script written in Python ({\tt mkcase.py}) generates the 
 tests up to an upper MAXARG limit.
 
-\paragraph{suite2}
+\item [suite2]
 
 Designed mass test suite for void function calls.
 Tests individual void functions with a varying count of arguments and type.
 
-\paragraph{callf}
+\item [suite2\_win32std]
+
+Designed mass test suite for {\tt \_\_stdcall} void function calls.
+Tests individual void functions with a varying count of arguments and type.
+This is a x86/Windows only test.
+
+\item [suite2\_win32fast]
+
+Designed mass test suite for {\tt \_\_fastcall} (MS or GNU, depending on the build tool) void function calls.
+Tests individual void functions with a varying count of arguments and type.
+This is a x86/Windows only test.
+
+\item [callf]
 
 Tests the \emph{formatted call} \product{dyncall} C API.
+
+\end{description}
 
