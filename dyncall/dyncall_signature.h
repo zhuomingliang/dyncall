@@ -43,7 +43,7 @@ typedef char DCsigchar;
 /** signature character for pointer */
 #define DC_SIGCHAR_POINTER      'p'
 /** signature character for string (abstract datatype) */
-#define DC_SIGCHAR_POINTER      'S'
+#define DC_SIGCHAR_STRING       'S'
 /** signature character for end-of-arguments marker */
 #define DC_SIGCHAR_ENDARG       ')'
 
