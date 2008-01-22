@@ -129,6 +129,7 @@ Constant & Description\\
 \paragraph{Details}
 
 \lstinline@DC_CALL_C_DEFAULT@ is the default standard C call on the target platform.
+It uses the standard C calling convention and will also be used for variable argument ellipsis calls.
 On most platforms, there is only one C calling convention. Only the X86 platform
 provides a rich family of different calling conventions.
 
@@ -141,10 +142,10 @@ void dcReset(DCCallVM* vm);
 
 Resets the internal stack of arguments. This function should be called prior 
 to binding new arguments to the CallVM, because arguments don't get flushed
-automatically after a call invocation.
+automatically after a foreign function call invocation.
 
 
-\subsection{Argument forwarding}
+\subsection{Argument binding}
 
 \paragraph{Functions}
 
@@ -162,7 +163,7 @@ void dcArgPointer (DCCallVM* vm, DCpointer  arg);
 
 \paragraph{Details}
 
-Arguments should be bound in \emph{left-to-right} order.
+Arguments should be bound in \emph{left-to-right} order regarding the C function prototyp.
 
 \subsection{Call invocation}
 
@@ -183,7 +184,7 @@ DCpointer  dcCallPointer (DCCallVM* vm, DCpointer funcptr);
 
 \paragraph{Details}
 
-After the invocation of the call, the arguments are still bounded and a second call using the
+After the invocation of the foreign function call, the argument values are still bounded and a second call using the
 same arguments can be issued. If you need to clear the argument bindings, 
 you have to reset the \emph{CallVM}.
 
@@ -200,5 +201,9 @@ void dcVCallF(DCCallVM* vm, DCValue* result, DCpointer funcptr,
               const DCsigchar* signature, va_list args);
 \end{lstlisting}
 
+\paragraph{Details}
 
+A formatted function call uses a signature character string, that encodes
+the argument types and return type.
+The return value will be stored in the \lstinline@DCValue@.
 
