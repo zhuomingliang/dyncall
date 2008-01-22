@@ -6,3 +6,7 @@ test:
 	$(MAKE) -C $@
 include $(TOP)/buildsys/gmake/epilog.gmake
 
+.PHONY: doxy
+doxy:
+	doxygen buildsys/doxygen
+

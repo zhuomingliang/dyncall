@@ -7,11 +7,11 @@
 
 //////////////////////////////////////////////////////////////////////////// */
 
+#include "dyncall_types.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif 
-
-#include "dyncall_types.h"
 
 /** library API, specifies static linkage (left empty) */
 #define DC_API

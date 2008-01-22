@@ -54,8 +54,10 @@ IF [%1]==[] (
 	SET BUILD_OS=nds
 ) ELSE IF [%1]==[/tool-gcc] (
 	SET BUILD_TOOL=gcc
+        SET BUILD_ASM=as
 ) ELSE IF [%1]==[/tool-msvc] (
 	SET BUILD_TOOL=msvc
+        SET BUILD_ASM=ml
 ) ELSE IF [%1]==[/asm-as] (
 	SET BUILD_ASM=as
 ) ELSE IF [%1]==[/asm-nasm] (

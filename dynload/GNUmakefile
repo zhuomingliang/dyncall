@@ -11,7 +11,7 @@ TOP=..
 include $(TOP)/buildsys/gmake/prolog.gmake
 
 LIBRARY=dynload
-INSTALL_HEADERS=dynload.h
+INSTALL_INCLUDES=dynload.h
 INSTALL_LIB=1
 
 ifdef BUILD_OS_windows

@@ -7,7 +7,7 @@ include $(TOP)/buildsys/gmake/prolog.gmake
 # targets
 
 LIBRARY         = dyncall
-INSTALL_INCLUDES= dyncall.h dyncall_types.h dyncall_config.h dyncall_signature.h
+INSTALL_INCLUDES= dyncall_macros.h dyncall_config.h dyncall_types.h dyncall.h dyncall_signature.h dyncall_value.h dyncall_callf.h
 INSTALL_LIB	= 1
 
 # modules

@@ -1,19 +1,34 @@
-#ifndef DYNCALL_ELLIPSE_H
-#define DYNCALL_ELLIPSE_H
+#ifndef DYNCALL_CALLF_H
+#define DYNCALL_CALLF_H
 
-#include "dyncall_callvm.h"
+#include "dyncall.h"
 #include "dyncall_signature.h"
 #include "dyncall_value.h"
 
 #include <stdarg.h>
 
-/*
- * formatted call - C ellipsis call interface to CallVM's
- * 
- */
+/** \defgroup FormattedCalls Formatted function calls (C ellipsis call interface) */
+/*@{*/
 
+/** Formatted function call
+ *  @param vm Pointer on opaque CallVM structure.
+ *  @param result Variant structure to store return value.
+ *  @param funcptr pointer on target function.
+ *  @param signature signature string that encodes the parameter types and return type.
+ *  @param ... ellipsis call variable arguments.
+ **/
 void dcCallF (DCCallVM* vm, DCValue* result, DCpointer funcptr, const DCsigchar* signature, ...);
+
+/** Formatted function call
+ *  @param vm Pointer on opaque CallVM structure.
+ *  @param result Variant structure to store return value.
+ *  @param funcptr pointer on target function.
+ *  @param signature signature string that encodes the parameter types and return type.
+ *  @param args va_list of arguments.
+ **/
 void dcVCallF(DCCallVM* vm, DCValue* result, DCpointer funcptr, const DCsigchar* signature, va_list args);
 
-#endif /* DYNCALL_ELLIPSE_H */
+/*@}*/
+
+#endif /* DYNCALL_CALLF_H */
 
