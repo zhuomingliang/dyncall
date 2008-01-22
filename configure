@@ -61,23 +61,23 @@ BUILD_OS=""
 guess_os()
 {
   OS=`uname -s`
-  if [[ $OS = "WindowsNT" ]]; then
+  if [ $OS = "WindowsNT" ]; then
     BUILD_OS="windows"
-  elif [[ $OS = "Darwin" ]]; then
+  elif [ $OS = "Darwin" ]; then
     BUILD_OS="darwin"
-  elif [[ $OS = "CYGWIN_NT-5.1" ]]; then
+  elif [ $OS = "CYGWIN_NT-5.1" ]; then
     BUILD_OS="windows"
-  elif [[ $OS = "Linux" ]]; then
+  elif [ $OS = "Linux" ]; then
     BUILD_OS="linux"
-  elif [[ $OS = "SunOS" ]]; then
+  elif [ $OS = "SunOS" ]; then
     BUILD_OS="sunos"
-  elif [[ $OS = "OpenBSD" ]]; then
+  elif [ $OS = "OpenBSD" ]; then
     BUILD_OS="openbsd"
-  elif [[ $OS = "FreeBSD" ]]; then
+  elif [ $OS = "FreeBSD" ]; then
     BUILD_OS="freebsd"
-  elif [[ $OS = "NetBSD" ]]; then
+  elif [ $OS = "NetBSD" ]; then
     BUILD_OS="netbsd"
-  elif [[ $OS = "DragonFly" ]]; then
+  elif [ $OS = "DragonFly" ]; then
     BUILD_OS="dragonfly"
   fi
   info "guess operating system $BUILD_OS"
@@ -89,11 +89,11 @@ BUILD_ARCH=""
 guess_arch()
 {
   ARCH=`uname -m`
-  if [[ $ARCH = "Power Macintosh" ]]; then
+  if [ $ARCH = "Power Macintosh" ]; then
     BUILD_ARCH="ppc32"
-  elif [[ $ARCH = "x86" || $ARCH = "i386" || $ARCH = "i486" || $ARCH = "i586" || $ARCH = "i686" || $ARCH = "i86pc" ]]; then
+  elif [ $ARCH = "x86" ] || [ $ARCH = "i386" ] || [ $ARCH = "i486" ] || [ $ARCH = "i586" ] || [ $ARCH = "i686" ] || [ $ARCH = "i86pc" ]; then
     BUILD_ARCH="x86"
-  elif [[ $ARCH = "amd64" || $ARCH = "x86_64" || $ARCH = "x64" ]]; then
+  elif [ $ARCH = "amd64" ] || [ $ARCH = "x86_64" ] || [ $ARCH = "x64" ]; then
     BUILD_ARCH="x64"
   fi
   info "guess arch $BUILD_ARCH"
@@ -113,9 +113,9 @@ guess_tool()
 BUILD_ASM=""
 guess_asm()
 {
-  if [[ $BUILD_TOOL == "gcc" ]]; then
+  if [ $BUILD_TOOL = "gcc" ]; then
     BUILD_ASM="as"
-  elif [[ $BUILD_TOOL == "msvc" ]]; then
+  elif [ $BUILD_TOOL = "msvc" ]; then
     BUILD_ASM="ml"
   fi
   info "guess assembler $BUILD_ASM"
@@ -123,7 +123,7 @@ guess_asm()
 
 # --- process arguments ------------------------------------------------------
 
-while [[ 0 -lt $# ]]; do
+while [ 0 -lt $# ]; do
   OPT=$1
   shift 1
   case $OPT in
@@ -178,30 +178,30 @@ done
 
 info "running configure.."
 
-if [[ -z "$BUILD_OS" ]]; then 
+if [ -z "$BUILD_OS" ]; then 
   guess_os
-  if [[ -z "$BUILD_OS" ]]; then
+  if [ -z "$BUILD_OS" ]; then
     error "unsupported operating system $OS"
   fi
 fi
 
-if [[ -z "$BUILD_ARCH" ]]; then
+if [ -z "$BUILD_ARCH" ]; then
   guess_arch 
-  if [[ -z "$BUILD_ARCH" ]]; then
+  if [ -z "$BUILD_ARCH" ]; then
     error "unsupported architecture $ARCH"
   fi
 fi
 
-if [[ -z "$BUILD_TOOL" ]]; then
+if [ -z "$BUILD_TOOL" ]; then
   guess_tool
-  if [[ -z "$BUILD_TOOL" ]]; then
+  if [ -z "$BUILD_TOOL" ]; then
     error "no tool"
   fi
 fi
 
-if [[ -z "$BUILD_ASM" ]]; then
+if [ -z "$BUILD_ASM" ]; then
   guess_asm
-  if [[ -z "$BUILD_ASM" ]]; then
+  if [ -z "$BUILD_ASM" ]; then
     error " no assembler tool"
   fi
 fi
