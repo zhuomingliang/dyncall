@@ -1,6 +1,7 @@
 /*/////////////////////////////////////////////////////////////////////////////
 
- Copyright (c) 2007, 2008 Daniel Adler and Tassilo Philipp
+ Copyright (c) 2007, 2008 dyncall project (http://dyncall.org)
+                          Daniel Adler and Tassilo Philipp
 
  Permission to use, copy, modify, and distribute this software for any
  purpose with or without fee is hereby granted, provided that the above
@@ -15,6 +16,7 @@
  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 /////////////////////////////////////////////////////////////////////////////*/
+
 
 /* MS Windows x64 calling convention, AMD64 SystemV ABI. */
 
