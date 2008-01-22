@@ -47,4 +47,3 @@ $(AUTOS): mkcase.py .SILENT
 
 
 .include "$(TOP)/buildsys/bsdmake/epilog.bsdmake"
-

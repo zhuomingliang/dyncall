@@ -30,7 +30,7 @@ TOP = ..\..
 !INCLUDE $(TOP)\buildsys\nmake\prolog.nmake
 
 
-AUTOS = config.h case.h
+AUTOS = config.h case.h design.cfg
 
 
 !IF "$(BUILD_OS)" == "windows"
@@ -61,9 +61,12 @@ $(TARGETS): $(OBJS)
 
 $(OBJS): $(AUTOS)
 
-$(AUTOS): mkcase.py
+case.h config.h: mkcase.py
 	mkcase.py >case.h 2>config.h
+
+mkcase.py: design.cfg
+design.cfg: rand.py
+	rand.py >$@
 
 
 !INCLUDE $(TOP)\buildsys\nmake\epilog.nmake
-

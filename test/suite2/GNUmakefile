@@ -30,7 +30,7 @@ TOP		= ../..
 include $(TOP)/buildsys/gmake/prolog.gmake
 
 APP		= suite2
-AUTOS		= case.h
+AUTOS		= case.h config.h design.cfg
 MODS		= case main
 CPPFLAGS	= -I$(TOP)/dyncall
 CXX_EXCEPTIONS	= 0

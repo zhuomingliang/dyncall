@@ -37,14 +37,16 @@ CPPFLAGS	=
 LDFLAGS		=
 LIBS	=	"$(TOP)/dyncall/libdyncall_s.a"
 
-AUTOS	=	config.h case.h
+AUTOS	=	config.h case.h design.cfg
 
 
 .PHONY: config 
 config: $(AUTOS)
-$(AUTOS): mkcase.py .SILENT
-	echo Generating test cases...
+case.h config.h: mkcase.py .SILENT
 	python mkcase.py >case.h 2>config.h
 
-.include "$(TOP)/buildsys/bsdmake/epilog.bsdmake"
+mkcase.py: design.cfg
+design.cfg: rand.py
+	python rand.py >$(.TARGET)
 
+.include "$(TOP)/buildsys/bsdmake/epilog.bsdmake"

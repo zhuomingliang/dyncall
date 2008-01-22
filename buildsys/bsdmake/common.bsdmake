@@ -29,11 +29,15 @@ build: config dirs autos $(TARGETS)
 
 clean: dirs .SILENT
 	echo Cleaning $(.CURDIR)...
+.if "$(TARGETS) $(OBJS)" != ""
 	rm -f $(TARGETS) $(OBJS)
+.endif
 
 distclean: clean .SILENT
 	echo Cleaning auto-generated files in $(.CURDIR)...
+.if "$(AUTOS) $(AUTO_DIRS)" != ""
 	rm -f $(AUTOS) $(AUTO_DIRS)
+.endif
 
 
 # --- auto generated -----------------------------------------------------------
