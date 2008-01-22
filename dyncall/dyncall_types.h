@@ -9,7 +9,8 @@
 extern "C" {
 #endif 
 
-/* supported argument types */
+/** /defgroup SupportedTypes supported argument types */
+/*@{*/
 
 /** 
  * C void type 
@@ -45,18 +46,37 @@ typedef long            DClong;
  * C long long type
  */
 typedef DC_LONG_LONG    DClonglong;
+/**
+ * C float type
+ */
 typedef float           DCfloat;
+/**
+ * C double type
+ */
 typedef double          DCdouble;
+/** 
+ * C pointer type
+ */
 typedef DC_POINTER      DCpointer;
 
-/* misc types */
+/*@}*/
 
+/** misc types */
+
+/**
+ * C size type
+ */
 typedef size_t          DCsize;
 
-/* constants */
+/** /defgroup Constants constants */
+/*@{*/
 
+/** integer constant for boolean TRUE encoding */
 #define DC_TRUE   1
+/** integer constant for boolean FALSE encoding */
 #define DC_FALSE  0
+
+/*@}*/
 
 #ifdef __cplusplus
 }
