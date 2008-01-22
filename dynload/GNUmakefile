@@ -17,7 +17,10 @@ INSTALL_LIB=1
 ifdef BUILD_OS_windows
 MODS += dynload_win32
 else
+ifndef BUILD_OS_psp
 MODS += dynload_unix
+endif
+
 endif
 
 include $(TOP)/buildsys/gmake/epilog.gmake
