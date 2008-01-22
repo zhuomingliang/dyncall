@@ -17,12 +17,8 @@
 #
 #//////////////////////////////////////////////////////////////////////////////
 
-#///////////////////////////////////////////////////
-#
 #	dyncall bsdmake build system
 #	common.bsdmake
-#
-#///////////////////////////////////////////////////
 
 
 # --- phony targets ------------------------------------------------------------
@@ -51,12 +47,7 @@ autos: $(AUTOS)
 dirs: $(DIRS)
 $(DIRS): .SILENT
 	echo Handling sub-directory $(.TARGET)...
-	cd $(.TARGET) && $(MAKE) $(.MAKEFLAGS) $(.TARGETS)
+	cd $(.TARGET) && $(MAKE) -f BSDmakefile $(.MAKEFLAGS) $(.TARGETS)
 .else
 dirs:
 .endif
-
-
-## nasm @@@
-#ASFLAGS		= $($(BUILD_ASM)_FLAGS)
-
