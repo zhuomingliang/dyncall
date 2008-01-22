@@ -1,5 +1,26 @@
+/*/////////////////////////////////////////////////////////////////////////////
+
+ Copyright (c) 2007,2008 Daniel Adler <dadler@uni-goettingen.de>, 
+                         Tassilo Philipp <tphilipp@potion-studios.com>
+
+ Permission to use, copy, modify, and distribute this software for any
+ purpose with or without fee is hereby granted, provided that the above
+ copyright notice and this permission notice appear in all copies.
+
+ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+ WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+ MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+ WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+/////////////////////////////////////////////////////////////////////////////*/
+
 #ifndef DYNCALL_CALLF_H
 #define DYNCALL_CALLF_H
+
+/* dyncall formatted calls */
 
 #include "dyncall.h"
 #include "dyncall_signature.h"
@@ -7,28 +28,8 @@
 
 #include <stdarg.h>
 
-/** \defgroup FormattedCalls Formatted function calls (C ellipsis call interface) */
-/*@{*/
-
-/** Formatted function call
- *  @param vm Pointer on opaque CallVM structure.
- *  @param result Variant structure to store return value.
- *  @param funcptr pointer on target function.
- *  @param signature signature string that encodes the parameter types and return type.
- *  @param ... ellipsis call variable arguments.
- **/
 void dcCallF (DCCallVM* vm, DCValue* result, DCpointer funcptr, const DCsigchar* signature, ...);
-
-/** Formatted function call
- *  @param vm Pointer on opaque CallVM structure.
- *  @param result Variant structure to store return value.
- *  @param funcptr pointer on target function.
- *  @param signature signature string that encodes the parameter types and return type.
- *  @param args va_list of arguments.
- **/
 void dcVCallF(DCCallVM* vm, DCValue* result, DCpointer funcptr, const DCsigchar* signature, va_list args);
-
-/*@}*/
 
 #endif /* DYNCALL_CALLF_H */
 
