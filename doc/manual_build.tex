@@ -53,46 +53,51 @@ one, please let us know.\\
 \\
 
 \begin{tabular}{l l}
-{\bf{\large x86}} &                                           \\
+{\bf{\large x86}} &                                            \\
 \hline\hline
-{\bf Windows}     & nmake, GNU make (via MinGW)               \\
-{\bf Darwin}      & GNU make, BSD make                        \\
-{\bf Linux}       & GNU make                                  \\
-{\bf SunOS}       & GNU make (tested on GNU-centric NexentaOS)\\
-{\bf FreeBSD}     & BSD make                                  \\
-{\bf OpenBSD}     & BSD make                                  \\
+{\bf Windows}      & nmake, GNU make (via MinGW)               \\
+{\bf Darwin}       & GNU make, BSD make                        \\
+{\bf Linux}        & GNU make                                  \\
+{\bf SunOS}        & GNU make (Sun's make tool isn't supported)\\
+{\bf FreeBSD}      & BSD make                                  \\
+{\bf NetBSD}       & BSD make                                  \\
+{\bf OpenBSD}      & BSD make                                  \\
+{\bf DragonFlyBSD} & BSD make                                  \\
 \hline
-                  &                                           \\
-                  &                                           \\
+                   &                                           \\
+                   &                                           \\
 
 
-{\bf{\large x64}} &                                           \\
+{\bf{\large x64}}  &                                           \\
 \hline\hline
-{\bf Windows}     & nmake                                     \\
-{\bf OpenBSD}     & BSD make                                  \\
+{\bf Windows}      & nmake                                     \\
+{\bf Linux}        & GNU make                                  \\
+{\bf FreeBSD}      & BSD make                                  \\
+{\bf NetBSD}       & BSD make                                  \\
+{\bf OpenBSD}      & BSD make                                  \\
 \hline
-                  &                                           \\
-                  &                                           \\
+                   &                                           \\
+                   &                                           \\
 
 
-{\bf{\large PowerPC (32bit)}} &                               \\
+{\bf{\large PowerPC (32bit)}} &                                \\
 \hline\hline
-{\bf Darwin}                  & GNU make, BSD make            \\
+{\bf Darwin}                  & GNU make, BSD make             \\
 \hline
-                  &                                           \\
-                  &                                           \\
+                   &                                           \\
+                   &                                           \\
 
 
-{\bf{\large ARM9E (ARM mode)}} &                             \\
+{\bf{\large ARM9E (ARM mode)}} &                               \\
 \hline\hline
-{\bf Nintendo DS} & ARMv5TE (of ARM9E family) binary manually built with \cite{devkitPro}\\
+{\bf Nintendo DS} & nmake (and devkitPro\cite{devkitPro} tools)\\
 \hline
-                  &                                           \\
-                  &                                           \\
-		  
-{\bf{\large MIPS32}} &              \\
+                   &                                           \\
+                   &                                           \\
+
+{\bf{\large MIPS32}} &                                         \\
 \hline\hline
-{\bf Playstation Portable} & GNU make                        \\
+{\bf Playstation Portable} & GNU make                          \\
 \hline
 
 \end{tabular}\\
@@ -134,8 +139,10 @@ Available options:
 
 \item Build the static libraries \product{dyncall} and \product{dynload}
 \begin{lstlisting}
-make                              # using {GNU,BSD} Make
-nmake /f Nmakefile                # using NMake on Windows
+make                     # when using {GNU,BSD} Make
+bsdmake                  # when using BSD Make on Darwin
+make -f BSDmakefile      # when using BSD Make on NetBSD
+nmake /f Nmakefile       # when using NMake on Windows
 \end{lstlisting}
 \item Install libraries and includes
 \begin{lstlisting}
@@ -143,12 +150,17 @@ make install
 \end{lstlisting}
 \item Optionally, build the test suites (Python required)
 \begin{lstlisting}
-make test
-name /f Namekfile test
+make test                # when using {GNU,BSD} Make
+bsdmake test             # when using BSD Make on Darwin
+make -f BSDmakefile test # when using BSD Make on NetBSD
+nmake /f Nmakefile test  # when using NMake on Windows
 \end{lstlisting}
 \item Optionally, build the manual (Latex required)
 \begin{lstlisting}
 cd doc
-make
+make                     # when using {GNU,BSD} Make
+bsdmake                  # when using BSD Make on Darwin
+make -f BSDmakefile      # when using BSD Make on NetBSD
+nmake /f Nmakefile       # when using NMake on Windows
 \end{lstlisting}
 \end{enumerate}
