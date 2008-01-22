@@ -28,24 +28,26 @@ typedef struct DCCallVM_    DCCallVM;
 
 /** Default C calling convention mode. Also applicable for ellipsis calls. */
 #define DC_CALL_C_DEFAULT               0 
+/** Win32/X86 platform: cdecl calling convention mode */
+#define DC_CALL_C_X86_CDECL             1 
 /** Win32/X86 platform: stdcall calling convention mode */
-#define DC_CALL_C_X86_WIN32_STD         1 
+#define DC_CALL_C_X86_WIN32_STD         2
 /** Win32/X86 platform: (microsoft-) fastcall calling convention mode */
-#define DC_CALL_C_X86_WIN32_FAST_MS     2
+#define DC_CALL_C_X86_WIN32_FAST_MS     3
 /** Win32/X86 platform: (microsoft-) thiscall calling convention mode */
-#define DC_CALL_C_X86_WIN32_THIS_MS     3
+#define DC_CALL_C_X86_WIN32_THIS_MS     4
 /** Win32/X86 platform: (gnu-) thiscall calling convention mode */
-#define DC_CALL_C_X86_WIN32_THIS_GNU    4
+#define DC_CALL_C_X86_WIN32_THIS_GNU    5
 /** Win32/X86 platform: (gnu-) fastcall calling convention mode */
-#define DC_CALL_C_X86_WIN32_FAST_GNU    9
+#define DC_CALL_C_X86_WIN32_FAST_GNU    6
 /** X64 Win64 platform: default c calling convention mode */
-#define DC_CALL_C_X64_WIN64             5
+#define DC_CALL_C_X64_WIN64             7
 /** PPC32/Darwin platform: default c calling convention mode */
-#define DC_CALL_C_PPC32_DARWIN          6
+#define DC_CALL_C_PPC32_DARWIN          8
 /** ARM platform: default C calling convention mode */
-#define DC_CALL_C_ARM                   7
+#define DC_CALL_C_ARM                   9
 /** MIPS32 platform: C EABI calling convention mode */
-#define DC_CALL_C_MIPS32_EABI		8
+#define DC_CALL_C_MIPS32_EABI		10
 /** MIPS32 Playstation Portable Homebrew platform: default C calling convention mode */
 #define DC_CALL_C_MIPS32_PSPSDK		DC_CALL_C_MIPS32_EABI
 
