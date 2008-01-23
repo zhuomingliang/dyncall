@@ -40,6 +40,9 @@ LINK_LIBS       = dyncall_s
 ifdef BUILD_OS_linux
 LINK_LIBS	+= m
 endif
+ifdef BUILD_OS_psp
+LINK_LIBS	+= m
+endif
 
 include $(TOP)/buildsys/gmake/epilog.gmake
 

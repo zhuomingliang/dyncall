@@ -34,7 +34,9 @@ MODS		= test_main
 CPPFLAGS	= -I$(TOP)/dyncall
 LINK_PATHS	= $(TOP)/dyncall/$(BUILD_DIR)
 LINK_LIBS       = dyncall_s
+ifndef BUILD_OS_psp
 LINK		= c++
+endif
 
 include $(TOP)/buildsys/gmake/epilog.gmake
 

@@ -41,7 +41,7 @@ LINKER		= c
 
 include $(TOP)/buildsys/gmake/epilog.gmake
 
-$(AUTOS): mkcase.py
+case.h config.h: mkcase.py
 	python mkcase.py >case.h 2>config.h
 
 .PHONY: config

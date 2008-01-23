@@ -16,6 +16,7 @@
  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 /////////////////////////////////////////////////////////////////////////////*/
+
 /*/////////////////////////////////////////////////////////////////////////////
 
   dyncall callvm macros
@@ -29,7 +30,7 @@
   REVISION
   2007/12/11 initial
 
-/*/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////*/
 
 
 #ifndef DYNCALL_CALLVM_MACROS_H
@@ -82,6 +83,7 @@
 #elif defined(__MINGW__)//@@@
 	#define DC__OS_MinGW
 
+/* The Playstation Portable (homebrew) SDK. */
 #elif defined(__psp__) || defined(PSP)
         #define DC__OS_PSP
 
@@ -161,4 +163,5 @@
 #endif
 
 
-#endif /* DYNCALL_CALLVM_MACROS_H */
+#endif /* DYNCALL_MACROS_H */
+

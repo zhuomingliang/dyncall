@@ -77,8 +77,6 @@ endif
 ifdef BUILD_ARCH_mips32
 MODS += dyncall_callvm_mips32
 MODS += dyncall_mips32
-LDFLAGS += -L$(PSPSDK)/lib
-LDLIBS += -lpsplibc
 endif
 
 include $(TOP)/buildsys/gmake/epilog.gmake

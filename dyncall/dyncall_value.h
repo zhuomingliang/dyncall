@@ -17,10 +17,25 @@
 
 /////////////////////////////////////////////////////////////////////////////*/
 
+/*/////////////////////////////////////////////////////////////////////////////
+
+  dyncall value variant
+
+  a value variant union-type that carries all supported dyncall types.
+
+  REVISION
+  2007/12/11 initial
+
+/////////////////////////////////////////////////////////////////////////////*/
+
 #ifndef DYNCALL_VALUE_H
 #define DYNCALL_VALUE_H
 
 #include "dyncall_types.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif 
 
 typedef union DCValue_ DCValue;
 
@@ -37,6 +52,9 @@ union DCValue_
   DCpointer p;
 };
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* DYNCALL_VALUE_H */
 
