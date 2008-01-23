@@ -37,7 +37,7 @@ $(BUILD_DIR)/%.obj: %.asm
 # --- C++ Compiler flags ------------------------------------------------------
 
 ifeq ("$(CXX_EXCEPTIONS)","0")
-CXXFLAGS	+= /GX-
+CXXFLAGS	+= /EHs-c-
 endif
 
 ifeq ("$(CXX_RTTI)","0")
