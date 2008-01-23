@@ -28,7 +28,7 @@
 
 
 .text 
-.file "dyncall_x86_as.S"
+.file "dyncall_x86_darwin.S"
 .intel_syntax
 
 # -----------------------------------------------------------------------------
@@ -62,7 +62,7 @@ _dcCall_x86_cdecl:
 	mov  esi, [%ebp+12]	/* esi = pointer on args */
 	mov  ecx, [%ebp+16]	/* ecx = size */
 
-	add  ecx, 15
+	add  ecx, 15		/* align size to 16 byte */
 	and  ecx, -16	
 	mov  [%ebp+16], ecx
 

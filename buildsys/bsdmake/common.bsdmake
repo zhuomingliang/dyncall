@@ -27,15 +27,17 @@
 
 build: config dirs autos $(TARGETS)
 
+CLEAN_FILES=$(TARGETS) $(OBJS)
 clean: dirs .SILENT
 	echo Cleaning $(.CURDIR)...
-.if "$(TARGETS) $(OBJS)" != ""
-	rm -f $(TARGETS) $(OBJS)
+.if $(CLEAN_FILES) != ""
+	rm -f $(CLEAN_FILES)
 .endif
 
+AUTO_FILES=$(AUTOS) $(AUTO_DIRS)
 distclean: clean .SILENT
 	echo Cleaning auto-generated files in $(.CURDIR)...
-.if "$(AUTOS) $(AUTO_DIRS)" != ""
+.if $(AUTO_FILES) != ""
 	rm -f $(AUTOS) $(AUTO_DIRS)
 .endif
 

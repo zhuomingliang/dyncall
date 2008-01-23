@@ -27,3 +27,15 @@ as_FLAGS	=
 LINK_DLL_CMD	= $(CXX) -o $(.TARGET) -dynamiclib $(LDFLAGS) $(.ALLSRC) $(LIBS)
 #LINK_DLL_CMD	= $(LD) -o $(.TARGET) -dylib $(LDFLAGS) $(.ALLSRC) $(LIBS)
 
+.if $(BUILD_ARCH) == "x86"
+ASFLAGS		+= -arch i386
+CFLAGS		+= -arch i386
+CXXFLAGS	+= -arch i386
+.endif
+
+.if $(BUILD_ARCH) == "ppc32"
+ASFLAGS		+= -arch ppc
+CFLAGS		+= -arch ppc
+CXXFLAGS	+= -arch ppc
+.endif
+

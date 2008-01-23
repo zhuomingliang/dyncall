@@ -46,7 +46,11 @@ MODS += dyncall_vector
 
 .if $(BUILD_ARCH) == x86
 MODS += dyncall_callvm_x86
+.if $(BUILD_OS) == darwin
+MODS += dyncall_x86_darwin
+.else
 MODS += dyncall_x86_$(BUILD_ASM)
+.endif
 .endif
 
 .if $(BUILD_ARCH) == ppc32
