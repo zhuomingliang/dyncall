@@ -22,11 +22,16 @@
 
 TOP		= ../..
 
+include $(TOP)/buildsys/gmake/prolog.gmake
+
 APP		= nm
 MODS		= nm
-LDFLAGS		= -L$(TOP)/dynload/$(BUILD_DIR)
-LDLIBS		= -ldynload_s
+LINK_PATHS	= $(TOP)/dynload/$(BUILD_DIR)
+LINK_LIBS	= dynload_s
 
-include $(TOP)/test/testmain/GNUmakerules
+ifdef BUILD_OS_linux
+LINK_LIBS	+= dl
+endif
 
+include $(TOP)/buildsys/gmake/epilog.gmake
 
