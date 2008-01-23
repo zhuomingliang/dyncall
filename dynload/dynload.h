@@ -19,7 +19,13 @@
 
 /*/////////////////////////////////////////////////////////////////////////////
 
-  dynload.h
+  dynload library API
+
+  Abstraction to module loading.
+  Work is in progress to allow for enumeration of symbols.
+
+  REVISION
+  2007/12/11 initial
 
 /////////////////////////////////////////////////////////////////////////////*/
 
@@ -33,9 +39,14 @@
 extern "C" {
 #endif
 
+/* --- public api ---------------------------------------------------------- */
+
 void* dlLoadLibrary(const char* libpath);
 void  dlFreeLibrary(void* libhandle);
 void* dlFindSymbol(void* libhandle, const char* symbol);
+
+/* --- developer api ------------------------------------------------------- */
+/* the following entries are only implemented on Windows */
 
 size_t      dlGetSymbolCount(void* libhandle);
 const char* dlGetSymbolNameAt(void* libhandle, size_t index);
