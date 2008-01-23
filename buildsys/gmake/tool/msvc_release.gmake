@@ -17,7 +17,6 @@
 #
 #//////////////////////////////////////////////////////////////////////////////
 
-APP_SUFFIX=.exe
-DLL_SUFFIX=.dll
-include $(GMAKE_TOP)/tool/$(BUILD_TOOL).gmake
+CFLAGS		+= /Ox
+CXXFLAGS	+= /Ox
 

@@ -149,8 +149,8 @@ Value      & Description              \\
 \begin{tabular}{ll}
 Variable name		& Description		\\
 \hline
-\var{INSTALL\_DIR}	& Installation directory \\
 \var{BUILD\_CONFIG}	& Build configuration ("release", "debug") \\
+\var{INSTALL\_DIR}	& Installation directory \\
 \end{tabular}
 
 \section{Predefined variables}
@@ -169,6 +169,7 @@ Variable name		& Description		\\
 \hline
 & Tool-specific \\
 \hline
+\var{LIB\_PREFIX} & Static library prefix         \\
 \var{OBJ\_SUFFIX} & Object file suffix            \\
 \end{tabular}
 
@@ -224,7 +225,8 @@ Variable name              & Description                       \\
 \end{itemize}
 \item \file{epilog.gmake}
 \begin{itemize}
-\item Inlcude \file{os/\$(\var{BUILD\_OS}).gmake}
+\item Include \file{os/\$(\var{BUILD\_OS}).gmake}
+\item If \var{BUILD\_ASM\_nasm} is defined then include \file{tool/nasm.gmake}
 \item Include \file{tool/latex.gmake}
 \item Include \file{targets.gmake}
 \end{itemize}
@@ -232,6 +234,7 @@ Variable name              & Description                       \\
 
 The os-specific gmake files will typically include 
 \file{tool/\$(\var{BUILD\_TOOL}).gmake} file. 
+The tool-specific gmake file will typically include configuration specific files driven by the \var{BUILD\_CONFIG} define.
 Other more-specific platforms such as psp and nds might preclude and append additional information
 depending on platform and tool quirks.
 

@@ -25,14 +25,14 @@ default: build
 include $(TOP)/ConfigVars
 -include $(TOP)/ProjectVars
 
-BUILD_CONFIG ?= debug
+BUILD_CONFIG ?= release
 
 BUILD_OS_$(BUILD_OS)=1
 BUILD_ARCH_$(BUILD_ARCH)=1
 BUILD_TOOL_$(BUILD_TOOL)=1
 BUILD_ASM_$(BUILD_ASM)=1
 
-BUILD_DIR ?= out_$(BUILD_OS)_$(BUILD_ARCH)_$(BUILD_TOOL)
+BUILD_DIR ?= out_$(BUILD_OS)_$(BUILD_ARCH)_$(BUILD_TOOL)_$(BUILD_CONFIG)
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 

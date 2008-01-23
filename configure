@@ -67,6 +67,8 @@ usage()
   echo "  --asm-nasm          use NASM Assembler"
   echo "  --asm-ml            use Microsoft Macro Assembler"
   echo
+  echo "  --config-release    build release version (default)"
+  echo "  --config-debug      build debug version"
   exit 0
 }
 
@@ -187,6 +189,12 @@ while [ 0 -lt $# ]; do
     --asm-ml)
       BUILD_ASM=ml
       ;;
+    --config-release)
+      BUILD_CONFIG=release
+      ;;
+    --config-debug)
+      BUILD_CONFIG=debug
+      ;;
     *)
       warning "unknown option $OPT"
       ;;
@@ -225,6 +233,10 @@ if [ -z "$BUILD_ASM" ]; then
   fi
 fi
 
+if [ -z "$BUILD_CONFIG" ]; then
+  BUILD_CONFIG=release
+fi
+
 # --- write ConfigVars files ------------------------------------------------
 
 writeVars()
@@ -233,6 +245,7 @@ writeVars()
   echo "BUILD_ARCH=$BUILD_ARCH" >>$1
   echo "BUILD_TOOL=$BUILD_TOOL" >>$1
   echo "BUILD_ASM=$BUILD_ASM" >>$1
+  echo "BUILD_CONFIG=$BUILD_CONFIG" >>$1
   echo "INSTALL_DIR=$INSTALL_DIR" >>$1
   echo "" >>$1
 }

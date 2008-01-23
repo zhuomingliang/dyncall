@@ -32,6 +32,10 @@ OBJ_SUFFIX	= .o
 LIB_PREFIX	= lib
 LIB_SUFFIX	= .a
 
+# --- build configuration -----------------------------------------------------
+
+include $(GMAKE_TOP)/tool/gcc_$(BUILD_CONFIG).gmake
+
 # --- Assemble ----------------------------------------------------------------
 
 ifdef BUILD_OS_darwin
@@ -98,6 +102,9 @@ ifeq ("$(LINK)","c")
 LINKCMD=$(CC)
 endif
 
+# --- last rule ---------------------------------------------------------------
+
 $(BUILD_DIR)/%$(APP_SUFFIX):
 	$(LINKCMD) $^ $(LDFLAGS) $(LDLIBS) $(OUTPUT_OPTION) 
+
 

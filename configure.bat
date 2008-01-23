@@ -24,6 +24,7 @@ SET BUILD_OS=windows
 SET BUILD_ARCH=x86
 SET BUILD_TOOL=msvc
 SET BUILD_ASM=ml
+SET BUILD_CONFIG=release
 SET INSTALL_DIR=.
 
 
@@ -41,23 +42,25 @@ IF [%1]==[] (
 	ECHO.  configure.bat [ options ]
 	ECHO.
 	ECHO.Options:
-	ECHO.  /?            print this page
+	ECHO.  /?               print this page
 	ECHO.
-	ECHO.  /prefix PATH  set installation prefix ^(defaults to './install'^)
-	ECHO.                ^(only for use with gmake^)
+	ECHO.  /prefix PATH     set installation prefix ^(defaults to './install'^)
+	ECHO.                   ^(only for use with gmake^)
 	ECHO.
-	ECHO.  /target-x86   build for x86 architecture
-	ECHO.  /target-x64   build for x64 architecture
-	ECHO.  /target-psp   build for Playstation Portable ^(PSPSDK^)
-	ECHO.  /target-nds   build for Nintendo DS ^(devkitPro, ARM mode ^(not THUMB^)^)
+	ECHO.  /target-x86      build for x86 architecture ^(default^)
+	ECHO.  /target-x64      build for x64 architecture
+	ECHO.  /target-psp      build for Playstation Portable ^(homebrew SDK^)
+	ECHO.  /target-nds      build for Nintendo DS ^(devkitPro, ARM mode ^(not THUMB^)^)
 	ECHO.
-	ECHO.  /tool-gcc     use GNU Compiler Collection
-	ECHO.  /tool-msvc    use Microsoft Visual C++ compiler
+	ECHO.  /tool-msvc       use Microsoft Visual C++ compiler ^(default^)
+	ECHO.  /tool-gcc        use GNU Compiler Collection
 	ECHO.
-	ECHO.  /asm-as       use the GNU Assembler
-	ECHO.  /asm-nasm     use NASM Assembler
-	ECHO.  /asm-ml       use Microsoft Macro Assembler
+	ECHO.  /asm-ml          use Microsoft Macro Assembler ^(default^)
+	ECHO.  /asm-as          use the GNU Assembler
+	ECHO.  /asm-nasm        use NASM Assembler
 	ECHO.
+	ECHO.  /config-release  build release version ^(default^)
+	ECHO.  /config-debug    build debug version
 ) ELSE IF [%1]==[/prefix] (
 	SET INSTALL_DIR=%2
 	SHIFT
@@ -73,16 +76,20 @@ IF [%1]==[] (
 	SET BUILD_OS=nds
 ) ELSE IF [%1]==[/tool-gcc] (
 	SET BUILD_TOOL=gcc
-        SET BUILD_ASM=as
+	SET BUILD_ASM=as
 ) ELSE IF [%1]==[/tool-msvc] (
 	SET BUILD_TOOL=msvc
-        SET BUILD_ASM=ml
+	SET BUILD_ASM=ml
 ) ELSE IF [%1]==[/asm-as] (
 	SET BUILD_ASM=as
 ) ELSE IF [%1]==[/asm-nasm] (
 	SET BUILD_ASM=nasm
 ) ELSE IF [%1]==[/asm-ml] (
 	SET BUILD_ASM=ml
+) ELSE IF [%1]==[/config-release] (
+	SET BUILD_CONFIG=release
+) ELSE IF [%1]==[/config-debug] (
+	SET BUILD_CONFIG=debug
 ) ELSE (
 	ECHO Unknown parameter '%1'.
 	GOTO DONE
@@ -97,6 +104,7 @@ ECHO BUILD_OS=%BUILD_OS%#>>ConfigVars
 ECHO BUILD_ARCH=%BUILD_ARCH%#>>ConfigVars
 ECHO BUILD_TOOL=%BUILD_TOOL%#>>ConfigVars
 ECHO BUILD_ASM=%BUILD_ASM%#>>ConfigVars
+ECHO BUILD_CONFIG=%BUILD_CONFIG%#>>ConfigVars
 ECHO INSTALL_DIR=%INSTALL_DIR%#>>ConfigVars
 
 

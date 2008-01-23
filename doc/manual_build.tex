@@ -128,13 +128,15 @@ Available options:
 {\tt target-x86}   & build for x86 architecture \\
 {\tt target-x64}   & build for x64 architecture \\
 {\tt target-ppc32} & build for ppc 32-bit architecture (not on windows batch)\\
-{\tt target-psp}   & cross-compile build for Playstation Portable \\
+{\tt target-psp}   & cross-compile build for Playstation Portable (homebrew SDK)\\
 {\tt target-nds}   & cross-compile build for Nintendo DS \\
 {\tt tool-gcc}     & use GNU Compiler Collection tool-chain \\
 {\tt tool-msvc}    & use Microsoft Visual C++ \\
 {\tt asm-as}       & use the GNU Assembler \\
 {\tt asm-nasm}     & use NASM Assembler \\
 {\tt asm-ml}       & use Microsoft Macro Assembler \\
+{\tt config-release} & build release version (default) \\
+{\tt config-debug} & build debug version \\
 \end{tabular}
 
 \item Build the static libraries \product{dyncall} and \product{dynload}
@@ -148,7 +150,7 @@ nmake /f Nmakefile       # when using NMake on Windows
 \begin{lstlisting}
 make install 
 \end{lstlisting}
-\item Optionally, build the test suites (Python required)
+\item Optionally, build the test suites 
 \begin{lstlisting}
 make test                # when using {GNU,BSD} Make
 bsdmake test             # when using BSD Make on Darwin
