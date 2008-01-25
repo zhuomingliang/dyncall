@@ -19,7 +19,7 @@
 
 /*/////////////////////////////////////////////////////////////////////////////
 
-  dyncall callvm macros
+  dyncall macros
 
   Platform detection, specific defines and configuration.
   The purpose of this file is to provide coherent platform and compiler
@@ -33,8 +33,8 @@
 /////////////////////////////////////////////////////////////////////////////*/
 
 
-#ifndef DYNCALL_CALLVM_MACROS_H
-#define DYNCALL_CALLVM_MACROS_H
+#ifndef DYNCALL_MACROS_H
+#define DYNCALL_MACROS_H
 
 
 /* Platform specific defines. */
