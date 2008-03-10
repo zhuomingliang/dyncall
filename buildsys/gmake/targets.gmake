@@ -72,37 +72,37 @@ clean: dirs
 .PHONY: install install-libs install-bins install-includes
 install: build install-libs install-bins install-includes
 
-ifdef INSTALL_DIR
-$(INSTALL_DIR):
-	mkdir -p $(INSTALL_DIR)
+ifdef INSTALL_PREFIX
+$(INSTALL_PREFIX):
+	mkdir -p $(INSTALL_PREFIX)
 endif
 
 ifeq ($(INSTALL_LIB),1)
 
-$(INSTALL_DIR)/lib:
-	mkdir -p $(INSTALL_DIR)/lib
+$(INSTALL_PREFIX)/lib:
+	mkdir -p $(INSTALL_PREFIX)/lib
 
-install-libs: $(INSTALL_DIR)/lib
-	cp -Rf $(LIB_FILE) $(INSTALL_DIR)/lib
+install-libs: $(INSTALL_PREFIX)/lib
+	cp -Rf $(LIB_FILE) $(INSTALL_PREFIX)/lib
 endif
 
 ifeq ($(INSTALL_APP),1)
 
-$(INSTALL_DIR)/bin:
-	mkdir -p $(INSTALL_DIR)/bin
+$(INSTALL_PREFIX)/bin:
+	mkdir -p $(INSTALL_PREFIX)/bin
 
-install-bins: $(INSTALL_DIR)/bin
-	cp -Rf $(APP_FILE) $(INSTALL_DIR)/bin
+install-bins: $(INSTALL_PREFIX)/bin
+	cp -Rf $(APP_FILE) $(INSTALL_PREFIX)/bin
 
 endif
 
 ifdef INSTALL_INCLUDES
 
-$(INSTALL_DIR)/include:
-	mkdir -p $(INSTALL_DIR)/include
+$(INSTALL_PREFIX)/include:
+	mkdir -p $(INSTALL_PREFIX)/include
 
-install-includes: $(INSTALL_DIR)/include
-	cp -Rf $(INSTALL_INCLUDES) $(INSTALL_DIR)/include
+install-includes: $(INSTALL_PREFIX)/include
+	cp -Rf $(INSTALL_INCLUDES) $(INSTALL_PREFIX)/include
 
 endif
 

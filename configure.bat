@@ -25,7 +25,7 @@ SET BUILD_ARCH=x86
 SET BUILD_TOOL=msvc
 SET BUILD_ASM=ml
 SET BUILD_CONFIG=release
-SET INSTALL_DIR=%CD%
+SET INSTALL_PREFIX=%CD%
 
 
 REM Scan arguments.
@@ -62,7 +62,7 @@ IF [%1]==[] (
 	ECHO.  /config-release  build release version ^(default^)
 	ECHO.  /config-debug    build debug version
 ) ELSE IF [%1]==[/prefix] (
-	SET INSTALL_DIR=%2
+	SET INSTALL_PREFIX=%2
 	SHIFT
 ) ELSE IF [%1]==[/target-x86] (
 	SET BUILD_ARCH=x86
@@ -105,7 +105,7 @@ ECHO BUILD_ARCH=%BUILD_ARCH%#>>ConfigVars
 ECHO BUILD_TOOL=%BUILD_TOOL%#>>ConfigVars
 ECHO BUILD_ASM=%BUILD_ASM%#>>ConfigVars
 ECHO BUILD_CONFIG=%BUILD_CONFIG%#>>ConfigVars
-ECHO INSTALL_DIR=%INSTALL_DIR%#>>ConfigVars
+ECHO INSTALL_PREFIX=%INSTALL_PREFIX%#>>ConfigVars
 
 
 

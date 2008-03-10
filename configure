@@ -53,7 +53,7 @@ usage()
   echo "  --help"
   echo "   -h                 print this page"
   echo
-  echo "  --prefix <path>     set installation prefix (defaults '/usr/local')"
+  echo "  --prefix=<path>     set installation prefix (defaults '/usr/local')"
   echo
   echo "  --target-x86        build for x86 architecture platform"
   echo "  --target-x64        build for x64 architecture platform"
@@ -74,7 +74,7 @@ usage()
 
 # --- installation prefix directory ------------------------------------------
 
-INSTALL_DIR="/usr/local"
+INSTALL_PREFIX="/usr/local"
 
 # --- guess operating system -------------------------------------------------
 
@@ -151,9 +151,8 @@ while [ 0 -lt $# ]; do
     --help|-h)
       usage
       ;;
-    --prefix)
-      INSTALL_DIR=$1
-      shift 1
+    --prefix=*)
+      INSTALL_PREFIX=`echo $OPT | cut -c 10-` 
       ;;
     --target-x86)
       BUILD_ARCH=x86
@@ -246,7 +245,7 @@ writeVars()
   echo "BUILD_TOOL=$BUILD_TOOL" >>$1
   echo "BUILD_ASM=$BUILD_ASM" >>$1
   echo "BUILD_CONFIG=$BUILD_CONFIG" >>$1
-  echo "INSTALL_DIR=$INSTALL_DIR" >>$1
+  echo "INSTALL_PREFIX=$INSTALL_PREFIX" >>$1
   echo "" >>$1
 }
 
