@@ -1,0 +1,6 @@
+Version 0.2
+o configure variable INSTALL_DIR changed to INSTALL_PREFIX
+o configure (shell version) option "--prefix" changed to "--prefix=<path>"
+
+Version 0.1:
+o initial release
