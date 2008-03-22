@@ -1,0 +1,18 @@
+# Makefile.psp for dyncall
+#
+# TODO
+# - integrate tests (low-prio)
+#
+
+DIRS = dyncall 
+EXTRA_DIRS = test
+
+.PHONY: all clean install $(DIRS) $(EXTRA_DIRS)
+
+all clean install: $(DIRS)
+
+$(DIRS) $(EXTRA_DIRS):
+	$(MAKE) -C $@ -f Makefile.psp $(MAKECMDGOALS)
+
+# tests: test
+

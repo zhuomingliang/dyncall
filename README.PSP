@@ -1,0 +1,13 @@
+cross-compile for PSP using PSP-SDK
+===================================
+
+  build
+  
+  make -f Makefile.psp
+
+
+  install
+
+  make -f Makefile.psp install
+
+

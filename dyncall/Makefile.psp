@@ -1,0 +1,41 @@
+TARGET_LIB = libdyncall_s.a
+
+OBJS = \
+	dyncall.o \
+	dyncall_vector.o \
+	dyncall_callf.o \
+	dyncall_callvm_mips32.o \
+	dyncall_mips32.o
+
+HEADERS = \
+	dyncall_macros.h \
+	dyncall_config.h \
+	dyncall_types.h \
+	dyncall_signature.h \
+	dyncall_value.h \
+	dyncall_callf.h \
+	dyncall.h
+
+PSPSDK = $(shell psp-config --pspsdk-path)
+include $(PSPSDK)/lib/build.mak
+
+# pspsdk make fix
+#
+# As pspsdk sets AS=psp-gcc, dyncall_mips32.s would be assembled to executable using psp-gcc, the '-c' option is missing.
+# workarounds:
+#  1. modify ASFLAGS += -c ( psp-gcc assembles into object format )
+#  2. redefine AS = psp-as ( $(COMPILE.s) is defined as $(AS) $(ASFLAGS) $(TARGET_ARCH) )
+#  3. rename dyncall_mips32.s to dyncall_mips32.S ( $(COMPILE.S) uses '-c' )
+#
+
+ASFLAGS += -c
+
+# installation
+#
+.PHONY: install
+PREFIX_PSPSDK = $(shell psp-config --psp-prefix)
+install: all
+	mkdir -p $(PREFIX_PSPSDK)/include $(PREFIX_PSPSDK)/lib
+	cp $(HEADERS) $(PREFIX_PSPDIR)/include
+	cp libdyncall_s.a $(PREFIX_PSPSDK)/lib
+
