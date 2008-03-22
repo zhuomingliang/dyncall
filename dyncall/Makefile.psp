@@ -33,9 +33,9 @@ ASFLAGS += -c
 # installation
 #
 .PHONY: install
-PREFIX_PSPSDK = $(shell psp-config --psp-prefix)
+INSTALL_PREFIX = $(shell psp-config --psp-prefix)
 install: all
-	mkdir -p $(PREFIX_PSPSDK)/include $(PREFIX_PSPSDK)/lib
-	cp $(HEADERS) $(PREFIX_PSPDIR)/include
-	cp libdyncall_s.a $(PREFIX_PSPSDK)/lib
+	mkdir -p $(INSTALL_PREFIX)/include $(INSTALL_PREFIX)/lib
+	cp $(HEADERS) $(INSTALL_PREFIX)/include
+	cp libdyncall_s.a $(INSTALL_PREFIX)/lib
 

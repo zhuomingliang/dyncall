@@ -1,6 +1,12 @@
 cross-compile for PSP using PSP-SDK
 ===================================
 
+  configure
+
+  ./configure --prefix=<path>
+  .\setup /prefix <path>
+
+
   build
   
   make -f Makefile.psp
