@@ -25,8 +25,9 @@
 
 
 TOP	=  ..
-include $(TOP)/buildsys/gmake/prolog.gmake
 DIRS	+= suite ellipsis suite2 callf plain
+
+include $(TOP)/MakeProlog
 
 ifdef BUILD_OS_windows
 DIRS	+= suite_x86win32fast
@@ -35,5 +36,5 @@ DIRS	+= suite2_x86win32fast
 DIRS	+= suite2_x86win32std
 endif
 
-include $(TOP)/buildsys/gmake/epilog.gmake
+include $(TOP)/MakeEpilog
 

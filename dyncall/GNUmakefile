@@ -19,65 +19,80 @@
 
 # dyncall library GNUmakefile
 
-TOP         = ..
-include $(TOP)/buildsys/gmake/prolog.gmake
+TOP = ..
 
-# targets
+TARGET_LIB = dyncall
 
-LIBRARY         = dyncall
-INSTALL_INCLUDES= dyncall_macros.h dyncall_config.h dyncall_types.h dyncall.h dyncall_signature.h dyncall_value.h dyncall_callf.h
-INSTALL_LIB	= 1
+UNITS = dyncall dyncall_vector dyncall_callf
 
-# modules
+INSTALL_HEADERS	= \
+	dyncall_macros.h \
+	dyncall_config.h \
+	dyncall_types.h \
+	dyncall.h \
+	dyncall_signature.h \
+	dyncall_value.h \
+	dyncall_callf.h
+INSTALL_LIB = 1
 
-MODS	= dyncall dyncall_vector dyncall_callf
+include $(TOP)/MakeProlog
 
-# arch-specific modules
+# --- x86 family --------------------------------------------------------------
 
 ifdef BUILD_ARCH_x86
 
-MODS += dyncall_callvm_x86
+UNITS += dyncall_callvm_x86
 
 ifdef BUILD_ASM_nasm
-MODS += dyncall_x86_nasm
-else
+
+UNITS += dyncall_x86_nasm
+
+else # !nasm
 
 ifdef BUILD_TOOL_msvc
-MODS += dyncall_x86_windows
-else
+
+UNITS += dyncall_x86_windows
+
+else # !msvc
 
 ifdef BUILD_OS_darwin
-MODS += dyncall_x86_darwin
+UNITS += dyncall_x86_darwin
 else
-MODS += dyncall_x86_as
+UNITS += dyncall_x86_as
 endif
 
-endif
-
-endif
-
-# nasm_FLAGS += -DBUILD_OS=$(BUILD_OS)=1 -DBUILD_ARCH_$(BUILD_ARCH)=1
-endif
-
-ifdef BUILD_ARCH_ppc32
-MODS += dyncall_callvm_ppc32
-MODS += dyncall_ppc32
-endif
-
-ifdef BUILD_ARCH_arm9e
-MODS += dyncall_callvm_arm9e_arm
-MODS += dyncall_arm9e_arm
-endif
+endif # !msvc
+endif # !nasm
+endif # x86
 
 ifdef BUILD_ARCH_x64
-MODS += dyncall_callvm_x64
-MODS += dyncall_x64_system_v
+UNITS += dyncall_callvm_x64
+UNITS += dyncall_x64_system_v
 endif
+
+
+# --- powerpc -----------------------------------------------------------------
+
+ifdef BUILD_ARCH_ppc32
+UNITS += dyncall_callvm_ppc32
+UNITS += dyncall_ppc32
+endif
+
+# --- arm ---------------------------------------------------------------------
+
+ifdef BUILD_ARCH_arm9e
+UNITS += dyncall_callvm_arm9e_arm
+UNITS += dyncall_arm9e_arm
+endif
+
+# --- mips --------------------------------------------------------------------
 
 ifdef BUILD_ARCH_mips32
-MODS += dyncall_callvm_mips32
-MODS += dyncall_mips32
+UNITS += dyncall_callvm_mips32
+UNITS += dyncall_mips32
 endif
 
-include $(TOP)/buildsys/gmake/epilog.gmake
+# -----------------------------------------------------------------------------
+
+include $(TOP)/MakeEpilog
 

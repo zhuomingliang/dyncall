@@ -18,8 +18,11 @@
 #
 #//////////////////////////////////////////////////////////////////////////////
 
+# --- configure settings ------------------------------------------------------
 
-# --- output error message ---------------------------------------------------
+PACKAGE=ucom
+
+# --- output error message ----------------------------------------------------
 
 error() 
 {
@@ -27,25 +30,25 @@ error()
   exit 1
 }
 
-# --- output warning message -------------------------------------------------
+# --- output warning message --------------------------------------------------
 
 warning()
 {
   echo "warning: $*"
 }
 
-# --- output info message ----------------------------------------------------
+# --- output info message -----------------------------------------------------
 
 info()
 {
   echo "$*"
 }
 
-# --- print usage ------------------------------------------------------------
+# --- print usage -------------------------------------------------------------
 
 usage()
 {
-  echo "dyncall configuration shell-script"
+  echo "$PACKAGE configuration shell-script"
   echo "Usage:"
   echo "  configure [ options ]"
   echo
@@ -59,10 +62,12 @@ usage()
   echo "  --target-x64        build for x64 architecture platform"
   echo "  --target-psp        build for Playstation Portable platform (PSPSDK)"
   echo "  --target-nds        build for Nintendo DS platform (devkitPro)"
+  echo "  --target-cygwin     build for cygwin platform"
+  echo "  --target-windows    build for windows platform (useful for cygwin)"
   echo
   echo "  --tool-gcc          use GNU Compiler Collection"
   echo "  --tool-msvc         use Microsoft Visual C++"
-  echo "  --tool-pspsdk       use PSPSDK make system"
+  echo "  --tool-pspsdk       use PSP SDK tool-chain"
   echo 
   echo "  --asm-as            use GNU Assembler"
   echo "  --asm-nasm          use NASM Assembler"
@@ -70,189 +75,257 @@ usage()
   echo
   echo "  --config-release    build release version (default)"
   echo "  --config-debug      build debug version"
+  echo
   exit 0
 }
 
-# --- installation prefix directory ------------------------------------------
-
-#INSTALL_PREFIX="/usr/local"
-
 # --- guess operating system -------------------------------------------------
 
-BUILD_OS=""
+CONFIG_OS=""
 guess_os()
 {
   OS=`uname -s`
   if [ "$OS" = "WindowsNT" ]; then
-    BUILD_OS="windows"
+    CONFIG_OS="windows"
   elif [ "$OS" = "Darwin" ]; then
-    BUILD_OS="darwin"
+    CONFIG_OS="darwin"
   elif [ "$OS" = "CYGWIN_NT-5.1" ]; then
-    BUILD_OS="windows"
+    CONFIG_OS="cygwin"
   elif [ "$OS" = "Linux" ]; then
-    BUILD_OS="linux"
+    CONFIG_OS="linux"
   elif [ "$OS" = "SunOS" ]; then
-    BUILD_OS="sunos"
+    CONFIG_OS="sunos"
   elif [ "$OS" = "OpenBSD" ]; then
-    BUILD_OS="openbsd"
+    CONFIG_OS="openbsd"
   elif [ "$OS" = "FreeBSD" ]; then
-    BUILD_OS="freebsd"
+    CONFIG_OS="freebsd"
   elif [ "$OS" = "NetBSD" ]; then
-    BUILD_OS="netbsd"
+    CONFIG_OS="netbsd"
   elif [ "$OS" = "DragonFly" ]; then
-    BUILD_OS="dragonfly"
+    CONFIG_OS="dragonfly"
   fi
-  info "guess operating system $BUILD_OS"
+  info "guess operating system $CONFIG_OS"
 }
 
 # --- guess architecture -----------------------------------------------------
 
-BUILD_ARCH=""
+CONFIG_ARCH=""
 guess_arch()
 {
   ARCH=`uname -m`
   if [ "$ARCH" = "Power Macintosh" ]; then
-    BUILD_ARCH="ppc32"
+    CONFIG_ARCH="ppc32"
   elif [ "$ARCH" = "x86" ] || [ "$ARCH" = "i386" ] || [ "$ARCH" = "i486" ] || [ "$ARCH" = "i586" ] || [ "$ARCH" = "i686" ] || [ "$ARCH" = "i86pc" ]; then
-    BUILD_ARCH="x86"
+    CONFIG_ARCH="x86"
   elif [ "$ARCH" = "amd64" ] || [ "$ARCH" = "x86_64" ] || [ "$ARCH" = "x64" ]; then
-    BUILD_ARCH="x64"
+    CONFIG_ARCH="x64"
   fi
-  info "guess arch $BUILD_ARCH"
+  info "guess arch $CONFIG_ARCH"
 }
 
 # --- guess tool chain -------------------------------------------------------
 
-BUILD_TOOL=""
+CONFIG_TOOL=""
 guess_tool()
 {
-  BUILD_TOOL="gcc"
-  info "guess tool $BUILD_TOOL"
+  CONFIG_TOOL="gcc"
+  info "guess tool $CONFIG_TOOL"
 }
 
 # --- guess assembler --------------------------------------------------------
 
-BUILD_ASM=""
+CONFIG_ASM=""
 guess_asm()
 {
-  if [ "$BUILD_TOOL" = "gcc" ]; then
-    BUILD_ASM="as"
-  elif [ "$BUILD_TOOL" = "msvc" ]; then
-    BUILD_ASM="ml"
+  if [ "$CONFIG_TOOL" = "gcc" ]; then
+    CONFIG_ASM="as"
+  elif [ "$CONFIG_TOOL" = "msvc" ]; then
+    CONFIG_ASM="ml"
   fi
-  info "guess assembler $BUILD_ASM"
+  info "guess assembler $CONFIG_ASM"
 }
+
+# --- prefixes ---------------------------------------------------------------
+
+#CONFIG_PREFIX="/usr/local"
+
+# --- dyncall ----------------------------------------------------------------
+
+CONFIG_DYNCALL="$CONFIG_PREFIX"
 
 # --- process arguments ------------------------------------------------------
 
-while [ 0 -lt $# ]; do
-  OPT=$1
-  shift 1
-  case $OPT in
-    --help|-h)
-      usage
-      ;;
-    --prefix=*)
-      INSTALL_PREFIX=`echo $OPT | cut -c 10-` 
-      ;;
-    --target-x86)
-      BUILD_ARCH=x86
-      ;;
-    --target-x64)
-      BUILD_ARCH=x64
-      ;;
-    --target-ppc32)
-      BUILD_ARCH=ppc32
-      ;;
-    --target-psp) 
-      BUILD_OS=psp
-      BUILD_ARCH=mips32
-      BUILD_TOOL=gcc
-      ;;
-    --target-nds)
-      BUILD_OS=nds
-      BUILD_ARCH=arm9e
-      BUILD_TOOL=gcc
-      ;;
-    --tool-gcc)
-      BUILD_TOOL=gcc
-      ;;
-    --tool-msvc)
-      BUILD_TOOL=msvc
-      ;;
-    --asm-as)
-      BUILD_ASM=as
-      ;;
-    --asm-nasm)
-      BUILD_ASM=nasm
-      ;;
-    --asm-ml)
-      BUILD_ASM=ml
-      ;;
-    --config-release)
-      BUILD_CONFIG=release
-      ;;
-    --config-debug)
-      BUILD_CONFIG=debug
-      ;;
-    *)
-      warning "unknown option $OPT"
-      ;;
-  esac
-done
+args()
+{
+  while [ 0 -lt $# ]; do
+    OPT=$1
+    shift 1
+    case $OPT in
+      --help|-h)
+        usage
+        ;;
+      --prefix=*)
+        CONFIG_PREFIX=`echo $OPT | cut -c 10-` 
+        ;;
+      --target-x86)
+        CONFIG_ARCH=x86
+        ;;
+      --target-x64)
+        CONFIG_ARCH=x64
+        ;;
+      --target-ppc32)
+        CONFIG_ARCH=ppc32
+        ;;
+      --target-psp) 
+        CONFIG_OS=psp
+        CONFIG_ARCH=mips32
+        CONFIG_TOOL=gcc
+        ;;
+      --target-nds)
+        CONFIG_OS=nds
+        CONFIG_ARCH=arm9e
+        CONFIG_TOOL=gcc
+        ;;
+      --target-cygwin)
+        CONFIG_OS=cygwin
+        ;;
+      --target-windows)
+        CONFIG_OS=windows
+        ;;
+      --tool-gcc)
+        CONFIG_TOOL=gcc
+        CONFIG_ASM=gcc
+        ;;
+      --tool-msvc)
+        CONFIG_TOOL=msvc
+        CONFIG_ASM=ml
+        ;;
+      --tool-pspsdk)
+        CONFIG_OS=psp
+        CONFIG_ARCH=mips32
+        CONFIG_TOOL=pspsdk
+        CONFIG_ASM=as
+        CONFIG_PREFIX=`psp-config -P`
+        CONFIG_DYNCALL=$CONFIG_PREFIX
+        ;;
+      --asm-as)
+        CONFIG_ASM=as
+        ;;
+      --asm-nasm)
+        CONFIG_ASM=nasm
+        ;;
+      --asm-ml)
+        CONFIG_ASM=ml
+        ;;
+      --config-release)
+        CONFIG_CONFIG=release
+        ;;
+      --config-debug)
+        CONFIG_CONFIG=debug
+        ;;
+      *)
+        warning "unknown option $OPT"
+        ;;
+    esac
+  done
+}
 
 # --- guess variables --------------------------------------------------------
 
-info "running configure.."
-
-if [ -z "$BUILD_OS" ]; then 
-  guess_os
-  if [ -z "$BUILD_OS" ]; then
-    error "unsupported operating system $OS"
+guess()
+{
+  if [ -z "$CONFIG_OS" ]; then 
+    guess_os
+    if [ -z "$CONFIG_OS" ]; then
+      error "unsupported operating system $OS"
+    fi
   fi
-fi
 
-if [ -z "$BUILD_ARCH" ]; then
-  guess_arch 
-  if [ -z "$BUILD_ARCH" ]; then
-    error "unsupported architecture $ARCH"
+  if [ -z "$CONFIG_ARCH" ]; then
+    guess_arch 
+    if [ -z "$CONFIG_ARCH" ]; then
+      error "unsupported architecture $ARCH"
+    fi
   fi
-fi
 
-if [ -z "$BUILD_TOOL" ]; then
-  guess_tool
-  if [ -z "$BUILD_TOOL" ]; then
-    error "no tool"
+  if [ -z "$CONFIG_TOOL" ]; then
+    guess_tool
+    if [ -z "$CONFIG_TOOL" ]; then
+      error "no tool"
+    fi
   fi
-fi
 
-if [ -z "$BUILD_ASM" ]; then
-  guess_asm
-  if [ -z "$BUILD_ASM" ]; then
-    error " no assembler tool"
+  if [ -z "$CONFIG_ASM" ]; then
+    guess_asm
+    if [ -z "$CONFIG_ASM" ]; then
+      error " no assembler tool"
+    fi
   fi
-fi
 
-if [ -z "$BUILD_CONFIG" ]; then
-  BUILD_CONFIG=release
-fi
+  if [ -z "$CONFIG_CONFIG" ]; then
+    CONFIG_CONFIG=release
+  fi
+  
+}
+  
+# --- set default variables --------------------------------------------------
 
-if [ -z "$INSTALL_PREFIX" ]; then
-  INSTALL_PREFIX="$PWD/install_${BUILD_OS}_${BUILD_ARCH}_${BUILD_TOOL}_${BUILD_CONFIG}"
-fi
+set_defaults()
+{
+  CONFIG_HOST="$CONFIG_OS"
+}
+
+# --- derive variables -------------------------------------------------------
+
+derive_vars()
+{
+  if [ -z "$CONFIG_PREFIX" ]; then
+    BUILD_HOST="$CONFIG_HOST"
+    if [ "$CONFIG_HOST" != "$CONFIG_OS" ]; then
+      BUILD_HOST="${CONFIG_HOST}_${CONFIG_OS}"
+    fi
+    CONFIG_PREFIX="$PWD/install_${BUILD_HOST}_${CONFIG_ARCH}_${CONFIG_TOOL}_${CONFIG_CONFIG}"
+  fi
+}
 
 # --- write ConfigVars files ------------------------------------------------
 
-writeVars()
+output()
 {
-  echo "BUILD_OS=$BUILD_OS" >$1
-  echo "BUILD_ARCH=$BUILD_ARCH" >>$1
-  echo "BUILD_TOOL=$BUILD_TOOL" >>$1
-  echo "BUILD_ASM=$BUILD_ASM" >>$1
-  echo "BUILD_CONFIG=$BUILD_CONFIG" >>$1
-  echo "INSTALL_PREFIX=$INSTALL_PREFIX" >>$1
+  echo "CONFIG_PACKAGE=$PACKAGE" >$1
+  echo "CONFIG_HOST=$CONFIG_HOST" >>$1
+  echo "CONFIG_OS=$CONFIG_OS" >>$1
+  echo "CONFIG_ARCH=$CONFIG_ARCH" >>$1
+  echo "CONFIG_TOOL=$CONFIG_TOOL" >>$1
+  echo "CONFIG_ASM=$CONFIG_ASM" >>$1
+  echo "CONFIG_CONFIG=$CONFIG_CONFIG" >>$1
+  echo "CONFIG_PREFIX=$CONFIG_PREFIX" >>$1
+  echo "CONFIG_DYNCALL=$CONFIG_DYNCALL" >>$1
   echo "" >>$1
 }
 
-writeVars ConfigVars
-info "done"
+# --- configure --------------------------------------------------------------
+
+run_configure()
+{
+  OLD=$PWD
+  DIR=$1
+  shift 1
+  cd $DIR
+  sh configure $*
+  cd $OLD
+}
+
+# --- main -------------------------------------------------------------------
+
+main()
+{
+  info "* configure package $PACKAGE"
+  guess
+  set_defaults
+  args $*
+  derive_vars
+  output ConfigVars 
+}
+
+main $*

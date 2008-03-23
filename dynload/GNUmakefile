@@ -24,22 +24,24 @@
 #
 #///////////////////////////////////////////////////
 
-TOP=..
+TOP = ..
 
-include $(TOP)/buildsys/gmake/prolog.gmake
+TARGET_LIB = dynload
 
-LIBRARY=dynload
-INSTALL_INCLUDES=dynload.h
-INSTALL_LIB=1
+INSTALL_HEADERS = dynload.h
+INSTALL_LIB = 1
+
+include $(TOP)/MakeProlog
 
 ifdef BUILD_OS_windows
-MODS += dynload_win32
-else
-ifndef BUILD_OS_psp
-MODS += dynload_unix
+UNITS += dynload_win32
 endif
 
+ifdef BUILD_OS_psp
+UNITS += dynload_unix
 endif
 
-include $(TOP)/buildsys/gmake/epilog.gmake
+include $(TOP)/MakeEpilog
+
+
 
