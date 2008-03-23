@@ -90,6 +90,9 @@ endif
 ifdef BUILD_ARCH_mips32
 UNITS += dyncall_callvm_mips32
 UNITS += dyncall_mips32
+ifdef BUILD_TOOL_pspsdk
+ASFLAGS += -c
+endif
 endif
 
 # -----------------------------------------------------------------------------
