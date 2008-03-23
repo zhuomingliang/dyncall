@@ -1,0 +1,7 @@
+TARGET = suite
+
+OBJS = 
+
+PSPSDK = $(shell psp-config --pspsdk-path)
+include $(PSPSDK)/lib/build.mak
+

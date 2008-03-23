@@ -62,6 +62,7 @@ usage()
   echo
   echo "  --tool-gcc          use GNU Compiler Collection"
   echo "  --tool-msvc         use Microsoft Visual C++"
+  echo "  --tool-pspsdk       use PSPSDK make system"
   echo 
   echo "  --asm-as            use GNU Assembler"
   echo "  --asm-nasm          use NASM Assembler"

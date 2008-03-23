@@ -1,0 +1,8 @@
+platform = str( ARGUMENTS.get('OS',Platform()) )
+src = ['dyncall.c','dyncall_vector.c','dyncall_callf.c']
+
+if platform == "win32":
+  src += ['dyncall_callvm_x86.c', 'dyncall_x86_windows.asm']
+
+StaticLibrary('dyncall_s', src)
+

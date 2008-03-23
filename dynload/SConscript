@@ -1,0 +1,10 @@
+platform = ARGUMENTS.get('OS',Platform())
+src = []
+
+if str(platform) == "win32":
+  src += ['dynload_win32.c']
+else:
+  src += ['dynload_unix.c']
+
+StaticLibrary('dynload_s',src)
+

@@ -1,0 +1,9 @@
+DIRS = suite ellipsis suite2 callf plain
+
+.PHONY: all clean tests install $(DIRS) 
+
+all clean install: $(DIRS)
+
+$(DIRS):
+	$(MAKE) -C $@ -f Makefile.psp $(MAKECMDGOALS)
+
