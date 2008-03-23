@@ -38,6 +38,8 @@ $(BUILD_DIR)/%.obj: %.asm
 
 ifeq ("$(CXX_EXCEPTIONS)","0")
 CXXFLAGS	+= /EHs-c-
+else
+CXXFLAGS	+= /EHsc
 endif
 
 ifeq ("$(CXX_RTTI)","0")
@@ -55,23 +57,23 @@ $(BUILD_DIR)/%.obj: %.c
 $(BUILD_DIR)/%.obj: %.cpp
 	cl $< /nologo /c $(CPPFLAGS) $(CXXFLAGS) /Fo$@ 
 
+# --- Link flags --------------------------------------------------------------
+
+LDFLAGS += $(foreach X,$(LINK_DIRS),/LIBPATH:$X)
+LDFLAGS += $(foreach X,$(LINK_LIBS),$X.lib)
+
 # --- build static library ----------------------------------------------------
 
 $(BUILD_DIR)/%.lib: 
-	lib /OUT:$@ /NOLOGO $^
-
-# --- Link flags --------------------------------------------------------------
-
-LDFLAGS += $(foreach X,$(LINK_PATHS),/LIBPATH:$X)
-LDFLAGS += $(foreach X,$(LINK_LIBS),$X.lib)
+	lib /OUT:$@ /NOLOGO $(LDFLAGS) $(LDLIBS) $^
 
 # --- build dynamic linked library --------------------------------------------
 
 $(BUILD_DIR)/%.dll: 
-	link /OUT:$@ /NOLOGO /MACHINE:X86 /DLL $(LDFLAGS) $^
+	link /OUT:$@ /NOLOGO /MACHINE:X86 /DLL $(LDFLAGS) $(LDLIBS) $^
 
 # --- build executable --------------------------------------------------------
 
 $(BUILD_DIR)/%.exe: 
-	link /OUT:$@ /NOLOGO /MACHINE:x86 $(LDFLAGS) $^
+	link /OUT:$@ /NOLOGO /MACHINE:x86 $(LDFLAGS) $(LDLIBS) $^
 

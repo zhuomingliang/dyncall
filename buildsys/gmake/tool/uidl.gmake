@@ -1,0 +1,11 @@
+.SUFFIXES: .uidl .hpp .h
+
+%.hpp: %.uidl
+	uidl -m cxx $< -o $@
+%.h: %.uidl
+	uidl -m c $< -o $@
+
+ifdef INTERFACES
+AUTOS += $(foreach X,$(INTERFACES),$X.hpp $X.h)
+endif
+

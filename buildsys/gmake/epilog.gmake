@@ -18,12 +18,21 @@
 #//////////////////////////////////////////////////////////////////////////////
 
 
+include $(GMAKE_TOP)/tool/uidl.gmake
+include $(GMAKE_TOP)/tool/ucom.gmake
+
 include $(GMAKE_TOP)/os/$(BUILD_OS).gmake
+
 ifdef BUILD_ASM_nasm
 include $(GMAKE_TOP)/tool/nasm.gmake
 endif
-include $(GMAKE_TOP)/tool/latex.gmake
-include $(GMAKE_TOP)/targets.gmake
 
-build: $(TARGETS)
+include $(GMAKE_TOP)/tool/latex.gmake
+
+
+ifndef BUILD_TOOL_pspsdk
+include $(GMAKE_TOP)/targets.gmake
+endif
+
+build: $(AUTOS) $(DIRS) $(BUILD_DIR) $(TARGETS) $(EXTRA_DIRS)
 

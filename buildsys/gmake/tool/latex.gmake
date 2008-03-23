@@ -19,9 +19,9 @@
 
 .PHONY: force
 
-ifdef PDF
-TARGETS += $(PDF)
-$(PDF): force
+ifdef TARGET_PDF
+TARGETS += $(TARGET_PDF)
+$(TARGET_PDF): force
 endif
 
 %.pdf: %.tex

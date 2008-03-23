@@ -17,92 +17,86 @@
 #
 #//////////////////////////////////////////////////////////////////////////////
 
+# --- autos -------------------------------------------------------------------
+#
+# auto-generated files are generated first.
+#
+
+ifdef AUTOS
+TARGETS	+= $(AUTOS)
+endif
+
 # --- objects -----------------------------------------------------------------
 
 OBJ_SUFFIX ?= .o
-
-OBJS += $(foreach X,$(MODS),$(BUILD_DIR)/$X$(OBJ_SUFFIX))
+OBJS += $(foreach X,$(UNITS) $(MODS),$(BUILD_DIR)/$X$(OBJ_SUFFIX))
 
 # --- build application -------------------------------------------------------
 
-ifdef APP
-APP_FILE	 = $(BUILD_DIR)/$(APP)$(APP_SUFFIX)
+ifdef TARGET_APP
+APP_FILE	 = $(BUILD_DIR)/$(TARGET_APP)$(APP_SUFFIX)
 TARGETS		+= $(APP_FILE)
 $(APP_FILE): $(OBJS)
-build: $(BUILD_DIR)
+build-target: $(BUILD_DIR)
 endif
 
 # --- dynamic libraries -------------------------------------------------------
 
-ifdef DLL
-DLL_FILE	= $(BUILD_DIR)/$(DLL_PREFIX)$(DLL)$(DLL_SUFFIX)
+ifdef TARGET_DLL
+DLL_FILE	= $(BUILD_DIR)/$(DLL_PREFIX)$(TARGET_DLL)$(DLL_SUFFIX)
 TARGETS		+= $(DLL_FILE)
 $(DLL_FILE): $(OBJS)
-build: $(BUILD_DIR)
+build-target: $(BUILD_DIR)
 endif
 
 # --- static library ----------------------------------------------------------
 
-ifdef LIBRARY
-LIB_FILE	= $(BUILD_DIR)/$(LIB_PREFIX)$(LIBRARY)_s$(LIB_SUFFIX)
+ifdef TARGET_LIB
+LIB_NAME	= $(LIB_PREFIX)$(TARGET_LIB)_s$(LIB_SUFFIX)
+LIB_FILE	= $(BUILD_DIR)/$(LIB_NAME)
 TARGETS		+= $(LIB_FILE)
 $(LIB_FILE): $(OBJS)
-build: $(BUILD_DIR)
-INSTALL_LIBS	+= $(LIB_FILE)
+build-target: $(BUILD_DIR)
+endif
+
+# --- test --------------------------------------------------------------------
+
+ifdef TEST_DIRS
+.PHONY: test test-dirs $(TEST_DIRS)
+test-dirs: $(TEST_DIRS)
+$(TEST_DIRS):
+	$(MAKE) -C $@ $(MAKECMDGOALS)
+test: test-dirs
 endif
 
 # --- sub-directories ---------------------------------------------------------
 
-.PHONY: dirs $(DIRS)
+.PHONY: dirs extra-dirs $(DIRS) $(EXTRA_DIRS)
+
 dirs: $(DIRS)
 ifdef DIRS
-$(DIRS):
+$(DIRS): 
 	$(MAKE) -C $@ $(MAKECMDGOALS)
 endif
-build: dirs
+
+extra-dirs: $(EXTRA_DIRS)
+ifdef EXTRA_DIRS
+$(EXTRA_DIRS):
+	$(MAKE) -C $@ $(MAKECMDGOALS)
+endif
 
 # --- clean -------------------------------------------------------------------
 
 .PHONY: clean
-clean: dirs
+clean: dirs extra-dirs
 	$(RM) $(OBJS) $(TARGETS)
 
 # --- install -----------------------------------------------------------------
 
-.PHONY: install install-libs install-bins install-includes
-install: build install-libs install-bins install-includes
+include $(GMAKE_TOP)/install.gmake
 
-ifdef INSTALL_PREFIX
-$(INSTALL_PREFIX):
-	mkdir -p $(INSTALL_PREFIX)
-endif
+# --- all --------------------------------------------------------------------
 
-ifeq ($(INSTALL_LIB),1)
-
-$(INSTALL_PREFIX)/lib:
-	mkdir -p $(INSTALL_PREFIX)/lib
-
-install-libs: $(INSTALL_PREFIX)/lib
-	cp -Rf $(LIB_FILE) $(INSTALL_PREFIX)/lib
-endif
-
-ifeq ($(INSTALL_APP),1)
-
-$(INSTALL_PREFIX)/bin:
-	mkdir -p $(INSTALL_PREFIX)/bin
-
-install-bins: $(INSTALL_PREFIX)/bin
-	cp -Rf $(APP_FILE) $(INSTALL_PREFIX)/bin
-
-endif
-
-ifdef INSTALL_INCLUDES
-
-$(INSTALL_PREFIX)/include:
-	mkdir -p $(INSTALL_PREFIX)/include
-
-install-includes: $(INSTALL_PREFIX)/include
-	cp -Rf $(INSTALL_INCLUDES) $(INSTALL_PREFIX)/include
-
-endif
+.PHONY: all
+all: build
 

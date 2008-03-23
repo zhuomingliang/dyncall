@@ -41,16 +41,16 @@ Before building a project, one has to configure the project.
 \end{verbatim}
 
 The configure script creates a top-level \file{ConfigVars} that
-specifies all \var{BUILD\_*} and \var{INSTALL\_*} variables.
+specifies a list of \var{CONIFG\_*} variables.
 
 Here's a sample \file{ConfigVars} file:
 
 \begin{verbatim}
-BUILD_OS=windows
-BUILD_ARCH=x86
-BUILD_TOOL=gcc
+CONFIG_OS=windows
+CONFIG_ARCH=x86
+CONFIG_TOOL=gcc
 BUILD_ASM=as
-INSTALL_PREFIX=/usr/local
+INSTALL_DIR=/usr/local
 \end{verbatim}
 
 \subsection{Building the project}
@@ -130,6 +130,7 @@ Value      & Description             \\
 \hline
 \val{gcc}  & GNU Compiler Collection \\
 \val{msvc} & Microsoft Visual C++ (windows) \\
+\val{pspsdk} & Playstation Portable SDK \\
 \end{tabular}
 
 \subsection{BUILD\_ASM}
@@ -150,7 +151,7 @@ Value      & Description              \\
 Variable name		& Description		\\
 \hline
 \var{BUILD\_CONFIG}	& Build configuration ("release", "debug") \\
-\var{INSTALL\_DIR}	& Installation directory \\
+\var{INSTALL\_PREFIX}	& Installation prefix directory \\
 \end{tabular}
 
 \section{Predefined variables}
@@ -182,14 +183,14 @@ Variable name              & Description                       \\
 \hline
 \var{TOP}		   & Relative path to top directory    \\
 \var{DIRS}		   & Sub-project directory names       \\
-\var{MODS}                 & List of module names to link      \\
+\var{UNITS}                & List of units to link for target      \\
 \hline
 & targets \\
 \hline
-\var{APP}                  & Build application name              \\
-\var{LIBRARY}              & Build static library name           \\
-\var{DLL}                  & Build dynamic library name          \\
-\var{PDF}		   & Build PDF manual (sources in latex) \\
+\var{TARGET_APP}           & Build application name              \\
+\var{TARGET_LIB}           & Build static library name           \\
+\var{TARGET_DLL}           & Build dynamic library name          \\
+\var{TARGET_PDF}	   & Build PDF manual (sources in latex) \\
 \hline
 & build related \\
 \hline
@@ -207,7 +208,7 @@ Variable name              & Description                       \\
 \hline
 \var{INSTALL\_APP}	   & If set to \val{1}, install executable to bin install-directory \\
 \var{INSTALL\_LIB}	   & If set to \val{1}, install library to lib install-directory \\
-\var{INSTALL\_INCLUDES}    & List of header files to copy to include install-directory \\
+\var{INSTALL\_HEADERS}    & List of header files to copy to include install-directory \\
 \end{tabular}
 
 \pagebreak

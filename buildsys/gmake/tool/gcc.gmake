@@ -60,12 +60,12 @@ endif
 # --- Compile C ---------------------------------------------------------------
 
 $(BUILD_DIR)/%.o: %.c
-	$(COMPILE.c) $(OUTPUT_OPTION) $<
+	$(COMPILE.c) $< $(OUTPUT_OPTION)
 
 # --- Compile C++ -------------------------------------------------------------
 
 $(BUILD_DIR)/%.o: %.cpp
-	$(COMPILE.cpp) $(OUTPUT_OPTION) $<
+	$(COMPILE.cpp) $< $(OUTPUT_OPTION)
 
 # --- Build static lib --------------------------------------------------------
 
@@ -75,19 +75,13 @@ $(BUILD_DIR)/%.a:
 
 # --- Linking -----------------------------------------------------------------
 
-ifdef LINK_PATHS
-LDFLAGS	+=$(foreach X,$(LINK_PATHS),-L$X)
+ifdef LINK_DIRS
+LDFLAGS +=$(foreach X,$(LINK_DIRS),-L$X)
 endif
 
 ifdef LINK_LIBS
 LDLIBS	+=$(foreach X,$(LINK_LIBS),-l$X)
 endif
-
-# --- Build dynamic library ---------------------------------------------------
-
-DLL_SUFFIX ?= .so
-$(BUILD_DIR)/%$(DLL_SUFFIX):
-	echo unimplemented
 
 # --- Build executable --------------------------------------------------------
 
@@ -102,9 +96,38 @@ ifeq ("$(LINK)","c")
 LINKCMD=$(CC)
 endif
 
+# --- Build dynamic library ---------------------------------------------------
+
+DLL_SUFFIX ?= .so
+
+ifdef BUILD_OS_windows
+ifdef DLL_IMPORTLIB
+TARGETS += $(LIB_FILE)
+$(BUILD_DIR)/lib%.a $(BUILD_DIR)/%.dll:
+	$(LINKCMD) -shared $^ -Wl,--out-implib,$(BUILD_DIR)/lib$(*F).a $(LDFLAGS) $(LDLIBS) $(OUTPUT_OPTION)
+else
+$(BUILD_DIR)/%.dll:
+	$(LINKCMD) -shared $^ $(LDFLAGS) $(LDLIBS) $(OUTPUT_OPTION)
+endif
+endif
+
+$(BUILD_DIR)/%.so:
+	$(LINKCMD) -shared $^ $(LDFLAGS) $(LDLIBS) $(OUTPUT_OPTION)
+
+$(BUILD_DIR)/lib%.dylib:
+	$(LINKCMD) -dynamiclib $^ $(LDFLAGS) $(LDLIBS) $(OUTPUT_OPTION)
+
+# --- cross compile -----------------------------------------------------------
+
+ifdef BUILD_HOST_cygwin
+ifdef BUILD_OS_windows
+TARGET_ARCH += -mno-cygwin
+endif
+endif
+
 # --- last rule ---------------------------------------------------------------
 
 $(BUILD_DIR)/%$(APP_SUFFIX):
-	$(LINKCMD) $^ $(LDFLAGS) $(LDLIBS) $(TARGET_ARCH) $(OUTPUT_OPTION) 
+	$(LINKCMD) $^ $(LDFLAGS) $(LDLIBS) $(OUTPUT_OPTION) 
 
 

@@ -19,5 +19,12 @@
 
 APP_SUFFIX=.exe
 DLL_SUFFIX=.dll
+
+ifdef TARGET_DLL
+ifdef DLL_IMPORTLIB
+LIB_FILE = $(BUILD_DIR)/$(LIB_PREFIX)$(TARGET_DLL)$(LIB_SUFFIX)
+endif
+endif
+
 include $(GMAKE_TOP)/tool/$(BUILD_TOOL).gmake
 

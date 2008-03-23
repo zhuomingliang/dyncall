@@ -17,23 +17,53 @@
 #
 #//////////////////////////////////////////////////////////////////////////////
 
-GMAKE_TOP=$(TOP)/buildsys/gmake
+GMAKE_TOP ?= $(TOP)/buildsys/gmake
+
+
+# default rule 
 
 .PHONY: default build
 default: build
 
+
+# config settings
+
 include $(TOP)/ConfigVars
+
+
+# project settings 
+
 -include $(TOP)/ProjectVars
 
-BUILD_CONFIG ?= release
+ 
+# setup BUILD_* from CONFIG_* variables
 
+BUILD_HOST ?= $(CONFIG_HOST)
+BUILD_OS ?= $(CONFIG_OS)
+BUILD_ARCH ?= $(CONFIG_ARCH)
+BUILD_TOOL ?= $(CONFIG_TOOL)
+BUILD_ASM ?= $(CONFIG_ASM)
+BUILD_CONFIG ?= $(CONFIG_CONFIG)
+
+
+# setup INSTALL_* from CONFIG_* variables
+
+INSTALL_PREFIX ?= $(CONFIG_PREFIX)
+
+
+# setup BUILD_<key>_<value> conditional variables
+
+BUILD_HOST_$(BUILD_HOST)=1
 BUILD_OS_$(BUILD_OS)=1
 BUILD_ARCH_$(BUILD_ARCH)=1
 BUILD_TOOL_$(BUILD_TOOL)=1
 BUILD_ASM_$(BUILD_ASM)=1
+BUILD_CONFIG_$(BUILD_CONFIG)=1
+
+
+# setup build directory
 
 BUILD_DIR ?= out_$(BUILD_OS)_$(BUILD_ARCH)_$(BUILD_TOOL)_$(BUILD_CONFIG)
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
-
 

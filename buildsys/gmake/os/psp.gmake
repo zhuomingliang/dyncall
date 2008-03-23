@@ -17,20 +17,9 @@
 #
 #//////////////////////////////////////////////////////////////////////////////
 
-PSPSDK	= $(shell psp-config --pspsdk-path)
-
-LINK_PATHS	+= $(PSPSDK)/lib
-LINK_LIBS	+= stdc++ c pspdisplay pspge pspctrl \
-pspsdk pspnet pspnet_inet pspnet_apctl pspnet_resolver \
-psputility pspuser pspdebug pspkernel
-APP_LINKER	= c
-include $(GMAKE_TOP)/tool/gcc.gmake
-
-CC	= psp-gcc
-CXX	= psp-g++
-AR	= psp-ar
-AS	= psp-as
-LD	= psp-ld
-
-CPPFLAGS += -I$(PSPSDK)/include
+ifdef BUILD_TOOL_pspsdk
+include $(GMAKE_TOP)/tool/pspsdk.gmake
+else 
+include $(GMAKE_TOP)/tool/psp-gcc.gmake
+endif
 
