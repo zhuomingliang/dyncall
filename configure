@@ -75,7 +75,7 @@ usage()
 
 # --- installation prefix directory ------------------------------------------
 
-INSTALL_PREFIX="/usr/local"
+#INSTALL_PREFIX="/usr/local"
 
 # --- guess operating system -------------------------------------------------
 
@@ -235,6 +235,10 @@ fi
 
 if [ -z "$BUILD_CONFIG" ]; then
   BUILD_CONFIG=release
+fi
+
+if [ -z "$INSTALL_PREFIX" ]; then
+  INSTALL_PREFIX="$PWD/install_${BUILD_OS}_${BUILD_ARCH}_${BUILD_TOOL}_${BUILD_CONFIG}"
 fi
 
 # --- write ConfigVars files ------------------------------------------------
