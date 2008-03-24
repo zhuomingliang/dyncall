@@ -63,7 +63,7 @@ BUILD_CONFIG_$(BUILD_CONFIG)=1
 
 # setup build directory
 
-BUILD_DIR ?= out_$(BUILD_OS)_$(BUILD_ARCH)_$(BUILD_TOOL)_$(BUILD_CONFIG)
+BUILD_DIR ?= build_out/$(BUILD_OS)_$(BUILD_ARCH)_$(BUILD_TOOL)_$(BUILD_CONFIG)
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
