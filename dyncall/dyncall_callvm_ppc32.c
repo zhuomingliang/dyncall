@@ -144,7 +144,7 @@ static void dc_callvm_argDouble_ppc32(DCCallVM* in_self, DCdouble d)
 static void dc_callvm_argPointer_ppc32(DCCallVM* in_self, DCpointer p)
 {
   /* promote to integer */
-  dc_callvm_argInt_ppc32(in_self, (DCint) p);
+  dc_callvm_argInt_ppc32(in_self, * (DCint*) &p);
 }
 
 #ifndef max

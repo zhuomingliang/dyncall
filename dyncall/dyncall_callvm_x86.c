@@ -472,11 +472,6 @@ DCCallVM* dcNewCallVM_x86_win32_this_ms(DCsize size)
   return dc_callvm_new_x86( &gVT_x86_win32_this_ms, size );
 }
 
-DCCallVM* dcNewCallVM(DCsize size)
-{
-  return dcNewCallVM_x86_cdecl(size);
-}
-
 /* mode */
 
 void dc_callvm_mode_x86(DCCallVM* in_self, DCint mode)
@@ -495,5 +490,12 @@ void dc_callvm_mode_x86(DCCallVM* in_self, DCint mode)
   }
   self->mInterface.mVTpointer = vt;
   dcReset(in_self);
+}
+
+/* new */
+
+DCCallVM* dcNewCallVM(DCsize size)
+{
+  return dcNewCallVM_x86_cdecl(size);
 }
 

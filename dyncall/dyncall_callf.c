@@ -64,7 +64,7 @@ void dcVCallF(DCCallVM* vm, DCValue* result, DCpointer funcptr, const DCsigchar*
     case DC_SIGCHAR_SHORT:      result->s = dcCallShort     (vm,funcptr); break;
     case DC_SIGCHAR_INT:        result->i = dcCallInt       (vm,funcptr); break;
     case DC_SIGCHAR_LONG:       result->l = dcCallLong      (vm,funcptr); break;
-    case DC_SIGCHAR_LONGLONG:   result->l = dcCallLongLong  (vm,funcptr); break;
+    case DC_SIGCHAR_LONGLONG:   result->L = dcCallLongLong  (vm,funcptr); break;
     case DC_SIGCHAR_FLOAT:      result->f = dcCallFloat     (vm,funcptr); break;
     case DC_SIGCHAR_DOUBLE:     result->d = dcCallDouble    (vm,funcptr); break;
     case DC_SIGCHAR_POINTER:    result->p = dcCallPointer   (vm,funcptr); break;

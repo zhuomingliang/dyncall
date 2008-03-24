@@ -78,7 +78,7 @@ static void dc_callvm_argInt_mips32(DCCallVM* in_self, DCint i)
 
 static void dc_callvm_argPointer_mips32(DCCallVM* in_self, DCpointer x)
 {
-  dc_callvm_argInt_mips32(in_self, (DCint)x);
+  dc_callvm_argInt_mips32(in_self, * (DCint*) &x );
 }
 
 static void dc_callvm_argBool_mips32(DCCallVM* in_self, DCbool x)
@@ -101,21 +101,21 @@ static void dc_callvm_argLong_mips32(DCCallVM* in_self, DClong x)
   dc_callvm_argInt_mips32(in_self, (DCint)x);
 }
 
-static void dc_callvm_argLongLong_mips32(DCCallVM* in_self, DClonglong L)
+static void dc_callvm_argLongLong_mips32(DCCallVM* in_self, DClonglong Lv)
 {
   DCCallVM_mips32* self = (DCCallVM_mips32*)in_self;
 
   if (self->mIntRegs < 7) {
+    DCint* p = (DCint*) &Lv;
     /* skip odd register (align 64 bit) */
     self->mIntRegs += self->mIntRegs & 1;
-    DCint* p = (DCint*) &L;
     self->mRegData.mIntData[self->mIntRegs++] = p[0];
     self->mRegData.mIntData[self->mIntRegs++] = p[1];
   } else {
     self->mIntRegs = 8;
     /* 64 bit values need to be aligned on 8 byte boundaries */
     dcVecSkip(&self->mVecHead, dcVecSize(&self->mVecHead) & 4);
-    dcVecAppend(&self->mVecHead, &L, sizeof(DClonglong));
+    dcVecAppend(&self->mVecHead, &Lv, sizeof(DClonglong));
   }
 }
 
