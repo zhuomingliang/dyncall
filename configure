@@ -20,7 +20,7 @@
 
 # --- configure settings ------------------------------------------------------
 
-PACKAGE=ucom
+PACKAGE=dyncall
 
 # --- output error message ----------------------------------------------------
 
@@ -199,6 +199,7 @@ args()
       --tool-msvc)
         CONFIG_TOOL=msvc
         CONFIG_ASM=ml
+        CONFIG_OS=windows
         ;;
       --tool-pspsdk)
         CONFIG_OS=psp
