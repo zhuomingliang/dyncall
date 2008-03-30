@@ -35,10 +35,10 @@ include $(TOP)/MakeProlog
 
 ifdef BUILD_OS_windows
 UNITS += dynload_win32
-endif
-
-ifdef BUILD_OS_psp
+else
+ifndef BUILD_OS_psp
 UNITS += dynload_unix
+endif
 endif
 
 include $(TOP)/MakeEpilog
