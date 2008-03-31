@@ -26,13 +26,16 @@
 all: build
 
 
-#.include "$(TOP)/buildsys/build_dir.make"
-
 # Include config rules.
 .if exists($(TOP)/ConfigVars)
 .  include "$(TOP)/ConfigVars"
 .endif
 
+BUILD_HOST ?= $(CONFIG_HOST)
+BUILD_OS ?= $(CONFIG_OS)
+BUILD_ARCH ?= $(CONFIG_ARCH)
+BUILD_TOOL ?= $(CONFIG_TOOL)
+BUILD_ASM ?= $(CONFIG_ASM)
 
 # Check if library has been 'configured' properly. If not, tell the user and abort.
 .if !defined(BUILD_OS) || !defined(BUILD_ARCH) || !defined(BUILD_TOOL)
