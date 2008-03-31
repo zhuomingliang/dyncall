@@ -11,7 +11,7 @@ if pf.machine() == "Power Macintosh":
 
 if arch == "x86":
   src += ['dyncall_callvm_x86.c']
-  if platform == "windows":
+  if platform == "win32":
     src += ['dyncall_x86_windows.asm']
   elif platform == "darwin":
     src += ['dyncall_x86_darwin.s']
