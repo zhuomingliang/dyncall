@@ -1,8 +1,26 @@
+import platform as pf
+
 platform = str( ARGUMENTS.get('OS',Platform()) )
 src = ['dyncall.c','dyncall_vector.c','dyncall_callf.c']
 
 if platform == "win32":
-  src += ['dyncall_callvm_x86.c', 'dyncall_x86_windows.asm']
+  arch = "x86"
+
+if pf.machine() == "Power Macintosh":
+  arch = "ppc"
+
+if arch == "x86":
+  src += ['dyncall_callvm_x86.c']
+  if platform == "windows":
+    src += ['dyncall_x86_windows.asm']
+  elif platform == "darwin":
+    src += ['dyncall_x86_darwin.s']
+  else:
+    src += ['dyncall_x86_as.s']
+elif arch == "ppc":
+  src += ['dyncall_callvm_ppc32.c']
+  if platform == "darwin":
+    src += ['dyncall_ppc32.s']
 
 StaticLibrary('dyncall_s', src)
 

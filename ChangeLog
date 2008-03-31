@@ -1,4 +1,6 @@
 Version 0.2
+o added scons build support
+o configure variables all prefix CONFIG_* now
 o configure variable INSTALL_DIR changed to INSTALL_PREFIX
 o configure (shell version) option "--prefix" changed to "--prefix=<path>"
 
