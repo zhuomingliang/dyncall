@@ -21,7 +21,7 @@
 
   dynload_unix.c
 
-  dynload module for .so files
+  dynload module for .so (unix) and .dylib (mach-o darwin/OS X) files
 
 /////////////////////////////////////////////////////////////////////////////*/
 
