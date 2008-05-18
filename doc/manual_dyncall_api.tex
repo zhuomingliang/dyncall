@@ -102,8 +102,10 @@ DCCallVM* dcNewCallVM (DCsize size);
 void      dcFreeCallVM(DCCallVM* vm);
 \end{lstlisting}
 
-\lstinline{size} specifies the amount of memory that will be allocated for
-the preparation of the function call in the binding phase (\ref{phases}).
+\lstinline{dcNewCallVM} creates a new \emph{CallVM} object, where
+\lstinline{size} specifies the size of the internal stack that will be
+allocated and used to bind the arguments to. Use \lstinline{dcFreeCallVM} to
+destroy the \emph{CallVM} object.
 
 % \paragraph{Explicit allocation}
 % \capi{dcGetSizeOfCallVM()}
@@ -117,6 +119,10 @@ the preparation of the function call in the binding phase (\ref{phases}).
 \begin{lstlisting}[language=c]
 void dcMode (DCCallVM* vm, DCint mode);
 \end{lstlisting}
+
+Sets the calling convention to use. Note that some mode/platform combination
+don't make any sense (e.g. using a PowerPC calling convention on a MIPS
+platform).
 
 \paragraph{Modes}
 
@@ -147,10 +153,11 @@ Constant & Description\\
 
 \paragraph{Details}
 
-\lstinline@DC_CALL_C_DEFAULT@ is the default standard C call on the target platform.
-It uses the standard C calling convention and will also be used for variable argument ellipsis calls.
-On most platforms, there is only one C calling convention. Only the X86 platform
-provides a rich family of different calling conventions.
+\lstinline@DC_CALL_C_DEFAULT@ is the default standard C call on the target
+platform. It uses the standard C calling convention and will also be used for
+variable argument ellipsis calls. On most platforms, there is only one C
+calling convention. Only the X86 platform provides a rich family of different
+calling conventions.\\
 
 
 \subsection{Machine state reset}
@@ -161,8 +168,7 @@ void dcReset(DCCallVM* vm);
 
 Resets the internal stack of arguments. This function should be called prior 
 to binding new arguments to the CallVM, because arguments don't get flushed
-automatically after a foreign function call invocation.
-
+automatically after a foreign function call invocation.\\
 
 \subsection{Argument binding}
 
@@ -182,7 +188,9 @@ void dcArgPointer (DCCallVM* vm, DCpointer  arg);
 
 \paragraph{Details}
 
-Arguments should be bound in \emph{left-to-right} order regarding the C function prototyp.
+Used to bind arguments of the named types to the CallVM object.
+Arguments should be bound in \emph{left-to-right} order regarding the C
+function prototype.\\
 
 \subsection{Call invocation}
 
@@ -203,9 +211,9 @@ DCpointer  dcCallPointer (DCCallVM* vm, DCpointer funcptr);
 
 \paragraph{Details}
 
-After the invocation of the foreign function call, the argument values are still bounded and a second call using the
-same arguments can be issued. If you need to clear the argument bindings, 
-you have to reset the \emph{CallVM}.
+After the invocation of the foreign function call, the argument values are
+still bound and a second call using the same arguments can be issued. If you
+need to clear the argument bindings, you have to reset the \emph{CallVM}.
 
 \pagebreak
 
@@ -222,7 +230,8 @@ void dcVCallF(DCCallVM* vm, DCValue* result, DCpointer funcptr,
 
 \paragraph{Details}
 
-A formatted function call uses a signature character string, that encodes
-the argument types and return type.
-The return value will be stored in the \lstinline@DCValue@.
+These functions can be used to issue a printf-style function call, using a
+signature string encoding the argument types and return type. The return value
+will be stored in \lstinline{result}.
+For more information about the signature format, refer to \ref{sigchar}.
 
