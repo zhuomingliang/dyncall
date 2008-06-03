@@ -23,16 +23,23 @@
 
 \subsection{Stability and security considerations}
 
-Since the \product{dyncall} library doesn't know anything about the called function itself
-(except its address), no parameter-type validation is done. Thus in order to avoid crashes, data corruption, etc., the user is urged to ascertain the number and types of parameters. 
-It is strongly advised to double check the parameter types of every function to be called, and not to call unknown functions at all.\\
+Since the \product{dyncall} library doesn't know anything about the called
+function itself (except its address), no parameter-type validation is done.
+Thus in order to avoid crashes, data corruption, etc., the user is urged
+to ascertain the number and types of parameters. It is strongly advised to
+double check the parameter types of every function to be called, and not to
+call unknown functions at all.\\
 
-Consider a simple program that issues a call by directly passing some command line arguments to the call itself, or even worse, by indirectly choosing a library and a function to call. Such unchecked input data can be quite easily used to intentionally crash the program , or to hijack it and take control of the program flow.\\
-To put it in a nutshell, if not used with care, programs depending on the \product{dyncall}
-and the dynload library, can become arbitrary function call dispatchers by
-manipulating their input data. Successful exploits of programs like the one
-outlined above can be misused as very powerful tools for a wide variety of
-malicious attacks, \ldots
+Consider a simple program that issues a call by directly passing some
+command line arguments to the call itself, or even worse, by indirectly
+choosing a library and a function to call. Such unchecked input data can be
+quite easily used to intentionally crash the program , or to hijack it and
+take control of the program flow.\\
+To put it in a nutshell, if not used with care, programs depending on the
+\product{dyncall} and the dynload library, can become arbitrary function
+call dispatchers by manipulating their input data. Successful exploits of
+programs like the one outlined above can be misused as very powerful tools
+for a wide variety of malicious attacks, \ldots
  
 
 \subsection{Embedding}
@@ -40,7 +47,9 @@ malicious attacks, \ldots
 The \product{dyncall} library has a very low dependency to system facilities.
 The library uses some heap-memory to store the Call VM and uses per default
 \capi{malloc()} and \capi{free()} calls. This behaviour can be changed by 
-providing custom \capi{dcAllocMem()} and \capi{dcFreeMem()} functions. See \shell{dyncall/dyncall\_alloc.h} for details.
+providing custom \capi{dcAllocMem()} and \capi{dcFreeMem()} functions.
+See \shell{dyncall/dyncall\_alloc.h} for details.
+
 
 \subsection{Multi-threading}
 
@@ -73,3 +82,9 @@ Besides \product{dyncall} the dynload library needs to be extended with
 .dylib, .so and other shared library format support (e.g. AmigaOS .library or
 GEM \cite{.ldg} files).
 
+
+\subsection{Related libraries}
+
+Besides the \product{dyncall} library, there are other free and open projects
+with similar goals. The most noteworthy libraries are libffi \cite{libffi} and
+libffcall \cite{libffcall}.
