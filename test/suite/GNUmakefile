@@ -29,12 +29,12 @@ TOP		= ../..
 
 include $(TOP)/buildsys/gmake/prolog.gmake
 
-APP		= suite
-MODS		= case main
+TARGET_APP	= suite
+UNITS		= case main
 CPPFLAGS	= -I$(TOP)/dyncall
 CXX_EXCEPTIONS 	= 0
 CXX_RTTI	= 0
-LINK_PATHS	= $(TOP)/dyncall/$(BUILD_DIR) 
+LINK_DIRS	= $(TOP)/dyncall/$(BUILD_DIR) 
 LINK_LIBS       = dyncall_s
 
 ifdef BUILD_OS_linux

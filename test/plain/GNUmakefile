@@ -29,10 +29,10 @@ TOP		= ../..
 
 include $(TOP)/buildsys/gmake/prolog.gmake
 
-APP		= test
-MODS		= test_main
+TARGET_APP	= test
+UNITS		= test_main
 CPPFLAGS	= -I$(TOP)/dyncall
-LINK_PATHS	= $(TOP)/dyncall/$(BUILD_DIR)
+LINK_DIRS	= $(TOP)/dyncall/$(BUILD_DIR)
 LINK_LIBS       = dyncall_s
 ifndef BUILD_OS_psp
 LINK		= c++

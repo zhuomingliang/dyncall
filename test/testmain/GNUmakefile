@@ -28,17 +28,17 @@ TOP	= ../..
 
 include $(TOP)/build/gmake/prolog.gmake
 
-LIBRARY = testmain
+TARGET_LIB = testmain
 
 ifdef BUILD_OS_psp
-MODS		= main_PSP
+UNITS		= main_PSP
 PSPSDK		= $(shell psp-config --pspsdk-path)
 CPPFLAGS	= -I$(PSPSDK)/include
 else
 ifdef BUILD_OS_nds
-MODS		= main_NDS
+UNITS		= main_NDS
 else
-MODS		= main_ansic
+UNITS		= main_ansic
 endif
 endif
 

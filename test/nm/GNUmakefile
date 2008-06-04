@@ -24,9 +24,9 @@ TOP		= ../..
 
 include $(TOP)/buildsys/gmake/prolog.gmake
 
-APP		= nm
-MODS		= nm
-LINK_PATHS	= $(TOP)/dynload/$(BUILD_DIR)
+TARGET_APP	= nm
+UNITS		= nm
+LINK_DIRS	= $(TOP)/dynload/$(BUILD_DIR)
 LINK_LIBS	= dynload_s
 
 ifdef BUILD_OS_linux
