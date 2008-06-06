@@ -22,7 +22,7 @@
 import random
 import sys
 
-N = 100
+N = 1000
 MINARG = 0
 MAXARG = 19
 
