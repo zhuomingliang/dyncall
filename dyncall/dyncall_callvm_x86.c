@@ -29,7 +29,7 @@ static DCCallVM* dc_callvm_new_x86(DCCallVM_vt* vt, DCsize size)
   DCCallVM_x86* self = (DCCallVM_x86*) dcAllocMem( sizeof(DCCallVM_x86)+size );
   self->mInterface.mVTpointer = vt;
   self->mIntRegs              = 0;
-  dcVecInit( &self->mVecHead, size );
+  dcVecInit(&self->mVecHead, size);
   return (DCCallVM*) self;
 }
 
@@ -479,13 +479,13 @@ void dc_callvm_mode_x86(DCCallVM* in_self, DCint mode)
   DCCallVM_x86* self = (DCCallVM_x86*) in_self;
   DCCallVM_vt*  vt;
   switch(mode) {
-    case DC_CALL_C_DEFAULT:            vt = &gVT_x86_cdecl;         break;
-    case DC_CALL_C_X86_CDECL:          vt = &gVT_x86_cdecl;         break;
-    case DC_CALL_C_X86_WIN32_STD:      vt = &gVT_x86_win32_std;     break;
-    case DC_CALL_C_X86_WIN32_FAST_MS:  vt = &gVT_x86_win32_fast_ms; break;
-    case DC_CALL_C_X86_WIN32_THIS_MS:  vt = &gVT_x86_win32_this_ms; break;
+    case DC_CALL_C_DEFAULT:            vt = &gVT_x86_cdecl;          break;
+    case DC_CALL_C_X86_CDECL:          vt = &gVT_x86_cdecl;          break;
+    case DC_CALL_C_X86_WIN32_STD:      vt = &gVT_x86_win32_std;      break;
+    case DC_CALL_C_X86_WIN32_FAST_MS:  vt = &gVT_x86_win32_fast_ms;  break;
+    case DC_CALL_C_X86_WIN32_THIS_MS:  vt = &gVT_x86_win32_this_ms;  break;
     case DC_CALL_C_X86_WIN32_FAST_GNU: vt = &gVT_x86_win32_fast_gnu; break;
-    case DC_CALL_C_X86_WIN32_THIS_GNU: vt = &gVT_x86_cdecl;         break;
+    case DC_CALL_C_X86_WIN32_THIS_GNU: vt = &gVT_x86_cdecl;          break;
     default: return;
   }
   self->mInterface.mVTpointer = vt;

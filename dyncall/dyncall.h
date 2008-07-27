@@ -41,46 +41,48 @@ typedef struct DCCallVM_    DCCallVM;
 
 /* Supported Calling Convention Modes */
 
-#define DC_CALL_C_DEFAULT               0 
-#define DC_CALL_C_X86_CDECL             1 
+#define DC_CALL_C_DEFAULT               0
+#define DC_CALL_C_X86_CDECL             1
 #define DC_CALL_C_X86_WIN32_STD         2
 #define DC_CALL_C_X86_WIN32_FAST_MS     3
 #define DC_CALL_C_X86_WIN32_THIS_MS     4
 #define DC_CALL_C_X86_WIN32_THIS_GNU    5
 #define DC_CALL_C_X86_WIN32_FAST_GNU    6
 #define DC_CALL_C_X64_WIN64             7
-#define DC_CALL_C_PPC32_DARWIN          8
-#define DC_CALL_C_ARM                   9
-#define DC_CALL_C_MIPS32_EABI		10
-#define DC_CALL_C_MIPS32_PSPSDK		DC_CALL_C_MIPS32_EABI
+#define DC_CALL_C_X64_SYSV              8
+#define DC_CALL_C_PPC32_DARWIN          9
+#define DC_CALL_C_ARM_ARM              10
+#define DC_CALL_C_ARM_THUMB            11
+#define DC_CALL_C_MIPS32_EABI          12
+#define DC_CALL_C_MIPS32_PSPSDK    DC_CALL_C_MIPS32_EABI
 
 
 DC_API DCCallVM*  dcNewCallVM     (DCsize size);
 DC_API void       dcFree          (DCCallVM* vm);
 DC_API void       dcReset         (DCCallVM* vm);
 
-DC_API void       dcMode          (DCCallVM* vm, DCint          mode);
+DC_API void       dcMode          (DCCallVM* vm, DCint mode);
 
-DC_API void       dcArgBool       (DCCallVM* vm, DCbool        value);
-DC_API void       dcArgChar       (DCCallVM* vm, DCchar        value);
-DC_API void       dcArgShort      (DCCallVM* vm, DCshort       value);
-DC_API void       dcArgInt        (DCCallVM* vm, DCint         value);
-DC_API void       dcArgLong       (DCCallVM* vm, DClong        value);
-DC_API void       dcArgLongLong   (DCCallVM* vm, DClonglong    value);
-DC_API void       dcArgFloat      (DCCallVM* vm, DCfloat       value);
-DC_API void       dcArgDouble     (DCCallVM* vm, DCdouble      value);
-DC_API void       dcArgPointer    (DCCallVM* vm, DCpointer     value);
+DC_API void       dcArgBool       (DCCallVM* vm, DCbool     value);
+DC_API void       dcArgChar       (DCCallVM* vm, DCchar     value);
+DC_API void       dcArgShort      (DCCallVM* vm, DCshort    value);
+DC_API void       dcArgInt        (DCCallVM* vm, DCint      value);
+DC_API void       dcArgLong       (DCCallVM* vm, DClong     value);
+DC_API void       dcArgLongLong   (DCCallVM* vm, DClonglong value);
+DC_API void       dcArgFloat      (DCCallVM* vm, DCfloat    value);
+DC_API void       dcArgDouble     (DCCallVM* vm, DCdouble   value);
+DC_API void       dcArgPointer    (DCCallVM* vm, DCpointer  value);
 
-DC_API void       dcCallVoid      (DCCallVM* vm, DCpointer   funcptr);
-DC_API DCbool     dcCallBool      (DCCallVM* vm, DCpointer   funcptr);
-DC_API DCchar     dcCallChar      (DCCallVM* vm, DCpointer   funcptr);
-DC_API DCshort    dcCallShort     (DCCallVM* vm, DCpointer   funcptr);
-DC_API DCint      dcCallInt       (DCCallVM* vm, DCpointer   funcptr);
-DC_API DClong     dcCallLong      (DCCallVM* vm, DCpointer   funcptr);
-DC_API DClonglong dcCallLongLong  (DCCallVM* vm, DCpointer   funcptr);
-DC_API DCfloat    dcCallFloat     (DCCallVM* vm, DCpointer   funcptr);
-DC_API DCdouble   dcCallDouble    (DCCallVM* vm, DCpointer   funcptr);
-DC_API DCpointer  dcCallPointer   (DCCallVM* vm, DCpointer   funcptr);
+DC_API void       dcCallVoid      (DCCallVM* vm, DCpointer funcptr);
+DC_API DCbool     dcCallBool      (DCCallVM* vm, DCpointer funcptr);
+DC_API DCchar     dcCallChar      (DCCallVM* vm, DCpointer funcptr);
+DC_API DCshort    dcCallShort     (DCCallVM* vm, DCpointer funcptr);
+DC_API DCint      dcCallInt       (DCCallVM* vm, DCpointer funcptr);
+DC_API DClong     dcCallLong      (DCCallVM* vm, DCpointer funcptr);
+DC_API DClonglong dcCallLongLong  (DCCallVM* vm, DCpointer funcptr);
+DC_API DCfloat    dcCallFloat     (DCCallVM* vm, DCpointer funcptr);
+DC_API DCdouble   dcCallDouble    (DCCallVM* vm, DCpointer funcptr);
+DC_API DCpointer  dcCallPointer   (DCCallVM* vm, DCpointer funcptr);
 
 #ifdef __cplusplus
 }
