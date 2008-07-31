@@ -1,3 +1,8 @@
+Version 0.3 (not released yet, TODO)
+o added SPARC support?
+o added ARM THUMB mode support?
+o cosmetic changes, documentation updated?
+
 Version 0.2
 o added scons build support
 o configure variables all prefix CONFIG_* now
