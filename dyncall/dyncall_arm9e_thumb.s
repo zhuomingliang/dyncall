@@ -43,20 +43,20 @@ dcCall_arm9e_thumb:
 	mov		%r6, %r2						/* Move 'size' to r6 (3rd argument is passed in r2). */
 	ldmia	%r5!, {%r0-%r3}					/* Load first 4 arguments for new call into r0-r3. */
 
-	subs	%r6, %r6, #16					/* Size of remaining arguments. */
+	sub/*@@@s*/	%r6, %r6, #16					/* Size of remaining arguments. */
 	ble		call							/* Jump to call if no more arguments. */
 
-	sub		%r13, %r13, %r6					/* Set stack pointer to top of stack. */
-	and		%r9, %r6, #7					/* Align stack on 8 byte boundaries. */
-	sub		%r13, %r13, %r9
+/*@@@	sub		%r13, %r13, %r6*/					/* Set stack pointer to top of stack. */
+/*@@@	and		%r9, %r6, #7*/					/* Align stack on 8 byte boundaries. */
+/*@@@	sub		%r13, %r13, %r9*/
 
 	mov		%r9, %r13						/* Temp. destination pointer. */
-	mov		%r10, #0						/* Init byte counter. */
+/*@@@	mov		%r10, #0*/						/* Init byte counter. */
 
 pushArgs:
-	ldrb	%r8, [%r5, %r10]				/* Load a byte into r8. */
-	strb	%r8, [%r9, %r10]				/* Push byte onto stack. */
-	add		%r10, %r10, #1					/* Increment byte counter. */
+/*@@@	ldrb	%r8, [%r5, %r10]*/				/* Load a byte into r8. */
+/*@@@	strb	%r8, [%r9, %r10]*/				/* Push byte onto stack. */
+/*@@@	add		%r10, %r10, #1*/					/* Increment byte counter. */
 	cmp		%r10, %r6
 	bne		pushArgs
 

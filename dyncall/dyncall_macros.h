@@ -83,7 +83,11 @@
 #elif defined(__MINGW__)//@@@
 	#define DC__OS_MinGW
 
-/* The Playstation Portable (homebrew) SDK. */
+/* The Nintendo DS (homebrew) using devkitpro. */
+#elif defined(__nds__)
+        #define DC__OS_NDS
+
+/* The PlayStation Portable (homebrew) SDK. */
 #elif defined(__psp__) || defined(PSP)
         #define DC__OS_PSP
 

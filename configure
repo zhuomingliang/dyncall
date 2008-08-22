@@ -61,7 +61,8 @@ usage()
   echo "  --target-x86        build for x86 architecture platform"
   echo "  --target-x64        build for x64 architecture platform"
   echo "  --target-psp        build for Playstation Portable platform (PSPSDK)"
-  echo "  --target-nds        build for Nintendo DS platform (devkitPro)"
+  echo "  --target-nds-arm    build for Nintendo DS platform (devkitPro, ARM mode)"
+  echo "  --target-nds-thumb  build for Nintendo DS platform (devkitPro, THUMB mode)"
   echo "  --target-cygwin     build for cygwin platform"
   echo "  --target-windows    build for windows platform (useful for cygwin)"
   echo
@@ -181,9 +182,14 @@ args()
         CONFIG_ARCH=mips32
         CONFIG_TOOL=gcc
         ;;
-      --target-nds)
+      --target-nds-arm)
         CONFIG_OS=nds
-        CONFIG_ARCH=arm9e
+        CONFIG_ARCH=arm9e_arm
+        CONFIG_TOOL=gcc
+        ;;
+      --target-nds-thumb)
+        CONFIG_OS=nds
+        CONFIG_ARCH=arm9e_thumb
         CONFIG_TOOL=gcc
         ;;
       --target-cygwin)

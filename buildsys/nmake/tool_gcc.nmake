@@ -34,10 +34,10 @@ AS  =arm-eabi-as
 LD  =arm-eabi-g++#arm-eabi-ld
 OCP =arm-eabi-objcopy
 
-ASFLAGS   = -g -mthumb -mthumb-interwork
-CFLAGS   = -I"$(DEVKITPRO_PATH)/libnds/include" -g -Wall -O2 -DARM9 -mcpu=arm9tdmi -mtune=arm9tdmi -fomit-frame-pointer -ffast-math -mthumb -mthumb-interwork
+ASFLAGS  = -g -mthumb -mthumb-interwork
+CFLAGS   = -g -Wall -O2 -DARM9 -mcpu=arm9tdmi -mtune=arm9tdmi -fomit-frame-pointer -ffast-math -mthumb -mthumb-interwork
 CXXFLAGS = $(CFLAGS) -fno-rtti -fno-exceptions
-LDFLAGS  = -specs=ds_arm9.specs -g -mthumb -mthumb-interwork -mno-fpu #-Wl,-Map,$(notdir $*.map)
+LDFLAGS  = -g -mthumb -mthumb-interwork -mno-fpu #-Wl,-Map,$(notdir $*.map)
 ARFLAGS  =
 
 !ELSE IF "$(BUILD_ARCH)" == "arm9e_arm"
@@ -49,12 +49,19 @@ AS  =arm-eabi-as
 LD  =arm-eabi-g++#arm-eabi-ld
 OCP =arm-eabi-objcopy
 
-ASFLAGS   = -g
-CFLAGS   = -I"$(DEVKITPRO_PATH)/libnds/include" -g -Wall -O2 -DARM9 -mcpu=arm9tdmi -mtune=arm9tdmi -fomit-frame-pointer -ffast-math
+ASFLAGS  = -g
+CFLAGS   = -g -Wall -O2 -DARM9 -mcpu=arm9tdmi -mtune=arm9tdmi -fomit-frame-pointer -ffast-math
 CXXFLAGS = $(CFLAGS) -fno-rtti -fno-exceptions
-LDFLAGS  = -specs=ds_arm9.specs -g -mno-fpu #-Wl,-Map,$(notdir $*.map)
+LDFLAGS  = -g -mno-fpu #-Wl,-Map,$(notdir $*.map)
 ARFLAGS  =
 
+!ENDIF
+
+
+!IF "$(BUILD_OS)" == "nds"
+CFLAGS   = $(CFLAGS) -D__nds__ -I"$(DEVKITPRO_PATH)/libnds/include"
+CXXFLAGS = $(CXXFLAGS) -D__nds__ -I"$(DEVKITPRO_PATH)/libnds/include"
+LDFLAGS  = $(LDFLAGS) -specs=ds_arm9.specs
 !ENDIF
 
 

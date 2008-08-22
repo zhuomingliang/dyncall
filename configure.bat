@@ -40,25 +40,26 @@ IF [%1]==[] (
 	ECHO.  configure.bat [ options ]
 	ECHO.
 	ECHO.Options:
-	ECHO.  /?               print this page
+	ECHO.  /?                print this page
 	ECHO.
-	ECHO.  /prefix PATH     set installation prefix ^(defaults to './install'^)
-	ECHO.                   ^(only for use with gmake^)
+	ECHO.  /prefix PATH      set installation prefix ^(defaults to './install'^)
+	ECHO.                    ^(only for use with gmake^)
 	ECHO.
-	ECHO.  /target-x86      build for x86 architecture ^(default^)
-	ECHO.  /target-x64      build for x64 architecture
-	ECHO.  /target-psp      build for Playstation Portable ^(homebrew SDK^)
-	ECHO.  /target-nds      build for Nintendo DS ^(devkitPro, ARM mode ^(not THUMB^)^)
+	ECHO.  /target-x86       build for x86 architecture ^(default^)
+	ECHO.  /target-x64       build for x64 architecture
+	ECHO.  /target-psp       build for PlayStation Portable ^(homebrew SDK^)
+	ECHO.  /target-nds-arm   build for Nintendo DS ^(devkitPro, ARM mode^)
+	ECHO.  /target-nds-thumb build for Nintendo DS ^(devkitPro, THUMB mode^)
 	ECHO.
-	ECHO.  /tool-msvc       use Microsoft Visual C++ compiler ^(default^)
-	ECHO.  /tool-gcc        use GNU Compiler Collection
+	ECHO.  /tool-msvc        use Microsoft Visual C++ compiler ^(default^)
+	ECHO.  /tool-gcc         use GNU Compiler Collection
 	ECHO.
-	ECHO.  /asm-ml          use Microsoft Macro Assembler ^(default^)
-	ECHO.  /asm-as          use the GNU Assembler
-	ECHO.  /asm-nasm        use NASM Assembler
+	ECHO.  /asm-ml           use Microsoft Macro Assembler ^(default^)
+	ECHO.  /asm-as           use the GNU Assembler
+	ECHO.  /asm-nasm         use NASM Assembler
 	ECHO.
-	ECHO.  /config-release  build release version ^(default^)
-	ECHO.  /config-debug    build debug version
+	ECHO.  /config-release   build release version ^(default^)
+	ECHO.  /config-debug     build debug version
 ) ELSE IF [%1]==[/prefix] (
 	SET INSTALL_PREFIX=%2
 	SHIFT
@@ -69,8 +70,11 @@ IF [%1]==[] (
 ) ELSE IF [%1]==[/target-psp] (
 	SET BUILD_ARCH=mips32
 	SET BUILD_OS=psp
-) ELSE IF [%1]==[/target-nds] (
+) ELSE IF [%1]==[/target-nds-arm] (
 	SET BUILD_ARCH=arm9e_arm
+	SET BUILD_OS=nds
+) ELSE IF [%1]==[/target-nds-thumb] (
+	SET BUILD_ARCH=arm9e_thumb
 	SET BUILD_OS=nds
 ) ELSE IF [%1]==[/tool-gcc] (
 	SET BUILD_TOOL=gcc

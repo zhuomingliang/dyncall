@@ -19,16 +19,16 @@
 
 /*/////////////////////////////////////////////////////////////////////////////
 
-  dyncall 32bit ARM9E family interface (ARM mode)
+  dyncall 32bit ARM9E family interface (THUMB mode)
 
   REVISION
-  2007/12/11 initial
+  2008/08/12 initial
 
 /////////////////////////////////////////////////////////////////////////////*/
 
 
-#ifndef DYNCALL_CALL_ARM9E_ARM_H
-#define DYNCALL_CALL_ARM9E_ARM_H
+#ifndef DYNCALL_CALL_ARM9E_THUMB_H
+#define DYNCALL_CALL_ARM9E_THUMB_H
 
 
 #include "dyncall_types.h"
@@ -38,17 +38,17 @@ extern "C" {
 #endif
 
 /* 
-** arm9e arm mode calling convention calls 
+** arm9e thumb mode calling convention calls 
 **
 ** - hybrid return-type call (bool ... pointer)
 **
 */
 
-void dcCall_arm9e_arm(DCpointer target, DCpointer stackdata, DCsize size);
+void dcCall_arm9e_thumb(DCpointer target, DCpointer stackdata, DCsize size);
 
 #ifdef __cplusplus
 }
 #endif
 
 
-#endif /* DYNCALL_CALL_ARM9E_ARM_H */
+#endif /* DYNCALL_CALL_ARM9E_THUMB_H */
