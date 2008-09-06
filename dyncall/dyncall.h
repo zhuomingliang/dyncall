@@ -45,9 +45,9 @@ typedef struct DCCallVM_    DCCallVM;
 #define DC_CALL_C_X86_CDECL             1
 #define DC_CALL_C_X86_WIN32_STD         2
 #define DC_CALL_C_X86_WIN32_FAST_MS     3
-#define DC_CALL_C_X86_WIN32_THIS_MS     4
-#define DC_CALL_C_X86_WIN32_THIS_GNU    5
-#define DC_CALL_C_X86_WIN32_FAST_GNU    6
+#define DC_CALL_C_X86_WIN32_FAST_GNU    4
+#define DC_CALL_C_X86_WIN32_THIS_MS     5
+#define DC_CALL_C_X86_WIN32_THIS_GNU    6
 #define DC_CALL_C_X64_WIN64             7
 #define DC_CALL_C_X64_SYSV              8
 #define DC_CALL_C_PPC32_DARWIN          9

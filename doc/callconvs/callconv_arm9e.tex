@@ -44,7 +44,7 @@ Take a look at the ARM-THUMB procedure call standard (ATPCS) \cite{ATPCS} for mo
 
 Currently, the \product{dyncall} library supports the ARM and THUMB mode of the ARM9E family, excluding ARM-THUMB interworking. Although it's quite possible that the current implementation runs on other ARM processor families as well, please note that only the ARM9E family has been thoroughly tested at the time of writing. Please report if the code runs on other ARM families, too.\\
 It is important to note, that dyncall supports the ARM architecture calling convention variant {\bf with floating point hardware disabled} (meaning that the FPA and the VFP (scalar mode) procedure call standards are not supported).
-This processor family features some instruction sets accelerating DSP and multimedia application like the ARM Jazelle Technology (direct Java bytecode execution, providing acceleration for some bytecodes while calling software code for others), etc... that are not supported by the dyncall library.\\
+This processor family features some instruction sets accelerating DSP and multimedia application like the ARM Jazelle Technology (direct Java bytecode execution, providing acceleration for some bytecodes while calling software code for others), etc. that are not supported by the dyncall library.\\
 
 
 
@@ -110,7 +110,7 @@ register save area                       &        &                             
 \hhline{~-~~}
 local data                               &        &                                      &                              \\
 \hhline{~-~~}
-\mrlbrace{6}{parameter area}             & \ldots & \mrrbrace{3}{stack parameters}       &                              \\
+\mrlbrace{7}{parameter area}             & \ldots & \mrrbrace{3}{stack parameters}       &                              \\
                                          & \ldots &                                      &                              \\
                                          & \ldots &                                      &                              \\
 \hhline{~=~~}
@@ -195,7 +195,7 @@ register save area                       &        &                             
 \hhline{~-~~}
 local data                               &        &                                      &                              \\
 \hhline{~-~~}
-\mrlbrace{6}{parameter area}             & \ldots & \mrrbrace{3}{stack parameters}       &                              \\
+\mrlbrace{7}{parameter area}             & \ldots & \mrrbrace{3}{stack parameters}       &                              \\
                                          & \ldots &                                      &                              \\
                                          & \ldots &                                      &                              \\
 \hhline{~=~~}

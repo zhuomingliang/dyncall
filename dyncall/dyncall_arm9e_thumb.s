@@ -43,7 +43,8 @@ dcCall_arm9e_thumb:
 	mov		%r6, %r2						/* Move 'size' to r6 (3rd argument is passed in r2). */
 	ldmia	%r5!, {%r0-%r3}					/* Load first 4 arguments for new call into r0-r3. */
 
-	sub/*@@@s*/	%r6, %r6, #16					/* Size of remaining arguments. */
+	sub		%r6, %r6, #16					/* Size of remaining arguments. */
+	cmp		%r6, #0
 	ble		call							/* Jump to call if no more arguments. */
 
 /*@@@	sub		%r13, %r13, %r6*/					/* Set stack pointer to top of stack. */
