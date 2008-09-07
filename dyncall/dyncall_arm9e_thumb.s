@@ -34,7 +34,7 @@
 dcCall_arm9e_thumb:
 
 	/* Prolog. This function never needs to spill inside its prolog, so just store the permanent registers. */
-	push	{%r4-%r7, %r14}					/* Old stack ptr, permanent registers, link register -> save area on stack. */
+	push	{%r4-%r7, %r14}					/* Frame ptr, permanent registers, link register -> save area on stack. */
 	mov		%r7, %r13						/* Set frame ptr. */
 
 	/* Call. */

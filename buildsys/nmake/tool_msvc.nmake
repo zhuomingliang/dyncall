@@ -63,16 +63,16 @@ ARFLAGS  = /NOLOGO
 
 
 .asm.obj:
-	echo .asm.obj: Compiling $< ...
-	$(AS) $(ASFLAGS) /c /nologo /Fo$@ $< > nul
+	echo .asm.obj: Assembling $< ...
+	$(AS) $(ASFLAGS) /c /nologo /Fo$@ $<
 
 .c.obj:
 	echo .c.obj: Compiling $< ...
-	$(CC) $(CFLAGS) /c /nologo /Fo$@ $< > nul
+	$(CC) $(CFLAGS) /c /nologo /Fo$@ $<
 
 .cpp.obj:
 	echo .cpp.obj: Compiling $< ...
-	$(CXX) $(CXXFLAGS) /c /nologo /Fo$@ $< > nul
+	$(CXX) $(CXXFLAGS) /c /nologo /Fo$@ $<
 
 .tex.pdf:
 	pdflatex $<

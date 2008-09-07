@@ -70,7 +70,7 @@ LDFLAGS  = $(LDFLAGS) -specs=ds_arm9.specs
 
 
 .s.o:
-	echo .s.o: Compiling $< ...
+	echo .s.o: Assembling $< ...
 	$(AS) $(ASFLAGS) -o $@ $<
 
 .c.o:

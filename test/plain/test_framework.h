@@ -30,10 +30,10 @@
 // Statement breaking into debugger (for various platforms). @@@add if defined, etc...
 #ifdef _WIN32
 # ifdef _MSC_VER
-#  define DC_TEST_BREAK				__debugbreak
+#  define DC_TEST_BREAK __debugbreak
 # else
 #  include <windows.h>
-#  define DC_TEST_BREAK       DebugBreak
+#  define DC_TEST_BREAK DebugBreak
 # endif
 #else
 # define DC_TEST_BREAK
