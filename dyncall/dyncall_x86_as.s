@@ -32,7 +32,7 @@
 .section .text
 /* ============================================================================
 
-   macro DCSYM
+   macro EXPORT_C
 
    Check if C symbols should be prefixed by an underscore (e.g. for
    x86/Windows).
@@ -45,11 +45,20 @@
   _\name:
  .endm
 .else
+
+.ifdef BUILD_OS_cygwin
+ .macro EXPORT_C name
+  .global _\name
+  _\name:
+ .endm
+.else
  .macro EXPORT_C name
   .global \name
   \name:
  .endm
 .endif
+.endif
+
 
 
 # -----------------------------------------------------------------------------
