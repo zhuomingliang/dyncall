@@ -2,6 +2,7 @@ Version 0.3 (not released yet, TODO)
 o added SPARC support?
 o added ARM THUMB mode support?
 o cosmetic changes, documentation updated?
+o bugfix: on cygwin exported C symbols in GNU as are prefixed with '_' now.
 
 Version 0.2
 o added scons build support
