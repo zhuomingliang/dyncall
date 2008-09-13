@@ -77,6 +77,14 @@ DC_DEFINE_TEST_FUNC_BEGIN(testCallC)
   }
   /* long */
   {
+    DClong r;
+    dcReset(pc);
+    dcArgLong(pc, 0xCAFEBABEUL);
+    r = dcCallLong(pc, (DCpointer) &fun_c_L);
+    DC_TEST(r == (DClong)0xCAFEBABEUL);
+  }
+  /* long long */
+  {
     DClonglong r;
     dcReset(pc);
     dcArgLongLong(pc, 0xCAFEBABEDEADC0DEULL);
