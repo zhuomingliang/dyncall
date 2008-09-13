@@ -46,6 +46,10 @@ extern "C" {
 
 void dcCall_arm9e_thumb(DCpointer target, DCpointer stackdata, DCsize size);
 
+/* Internally used to avoid compiler overwriting r0 and r1 in call stub */
+DClong     dcCall_arm9e_thumb_word (DCpointer target, DCpointer stackdata, DCsize size);
+DClonglong dcCall_arm9e_thumb_dword(DCpointer target, DCpointer stackdata, DCsize size);
+
 #ifdef __cplusplus
 }
 #endif

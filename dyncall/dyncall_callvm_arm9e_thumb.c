@@ -101,10 +101,6 @@ static void dc_callvm_argLongLong_arm9e_thumb(DCCallVM* in_self, DClonglong x)
      this is GCC specific - it is not documented int the ATPCS, though) */
   dcVecSkip(&self->mVecHead, dcVecSize(&self->mVecHead) & 4);
   dcVecAppend(&self->mVecHead, &x, sizeof(DClonglong));
-
-  /* Store as if 'x' were two parameters, with the loword as first parameter. */
-  /* dcVecAppend(&self->mVecHead, (DCint*)&x+0, sizeof(DCint)); */
-  /* dcVecAppend(&self->mVecHead, (DCint*)&x+1, sizeof(DCint)); */
 }
 
 
@@ -141,6 +137,21 @@ void dc_callvm_call_arm9e_thumb(DCCallVM* in_self, DCpointer target)
 }
 
 
+DClong dc_callvm_call_arm9e_thumb_word(DCCallVM* in_self, DCpointer target)
+{
+  DCCallVM_arm9e_thumb* self = (DCCallVM_arm9e_thumb*)in_self;
+  return dcCall_arm9e_thumb_word(target, dcVecData(&self->mVecHead), dcVecSize(&self->mVecHead));
+}
+
+
+DClonglong dc_callvm_call_arm9e_thumb_dword(DCCallVM* in_self, DCpointer target)
+{
+  DCCallVM_arm9e_thumb* self = (DCCallVM_arm9e_thumb*)in_self;
+  return dcCall_arm9e_thumb_dword(target, dcVecData(&self->mVecHead), dcVecSize(&self->mVecHead));
+}
+
+
+
 DCCallVM_vt gVT_arm9e_thumb =
 {
   &dc_callvm_free_arm9e_thumb
@@ -156,15 +167,15 @@ DCCallVM_vt gVT_arm9e_thumb =
 , &dc_callvm_argDouble_arm9e_thumb
 , &dc_callvm_argPointer_arm9e_thumb
 , (DCvoidvmfunc*)       &dc_callvm_call_arm9e_thumb
-, (DCboolvmfunc*)       &dc_callvm_call_arm9e_thumb
-, (DCcharvmfunc*)       &dc_callvm_call_arm9e_thumb
-, (DCshortvmfunc*)      &dc_callvm_call_arm9e_thumb
-, (DCintvmfunc*)        &dc_callvm_call_arm9e_thumb
-, (DClongvmfunc*)       &dc_callvm_call_arm9e_thumb
-, (DClonglongvmfunc*)   &dc_callvm_call_arm9e_thumb
-, (DCfloatvmfunc*)      &dc_callvm_call_arm9e_thumb
-, (DCdoublevmfunc*)     &dc_callvm_call_arm9e_thumb
-, (DCpointervmfunc*)    &dc_callvm_call_arm9e_thumb
+, (DCboolvmfunc*)       &dc_callvm_call_arm9e_thumb_word
+, (DCcharvmfunc*)       &dc_callvm_call_arm9e_thumb_word
+, (DCshortvmfunc*)      &dc_callvm_call_arm9e_thumb_word
+, (DCintvmfunc*)        &dc_callvm_call_arm9e_thumb_word
+, (DClongvmfunc*)       &dc_callvm_call_arm9e_thumb_word
+, (DClonglongvmfunc*)   &dc_callvm_call_arm9e_thumb_dword
+, (DCfloatvmfunc*)      &dc_callvm_call_arm9e_thumb_word
+, (DCdoublevmfunc*)     &dc_callvm_call_arm9e_thumb_dword
+, (DCpointervmfunc*)    &dc_callvm_call_arm9e_thumb_word
 };
 
 DCCallVM* dcNewCallVM_arm9e_thumb(DCsize size) 

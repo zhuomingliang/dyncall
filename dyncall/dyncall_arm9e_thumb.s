@@ -27,8 +27,10 @@
 //////////////////////////////////////////////////////////////////////*/
 
 .text
+.code 16	/* THUMB mode */
 
 .globl dcCall_arm9e_thumb
+.thumb_func
 
 /* Main dyncall call. */
 dcCall_arm9e_thumb:
@@ -39,6 +41,8 @@ dcCall_arm9e_thumb:
 
 	/* Call. */
 	mov		%r4, %r0						/* Move 'fptr' to r4 (1st argument is passed in r0). */
+	mov		%r0, #1							/* Set LSB to 1 (THUMB call). */
+	orr		%r4, %r0
 	mov		%r5, %r1						/* Move 'args' to r5 (2nd argument is passed in r1). */
 	mov		%r6, %r2						/* Move 'size' to r6 (3rd argument is passed in r2). */
 	ldmia	%r5!, {%r0-%r3}					/* Load first 4 arguments for new call into r0-r3. */
@@ -67,4 +71,20 @@ call:
 	/* Epilog. */
 	mov		%r13, %r7						/* Reset stack ptr. */
 	pop		{%r4-%r7, %r15}					/* Restore permanent registers and program counter. */
+
+
+
+/* Internally used to avoid compiler overwriting r0 and r1 in call stub */
+.globl dcCall_arm9e_thumb_word
+.thumb_func
+
+dcCall_arm9e_thumb_word:
+	b	dcCall_arm9e_thumb
+
+
+.globl dcCall_arm9e_thumb_dword
+.thumb_func
+
+dcCall_arm9e_thumb_dword:
+	b	dcCall_arm9e_thumb
 
