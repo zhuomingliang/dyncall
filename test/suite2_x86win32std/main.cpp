@@ -17,6 +17,7 @@
 
 /////////////////////////////////////////////////////////////////////////////*/
 
+#include "../common/platformInit.h"
 #include "../../dyncall/dyncall.h"
 #include "config.h"
 #include "../../dyncall/dyncall_value.h"
@@ -143,6 +144,8 @@ extern "C" {
 
 int main(int argc, char* argv[])
 {
+  dcTest_initPlatform();
+
   bool success = false;
   init();
   if (argc == 2) {
@@ -155,6 +158,9 @@ int main(int argc, char* argv[])
   } else {
     success = run_range(0,NCASES);
   }
+
+  dcTest_deInitPlatform();
+
   return (success) ? 0 : -1;
 }
 

@@ -17,12 +17,15 @@
 
 /////////////////////////////////////////////////////////////////////////////*/
 
+#include "../common/platformInit.h"
 #include "../../dynload/dynload.h"
 #include <stdio.h>
 
 
 int main(int argc, char* argv[])
 {
+  dcTest_initPlatform();
+
   int i, n;
   const char* libpath = argv[1];
   void* handle = dlLoadLibrary(libpath);
@@ -41,5 +44,9 @@ int main(int argc, char* argv[])
     printf("%s\n", name);
   }
   dlFreeLibrary(handle);
+
+  dcTest_deInitPlatform();
+
+  return 0;
 }
 

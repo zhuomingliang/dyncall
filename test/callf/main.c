@@ -19,6 +19,7 @@
 
 /* test dcCallF API */
 
+#include "../common/platformInit.h"
 #include "../../dyncall/dyncall_callf.h"
 #include <stdio.h>
 
@@ -33,6 +34,8 @@ void vf_iii(int x,int y,int z)
 
 int main(int argc, char* argv[])
 {
+  dcTest_initPlatform();
+
   DCCallVM* vm;
   DCValue r;
 
@@ -44,6 +47,8 @@ int main(int argc, char* argv[])
 
   /* free vm */
   dcFree(vm);
+
+  dcTest_deInitPlatform();
   
   return 0;
 }
