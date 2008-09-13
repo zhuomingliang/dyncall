@@ -33,9 +33,10 @@
 void       API fun_##NAME##_v()             {           } \
 DCbool     API fun_##NAME##_b(DCbool x)     { return x; } \
 DCint      API fun_##NAME##_i(DCint x)      { return x; } \
+DClong     API fun_##NAME##_l(DClong x)     { return x; } \
+DClonglong API fun_##NAME##_L(DClonglong x) { return x; } \
 DCfloat    API fun_##NAME##_f(DCfloat x)    { return x; } \
 DCdouble   API fun_##NAME##_d(DCdouble x)   { return x; } \
-DClonglong API fun_##NAME##_L(DClonglong x) { return x; } \
 DCpointer  API fun_##NAME##_p(DCpointer  x) { return x; }
 
 /* __cdecl */
@@ -80,7 +81,7 @@ DC_DEFINE_TEST_FUNC_BEGIN(testCallC)
     DClong r;
     dcReset(pc);
     dcArgLong(pc, 0xCAFEBABEUL);
-    r = dcCallLong(pc, (DCpointer) &fun_c_L);
+    r = dcCallLong(pc, (DCpointer) &fun_c_l);
     DC_TEST(r == (DClong)0xCAFEBABEUL);
   }
   /* long long */
@@ -152,6 +153,14 @@ DC_DEFINE_TEST_FUNC_BEGIN(testCallStd)
     dcArgInt(pc, 1234);
     r = dcCallInt(pc, (DCpointer) &fun_std_i);
     DC_TEST(r == 1234);
+  }
+  /* long */
+  {
+    DClong r;
+    dcReset(pc);
+    dcArgLong(pc, 0xCAFEBABEUL);
+    r = dcCallLong(pc, (DCpointer) &fun_std_l);
+    DC_TEST(r == 0xCAFEBABEUL);
   }
   /* long long */
   {
@@ -229,6 +238,14 @@ DC_DEFINE_TEST_FUNC_BEGIN(testCallFast)
     r = dcCallInt(pc, (DCpointer) &fun_fast_i);
     DC_TEST(r == 1234);
   }
+  /* long */
+  {
+    DClong r;
+    dcReset(pc);
+    dcArgLong(pc, 0xCAFEBABEUL);
+    r = dcCallLong(pc, (DCpointer) &fun_fast_l);
+    DC_TEST(r == 0xCAFEBABEUL);
+  }
   /* long long */
   {
     DClonglong r;
@@ -275,6 +292,7 @@ union ValueUnion
 {
   DCbool     b;
   DCint      i;
+  DClong     l;
   DClonglong L;
   DCfloat    f;
   DCdouble   d;
@@ -290,6 +308,8 @@ public:
   virtual DCbool     __cdecl getBool()                 { return mValue.b; }
   virtual void       __cdecl setInt(DCint x)           { mValue.i = x; }
   virtual DCint      __cdecl getInt()                  { return mValue.i; }
+  virtual void       __cdecl setLong(DClong x)         { mValue.l = x; }
+  virtual DClong     __cdecl getLong()                 { return mValue.l; }
   virtual void       __cdecl setLongLong(DClonglong x) { mValue.L = x; }
   virtual DClonglong __cdecl getLongLong()             { return mValue.L; }
   virtual void       __cdecl setFloat(DCfloat x)       { mValue.f = x; }
@@ -311,6 +331,8 @@ public:
   virtual DCbool     getBool()                 { return mValue.b; }
   virtual void       setInt(DCint x)           { mValue.i = x; }
   virtual DCint      getInt()                  { return mValue.i; }
+  virtual void       setLong(DClong x)         { mValue.l = x; }
+  virtual DClong     getLong()                 { return mValue.l; }
   virtual void       setLongLong(DClonglong x) { mValue.L = x; }
   virtual DClonglong getLongLong()             { return mValue.L; }
   virtual void       setFloat(DCfloat x)       { mValue.f = x; }
@@ -361,6 +383,16 @@ void testCallValue(DCCallVM* pc)
   DC_TEST( dcCallInt(pc, vtbl[3] ) == 1234 );
 
   /* set/get long */
+
+  dcReset(pc);
+  dcArgPointer(pc, pThis);
+  dcArgLong(pc,0xCAFEBABEUL);
+  dcCallVoid(pc, vtbl[4] );
+  dcReset(pc);
+  dcArgPointer(pc, pThis);
+  DC_TEST( dcCallLong(pc, vtbl[5] ) == (DClong)0xCAFEBABEUL );
+
+  /* set/get long long */
 
   dcReset(pc);
   dcArgPointer(pc, pThis);
