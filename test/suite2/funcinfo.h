@@ -30,7 +30,4 @@ struct funcinfo
 
 extern funcinfo gFuncInfos[];
 
-#endif /* DC_TEST_FUNCINFO_H */
-
-
-
+#endif /* DC_TEST_FUNCINFO_H */ 

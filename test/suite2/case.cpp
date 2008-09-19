@@ -92,33 +92,30 @@ extern "C" {
 #undef VF19
 #undef VF20
 
-funcinfo gFuncInfos[] = {
+#define VF0(id,S) { (void*)(f##id), #S },
+#define VF1(id,A1,S) { (void*)(f##id), #S },
+#define VF2(id,A1,A2,S) { (void*)(f##id), #S },
+#define VF3(id,A1,A2,A3,S) { (void*)(f##id), #S },
+#define VF4(id,A1,A2,A3,A4,S) { (void*)(f##id), #S },
+#define VF5(id,A1,A2,A3,A4,A5,S) { (void*)(f##id), #S },
+#define VF6(id,A1,A2,A3,A4,A5,A6,S) { (void*)(f##id), #S },
+#define VF7(id,A1,A2,A3,A4,A5,A6,A7,S) { (void*)(f##id), #S },
+#define VF8(id,A1,A2,A3,A4,A5,A6,A7,A8,S) { (void*)(f##id), #S },
+#define VF9(id,A1,A2,A3,A4,A5,A6,A7,A8,A9,S) { (void*)(f##id), #S },
+#define VF10(id,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,S) { (void*)(f##id), #S },
+#define VF11(id,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,S) { (void*)(f##id), #S },
+#define VF12(id,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12,S) { (void*)(f##id), #S },
+#define VF13(id,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12,A13,S) { (void*)(f##id), #S },
+#define VF14(id,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12,A13,A14,S) { (void*)(f##id), #S },
+#define VF15(id,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12,A13,A14,A15,S) { (void*)(f##id), #S },
+#define VF16(id,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12,A13,A14,A15,A16,S) { (void*)(f##id), #S },
+#define VF17(id,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12,A13,A14,A15,A16,A17,S) { (void*)(f##id), #S },
+#define VF18(id,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12,A13,A14,A15,A16,A17,A18,S) { (void*)(f##id), #S },
+#define VF19(id,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12,A13,A14,A15,A16,A17,A18,A19,S) { (void*)(f##id), #S },
+#define VF20(id,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12,A13,A14,A15,A16,A17,A18,A19,A20,S) { (void*)(f##id), #S },
 
-#define VF0(id,S) (void*)(f##id), #S,
-#define VF1(id,A1,S) (void*)(f##id), #S,
-#define VF2(id,A1,A2,S) (void*)(f##id), #S,
-#define VF3(id,A1,A2,A3,S) (void*)(f##id), #S,
-#define VF4(id,A1,A2,A3,A4,S) (void*)(f##id), #S,
-#define VF5(id,A1,A2,A3,A4,A5,S) (void*)(f##id), #S,
-#define VF6(id,A1,A2,A3,A4,A5,A6,S) (void*)(f##id), #S,
-#define VF7(id,A1,A2,A3,A4,A5,A6,A7,S) (void*)(f##id), #S,
-#define VF8(id,A1,A2,A3,A4,A5,A6,A7,A8,S) (void*)(f##id), #S,
-#define VF9(id,A1,A2,A3,A4,A5,A6,A7,A8,A9,S) (void*)(f##id), #S,
-#define VF10(id,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,S) (void*)(f##id), #S,
-#define VF11(id,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,S) (void*)(f##id), #S,
-#define VF12(id,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12,S) (void*)(f##id), #S,
-#define VF13(id,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12,A13,S) (void*)(f##id), #S,
-#define VF14(id,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12,A13,A14,S) (void*)(f##id), #S,
-#define VF15(id,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12,A13,A14,A15,S) (void*)(f##id), #S,
-#define VF16(id,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12,A13,A14,A15,A16,S) (void*)(f##id), #S,
-#define VF17(id,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12,A13,A14,A15,A16,A17,S) (void*)(f##id), #S,
-#define VF18(id,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12,A13,A14,A15,A16,A17,A18,S) (void*)(f##id), #S,
-#define VF19(id,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12,A13,A14,A15,A16,A17,A18,A19,S) (void*)(f##id), #S,
-#define VF20(id,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12,A13,A14,A15,A16,A17,A18,A19,A20,S) (void*)(f##id), #S,
+funcinfo gFuncInfos[] = {
 
 #include "case.h"
 
-};
-
-
-
+}; 
