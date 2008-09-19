@@ -33,15 +33,15 @@ DCValue* getArg(int pos);
 typedef double precise;
 
 
-DCbool    valueBool[MAXARGS];
-DCchar    valueChar[MAXARGS];
-DCshort    valueShort[MAXARGS];
-DCint     valueInt[MAXARGS];
-DClong     valueLong[MAXARGS];
-DClonglong    valueLongLong[MAXARGS];
-DCdouble  valueDouble[MAXARGS];
-DCpointer     valuePointer[MAXARGS];
-DCfloat   valueFloat[MAXARGS];
+DCbool     valueBool    [MAXARGS];
+DCchar     valueChar    [MAXARGS];
+DCshort    valueShort   [MAXARGS];
+DCint      valueInt     [MAXARGS];
+DClong     valueLong    [MAXARGS];
+DClonglong valueLongLong[MAXARGS];
+DCdouble   valueDouble  [MAXARGS];
+DCpointer  valuePointer [MAXARGS];
+DCfloat    valueFloat   [MAXARGS];
 
 
 void clearValues();
@@ -50,15 +50,15 @@ void init()
 {
   for (int i = 0 ; i < MAXARGS ; ++i ) {
 
-    valueBool[i] = DCbool( (i % 1) ? DC_TRUE : DC_FALSE );
-    valueChar[i] = DCchar(i);
-    valueShort[i] = DCshort(i);
-    valueInt[i] = DCint(i);
-    valueLong[i] = DClong(i);
+    valueBool[i]     = DCbool( (i % 1) ? DC_TRUE : DC_FALSE );
+    valueChar[i]     = DCchar(i);
+    valueShort[i]    = DCshort(i);
+    valueInt[i]      = DCint(i);
+    valueLong[i]     = DClong(i);
     valueLongLong[i] = DClonglong(i);
-    valueDouble[i] = DCdouble(i);
-    valuePointer[i] = DCpointer(i);
-    valueFloat[i] = DCfloat(i);
+    valueDouble[i]   = DCdouble(i);
+    valuePointer[i]  = DCpointer(i);
+    valueFloat[i]    = DCfloat(i);
   }
 }
 
@@ -83,15 +83,15 @@ bool test(int x)
  
   while ( (ch=*ptr++) != '\0' ) {
     switch(ch) {
-      case DC_SIGCHAR_BOOL: dcArgBool( pCall, valueBool[pos] ); break;
-      case DC_SIGCHAR_CHAR: dcArgChar( pCall, valueChar[pos] ); break;
-      case DC_SIGCHAR_SHORT: dcArgShort( pCall, valueShort[pos] ); break;
-      case DC_SIGCHAR_INT: dcArgInt( pCall, valueInt[pos] ); break;
-      case DC_SIGCHAR_LONG: dcArgLong( pCall, valueLong[pos] ); break;
+      case DC_SIGCHAR_BOOL:     dcArgBool    ( pCall, valueBool    [pos] ); break;
+      case DC_SIGCHAR_CHAR:     dcArgChar    ( pCall, valueChar    [pos] ); break;
+      case DC_SIGCHAR_SHORT:    dcArgShort   ( pCall, valueShort   [pos] ); break;
+      case DC_SIGCHAR_INT:      dcArgInt     ( pCall, valueInt     [pos] ); break;
+      case DC_SIGCHAR_LONG:     dcArgLong    ( pCall, valueLong    [pos] ); break;
       case DC_SIGCHAR_LONGLONG: dcArgLongLong( pCall, valueLongLong[pos] ); break;
-      case DC_SIGCHAR_FLOAT: dcArgFloat( pCall, valueFloat[pos] ); break;
-      case DC_SIGCHAR_DOUBLE: dcArgDouble( pCall, valueDouble[pos] ); break;
-      case DC_SIGCHAR_POINTER: dcArgPointer( pCall, valuePointer[pos] ); break;
+      case DC_SIGCHAR_FLOAT:    dcArgFloat   ( pCall, valueFloat   [pos] ); break;
+      case DC_SIGCHAR_DOUBLE:   dcArgDouble  ( pCall, valueDouble  [pos] ); break;
+      case DC_SIGCHAR_POINTER:  dcArgPointer ( pCall, valuePointer [pos] ); break;
     }
     ++pos;
   }
@@ -157,6 +157,8 @@ int main(int argc, char* argv[])
   } else {
     success = run_range(0,NCASES);
   }
+
+  printf("suite2: %s", success ? "1" : "0");
 
   dcTest_deInitPlatform();
 

@@ -22,9 +22,10 @@ import sys
 
 # parameters
 
-nargs  = 3
+nargs    = 3
 
-types  = ["DCbool","DCint","DClonglong","DCdouble","DCpointer","DCfloat"]
+types    = ["DCbool","DCint","DClong","DClonglong","DCdouble","DCpointer","DCfloat"]
+typeSigs = ["b",     "i",    "l",     "L",         "d",       "p",        "f"      ]
 
 # generator
 
@@ -53,8 +54,8 @@ while x < end:
   while y > 0:
     s     = (y-1) % ntypes
     y     = (y-1) / ntypes
-    args += [ types[s] ]
-    sig  += [ types[s][2] ]
+    args += [ types   [s] ]
+    sig  += [ typeSigs[s] ]
     pos  += 1
   sig   = "".join(sig)
   args += [ sig ]

@@ -41,31 +41,33 @@ dcCall_arm9e_thumb:
 
 	/* Call. */
 	mov		%r4, %r0						/* Move 'fptr' to r4 (1st argument is passed in r0). */
-	mov		%r0, #1							/* Set LSB to 1 (THUMB call). */
+	mov		%r0, #1							/* Assure that LSB is set to 1 (THUMB call). */
 	orr		%r4, %r0
 	mov		%r5, %r1						/* Move 'args' to r5 (2nd argument is passed in r1). */
 	mov		%r6, %r2						/* Move 'size' to r6 (3rd argument is passed in r2). */
-	ldmia	%r5!, {%r0-%r3}					/* Load first 4 arguments for new call into r0-r3. */
 
-	sub		%r6, %r6, #16					/* Size of remaining arguments. */
-	cmp		%r6, #0
-	ble		call							/* Jump to call if no more arguments. */
+	cmp		%r6, #16						/* Jump to call if no more than 4 arguments. */
+	ble		call
 
-/*@@@	sub		%r13, %r13, %r6*/					/* Set stack pointer to top of stack. */
-/*@@@	and		%r9, %r6, #7*/					/* Align stack on 8 byte boundaries. */
-/*@@@	sub		%r13, %r13, %r9*/
+	sub		%r6, #16						/* Size of remaining arguments. */
+	mov		%r0, %r13						/* Set stack pointer to top of stack. */
+	sub		%r0, %r0, %r6
+	lsr		%r0, #3							/* Align stack on 8 byte boundaries. */
+	lsl		%r0, #3
+	mov		%r13, %r0
 
-	mov		%r9, %r13						/* Temp. destination pointer. */
-/*@@@	mov		%r10, #0*/						/* Init byte counter. */
+	add		%r1, #16						/* Let r1 point to remaining arguments. */
+	mov		%r2, #0							/* Init byte counter to 0. */
 
 pushArgs:
-/*@@@	ldrb	%r8, [%r5, %r10]*/				/* Load a byte into r8. */
-/*@@@	strb	%r8, [%r9, %r10]*/				/* Push byte onto stack. */
-/*@@@	add		%r10, %r10, #1*/					/* Increment byte counter. */
-	cmp		%r10, %r6
+	ldrb	%r3, [%r1, %r2]					/* Load a byte into r3. */
+	strb	%r3, [%r0, %r2]					/* Push byte onto stack. */
+	add		%r2, %r2, #1					/* Increment byte counter. */
+	cmp		%r2, %r6
 	bne		pushArgs
 
 call:
+	ldmia	%r5!, {%r0-%r3}					/* Load first 4 arguments for new call into r0-r3. */
 	blx		%r4								/* Call. */
 
 	/* Epilog. */
