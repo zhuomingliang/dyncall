@@ -28,6 +28,7 @@
 void vf_iii(int x,int y,int z)
 {
   printf("%d %d %d\n", x, y, z);
+  printf("callf: %s", (x == 1 && y == 2 && z == 3) ? "1" : "0");
 }
 
 /* main */

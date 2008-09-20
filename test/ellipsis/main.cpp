@@ -139,6 +139,8 @@ int main(int argc, char* argv[])
     success = run_range(0,ncalls);
   }
 
+  printf("ellipsis: %s", success ? "1" : "0");
+
   dcTest_deInitPlatform();
 
   return (success) ? 0 : -1;

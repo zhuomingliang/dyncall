@@ -27,6 +27,7 @@
 //////////////////////////////////////////////////////////////////////*/
 
 .text
+.code 32	/* ARM mode */
 
 .globl dcCall_arm9e_arm
 
@@ -43,12 +44,11 @@ dcCall_arm9e_arm:
 	mov		%r4, %r0						/* Move 'fptr' to r4 (1st argument is passed in r0). */
 	mov		%r5, %r1						/* Move 'args' to r5 (2nd argument is passed in r1). */
 	mov		%r6, %r2						/* Move 'size' to r6 (3rd argument is passed in r2). */
-	ldm		%r5, {%r0-%r3}					/* Load first 4 arguments for new call into r0-r3. */
+	ldmia	%r5!, {%r0-%r3}					/* Load first 4 arguments for new call into r0-r3. */
 
 	subs	%r6, %r6, #16					/* Size of remaining arguments. */
 	ble		call							/* Jump to call if no more arguments. */
 
-	add		%r5, %r5, #16					/* Points to beginning of remaining arguments. */
 	sub		%r13, %r13, %r6					/* Set stack pointer to top of stack. */
 	and		%r9, %r6, #7					/* Align stack on 8 byte boundaries. */
 	sub		%r13, %r13, %r9
