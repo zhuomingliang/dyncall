@@ -35,10 +35,9 @@
 dcCall_arm9e_arm:
 
 	/* Prolog. This function never needs to spill inside its prolog, so just store the permanent registers. */
-	mov		%r12, %r13						/* Stack ptr (r13)       -> temporary (r12). */
-	sub		%r13, %r13, #16					/* Jump over spill area. */
-	stmdb	%r13!, {%r4-%r12, %r14}			/* Permanent registers and stack pointer (now in r12), etc...   -> save area on stack (except counter). */
-	sub		%r11, %r12, #16					/* Compute frame ptr (r11 - set past 4 first args at beginning of register save area). */
+	mov		%r12, %r13						/* Stack ptr (r13) -> temporary (r12). */
+	stmdb	%r13!, {%r4-%r12, %r14}			/* Permanent registers and stack pointer (now in r12), etc... -> save area on stack (except counter). */
+	mov		%r11, %r12						/* Set frame ptr. */
 
 	/* Call. */
 	mov		%r4, %r0						/* Move 'fptr' to r4 (1st argument is passed in r0). */
