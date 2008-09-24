@@ -89,6 +89,16 @@
 	\vspace{6pt}%
 }%
 
+% Set a watermark.
+\watermark{%
+\begingroup%
+\setlength{\unitlength}{1mm}%
+\begin{picture}(0,0)(32,300)%
+	\includegraphics[scale=1.0]{dyncall_watermark}%
+\end{picture}%
+\endgroup%
+}
+
 
 % Use a sans-serif font.
 \renewcommand{\familydefault}{\sfdefault}
@@ -171,14 +181,6 @@
 \setcounter{tocdepth}{3}
 
 \begin{document}
-\watermark{%
-\begingroup%
-\setlength{\unitlength}{1mm}%
-\begin{picture}(0,0)(32,300)%
-\includegraphics[scale=1.0]{dyncall_watermark}%
-\end{picture}%
-\endgroup%
-}
 \input{manual_title}
 \newpage
 \tableofcontents
