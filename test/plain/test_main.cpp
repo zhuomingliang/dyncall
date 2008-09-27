@@ -470,10 +470,10 @@ int main(int argc, char* argv[])
   b = b && testCallC();
   printf("C:%d\n",b);
 
+#if defined(DC__OS_Win32)	// ThisCall temporarily only for win 32 @@@
+
   b = b && testCallThisC();
   printf("ThisC:%d\n",b);
-
-#if defined(DC__OS_Win32)
 
 #if defined(DC__C_MSVC)
   b = b && testCallThisMS();
