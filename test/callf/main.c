@@ -25,10 +25,10 @@
 
 /* sample void function */
 
-void vf_iii(int x,int y,int z)
+int vf_iii(int x,int y,int z)
 {
   printf("%d %d %d\n", x, y, z);
-  printf("callf: %s", (x == 1 && y == 2 && z == 3) ? "1" : "0");
+  return (x == 1 && y == 2 && z == 3);
 }
 
 /* main */
@@ -44,10 +44,12 @@ int main(int argc, char* argv[])
   vm = dcNewCallVM(4096);
 
   /* call using 'formatted' API */
-  dcCallF(vm, &r, &vf_iii, "iii)v", 1, 2, 3);
+  dcCallF(vm, &r, &vf_iii, "iii)i", 1, 2, 3);
 
   /* free vm */
   dcFree(vm);
+
+  printf("result: callf: %d\n", r.i);
 
   dcTest_deInitPlatform();
   

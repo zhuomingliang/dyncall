@@ -492,7 +492,7 @@ int main(int argc, char* argv[])
 
 #endif
 
-  printf("ok\n");
+  printf("result: plain: %d\n", b);
 
   dcTest_deInitPlatform();
 
