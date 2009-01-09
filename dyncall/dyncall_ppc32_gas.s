@@ -21,7 +21,7 @@
 
       dyncall_ppc32_gas.s
  
-      powerpc 32 bit C call, AS source.
+      powerpc 32 bit system V call (linux) C call, AS source.
       November  28, 2007
 
 //////////////////////////////////////////////////////////////////////*/
@@ -32,6 +32,7 @@
    -------------------------------------------------------------------------
    
    - Stack frames are always aligned on 16 byte
+   - Reserve GPR2 (System register)
   
    - The GPR3 .. GPR10 are loaded
    - The FPR1 .. FPR13 are loaded
@@ -71,9 +72,9 @@ dcCall_ppc32:
                                 
 	rlwinm %r0,%r0,0,0,27	/* r0 = r0 and -15 */
 				/* r0 = r0 and -15 */
-	neg %r2,%r0		/* r2 = -stacksize */
+	neg %r0,%r0		/* r2 = -stacksize */
 
-	stwux %r1,%r1,%r2		/* r1 = r1 - stacksize */
+	stwux %r1,%r1,%r0		/* r1 = r1 - stacksize */
 
 	/* copy stack data */
 
@@ -94,34 +95,34 @@ dcCall_ppc32:
 .done:
 
 	mtctr %r3		/* setup target function */
-	mr %r2, %r4		/* r2 = reg data */
+	mr %r0, %r4		/* r0 = reg data */
 
         /* load 8 integer registers */
 
-	lwz  %r3 , 0(%r2)
-	lwz  %r4 , 4(%r2)
-	lwz  %r5 , 8(%r2)
-	lwz  %r6 ,12(%r2)
-	lwz  %r7 ,16(%r2)
-	lwz  %r8 ,20(%r2)
-	lwz  %r9 ,24(%r2)
-	lwz  %r10,28(%r2)
+	lwz  %r3 , 0(%r0)
+	lwz  %r4 , 4(%r0)
+	lwz  %r5 , 8(%r0)
+	lwz  %r6 ,12(%r0)
+	lwz  %r7 ,16(%r0)
+	lwz  %r8 ,20(%r0)
+	lwz  %r9 ,24(%r0)
+	lwz  %r10,28(%r0)
 
 	/* load 13 float registers */
 
-	lfd  %f1 ,32(%r2)
-	lfd  %f2 ,40(%r2)
-	lfd  %f3 ,48(%r2)
-	lfd  %f4 ,56(%r2)
-	lfd  %f5 ,64(%r2)
-	lfd  %f6 ,72(%r2)
-	lfd  %f7 ,80(%r2)
-	lfd  %f8 ,88(%r2)
-	lfd  %f9 ,96(%r2)
-	lfd  %f10,104(%r2)
-	lfd  %f11,112(%r2)
-	lfd  %f12,120(%r2)
-	lfd  %f13,128(%r2)
+	lfd  %f1 ,32(%r0)
+	lfd  %f2 ,40(%r0)
+	lfd  %f3 ,48(%r0)
+	lfd  %f4 ,56(%r0)
+	lfd  %f5 ,64(%r0)
+	lfd  %f6 ,72(%r0)
+	lfd  %f7 ,80(%r0)
+	lfd  %f8 ,88(%r0)
+	lfd  %f9 ,96(%r0)
+	lfd  %f10,104(%r0)
+	lfd  %f11,112(%r0)
+	lfd  %f12,120(%r0)
+	lfd  %f13,128(%r0)
 
 	/* branch */
 

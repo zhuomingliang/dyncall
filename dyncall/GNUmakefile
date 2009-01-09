@@ -75,7 +75,11 @@ endif
 
 ifdef BUILD_ARCH_ppc32
 UNITS += dyncall_callvm_ppc32
-UNITS += dyncall_ppc32
+ifdef BUILD_OS_darwin
+UNITS += dyncall_ppc32_apple
+else
+UNITS += dyncall_ppc32_gas
+endif
 endif
 
 # --- arm ---------------------------------------------------------------------
