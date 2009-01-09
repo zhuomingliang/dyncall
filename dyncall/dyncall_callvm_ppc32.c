@@ -35,11 +35,7 @@
 #include "dyncall_macros.h"
 #include "dyncall_types.h"
 
-#if defined(__APPLE__)
-  #define DC__OS_MACOSX
-#endif
-
-#if defined(DC__OS_MACOSX)
+#if defined(DC__OS_Darwin) || defined(DC__OS_Linux)
 
 #else
 
