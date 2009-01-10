@@ -29,19 +29,19 @@ int       getId();
 DCpointer getFunc(int x);
 DCValue*  getArg(int pos);
 
-DCint      valueInt[NARGS];
+DCint      valueInt     [NARGS];
 DClonglong valueLongLong[NARGS];
-DCdouble   valueDouble[NARGS];
-DCpointer  valuePointer[NARGS];
+DCdouble   valueDouble  [NARGS];
+DCpointer  valuePointer [NARGS];
 
 bool equals(int select, int pos, void* data)
 {
   switch(select)
   {
-    case 0: return ( getArg(pos)->i == valueInt[pos] ); break;
+    case 0: return ( getArg(pos)->i == valueInt     [pos] ); break;
     case 1: return ( getArg(pos)->L == valueLongLong[pos] ); break;
-    case 2: return ( getArg(pos)->d == valueDouble[pos] ); break;
-    case 3: return ( getArg(pos)->p == valuePointer[pos] ); break;
+    case 2: return ( getArg(pos)->d == valueDouble  [pos] ); break;
+    case 3: return ( getArg(pos)->p == valuePointer [pos] ); break;
   }
   return false;
 }
@@ -51,10 +51,10 @@ void init()
 {
   for (int i = 0 ; i < NARGS ; ++i ) 
   {
-    valueInt[i] = DCint(i);
+    valueInt     [i] = DCint     (i);
     valueLongLong[i] = DClonglong(i);
-    valueDouble[i] = DCdouble(i);
-    valuePointer[i] = DCpointer(i);
+    valueDouble  [i] = DCdouble  (i);
+    valuePointer [i] = DCpointer (i);
   } 
 }
 
@@ -62,10 +62,10 @@ void arg(DCCallVM* pCall, int select, int pos)
 {
   switch(select) 
   {
-    case 0: dcArgInt( pCall, valueInt[pos] ); break;
+    case 0: dcArgInt     ( pCall, valueInt     [pos] ); break;
     case 1: dcArgLongLong( pCall, valueLongLong[pos] ); break;
-    case 2: dcArgDouble( pCall, valueDouble[pos] ); break;
-    case 3: dcArgPointer( pCall, valuePointer[pos] ); break;
+    case 2: dcArgDouble  ( pCall, valueDouble  [pos] ); break;
+    case 3: dcArgPointer ( pCall, valuePointer [pos] ); break;
   }
 }
 
@@ -77,9 +77,9 @@ bool test_ellipse_case(int x)
 
   DCCallVM* pCall = dcNewCallVM(4096);
   int y = x;
-  int selects[NARGS] = { 0, };
+  int selects[NARGS] = { 0 };
   int pos = 0;
-  for(pos = 0;y>0;++pos) 
+  for(pos = 0; y>0; ++pos) 
   {
     int select = (y-1) % NTYPES; 
     selects[pos] = select;
@@ -90,7 +90,7 @@ bool test_ellipse_case(int x)
   
   assert( getId() == x );
   
-  for(int i = 0;i<pos;++i) {
+  for(int i=0; i<pos; ++i) {
     assert( equals( selects[i], i, getArg(i) ) );      
   }
   
