@@ -22,13 +22,11 @@
 
 #include "dyncall_types.h"
 
-typedef struct DCVecHead_ DCVecHead;
-
-struct DCVecHead_
+typedef struct
 {
   DCsize mTotal;
   DCsize mSize;
-};
+} DCVecHead;
 
 #define DC_SIZEOF_DCVector(size) (sizeof(DCVecHead)+size)
 
