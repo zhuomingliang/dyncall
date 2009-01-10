@@ -36,7 +36,7 @@ choosing a library and a function to call. Such unchecked input data can be
 quite easily used to intentionally crash the program , or to hijack it and
 take control of the program flow.\\
 To put it in a nutshell, if not used with care, programs depending on the
-\product{dyncall} and the dynload library, can become arbitrary function
+\product{dyncall} and the \product{dynload} library, can become arbitrary function
 call dispatchers by manipulating their input data. Successful exploits of
 programs like the one outlined above can be misused as very powerful tools
 for a wide variety of malicious attacks, \ldots
@@ -78,7 +78,7 @@ memory footprint it surely might come in handy on embedded systems. So far
 dyncall supports arm9e and mips32 (eabi) embedded systems processors.
 Furthermore, the authors plan to write some more scripting language bindings,
 examples, and other projects that are based on it.\\
-Besides \product{dyncall} the dynload library needs to be extended with
+Besides \product{dyncall} the \product{dynload} library needs to be extended with
 .dylib, .so and other shared library format support (e.g. AmigaOS .library or
 GEM \cite{.ldg} files).
 

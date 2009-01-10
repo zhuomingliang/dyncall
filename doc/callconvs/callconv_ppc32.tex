@@ -29,11 +29,14 @@
 \item big endian
 \item processor only processes double precision floating point (IEEE-754) values directly (single precision is converted on the fly)
 \end{itemize}
+For in-depth details about the PowerPC (32bit) calling convention, take a look
+at Apple's official documentation \cite{ppcMacOSX} and the Linux Standard Base
+(LSB) \cite{ppc32LSB}
 
 
 \paragraph{\product{dyncall} support}
 
-\product{Dyncall} supports PowerPC (32bit) on Darwin.
+\product{Dyncall} supports PowerPC (32bit) on Darwin and Linux.
 
 
 \subsubsection{Darwin (Mac OS X)}
