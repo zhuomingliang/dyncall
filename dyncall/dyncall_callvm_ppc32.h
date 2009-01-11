@@ -39,13 +39,12 @@
 
 typedef struct DCCallVM_ppc32_ DCCallVM_ppc32;
 
-
 struct DCCallVM_ppc32_
 {
   DCCallVM  mInterface;
   int       mIntRegs;
   int       mFloatRegs;
-  struct DCRegData_ppc32 mRegData;
+  struct DCRegData_ppc32_ mRegData;
   DCVecHead mVecHead;
 };
 

@@ -50,12 +50,14 @@ typedef struct DCCallVM_    DCCallVM;
 #define DC_CALL_C_X86_WIN32_THIS_GNU    6
 #define DC_CALL_C_X64_WIN64             7
 #define DC_CALL_C_X64_SYSV              8
-#define DC_CALL_C_PPC32_DARWIN          9
+#define DC_CALL_C_PPC32_DARWIN          9 /* depreated by: */
+#define DC_CALL_C_PPC32_OSX             9
 #define DC_CALL_C_ARM_ARM              10
 #define DC_CALL_C_ARM_THUMB            11
 #define DC_CALL_C_MIPS32_EABI          12
-#define DC_CALL_C_MIPS32_PSPSDK    DC_CALL_C_MIPS32_EABI
-
+#define DC_CALL_C_MIPS32_PSPSDK        12
+#define DC_CALL_C_PPC32_SYSV           13
+#define DC_CALL_C_PPC32_LINUX          13
 
 DC_API DCCallVM*  dcNewCallVM     (DCsize size);
 DC_API void       dcFree          (DCCallVM* vm);

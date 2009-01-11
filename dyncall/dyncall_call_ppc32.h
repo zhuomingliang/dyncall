@@ -26,7 +26,7 @@
 extern "C" {
 #endif
 
-struct DCRegData_ppc32
+struct DCRegData_ppc32_
 {
   DCint     mIntData[8];
   DCdouble  mFloatData[13];
@@ -39,7 +39,13 @@ struct DCRegData_ppc32
 **
 */
 
-void     dcCall_ppc32    (DCpointer target, struct DCRegData_ppc32* ppc32data, DCsize stksize, DCpointer stkdata);
+/* Darwin ABI */
+
+void     dcCall_ppc32_darwin (DCpointer target, struct DCRegData_ppc32_* ppc32data, DCsize stksize, DCpointer stkdata);
+
+/* System V (Linux) ABI */
+
+void     dcCall_ppc32_sysv (DCpointer target, struct DCRegData_ppc32_* ppc32data, DCsize stksize, DCpointer stkdata);
 
 #ifdef __cplusplus
 }
