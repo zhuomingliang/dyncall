@@ -25,21 +25,21 @@
 \paragraph{Overview}
 
 \begin{itemize}
-\item word size is 32 bits
-\item big endian
-\item processor only processes double precision floating point (IEEE-754) values directly (single precision is converted on the fly)
+\item Word size is 32 bits
+\item Big endian (MSB) and litte endian (LSB) operating modes.
+\item Processor operates on floats in double precision floating point arithmetc (IEEE-754) values directly (single precision is converted on the fly)
+\item Apple Mac OS X/Darwin PPC is specified in "Mac OS X ABI Function Call Guide". It uses Big Endian (MSB).
+\item Linux PPC 32-bit ABI is specified in "LSB for PPC 2.1" which is based on "System V ABI". It uses Big Endian (MSB).
+\item Ellipse calls do not work on Linux/System V PPC ABI currently.
 \end{itemize}
-For in-depth details about the PowerPC (32bit) calling convention, take a look
-at Apple's official documentation \cite{ppcMacOSX} and the Linux Standard Base
-(LSB) \cite{ppc32LSB}
 
 
 \paragraph{\product{dyncall} support}
 
-\product{Dyncall} supports PowerPC (32bit) on Darwin and Linux.
+\product{Dyncall} supports PowerPC (32bit) Big Endian (MSB) on Darwin (tested on Apple Mac OS X).
 
 
-\subsubsection{Darwin (Mac OS X)}
+\subsubsection{Mac OS X/Darwin}
 
 \paragraph{Registers and register usage}
 
@@ -70,7 +70,7 @@ Name                & Brief description\\
 {\bf cr5-cr7}       & scratch\\
 \hline
 \end{tabular}
-\caption{Register usage on ppc32 Darwin}
+\caption{Register usage on Darwin PowerPC 32-Bit}
 \end{table}
 
 \paragraph{Parameter passing}
@@ -143,3 +143,109 @@ linkage area                      & \vdots              &                       
 \caption{Stack layout on ppc32 Darwin}
 \end{figure}
 
+\subsubsection{Linux PPC 32-bit}
+
+\paragraph{Status}
+
+\begin{itemize}
+\item Ellipse calls do not work.
+\item C++ this calls do not work.
+\end{itemize}
+
+\paragraph{Registers and register usage}
+
+\begin{table}[h]
+\begin{tabular}{3 B}
+\hline
+Name                & Brief description\\
+\hline
+{\bf r0}          & scratch\\
+{\bf r1}          & stack pointer\\
+{\bf r2}          & system-reserved\\
+{\bf r3-r4}       & parameter passing and return value\\
+{\bf r5-r10}      & parameter passing\\
+{\bf r11-r12}     & scratch\\
+{\bf r13}         & Small data area pointer register\\
+{\bf r14-r30}     & Local variables\\
+{\bf r31}         & Used for local variables or \emph{environment pointer}\\
+{\bf f0}          & scratch\\
+{\bf f1}          & parameter passing and return value\\
+{\bf f2-f8}       & parameter passing\\
+{\bf f9-13}       & scratch\\
+{\bf f14-f31}     & Local variables\\
+{\bf cr0-cr7}     & Conditional register fields, each 4-bit wide (cr0-cr1 and   cr5-cr7 are scratch)\\
+{\bf lr}          & Link register (scratch)\\
+{\bf ctr}         & Count register (scratch) \\
+{\bf xer}         & Fixed-point exception register (scratch)\\
+{\bf fpscr}       & Floating-point Status and Control Register\\
+
+% {\bf v0-v1}         & scratch\\
+% {\bf v2-v13}        & vector parameters\\
+% {\bf v14-v19}       & scratch\\
+% {\bf v20-v31}       & permanent\\
+% {\bf lr}            & scratch, link-register\\
+% {\bf ctr}           & scratch, count-register\\
+% {\bf cr0-cr1}       & scratch\\
+% {\bf cr2-cr4}       & permanent\\
+% {\bf cr5-cr7}       & scratch\\
+\hline
+\end{tabular}
+\caption{Register usage on System V ABI PowerPC Processor}
+\end{table}
+
+\paragraph{Parameter passing}
+
+\begin{itemize}
+\item Stack pointer (r1) is always 16-byte aligned.
+\item 8 general-purpose registers (r3-r10) for integer and pointer types.
+\item 8 floating-pointer registers (f1-f8) for float (promoted to double) and double types.
+\item Additional arguments are passed on the stack directly after the back-chain and saved return address (8 bytes structure) on the callers stack frame.
+\item 64-bit integer data types are passed in general-purpose registers as a whole in two
+ 32-bit general purpose registers (an odd and an even e.g. r3 and r4), probably skipping an even integer register.
+ or passed on the stack. They are never splitted into a register and stack part.
+\item Ellipse calls set CR bit 6 
+
+\end{itemize}
+
+\paragraph{Return values}
+
+\begin{itemize}
+\item 32-bit integers use register r3, 64-bit use registers r3 and r4 (hiword in r3, loword in r4).
+\item floating-point values are returned using register f1.
+\end{itemize}
+
+\pagebreak
+
+\paragraph{Stack layout}
+
+Stack frame is always 16-byte aligned.\\
+
+\paragraph{Stack layout}
+
+\begin{figure}[h]
+\begin{tabular}{5|3|1 1}
+\hhline{~-~~}
+                                  & \vdots                     &                                &                              \\
+\hhline{~=~~}
+local data                        &                            &                                & \mrrbrace{6}{caller's frame} \\
+\hhline{~-~~}
+\mrlbrace{3}{parameter area}      & \ldots                     & \mrrbrace{3}{stack parameters} &                              \\
+                                  & \ldots                     &                                &                              \\
+                                  & \ldots                     &                                &                              \\
+\hhline{~-~~}
+                                  & saved return address (for callee) &                                &                              \\
+\hhline{~-~~}
+                                  & parent stack frame pointer &                                &                              \\
+\hhline{~=~~}
+local data                        &                            &                                & \mrrbrace{3}{current frame}  \\
+\hhline{~-~~}
+parameter area                    &                            &                                &                              \\
+\hhline{~-~~}
+                                  & \vdots                     &                                &                              \\
+\hhline{~-~~}
+\end{tabular}
+\\
+\\
+\\
+\caption{Stack layout on System V ABI for PowerPC 32-bit calling convention}
+\end{figure}

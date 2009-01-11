@@ -83,6 +83,13 @@ Designed mass test suite for {\tt \_\_fastcall} (MS or GNU, depending on the bui
 Tests individual void functions with a varying count of arguments and type.
 This is a x86/Windows only test.
 
+\item [suite3]
+
+All combinations of parameter types (integer, long long, float and double) and count are tested on void function calls.
+A script written in Python ({\tt mkcase.py}) generates the tests up to
+an upper MAXARG limit.
+This is a modified version of suite.
+
 \item [callf]
 
 Tests the \emph{formatted call} \product{dyncall} C API.
