@@ -19,18 +19,17 @@
 
 /*///////////////////////////////////////////////////////////////////////
 
-  dyncall_ppc32_as.s
+      dyncall_ppc32_as.s
  
-  powerpc 32 bit darwin/mac os x and system V call (linux) C call, 
-  AS source.
+      powerpc 32 bit C call, GNU Assembler source.
 
-  November  28, 2007
-    * Initial implementation for powerpc 32-bit darwin.
-
-  January, 09, 2008
-    * Added system V linux support.
+      January  9, 2009
+      Support for Darwin and System V ABI.
 
 //////////////////////////////////////////////////////////////////////*/
+	
+	.file "dyncall_ppc32_as.s"
+	.section ".text"
 
 /* ----------------------------------------------------------------------------
  *  C API:
@@ -64,8 +63,6 @@
 	r5 = stack data size 
 	r6 = stack data ptr
  */
-	.file "dyncall_ppc32_as.s"
-	.section ".text"
 	.align 2
 	.p2align 4,,15
 	.globl dcCall_ppc32_darwin

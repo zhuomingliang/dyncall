@@ -26,7 +26,7 @@
   ppc32/linux (sysv abi)
 
   REVISION
-  2007/12/11 initial
+  2007/12/11 initial support for Darwin ABI
   2009/01/09 added System V ABI support
 
 /////////////////////////////////////////////////////////////////////////////*/

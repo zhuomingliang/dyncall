@@ -22,7 +22,12 @@
       dyncall_ppc32_darwin.s
  
       powerpc 32 bit C call, Darwin Assembler source.
+      
       November  28, 2007
+      Initial Support for Darwin.
+
+      January   09, 2009
+      Added Sypport for System V ABI.
 
 //////////////////////////////////////////////////////////////////////*/
 
