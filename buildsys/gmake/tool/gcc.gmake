@@ -47,6 +47,21 @@ endif
 $(BUILD_DIR)/%.o: %.s
 	$(COMPILE.s) $(OUTPUT_OPTION) $<
 
+# ---Compile flags ------------------------------------------------------------
+
+ifndef COMPILE_PIC
+ifndef TARGET_APP
+ifdef BUILD_ARCH_x64
+COMPILE_PIC = 1
+endif
+endif
+endif
+
+ifeq ("$(COMPILE_PIC)","1")
+CXXFLAGS	+= -fPIC
+CFLAGS		+= -fPIC
+endif
+
 # --- C++ Compiler flags ------------------------------------------------------
 
 ifeq ("$(CXX_EXCEPTIONS)","0")
