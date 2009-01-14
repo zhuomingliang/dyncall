@@ -35,9 +35,6 @@ TOP		= ..
 
 LIBRARY		= dyncall
 
-CFLAGS		+= -fPIC
-CXXFLAGS	+= -fPIC
-
 # Gather needed modules to build.
 
 MODS += dyncall
@@ -70,6 +67,8 @@ MODS += dyncall_arm9e_arm
 .if $(BUILD_ARCH) == x64
 MODS += dyncall_callvm_x64
 MODS += dyncall_x64_system_v
+CFLAGS		+= -fPIC
+CXXFLAGS	+= -fPIC
 .endif
 
 .include "$(TOP)/buildsys/bsdmake/epilog.bsdmake"

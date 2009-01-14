@@ -43,6 +43,10 @@ CXXFLAGS	+=
 
 MODS += dynload_unix
 
+.if $(BUILD_ARCH) == x64
+CFLAGS		+= -fPIC
+CXXFLAGS	+= -fPIC
+.endif
 
 .include "$(TOP)/buildsys/bsdmake/epilog.bsdmake"
 
