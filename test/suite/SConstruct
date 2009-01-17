@@ -1,4 +1,0 @@
-DYNCALL = '../../dyncall'
-CPPPATH = [DYNCALL]
-Program('suite',['case.cpp','main.cpp'],LIBS=['dyncall_s'],LIBPATH=[DYNCALL])
-

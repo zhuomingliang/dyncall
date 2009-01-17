@@ -1,2 +1,0 @@
-Program('test', 'test_main.cpp',LIBS=['dyncall_s'], LIBPATH="../../dyncall")
-
