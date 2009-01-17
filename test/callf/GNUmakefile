@@ -23,7 +23,7 @@ TOP		= ../..
 
 include $(TOP)/buildsys/gmake/prolog.gmake
 
-TARGET_APP	= test
+TARGET_APP	= callf
 UNITS		= main
 LINK_DIRS	= $(TOP)/dyncall/$(BUILD_DIR)
 LINK_LIBS	= dyncall_s
