@@ -1,7 +1,7 @@
 @ECHO OFF
 REM ///////////////////////////////////////////////////////////////////////////
 REM
-REM Copyright (c) 2007,2008 Daniel Adler <dadler@uni-goettingen.de>, 
+REM Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
 REM                         Tassilo Philipp <tphilipp@potion-studios.com>
 REM
 REM Permission to use, copy, modify, and distribute this software for any
