@@ -61,6 +61,7 @@ usage()
   echo "  --target-x86        build for x86 architecture platform"
   echo "  --target-x64        build for x64 architecture platform"
   echo "  --target-psp        build for Playstation Portable platform (PSPSDK)"
+  echo "  --target-arm        build for ARM architecture platform (ARM mode)"
   echo "  --target-nds-arm    build for Nintendo DS platform (devkitPro, ARM mode)"
   echo "  --target-nds-thumb  build for Nintendo DS platform (devkitPro, THUMB mode)"
   echo "  --target-cygwin     build for cygwin platform"
@@ -120,6 +121,8 @@ guess_arch()
     CONFIG_ARCH="x86"
   elif [ "$ARCH" = "amd64" ] || [ "$ARCH" = "x86_64" ] || [ "$ARCH" = "x64" ]; then
     CONFIG_ARCH="x64"
+  elif [ "$ARCH" = "cats" ]; then
+    CONFIG_ARCH="arm9e_arm"
   fi
   info "guess arch $CONFIG_ARCH"
 }
@@ -181,6 +184,9 @@ args()
         CONFIG_OS=psp
         CONFIG_ARCH=mips32
         CONFIG_TOOL=gcc
+        ;;
+      --target-arm)
+        CONFIG_ARCH=arm9e_arm
         ;;
       --target-nds-arm)
         CONFIG_OS=nds
