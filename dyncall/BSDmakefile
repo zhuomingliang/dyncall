@@ -59,9 +59,14 @@ MODS += dyncall_ppc32_as
 .endif
 .endif
 
-.if $(BUILD_ARCH) == arm_arm
+.if $(BUILD_ARCH) == arm9e_arm
 MODS += dyncall_callvm_arm9e_arm
 MODS += dyncall_arm9e_arm
+.endif
+
+.if $(BUILD_ARCH) == arm9e_thumb
+MODS += dyncall_callvm_arm9e_thumb
+MODS += dyncall_arm9e_thumb
 .endif
 
 .if $(BUILD_ARCH) == x64
