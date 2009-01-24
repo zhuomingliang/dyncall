@@ -43,10 +43,7 @@ endif
 
 include $(TOP)/buildsys/gmake/epilog.gmake
 
-# AUTOS		= config.h case.h
 .PHONY: config 
-config: case.h config.h
-
-config.h case.h: mkcase.py
+config: 
 	python mkcase.py >case.h 2>config.h
 

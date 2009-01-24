@@ -30,7 +30,6 @@ TOP		= ../..
 include $(TOP)/buildsys/gmake/prolog.gmake
 
 TARGET_APP	= suite2
-AUTOS		= case.h config.h design.cfg
 UNITS		= case main
 CPPFLAGS	= -I$(TOP)/dyncall
 CXX_EXCEPTIONS	= 0
@@ -41,13 +40,8 @@ LINKER		= c
 
 include $(TOP)/buildsys/gmake/epilog.gmake
 
-case.h config.h: mkcase.py
-	python mkcase.py >case.h 2>config.h
-
 .PHONY: config
-config: case.h
-case.o: case.cpp case.h config.h
-case.h: design.cfg
-design.cfg: rand.py
-	python rand.py >$@
+config:
+	python rand.py >design.cfg
+	python mkcase.py >case.h 2>config.h
 

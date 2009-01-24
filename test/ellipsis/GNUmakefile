@@ -30,7 +30,6 @@ TOP		= ../..
 include $(TOP)/buildsys/gmake/prolog.gmake
 
 TARGET_APP	= ellipsis
-AUTOS		= config.h case.h
 UNITS		= ellipsis main
 CPPFLAGS	= -I$(TOP)/dyncall
 CXX_EXCEPTIONS	= 0
@@ -41,11 +40,9 @@ LINK_LIBS       = dyncall_s
 include $(TOP)/buildsys/gmake/epilog.gmake
 
 .PHONY: config
-config: config.h case.h
-
-config.h case.h: mkcase.py
+config:
 	python mkcase.py >case.h 2>config.h
-
+	
 ifdef BUILD_TOOL_gcc
 LINK_LIBS	+= m
 endif

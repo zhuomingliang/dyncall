@@ -1,3 +1,8 @@
+Version 0.4
+o test suite clean up (GNUmake):
+  target "config" modified, phony without dependencies to other builds
+  
+
 Version 0.3
 o added Linux PPC32 support
 o added ARM THUMB mode support
