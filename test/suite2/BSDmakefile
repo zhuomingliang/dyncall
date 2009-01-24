@@ -37,12 +37,9 @@ CPPFLAGS	=
 LDFLAGS		=
 LIBS	=	"$(TOP)/dyncall/libdyncall_s.a"
 
-AUTOS	=	config.h case.h design.cfg
-
 
 .PHONY: config 
-config: $(AUTOS)
-case.h config.h: mkcase.py .SILENT
+config: mkcase.py .SILENT
 	python mkcase.py >case.h 2>config.h
 
 mkcase.py: design.cfg

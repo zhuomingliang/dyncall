@@ -25,7 +25,7 @@
 
 .PHONY: build autos clean dirs distclean depend $(DIRS)
 
-build: config dirs autos $(TARGETS)
+build: dirs autos $(TARGETS)
 
 CLEAN_FILES=$(TARGETS) $(OBJS)
 clean: dirs .SILENT
