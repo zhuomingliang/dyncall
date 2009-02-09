@@ -1,0 +1,26 @@
+general:
+- vararg function calls don't work for PPC32 System V ABI
+- vararg function calls don't work for ARM THUMB mode
+
+missing implementations (descending priority):
+- sparc, sparc64
+- ppc64
+- itanium
+- 68k, 88k, 6502, etc.
+- mips64
+- alpha
+- sh
+- cell
+- blackfin
+- z80
+- hppa
+- vax
+
+available hardware for outstanding ports:
+- 68k: Tassilo's old Palm m100 (MC68EZ328 (16MHz))
+- sh4: Tassilo's Dreamcast
+- mips R5900: Daniel's PS2
+- ARM7: Tassilo's DS
+- mips (?): Daniel's router
+- sigmatel stmp3550b: Daniel's iPod Shuffle
+
