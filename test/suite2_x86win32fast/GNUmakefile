@@ -33,7 +33,7 @@ case.o: case.cpp case.h config.h
 case.h: design.cfg
 design.cfg: rand.py
 
-TARGET_APP	= suite2
+TARGET_APP	= suite2_x86win32fast
 UNITS		= case main
 CPPFLAGS	= -I$(TOP)/dyncall
 CXX_EXCEPTIONS	= 0

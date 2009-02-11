@@ -161,6 +161,8 @@ int main(int argc, char* argv[])
     success = run_range(0,ncalls);
   }
 
+  printf("result: suite_x86win32std: %s\n", success ? "1" : "0");
+  
   dcTest_deInitPlatform();
 
   return (success) ? 0 : -1;

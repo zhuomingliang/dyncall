@@ -29,7 +29,7 @@ TOP		= ../..
 
 include $(TOP)/buildsys/gmake/prolog.gmake
 
-TARGET_APP	= suite2
+TARGET_APP	= suite2_x86win32std
 UNITS		= case main
 CPPFLAGS	= -I$(TOP)/dyncall
 CXX_EXCEPTIONS	= 0

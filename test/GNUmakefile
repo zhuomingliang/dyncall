@@ -36,5 +36,12 @@ DIRS	+= suite2_x86win32fast
 DIRS	+= suite2_x86win32std
 endif
 
+ifdef BUILD_OS_cygwin
+DIRS	+= suite_x86win32fast
+DIRS	+= suite_x86win32std
+DIRS	+= suite2_x86win32fast
+DIRS	+= suite2_x86win32std
+endif
+
 include $(TOP)/MakeEpilog
 

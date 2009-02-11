@@ -165,6 +165,8 @@ int main(int argc, char* argv[])
     int ncalls = powerfact(NTYPES,NARGS)+1;
     success = run_range(0,ncalls);
   }
+  
+  printf("result: suite_x86win32fast: %s\n", success ? "1" : "0");
 
   dcTest_deInitPlatform();
 

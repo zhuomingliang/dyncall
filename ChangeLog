@@ -1,7 +1,9 @@
 Version 0.4
 o test suite clean up (GNUmake):
   target "config" modified, phony without dependencies to other builds
-  
+o bugfix: GNU fastcall calling convention for float and double arguments
+  was wrong. no skip of register.
+o update: x86win32* suite tests are built on cygwin now, added total result output
 
 Version 0.3
 o added Linux PPC32 support

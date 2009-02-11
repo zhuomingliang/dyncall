@@ -376,24 +376,6 @@ static void dc_callvm_argLongLong_x86_win32_fast_gnu(DCCallVM* in_self, DClonglo
   dc_callvm_argLongLong_x86(in_self,x);
 }
 
-/* arg float - skip 1 register and push on stack */
-
-static void dc_callvm_argFloat_x86_win32_fast_gnu(DCCallVM* in_self, DCfloat x)
-{
-  DCCallVM_x86* self = (DCCallVM_x86*) in_self;
-  if (self->mIntRegs < 2) self->mIntRegs++; 
-  dc_callvm_argFloat_x86(in_self,x);
-}
-
-/* arg double - skip registers and push on stack */
-
-static void dc_callvm_argDouble_x86_win32_fast_gnu(DCCallVM* in_self, DCdouble x)
-{
-  DCCallVM_x86* self = (DCCallVM_x86*) in_self;
-  self->mIntRegs = 2;
-  dc_callvm_argDouble_x86(in_self,x);
-}
-
 /* win32/fast/gnu vt */
 
 DCCallVM_vt gVT_x86_win32_fast_gnu =
@@ -407,8 +389,8 @@ DCCallVM_vt gVT_x86_win32_fast_gnu =
 , &dc_callvm_argInt_x86_win32_fast_gnu
 , &dc_callvm_argLong_x86_win32_fast_gnu
 , &dc_callvm_argLongLong_x86_win32_fast_gnu
-, &dc_callvm_argFloat_x86_win32_fast_gnu
-, &dc_callvm_argDouble_x86_win32_fast_gnu
+, &dc_callvm_argFloat_x86
+, &dc_callvm_argDouble_x86
 , &dc_callvm_argPointer_x86_win32_fast_gnu
 , (DCvoidvmfunc*)       &dc_callvm_call_x86_win32_fast
 , (DCboolvmfunc*)       &dc_callvm_call_x86_win32_fast
