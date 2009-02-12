@@ -22,7 +22,11 @@
 #include "../../dyncall/dyncall_value.h"
 #include "funcinfo.h"
 
+#ifdef DC__C_GNU
+#define API __attribute__((fastcall))
+#else
 #define API __fastcall
+#endif
 
 DCValue mValue[MAXARGS];
 

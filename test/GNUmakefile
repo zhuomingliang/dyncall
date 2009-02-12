@@ -29,14 +29,7 @@ DIRS	+= suite ellipsis suite2 callf plain suite3
 
 include $(TOP)/MakeProlog
 
-ifdef BUILD_OS_windows
-DIRS	+= suite_x86win32fast
-DIRS	+= suite_x86win32std
-DIRS	+= suite2_x86win32fast
-DIRS	+= suite2_x86win32std
-endif
-
-ifdef BUILD_OS_cygwin
+ifdef BUILD_ARCH_x86
 DIRS	+= suite_x86win32fast
 DIRS	+= suite_x86win32std
 DIRS	+= suite2_x86win32fast

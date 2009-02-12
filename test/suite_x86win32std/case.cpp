@@ -41,7 +41,11 @@ DCValue* getArg(int pos) { return &mValue[pos]; }
 int gID;
 int getId() { return gID; }
 
+#ifdef DC__C_GNU
+#define API __attribute__((stdcall))
+#else
 #define API __stdcall
+#endif
 
 extern "C" {
 
