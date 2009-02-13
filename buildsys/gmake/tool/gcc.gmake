@@ -22,11 +22,11 @@
 # GNU Compiler Collection configuration
 #//////////////////////////////////////////////////////////////////////////////
 
-CC	= gcc
-CXX	= g++
-AR	= ar
-AS	= as
-LD	= ld
+CC	?= gcc
+CXX	?= g++
+AR	?= ar
+AS	?= as
+LD	?= ld
 
 OBJ_SUFFIX	= .o
 LIB_PREFIX	= lib

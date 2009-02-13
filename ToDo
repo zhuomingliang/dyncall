@@ -1,6 +1,7 @@
 general:
 - vararg function calls don't work for PPC32 System V ABI
 - vararg function calls don't work for ARM THUMB mode
+- error reporting for stack overflow and wrong mode? (e.g. dcGetError() )
 
 missing implementations (descending priority):
 - sparc, sparc64
@@ -22,5 +23,5 @@ available hardware for outstanding ports:
 - mips R5900: Daniel's PS2
 - ARM7: Tassilo's DS
 - mips (?): Daniel's router
-- sigmatel stmp3550b: Daniel's iPod Shuffle
+- sigmatel stmp3550b: Daniel's iPod Nano
 
