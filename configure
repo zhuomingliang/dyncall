@@ -115,7 +115,13 @@ CONFIG_ARCH=""
 guess_arch()
 {
   ARCH=`uname -m`
-  if [ "$ARCH" = "Power Macintosh" ] || [ "$ARCH" = "ppc" ] || [ "$ARCH" = "macppc" ]; then
+  if [ "$OS" = "SunOS" ]; then
+    if [ "$ARCH" = "i86pc" ] && [ "`isainfo -n`" = "amd64" ]; then
+      CONFIG_ARCH="x64"
+    else
+      CONFIG_ARCH="i386"
+    fi
+  elif [ "$ARCH" = "Power Macintosh" ] || [ "$ARCH" = "ppc" ] || [ "$ARCH" = "macppc" ]; then
     CONFIG_ARCH="ppc32"
   elif [ "$ARCH" = "x86" ] || [ "$ARCH" = "i386" ] || [ "$ARCH" = "i486" ] || [ "$ARCH" = "i586" ] || [ "$ARCH" = "i686" ] || [ "$ARCH" = "i86pc" ]; then
     CONFIG_ARCH="x86"
