@@ -41,7 +41,7 @@ include $(GMAKE_TOP)/tool/gcc_$(BUILD_CONFIG).gmake
 ifdef BUILD_OS_darwin
 
 else
-ASFLAGS		+= --defsym BUILD_OS_$(BUILD_OS)=1 --defsym BUILD_ARCH_$(BUILD_ARCH)=1
+ASFLAGS		+= --defsym BUILD_OS_$(BUILD_OS)=1 --defsym BUILD_ARCH_$(BUILD_ARCH)=1 
 endif
 
 $(BUILD_DIR)/%.o: %.s
@@ -119,18 +119,18 @@ ifdef BUILD_OS_windows
 ifdef DLL_IMPORTLIB
 TARGETS += $(LIB_FILE)
 $(BUILD_DIR)/lib%.a $(BUILD_DIR)/%.dll:
-	$(LINKCMD) -shared $^ -Wl,--out-implib,$(BUILD_DIR)/lib$(*F).a $(LDFLAGS) $(LDLIBS) $(OUTPUT_OPTION)
+	$(LINKCMD) -shared $^ -Wl,--out-implib,$(BUILD_DIR)/lib$(*F).a $(LDFLAGS) $(TARGET_ARCH) $(LDLIBS) $(OUTPUT_OPTION)
 else
 $(BUILD_DIR)/%.dll:
-	$(LINKCMD) -shared $^ $(LDFLAGS) $(LDLIBS) $(OUTPUT_OPTION)
+	$(LINKCMD) -shared $^ $(LDFLAGS) $(TARGET_ARCH) $(LDLIBS) $(OUTPUT_OPTION)
 endif
 endif
 
 $(BUILD_DIR)/%.so:
-	$(LINKCMD) -shared $^ $(LDFLAGS) $(LDLIBS) $(OUTPUT_OPTION)
+	$(LINKCMD) -shared $^ $(LDFLAGS) $(TARGET_ARCH) $(LDLIBS) $(OUTPUT_OPTION)
 
 $(BUILD_DIR)/lib%.dylib:
-	$(LINKCMD) -dynamiclib $^ $(LDFLAGS) $(LDLIBS) $(OUTPUT_OPTION)
+	$(LINKCMD) -dynamiclib $^ $(LDFLAGS) $(TARGET_ARCH) $(LDLIBS) $(OUTPUT_OPTION)
 
 # --- cross compile -----------------------------------------------------------
 
@@ -143,6 +143,6 @@ endif
 # --- last rule ---------------------------------------------------------------
 
 $(BUILD_DIR)/%$(APP_SUFFIX):
-	$(LINKCMD) $^ $(LDFLAGS) $(LDLIBS) $(OUTPUT_OPTION) 
+	$(LINKCMD) $^ $(LDFLAGS) $(TARGET_ARCH) $(LDLIBS) $(OUTPUT_OPTION) 
 
 

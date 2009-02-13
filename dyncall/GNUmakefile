@@ -65,8 +65,15 @@ endif # !msvc
 endif # !nasm
 endif # x86
 
+# --- x64 ---------------------------------------------------------------------
+
 ifdef BUILD_ARCH_x64
 UNITS += dyncall_callvm_x64
+endif
+
+ifdef BUILD_OS_darwin
+UNITS += dyncall_x64_apple
+else
 UNITS += dyncall_x64_system_v
 endif
 
