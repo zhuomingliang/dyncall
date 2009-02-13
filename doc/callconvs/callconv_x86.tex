@@ -145,6 +145,7 @@ Name          & Brief description\\
 \item called function cleans up the stack
 \item first two integers/pointers (\textless=\ 32bit) are passed via ecx and edx (even if preceded by other arguments)
 \item integer types 64 bits in size @@@ ? first in edx:eax ?
+\item if first argument is a 64 bit integer, it is passed via ecx and edx
 \item all other parameters are pushed onto the stack
 \end{itemize}
 
@@ -214,8 +215,8 @@ Name          & Brief description\\
 \begin{itemize}
 \item stack parameter order: right-to-left
 \item called function cleans up the stack
-\item if the first one or two arguments are integers/pointers (\textless=\ 32bit) , they are passed via ecx and edx
-\item integer types 64 bits in size @@@ ? first in edx:eax ?
+\item first two integers/pointers (\textless=\ 32bit) are passed via ecx and edx (even if preceded by other arguments)
+\item if first argument is a 64 bit integer, it is pushed on the stack and the two registers are skipped 
 \item all other parameters are pushed onto the stack
 \end{itemize}
 
@@ -223,9 +224,9 @@ Name          & Brief description\\
 \paragraph{Return values}
 
 \begin{itemize}
-\item return values of pointer or integral type (\textless=\ 32 bits) are returned via the eax register
-\item integers \textgreater\ 32 bits are returned via the eax and edx registers
-\item floating point types are returned via the st0 register@@@ really ?
+\item return values of pointer or integral type (\textless=\ 32 bits) are returned via the eax register.
+\item integers \textgreater\ 32 bits are returned via the eax and edx registers.
+\item floating point types are returned via the st0.
 \end{itemize}
 
 
