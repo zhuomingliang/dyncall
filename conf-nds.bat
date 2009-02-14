@@ -23,6 +23,7 @@ IF [%DEVKITPRO:~0,1%]==[%DEVKITPRO%] (
 	GOTO END_ABORT
 )
 
+REM Extract devkitPro path.
 IF [%DEVKITPRO:~0,1%]==[/] (
 	ECHO DEVKITPRO_PATH=%DEVKITPRO:~1,1%:%DEVKITPRO:~2%#>>ConfigVars
 ) ELSE IF [%DEVKITPRO:~1,1%]==[:] (
