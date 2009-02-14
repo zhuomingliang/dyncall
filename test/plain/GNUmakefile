@@ -29,7 +29,7 @@ TOP		= ../..
 
 include $(TOP)/buildsys/gmake/prolog.gmake
 
-TARGET_APP	= test
+TARGET_APP	= plain
 UNITS		= test_main
 CPPFLAGS	= -I$(TOP)/dyncall
 LINK_DIRS	= $(TOP)/dyncall/$(BUILD_DIR)
