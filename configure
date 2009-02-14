@@ -119,7 +119,7 @@ guess_arch()
     if [ "$ARCH" = "i86pc" ] && [ "`isainfo -n`" = "amd64" ]; then
       CONFIG_ARCH="x64"
     else
-      CONFIG_ARCH="i386"
+      CONFIG_ARCH="x86"
     fi
   elif [ "$ARCH" = "Power Macintosh" ] || [ "$ARCH" = "ppc" ] || [ "$ARCH" = "macppc" ]; then
     CONFIG_ARCH="ppc32"
