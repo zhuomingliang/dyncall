@@ -2,6 +2,7 @@ general:
 - vararg function calls don't work for PPC32 System V ABI
 - vararg function calls don't work for ARM THUMB mode
 - error reporting for stack overflow and wrong mode? (e.g. dcGetError() )
+- configure.bat really out of date
 
 missing implementations (descending priority):
 - sparc, sparc64

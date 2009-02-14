@@ -1,7 +1,7 @@
 #!/bin/sh
 #//////////////////////////////////////////////////////////////////////////////
 #
-# Copyright (c) 2007,2008 Daniel Adler <dadler@uni-goettingen.de>, 
+# Copyright (c) 2007,2009 Daniel Adler <dadler@uni-goettingen.de>, 
 #                         Tassilo Philipp <tphilipp@potion-studios.com>
 #
 # Permission to use, copy, modify, and distribute this software for any
@@ -54,29 +54,30 @@ usage()
   echo
   echo "Options:"
   echo "  --help"
-  echo "   -h                 print this page"
+  echo "   -h                print this page"
   echo
-  echo "  --prefix=<path>     set installation prefix (defaults '/usr/local')"
+  echo "  --prefix=<path>    set installation prefix (defaults '/usr/local' - GNU make only)"
+  echo "  --prefix-bd=<path> set build directory prefix (GNU make only)"
   echo
-  echo "  --target-x86        build for x86 architecture platform"
-  echo "  --target-x64        build for x64 architecture platform"
-  echo "  --target-psp        build for Playstation Portable platform (PSPSDK)"
-#  echo "  --target-arm        build for ARM architecture platform (ARM mode)"
-  echo "  --target-nds-arm    build for Nintendo DS platform (devkitPro, ARM mode)"
-  echo "  --target-nds-thumb  build for Nintendo DS platform (devkitPro, THUMB mode)"
-  echo "  --target-cygwin     build for cygwin platform"
-  echo "  --target-windows    build for windows platform (useful for cygwin)"
+  echo "  --target-x86       build for x86 architecture platform"
+  echo "  --target-x64       build for x64 architecture platform"
+  echo "  --target-psp       build for Playstation Portable platform (PSPSDK)"
+#  echo "  --target-arm       build for ARM architecture platform (ARM mode)"
+  echo "  --target-nds-arm   build for Nintendo DS platform (devkitPro, ARM mode)"
+  echo "  --target-nds-thumb build for Nintendo DS platform (devkitPro, THUMB mode)"
+  echo "  --target-cygwin    build for cygwin platform"
+  echo "  --target-windows   build for windows platform (useful for cygwin)"
   echo
-  echo "  --tool-gcc          use GNU Compiler Collection"
-  echo "  --tool-msvc         use Microsoft Visual C++"
-  echo "  --tool-pspsdk       use PSP SDK tool-chain"
+  echo "  --tool-gcc         use GNU Compiler Collection"
+  echo "  --tool-msvc        use Microsoft Visual C++"
+  echo "  --tool-pspsdk      use PSP SDK tool-chain"
   echo 
-  echo "  --asm-as            use GNU Assembler"
-  echo "  --asm-nasm          use NASM Assembler"
-  echo "  --asm-ml            use Microsoft Macro Assembler"
+  echo "  --asm-as           use GNU Assembler"
+  echo "  --asm-nasm         use NASM Assembler"
+  echo "  --asm-ml           use Microsoft Macro Assembler"
   echo
-  echo "  --config-release    build release version (default)"
-  echo "  --config-debug      build debug version"
+  echo "  --config-release   build release version (default)"
+  echo "  --config-debug     build debug version"
   echo
   exit 0
 }
@@ -155,14 +156,6 @@ guess_asm()
   info "guess assembler $CONFIG_ASM"
 }
 
-# --- prefixes ---------------------------------------------------------------
-
-#CONFIG_PREFIX="/usr/local"
-
-# --- dyncall ----------------------------------------------------------------
-
-CONFIG_DYNCALL="$CONFIG_PREFIX"
-
 # --- process arguments ------------------------------------------------------
 
 args()
@@ -176,6 +169,9 @@ args()
         ;;
       --prefix=*)
         CONFIG_PREFIX=`echo $OPT | cut -c 10-` 
+        ;;
+      --prefix-bd=*)
+        CONFIG_BUILDPREFIX=`echo $OPT | cut -c 13-` 
         ;;
       --target-x86)
         CONFIG_ARCH=x86
@@ -225,7 +221,6 @@ args()
         CONFIG_TOOL=pspsdk
         CONFIG_ASM=as
         CONFIG_PREFIX=`psp-config -P`
-        CONFIG_DYNCALL=$CONFIG_PREFIX
         ;;
       --asm-as)
         CONFIG_ASM=as
@@ -298,12 +293,16 @@ set_defaults()
 
 derive_vars()
 {
+  BUILD_HOST="$CONFIG_HOST"
+  if [ "$CONFIG_HOST" != "$CONFIG_OS" ]; then
+    BUILD_HOST="${CONFIG_HOST}_${CONFIG_OS}"
+  fi
+
   if [ -z "$CONFIG_PREFIX" ]; then
-    BUILD_HOST="$CONFIG_HOST"
-    if [ "$CONFIG_HOST" != "$CONFIG_OS" ]; then
-      BUILD_HOST="${CONFIG_HOST}_${CONFIG_OS}"
-    fi
     CONFIG_PREFIX="$PWD/install_${BUILD_HOST}_${CONFIG_ARCH}_${CONFIG_TOOL}_${CONFIG_CONFIG}"
+  fi
+  if [ -z "$CONFIG_BUILDPREFIX" ]; then
+    CONFIG_BUILDPREFIX="build_out/${BUILD_HOST}_${CONFIG_ARCH}_${CONFIG_TOOL}_${CONFIG_CONFIG}"
   fi
 }
 
@@ -320,7 +319,7 @@ output()
   echo "CONFIG_ASM=$CONFIG_ASM" >>$1
   echo "CONFIG_CONFIG=$CONFIG_CONFIG" >>$1
   echo "CONFIG_PREFIX=$CONFIG_PREFIX" >>$1
-  echo "CONFIG_DYNCALL=$CONFIG_DYNCALL" >>$1
+  echo "CONFIG_BUILDPREFIX=$CONFIG_BUILDPREFIX" >>$1
   echo "" >>$1
 }
 
