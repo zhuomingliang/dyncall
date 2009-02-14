@@ -49,14 +49,14 @@ dcCall_x64:
 
 	mov			%rbx, %r8
 
-	movd		%xmm0, qword ptr[%rcx   ]	/* Copy first 8 floats to xmm0-xmm7 (this makes rcx free to use). */
-	movd		%xmm1, qword ptr[%rcx+ 8]
-	movd		%xmm2, qword ptr[%rcx+16]
-	movd		%xmm3, qword ptr[%rcx+24]
-	movd		%xmm4, qword ptr[%rcx+32]
-	movd		%xmm5, qword ptr[%rcx+40]
-	movd		%xmm6, qword ptr[%rcx+48]
-	movd		%xmm7, qword ptr[%rcx+56]
+	movsd		%xmm0, qword ptr[%rcx   ]	/* Copy first 8 floats to xmm0-xmm7 (this makes rcx free to use). */
+	movsd		%xmm1, qword ptr[%rcx+ 8]
+	movsd		%xmm2, qword ptr[%rcx+16]
+	movsd		%xmm3, qword ptr[%rcx+24]
+	movsd		%xmm4, qword ptr[%rcx+32]
+	movsd		%xmm5, qword ptr[%rcx+40]
+	movsd		%xmm6, qword ptr[%rcx+48]
+	movsd		%xmm7, qword ptr[%rcx+56]
 
 	sub			%rsp, %rdi					/* Setup stack frame by subtracting the size of the arguments. */
 
