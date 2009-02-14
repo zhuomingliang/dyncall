@@ -48,14 +48,14 @@ _dcCall_x64:
 
 	mov			%rbx, %r8
 
-	movd		%xmm0, [%rcx   ]	/* Copy first 8 floats to xmm0-xmm7 (this makes rcx free to use). */
-	movd		%xmm1, [%rcx+ 8]
-	movd		%xmm2, [%rcx+16]
-	movd		%xmm3, [%rcx+24]
-	movd		%xmm4, [%rcx+32]
-	movd		%xmm5, [%rcx+40]
-	movd		%xmm6, [%rcx+48]
-	movd		%xmm7, [%rcx+56]
+	movsd		%xmm0, [%rcx   ]	/* Copy first 8 floats to xmm0-xmm7 (this makes rcx free to use). */
+	movsd		%xmm1, [%rcx+ 8]
+	movsd		%xmm2, [%rcx+16]
+	movsd		%xmm3, [%rcx+24]
+	movsd		%xmm4, [%rcx+32]
+	movsd		%xmm5, [%rcx+40]
+	movsd		%xmm6, [%rcx+48]
+	movsd		%xmm7, [%rcx+56]	/* 'movsd' is a 128-bit media instruction here, not a string operation */
 
 	sub			%rsp, %rdi					/* Setup stack frame by subtracting the size of the arguments. */
 
