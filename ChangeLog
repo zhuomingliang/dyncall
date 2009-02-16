@@ -1,5 +1,6 @@
 Version 0.4
-o test suite clean up (GNUmake):
+o fixed nmake buildfiles and configure.bat (were out of date and wrong)
+o test suite clean up (GNUmake, BSDmake):
   target "config" modified, phony without dependencies to other builds
 o bugfix: GNU fastcall calling convention for float and double arguments
   was wrong. no skip of register.

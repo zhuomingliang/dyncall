@@ -19,6 +19,8 @@ REM
 REM ///////////////////////////////////////////////////////////////////////////
 
 
+SETLOCAL
+
 REM Set default values.
 SET PACKAGE=dyncall
 SET CONFIG_HOST=windows

@@ -1,6 +1,6 @@
 #//////////////////////////////////////////////////////////////////////////////
 #
-# Copyright (c) 2007,2008 Daniel Adler <dadler@uni-goettingen.de>, 
+# Copyright (c) 2007,2009 Daniel Adler <dadler@uni-goettingen.de>, 
 #                         Tassilo Philipp <tphilipp@potion-studios.com>
 #
 # Permission to use, copy, modify, and distribute this software for any
@@ -28,20 +28,16 @@
 .SILENT:
 
 # Default "build all" target.
-all: build
-
-
-#!INCLUDE $(TOP)/build/build_dir.make
+all: configure build
 
 
 # Check if library has been 'configured' properly. If not, tell the user and abort.
-!IF !DEFINED(BUILD_OS) || !DEFINED(BUILD_ARCH) || !DEFINED(BUILD_UNIX)
-config: $(TOP)/ConfigVars
-$(TOP)/ConfigVars:
-	echo "Library not configured! Run configure.bat from the library's root directory first!"
-	false
+!IF !DEFINED(CONFIG_OS) || !DEFINED(CONFIG_ARCH)
+configure: $(TOP)\ConfigVars
+$(TOP)\ConfigVars:
+	echo "Library not configured properly! Run configure.bat from the library's root directory first!"
 !ELSE
-config:
+configure:
 !ENDIF
 
 
@@ -50,10 +46,9 @@ config:
 !  INCLUDE $(TOP)/ConfigVars
 !ENDIF
 
-
 # Include site rules.
-!IF EXISTS($(TOP)/SiteVars)
-!  INCLUDE $(TOP)/SiteVars
+!IF EXISTS($(TOP)\SiteVars)
+!  INCLUDE $(TOP)\SiteVars
 !ENDIF
 
 # set BUILD_* from CONFIG_* variables
@@ -76,6 +71,6 @@ BUILD_ASM = $(CONFIG_ASM)
 BUILD_CONFIG = $(CONFIG_CONFIG)
 !ENDIF
 
-!IF DEFINED(BUILD_TOOL)
+!IF "$(BUILD_TOOL)" != ""
 !  INCLUDE tool_$(BUILD_TOOL).nmake
 !ENDIF
