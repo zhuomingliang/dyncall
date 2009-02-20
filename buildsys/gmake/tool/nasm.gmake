@@ -25,7 +25,12 @@ ifdef BUILD_ARCH_x64
 NASMFLAGS=-f win64
 endif
 else
+ifdef BUILD_ARCH_x86
 NASMFLAGS=-f elf
+endif
+ifdef BUILD_ARCH_x64
+NASMFLAGS=-f elf64
+endif
 endif
 
 NASMFLAGS+=-DBUILD_OS_$(BUILD_OS)=1 -DBUILD_ARCH_$(BUILD_ARCH)=1
