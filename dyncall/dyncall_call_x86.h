@@ -1,4 +1,4 @@
-/*/////////////////////////////////////////////////////////////////////////////
+/*
 
  Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
@@ -15,16 +15,16 @@
  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-/////////////////////////////////////////////////////////////////////////////*/
+*/
 
-/*/////////////////////////////////////////////////////////////////////////////
+/*
 
-  dyncall 32bit ARM9E family interface
+  dyncall 32bit Intel x86 family interface
 
   REVISION
   2007/12/10 initial
 
-/////////////////////////////////////////////////////////////////////////////*/
+*/
 
 
 #ifndef DYNCALL_CALL_X86_H

@@ -1,4 +1,4 @@
-/*/////////////////////////////////////////////////////////////////////////////
+/*
 
  Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
@@ -15,9 +15,9 @@
  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-/////////////////////////////////////////////////////////////////////////////*/
+*/
 
-/*/////////////////////////////////////////////////////////////////////////////
+/*
 
   dyncall callvm for ppc32 architectures
 
@@ -29,7 +29,7 @@
   2007/12/11 initial support for Darwin ABI
   2009/01/09 added System V ABI support
 
-/////////////////////////////////////////////////////////////////////////////*/
+*/
 
 #include "dyncall_callvm_ppc32.h"
 #include "dyncall_call_ppc32.h"

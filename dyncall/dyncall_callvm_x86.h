@@ -1,4 +1,4 @@
-/*/////////////////////////////////////////////////////////////////////////////
+/*
 
  Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
@@ -15,12 +15,12 @@
  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-/////////////////////////////////////////////////////////////////////////////*/
+*/
 
 #ifndef DYNCALL_CALLVM_X86_H
 #define DYNCALL_CALLVM_X86_H
 
-/*/////////////////////////////////////////////////////////////////////////////
+/*
 
   dyncall callvm for 32bit X86 architectures
   Copyright 2007 Daniel Adler.
@@ -31,7 +31,7 @@
   REVISION
   2007/12/10 initial
 
-/////////////////////////////////////////////////////////////////////////////*/
+*/
 
 
 #include "dyncall_call_x86.h"
