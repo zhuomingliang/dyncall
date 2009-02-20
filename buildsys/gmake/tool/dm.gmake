@@ -1,0 +1,18 @@
+CC  = dmc
+CXX = dmc
+OBJ_SUFFIX = .obj
+LIB_SUFFIX = .lib
+
+
+# --- compile C ---------------------------------------------------------------
+
+$(BUILD_DIR)/%.obj: %.c
+	$(CC) -c $< $(CPPFLAGS) $(CFLAGS) -o $@ 
+
+# --- build static library ----------------------------------------------------
+
+$(BUILD_DIR)/%.lib: 
+	lib -c $@ $^ 
+
+
+include $(GMAKE_TOP)/tool/$(BUILD_ASM).gmake

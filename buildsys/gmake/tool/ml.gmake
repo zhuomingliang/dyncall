@@ -1,0 +1,7 @@
+AS ?= ml
+
+# --- assemble to coff --------------------------------------------------------
+
+$(BUILD_DIR)/%.obj: %.asm
+	ml /nologo /c /coff $(ASFLAGS) /Fo$@ $<
+
