@@ -46,11 +46,37 @@ typedef struct
 
 } Elf_Hash;
 
+typedef struct {
+  uint32_t nbuckets; /* the number of buckets */
+  uint32_t symndx; /* The dynamic symbol table has dynsymcount symbols. symndx is the index of
+  the first symbol in the dynamic symbol table that is to be accessible via the hash table.
+  This implies that there are (dynsymcount - index) symbols accessible  via the hash table.
+  */
+  uint32_t maskwords; /* the number of ELFCLASS sized words in the Bloom filter portion of the hash table section.
+  This value must be non-zero, and must be a power of 2 as explained below.
+
+  Note that a value of 0 could be interpreted to mean that no Bloom filter is present in the hash section.
+  However, the GNU linkers do not do this -- the GNU hash section always includes at least 1 mask word.
+  */
+  uint32_t shift2; /* A shift count used by the Bloom filter. */
+
+  /* Following ... 
+
+  Elf_Addr bloom[maskwords];  // bloom filter to rapidly reject attempts to look up symbols.
+  uint32_t buckets[nbuckets]; // an Array of nbucket 32-bit hash values.
+  uint32_t chain[dynsymcount - symndx];
+  
+  */
+
+
+} Elf_GNU_Hash;
+
 struct DLSyms_
 {
   const char* pStrTab;
   Elf_Hash*   pHash;
   Elf_Sym*    pSymTab;
+  Elf_GNU_Hash* pGNUHash;
 };
 
 size_t dlSyms_sizeof()
@@ -60,6 +86,13 @@ size_t dlSyms_sizeof()
 
 void dlSymsInit(DLSyms* pSyms, DLLib* pLib)
 {
+  assert(pSyms && pLib);
+  
+  pSyms->pStrTab  = 0;
+  pSyms->pSymTab  = 0;
+  pSyms->pHash    = 0;
+  pSyms->pGNUHash = 0;
+
   Elf_Ehdr* pH   = pLib->pElf_Ehdr;
 #ifdef DL__BinaryFormat_elf32
   assert( pH->e_ident[EI_CLASS] == ELFCLASS32 );
@@ -91,9 +124,10 @@ void dlSymsInit(DLSyms* pSyms, DLLib* pLib)
             if (dt == DT_NULL) break;
             switch(dt)
             {
-              case DT_STRTAB: pSyms->pStrTab = (const char*) pDyn->d_un.d_ptr; break;
-              case DT_SYMTAB: pSyms->pSymTab = (Elf_Sym*)    pDyn->d_un.d_ptr; break;
-              case DT_HASH:   pSyms->pHash   = (Elf_Hash*)   pDyn->d_un.d_ptr; break;
+              case DT_STRTAB:   pSyms->pStrTab  = (const char*)   pDyn->d_un.d_ptr; break;
+              case DT_SYMTAB:   pSyms->pSymTab  = (Elf_Sym*)      pDyn->d_un.d_ptr; break;
+              case DT_HASH:     pSyms->pHash    = (Elf_Hash*)     pDyn->d_un.d_ptr; break;
+              case DT_GNU_HASH: pSyms->pGNUHash = (Elf_GNU_Hash*) pDyn->d_un.d_ptr; break;
             }
             pDyn++;
           }
@@ -111,19 +145,49 @@ void dlSymsCleanup(DLSyms* pSyms)
 
 int dlSymsCount(DLSyms* pSyms)
 {
+  assert(pSyms && pSyms->pHash);
   return pSyms->pHash->nchain;
 }
 
 const char* dlSymsName(DLSyms* pSyms, int index)
 {
+  assert(pSyms && pSyms->pSymTab && pSyms->pStrTab );
+
   int str_index = pSyms->pSymTab[ index ].st_name;
   return &pSyms->pStrTab[str_index];
 }
 
 void* dlSymsValue(DLSyms* pSyms, int index)
 {
+  assert(pSyms && pSyms->pSymTab);
   return (void*) pSyms->pSymTab[ index ].st_value;
 }
+
+#if 0
+
+/*
+ * the "gnu hash" / DJB hash function
+ */
+
+uint32_t
+dl_new_hash(const char* s)
+{
+  uint32_t h = 5381;
+  for (unsigned char c = *s; c != '\0' ; c = *++s)
+    h = h * 33 + c;
+  return h;
+}
+
+/* GNU binutils implementation: */
+static uint_fast32_t
+dl_new_hash(const char* s)
+{
+  uint_fast32_t h = 5381;
+  for (unsigned char c = *s; c != '\0' ; c = *++s)
+    h = h * 33 + c;
+  return h & 0xffffffff;
+}
+#endif
 
 #if 0
 /*
