@@ -17,12 +17,14 @@ typedef Elf64_Phdr   Elf_Phdr;
 typedef Elf64_Sym    Elf_Sym;
 typedef Elf64_Dyn    Elf_Dyn;
 typedef Elf64_Sxword Elf_tag;
+typedef Elf64_Addr   Elf_Addr;
 #else
 typedef Elf32_Ehdr   Elf_Ehdr;
 typedef Elf32_Phdr   Elf_Phdr;
 typedef Elf32_Sym    Elf_Sym;
 typedef Elf32_Dyn    Elf_Dyn;
 typedef Elf32_Sword  Elf_tag;
+typedef Elf32_Addr   Elf_Addr;
 #endif
 
 struct DLLib_
@@ -39,8 +41,8 @@ typedef struct
 
    it follows two arrays ...
    
-   int bucket[nbucket-1] 
-   int chain[nchain-1]      
+   uint32_t bucket[nbucket-1] 
+   uint32_t chain[nchain-1]      
 
   */
 
@@ -77,13 +79,14 @@ struct DLSyms_
   Elf_Hash*   pHash;
   Elf_Sym*    pSymTab;
   Elf_GNU_Hash* pGNUHash;
+  uint32_t*     pGNUHashChain;
 };
 
 size_t dlSyms_sizeof()
 {
   return sizeof(DLSyms);
 }
-
+#include <stdio.h>
 void dlSymsInit(DLSyms* pSyms, DLLib* pLib)
 {
   assert(pSyms && pLib);
@@ -92,6 +95,7 @@ void dlSymsInit(DLSyms* pSyms, DLLib* pLib)
   pSyms->pSymTab  = 0;
   pSyms->pHash    = 0;
   pSyms->pGNUHash = 0;
+  pSyms->pGNUHashChain = 0;
 
   Elf_Ehdr* pH   = pLib->pElf_Ehdr;
 #ifdef DL__BinaryFormat_elf32
@@ -136,6 +140,13 @@ void dlSymsInit(DLSyms* pSyms, DLLib* pLib)
         break;
     }
   }
+  if (pSyms->pGNUHash) {
+    Elf_GNU_Hash* p = pSyms->pGNUHash;
+    Elf_Addr* pbloom = (Elf_Addr*) ( &p[1] );
+    uint32_t* pbuckets = (uint32_t*) &pbloom[p->maskwords];
+    uint32_t* pchain   = (uint32_t*) &pbuckets[p->nbuckets];
+    pSyms->pGNUHashChain = pchain;
+  }
 }
 
 void dlSymsCleanup(DLSyms* pSyms)
@@ -146,21 +157,36 @@ void dlSymsCleanup(DLSyms* pSyms)
 int dlSymsCount(DLSyms* pSyms)
 {
   assert(pSyms && pSyms->pHash);
-  return pSyms->pHash->nchain;
+  if (pSyms->pGNUHash) {
+    return pSyms->pHash->nchain - pSyms->pGNUHash->symndx;
+  } else {
+    return pSyms->pHash->nchain;
+  }
 }
 
 const char* dlSymsName(DLSyms* pSyms, int index)
 {
   assert(pSyms && pSyms->pSymTab && pSyms->pStrTab );
-
-  int str_index = pSyms->pSymTab[ index ].st_name;
+  int export_base;
+  if (pSyms->pGNUHash) {
+    export_base = pSyms->pGNUHash->symndx;
+  } else {
+    export_base = 0;
+  }
+  int str_index = pSyms->pSymTab[ export_base + index ].st_name;
   return &pSyms->pStrTab[str_index];
 }
 
 void* dlSymsValue(DLSyms* pSyms, int index)
 {
   assert(pSyms && pSyms->pSymTab);
-  return (void*) pSyms->pSymTab[ index ].st_value;
+  int export_base;
+  if (pSyms->pGNUHash) {
+    export_base = pSyms->pGNUHash->symndx;
+  } else {
+    export_base = 0;
+  }
+  return (void*) pSyms->pSymTab[ export_base + index ].st_value;
 }
 
 #if 0

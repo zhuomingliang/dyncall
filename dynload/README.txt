@@ -2,12 +2,15 @@ dynload / abstraction to run-time shared library services:
 
 - loading/unloading into the current process
 - symbol lookup
-- enumerating symbol tables (new)
+- enumerating symbol tables
+- elf: support for DT_GNU_HASH
+
 
 Todo:
+- Mach-O format
 - a.out format
-- support for DT_GNU_HASH
-
+- support for different kind of symbols
+  (exports,imports,sections,constants...)
 
 Notes on windows pe format:
 
