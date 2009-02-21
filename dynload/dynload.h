@@ -34,6 +34,7 @@
 #define DYNLOAD_H
 
 #include <stddef.h>
+#include <stdlib.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -41,16 +42,25 @@ extern "C" {
 
 /* --- public api ---------------------------------------------------------- */
 
-void* dlLoadLibrary(const char* libpath);
-void  dlFreeLibrary(void* libhandle);
-void* dlFindSymbol(void* libhandle, const char* symbol);
+/* shared library loading and explicit symbol resolving */
 
-/* --- developer api ------------------------------------------------------- */
-/* the following entries are only implemented on Windows */
+typedef struct DLLib_ DLLib;
 
-size_t      dlGetSymbolCount(void* libhandle);
-const char* dlGetSymbolNameAt(void* libhandle, size_t index);
-void*       dlGetSymbolValueAt(void* libhandle, size_t index);
+DLLib* dlLoadLibrary(const char* libpath);
+void   dlFreeLibrary(DLLib* pLib);
+void*  dlFindSymbol(DLLib* pLib, const char* pSymbolName);
+
+/* symbol table enumeration */
+
+typedef struct DLSyms_ DLSyms;
+
+size_t      dlSyms_sizeof();
+void        dlSymsInit   (DLSyms* pSyms, DLLib* pLib);
+void        dlSymsCleanup(DLSyms* pSyms);
+
+int         dlSymsCount  (DLSyms* pSyms);
+const char* dlSymsName   (DLSyms* pSyms, int index);
+void*       dlSymsValue  (DLSyms* pSyms, int index);
 
 #ifdef __cplusplus
 }

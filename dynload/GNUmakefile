@@ -34,10 +34,10 @@ INSTALL_LIB = 1
 include $(TOP)/MakeProlog
 
 ifdef BUILD_OS_windows
-UNITS += dynload_win32
+UNITS += dynload_win32 dynload_syms_pe32
 else
 ifndef BUILD_OS_psp
-UNITS += dynload_unix
+UNITS += dynload_unix dynload_syms_elf32
 endif
 endif
 
