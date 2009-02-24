@@ -17,36 +17,48 @@
 
 */
 
-#include "../common/platformInit.h"
-#include "../../dynload/dynload.h"
+#include "dynload.h"
 #include <stdio.h>
 
+void list_syms(DLLib* pLib)
+{
+  DLSyms* pSyms = (DLSyms*) malloc( dlSyms_sizeof() );
+  
+  dlSymsInit(pSyms, pLib);
+
+  int i = 0, n = dlSymsCount(pSyms);
+
+  for (; i < n; ++i) {
+    const char* name = dlSymsName(pSyms,i);
+    void* addr = dlSymsValue(pSyms,i);
+    printf("%s %lx\n", name, addr);
+  }
+  dlSymsCleanup(pSyms);
+  free(pSyms);
+}
 
 int main(int argc, char* argv[])
 {
-  dcTest_initPlatform();
-
   int i, n;
   const char* libpath = argv[1];
-  void* handle = dlLoadLibrary(libpath);
+  
+  /* load lib */
+
+  DLLib* pLib = dlLoadLibrary(libpath);
+  
   if (argc == 1) {
     fprintf(stderr, "usage : %s <dllpath>\n", argv[0]);
-    return -1;
+    return 1;
   }
-  if (!handle) {
+  if (!pLib) {
     fprintf(stderr, "unable to open library %s\n", libpath);
+    return 2;
   }
 
-  n = dlGetSymbolCount(handle);
+  list_syms(pLib);
 
-  for (i = 0; i < n ; ++i) {
-    const char* name = dlGetSymbolNameAt(handle,i);
-    printf("%s\n", name);
-  }
-  dlFreeLibrary(handle);
 
-  dcTest_deInitPlatform();
-
+  dlFreeLibrary(pLib);
   return 0;
 }
 
