@@ -244,3 +244,9 @@ EXPORT_C dcCall_x86_win32_fast
 
     ret    
 
+/* Stack markings for ELF/GNU to specify no executable stack */
+
+#if defined (__linux__) && defined(__ELF__)
+.section .note.GNU-stack,"",%progbits
+#endif
+

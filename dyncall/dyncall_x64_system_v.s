@@ -87,3 +87,9 @@ dcCall_x64:
 
 	ret
 
+/* Stack markings for ELF/GNU to specify no executable stack */
+
+#if defined (__linux__) && defined(__ELF__)
+.section .note.GNU-stack,"",%progbits
+#endif
+
