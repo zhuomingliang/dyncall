@@ -43,26 +43,38 @@ ifdef BUILD_ARCH_x86
 
 UNITS += dyncall_callvm_x86
 
-ifdef BUILD_ASM_nasm
+ifdef BUILD_TOOL_gcc
 
-UNITS += dyncall_x86_nasm
+UNITS += dyncall_x86_gcc
 
-else # !nasm
+endif
 
 ifdef BUILD_TOOL_msvc
 
-UNITS += dyncall_x86_windows
+UNITS += dyncall_x86_msvc
 
-else # !msvc
-
-ifdef BUILD_OS_darwin
-UNITS += dyncall_x86_darwin
-else
-UNITS += dyncall_x86_as
 endif
 
-endif # !msvc
-endif # !nasm
+# ifdef BUILD_ASM_nasm
+
+# UNITS += dyncall_x86_nasm
+
+# else # !nasm
+
+# ifdef BUILD_TOOL_msvc
+
+# UNITS += dyncall_x86_windows
+
+# else # !msvc
+
+# ifdef BUILD_OS_darwin
+# UNITS += dyncall_x86_darwin
+# else
+# UNITS += dyncall_x86_as
+# endif
+
+# endif # !msvc
+# endif # !nasm
 endif # x86
 
 # --- x64 ---------------------------------------------------------------------
