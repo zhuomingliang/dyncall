@@ -6,6 +6,8 @@
 void dcCall_x64(DCsize stacksize, DCpointer stackdata, DCpointer regdata_i, DCpointer regdata_f, DCpointer target)
 {
 __asm__ __volatile__("\n\
+  pushq %rbp            \n\
+  movq  %rsp, %rbp      \n\
   push	%rbx 		/* Preserve rbx and store pointer to function in it. */\n\
   mov	%r8 , %rbx      \n\
                         \n\
@@ -40,9 +42,8 @@ __asm__ __volatile__("\n\
   mov     $8, %al	/* Put upper bound of number of used xmm registers in al. */\n\
   call  *%rbx	        /* Invoke function. */\n\
                         \n\
-  mov   %rbp, %rsp	/* Restore stack pointer (such that we can pop the preserved values). */\n\
-                        \n\
-  mov   -8(%rbp), %rbx  \n\
+  mov   8(%rbp), %rbx   \n\
+  leave                 \n\
 \n\
 ");
 }
