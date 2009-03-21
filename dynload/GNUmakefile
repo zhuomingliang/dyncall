@@ -36,8 +36,12 @@ include $(TOP)/MakeProlog
 ifdef BUILD_OS_windows
 UNITS += dynload_win32 dynload_syms_pe32
 else
+ifdef BUILD_OS_cygwin
+UNITS += dynload_win32 dynload_syms_pe32
+else
 ifndef BUILD_OS_psp
 UNITS += dynload_unix dynload_syms_elf
+endif
 endif
 endif
 
