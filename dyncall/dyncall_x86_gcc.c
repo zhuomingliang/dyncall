@@ -1,11 +1,10 @@
 #include "dyncall_call_x86.h"
 #if !defined(DC__C_GNU) || !defined(DC__Arch_Intel_x86)
-#error this source requires a GCC compiler AND x86 architecture
+#error source needs to be compiled with GCC targeting x86 architecture
 #endif
 
-void dcCall_x86_cdecl(DCpointer funptr, DCpointer args, DCsize size)
-{
-  asm volatile("\n\
+void dcCall_x86_cdecl(DCpointer funptr, DCpointer args, DCsize size) {
+  __asm__ __volatile__("\n\
       push %esi               /* save esi, edi */               \n\
       push %edi                                                 \n\
                                                                 \n\
@@ -18,12 +17,12 @@ void dcCall_x86_cdecl(DCpointer funptr, DCpointer args, DCsize size)
       shr  $0x2, %ecx 		          /* ecx = number of DWORDs */      \n\
       rep movsd               /* copy DWORDs */                 \n\
                                                                 \n\
-      call *8(%ebp)            /* call function */               \n\
+      call *8(%ebp)            /* call function */              \n\
                                                                 \n\
       add  16(%ebp),%esp      /* cdecl call: cleanup stack */   \n\
                                                                 \n\
       pop  %edi               /* restore edi, esi */            \n\
-      pop  %esi                                                 \n\                                                                \n\
+      pop  %esi                                                 \n\
 ");
 }
 
