@@ -19,23 +19,29 @@
 
 #	dyncall bsdmake build system
 #	implied.bsdmake
-
+# REVISION
+# 2009/03/23
+#	dadler: Added preprocessor assembly rules for .S files.
 
 .SUFFIXES:
-.SUFFIXES: .o .c .cpp .s .pdf .tex
+.SUFFIXES: .o .c .cpp .s .S .pdf .tex
 
 
 .c.o: .SILENT
 	echo .c.o: Compiling $(.IMPSRC)...
-	$(CC) $(CFLAGS) -c $(.IMPSRC) -o $(.TARGET)
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(TARGET_ARCH) -c $(.IMPSRC) -o $(.TARGET)
 
 .cpp.o: .SILENT
 	echo .cpp.o: Compiling $(.IMPSRC)...
-	$(CXX) $(CXXFLAGS) -c $(.IMPSRC) -o $(.TARGET)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(TARGET_ARCH) -c $(.IMPSRC) -o $(.TARGET)
 
 .s.o: .SILENT
 	echo .s.o: Compiling $(.IMPSRC)...
 	$(AS) $(ASFLAGS) -o $(.TARGET) $(.IMPSRC)
+	
+.S.o: .SILENT
+	echo .s.o: Compiling $(.IMPSRC)...
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(TARGET_MACH) -c $(.IMPSRC) -o $(.TARGET)
 
 .tex.pdf: .SILENT
 	echo .tex.pdf: Creating $(.TARGET)...

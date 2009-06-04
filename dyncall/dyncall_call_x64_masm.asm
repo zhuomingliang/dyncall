@@ -31,7 +31,7 @@
 
 
 ; Main dyncall call.
-dcCall_x64 PROC EXPORT
+dcCall_x64_win64 PROC EXPORT
 
 	OPTION PROLOGUE:NONE, EPILOGUE:NONE
 
@@ -84,6 +84,6 @@ dcCall_x64 PROC EXPORT
 
 	ret
 
-dcCall_x64 ENDP
+dcCall_x64_win64 ENDP
 
 END

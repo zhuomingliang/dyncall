@@ -1,5 +1,8 @@
 /*
-
+ Package: dyncall
+ File: dyncall/dyncall_callf.c
+ Description: formatted call C interface (extension module)
+ License:
  Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
 
@@ -33,17 +36,32 @@ void dcVCallF(DCCallVM* vm, DCValue* result, DCpointer funcptr, const DCsigchar*
       case DC_SIGCHAR_CHAR:
         dcArgChar      (vm, (DCchar)       va_arg( args, DCint  ) );
         break;
+      case DC_SIGCHAR_UCHAR:
+        dcArgChar      (vm, (DCchar) (DCuchar)      va_arg( args, DCint  ) );
+        break;
       case DC_SIGCHAR_SHORT:
         dcArgShort     (vm, (DCshort)      va_arg( args, DCint  ) );
+        break;
+      case DC_SIGCHAR_USHORT:
+        dcArgShort     (vm, (DCshort) (DCushort)     va_arg( args, DCint  ) );
         break;
       case DC_SIGCHAR_INT:
         dcArgInt       (vm, (DCint)        va_arg( args, DCint  ) );
         break;
+      case DC_SIGCHAR_UINT:
+        dcArgInt       (vm, (DCint) (DCuint)       va_arg( args, DCint  ) );
+        break;
       case DC_SIGCHAR_LONG:
         dcArgLong      (vm, (DClong)       va_arg( args, DClong ) );
         break;
+      case DC_SIGCHAR_ULONG:
+        dcArgLong      (vm, (DCulong)      va_arg( args, DClong ) );
+        break;
       case DC_SIGCHAR_LONGLONG:
         dcArgLongLong  (vm, (DClonglong)   va_arg( args, DClonglong ) );
+        break;
+      case DC_SIGCHAR_ULONGLONG:
+        dcArgLongLong  (vm, (DCulonglong)  va_arg( args, DClonglong ) );
         break;
       case DC_SIGCHAR_FLOAT:
         dcArgFloat     (vm, (DCfloat)      va_arg( args, DCdouble ) );
@@ -54,6 +72,9 @@ void dcVCallF(DCCallVM* vm, DCValue* result, DCpointer funcptr, const DCsigchar*
       case DC_SIGCHAR_POINTER:
         dcArgPointer   (vm, (DCpointer)    va_arg( args, DCpointer ) );
         break;
+      case DC_SIGCHAR_STRING:
+        dcArgPointer   (vm, (DCpointer)    va_arg( args, DCpointer ) );
+        break;
     }
   }
 
@@ -61,13 +82,19 @@ void dcVCallF(DCCallVM* vm, DCValue* result, DCpointer funcptr, const DCsigchar*
     case DC_SIGCHAR_VOID:                   dcCallVoid      (vm,funcptr); break;
     case DC_SIGCHAR_BOOL:       result->B = dcCallBool      (vm,funcptr); break;
     case DC_SIGCHAR_CHAR:       result->c = dcCallChar      (vm,funcptr); break;
+    case DC_SIGCHAR_UCHAR:      result->C = (DCuchar) dcCallChar      (vm,funcptr); break;
     case DC_SIGCHAR_SHORT:      result->s = dcCallShort     (vm,funcptr); break;
+    case DC_SIGCHAR_USHORT:     result->S = dcCallShort     (vm,funcptr); break;
     case DC_SIGCHAR_INT:        result->i = dcCallInt       (vm,funcptr); break;
-    case DC_SIGCHAR_LONG:       result->l = dcCallLong      (vm,funcptr); break;
-    case DC_SIGCHAR_LONGLONG:   result->L = dcCallLongLong  (vm,funcptr); break;
+    case DC_SIGCHAR_UINT:       result->I = dcCallInt       (vm,funcptr); break;
+    case DC_SIGCHAR_LONG:       result->j = dcCallLong      (vm,funcptr); break;
+    case DC_SIGCHAR_ULONG:      result->J = dcCallLong      (vm,funcptr); break;
+    case DC_SIGCHAR_LONGLONG:   result->l = dcCallLongLong  (vm,funcptr); break;
+    case DC_SIGCHAR_ULONGLONG:  result->L = dcCallLongLong  (vm,funcptr); break;
     case DC_SIGCHAR_FLOAT:      result->f = dcCallFloat     (vm,funcptr); break;
     case DC_SIGCHAR_DOUBLE:     result->d = dcCallDouble    (vm,funcptr); break;
     case DC_SIGCHAR_POINTER:    result->p = dcCallPointer   (vm,funcptr); break;
+    case DC_SIGCHAR_STRING:     result->Z = dcCallPointer   (vm,funcptr); break;
   }
 }
 

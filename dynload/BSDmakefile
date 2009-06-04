@@ -24,7 +24,10 @@
 #	BSDmakefile
 #
 #///////////////////////////////////////////////////
-
+#
+# REVISIONS
+# 2009/03/23  dadler
+#  * updated to use dynload and dynload_syms modules
 
 TOP		= ..
 
@@ -36,12 +39,11 @@ TOP		= ..
 
 LIBRARY		= dynload
 
-CFLAGS		+=
-CXXFLAGS	+=
+CPPFLAGS	+= -I../dyncall
 
 # Modules to build.
 
-MODS += dynload_unix
+UNITS += dynload dynload_syms
 
 .if $(BUILD_ARCH) == x64
 CFLAGS		+= -fPIC

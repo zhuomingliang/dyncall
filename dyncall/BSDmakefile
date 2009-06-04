@@ -37,41 +37,53 @@ LIBRARY		= dyncall
 
 # Gather needed modules to build.
 
-MODS += dyncall
-MODS += dyncall_callf
-MODS += dyncall_vector
+UNITS += dyncall_vector
+UNITS += dyncall_api
+UNITS += dyncall_callf
+
+# @@@ new gcc-style includer (.S file), please check if this one works 
+
+UNITS += dyncall_call
+
+# @@@ renaming of call kernels has been fixed here
+# @@@ i commented the inclusion
 
 .if $(BUILD_ARCH) == x86
-MODS += dyncall_callvm_x86
+#UNITS += dyncall_callvm_x86
 .if $(BUILD_OS) == darwin
-MODS += dyncall_x86_darwin
+#UNITS += dyncall_call_x86_apple
 .else
-MODS += dyncall_x86_$(BUILD_ASM)
+#UNITS += dyncall_call_x86_$(BUILD_ASM)
 .endif
 .endif
 
 .if $(BUILD_ARCH) == ppc32
-MODS += dyncall_callvm_ppc32
+#UNITS += dyncall_callvm_ppc32
 .if $(BUILD_OS) == darwin
-MODS += dyncall_ppc32_darwin
+#UNITS += dyncall_call_ppc32_apple
 .else
-MODS += dyncall_ppc32_as
+#UNITS += dyncall_call_ppc32_gas
 .endif
 .endif
 
 .if $(BUILD_ARCH) == arm9e_arm
-MODS += dyncall_callvm_arm9e_arm
-MODS += dyncall_arm9e_arm
+#UNITS += dyncall_callvm_arm9e_arm
+#UNITS += dyncall_call_arm9e_arm_gas
 .endif
 
 .if $(BUILD_ARCH) == arm9e_thumb
-MODS += dyncall_callvm_arm9e_thumb
-MODS += dyncall_arm9e_thumb
+#UNITS += dyncall_callvm_arm9e_thumb
+#UNITS += dyncall_call_arm9e_thumb_gas
 .endif
 
 .if $(BUILD_ARCH) == x64
-MODS += dyncall_callvm_x64
-MODS += dyncall_x64_system_v
+#UNITS += dyncall_callvm_x64
+.if $(BUILD_OS) == darwin
+#UNITS += dyncall_call_x64_apple
+.else
+#UNITS += dyncall_call_x64_gas
+.endif
+# @@@ should be moved to BSDmake in general (for x64 platforms)
 CFLAGS		+= -fPIC
 CXXFLAGS	+= -fPIC
 .endif

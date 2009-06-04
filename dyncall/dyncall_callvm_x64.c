@@ -144,7 +144,7 @@ static void dc_callvm_argPointer_x64(DCCallVM* in_self, DCpointer x)
 void dc_callvm_call_x64(DCCallVM* in_self, DCpointer target)
 {
   DCCallVM_x64* self = (DCCallVM_x64*)in_self;
-  dcCall_x64(
+  dcCall_x64_sysv(
     dcVecSize(&self->mVecHead),  /* Size of stack data.                           */
     dcVecData(&self->mVecHead),  /* Pointer to stack arguments.                   */
     self->mRegData.i,            /* Pointer to register arguments (ints on SysV). */

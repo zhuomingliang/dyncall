@@ -41,15 +41,21 @@ typedef union DCValue_ DCValue;
 
 union DCValue_
 {
-  DCbool B;
-  DCchar c;
-  DCshort s;
-  DCint i;
-  DClong l;
-  DClonglong L;
-  DCfloat f;
-  DCdouble d;
-  DCpointer p;
+  DCbool        B;
+  DCchar        c;
+  DCuchar       C;
+  DCshort       s;
+  DCushort      S;
+  DCint         i;
+  DCuint        I;
+  DClong        j;
+  DCulong       J;
+  DClonglong    l;
+  DCulonglong   L;
+  DCfloat       f;
+  DCdouble      d;
+  DCpointer     p;
+  DCstring      Z;
 };
 
 #ifdef __cplusplus

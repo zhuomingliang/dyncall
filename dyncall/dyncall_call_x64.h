@@ -44,13 +44,8 @@ extern "C" {
 **
 */
 
-#if defined(DC_UNIX)
-void dcCall_x64(DCsize stacksize, DCpointer stackdata, DCpointer regdata_i, DCpointer regdata_f, DCpointer target);
-#elif defined(DC_WINDOWS)
-void dcCall_x64(DCsize stacksize, DCpointer stackdata, DCpointer regdata, DCpointer target);
-#else
-#error Unsupported OS.
-#endif
+void dcCall_x64_sysv(DCsize stacksize, DCpointer stackdata, DCpointer regdata_i, DCpointer regdata_f, DCpointer target);
+void dcCall_x64_win64(DCsize stacksize, DCpointer stackdata, DCpointer regdata, DCpointer target);
 
 #ifdef __cplusplus
 }

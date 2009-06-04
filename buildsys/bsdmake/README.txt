@@ -52,7 +52,45 @@ DIRS      directories to sub-process for targets depending on subdirs
 APP       name of application (w/o suffix of prefix) - will be built if set
 DLL       name of dynamic library (w/o suffix of prefix) - will be built if set
 LIBRARY   name of static library (w/o suffix of prefix) - will be built if set
-MODS      specifies modules to link
+UNITS     specifies the units to link
+MODS      specifies modules to link (deprecated - use UNITS instead)
 LDLIBS    link libraries
 LDFLAGS   link flags
+
+
+changes from daniel:
+
+- added UNITS variable that deprecates MODS
+- added .S.o implied rule 
+
+
+urgent issues from daniel:
+
+- no TARGET_ARCH variable in implied build rules
+  needed to make universal binaries work, and also helpful for 
+  gcc cross-compilation and target fine-tuning in general.
+  
+- handle arch "universal" (for darwin) .. means:
+    TARGET_ARCH = -arch i386 -arch ppc -arch x86_64 [ -arch ppc64 ]
+
+- no CPPFLAGS variable in implied build rules
+  one place for all pre-processor issues (regardless of C, C++, Objective-C...)
+
+- force -fPIC in general for x64
+  
+    
+low-prio issues (wishlist) from daniel:  
+
+- cross-compilation through overloading CC,CXX,... is this possible on bsdmake?
+  
+- sync with gmake variable names
+  rename 
+    APP -> TARGET_APP
+    DLL -> TARGET_DLL
+    LIBRARY -> TARGET_LIB
+    
+- separate build directories
+  
+- not an issue, but helpful:
+  introduce BSDMAKE_TOP to allow bsdmake to life externally - see GMAKE_TOP variable for example
 

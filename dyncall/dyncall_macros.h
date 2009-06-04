@@ -143,6 +143,8 @@
 		#define DC__Arch_Intel_x86
 	#elif defined(__amd64__) || defined(__amd64) || defined(__x86_64__) || defined(__x86_64)
 		#define DC__Arch_AMD64
+	#elif defined(__ppc64__) || defined(_ARCH_PPC64)
+		#define DC__Arch_PPC64
 	#elif defined(__powerpc__) || defined(__powerpc) || defined(__POWERPC__) || defined(__ppc__)
 		#define DC__Arch_PowerPC
 	#elif defined(__ia64__)

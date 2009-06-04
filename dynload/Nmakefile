@@ -33,7 +33,8 @@ TOP=..
 !IF "$(BUILD_OS)" == "windows"
 
 TARGETS = libdynload_s.lib
-OBJS = dynload_win32.obj
+OBJS = dynload.obj dynload_syms.obj
+CFLAGS = -I../dyncall
 
 $(TARGETS): $(OBJS)
 	echo Creating library $@ ...

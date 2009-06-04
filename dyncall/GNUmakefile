@@ -23,7 +23,7 @@ TOP = ..
 
 TARGET_LIB = dyncall
 
-UNITS = dyncall dyncall_vector dyncall_callf
+UNITS = dyncall_vector dyncall_api dyncall_callf 
 
 INSTALL_HEADERS	= \
 	dyncall_macros.h \
@@ -37,89 +37,26 @@ INSTALL_LIB = 1
 
 include $(TOP)/MakeProlog
 
-# --- x86 family --------------------------------------------------------------
-
-ifdef BUILD_ARCH_x86
-
-UNITS += dyncall_callvm_x86
-
 ifdef BUILD_TOOL_gcc
-
-UNITS += dyncall_x86_gcc
-
+UNITS += dyncall_call dyncall_callvm
 endif
 
 ifdef BUILD_TOOL_msvc
-
-UNITS += dyncall_x86_msvc
-
+ifdef BUILD_ARCH_x86
+UNITS += dyncall_callvm_x86
+ifdef BUILD_ASM_nasm
+UNITS += dyncall_call_x86_nasm
+else
+UNITS += dyncall_call_x86_masm
 endif
-
-# ifdef BUILD_ASM_nasm
-
-# UNITS += dyncall_x86_nasm
-
-# else # !nasm
-
-# ifdef BUILD_TOOL_msvc
-
-# UNITS += dyncall_x86_windows
-
-# else # !msvc
-
-# ifdef BUILD_OS_darwin
-# UNITS += dyncall_x86_darwin
-# else
-# UNITS += dyncall_x86_as
-# endif
-
-# endif # !msvc
-# endif # !nasm
-endif # x86
-
-# --- x64 ---------------------------------------------------------------------
-
+endif
 ifdef BUILD_ARCH_x64
 UNITS += dyncall_callvm_x64
-
-ifdef BUILD_TOOL_gcc
-UNITS += dyncall_x64_gcc
-endif
-
-#ifdef BUILD_OS_darwin
-#UNITS += dyncall_x64_apple
-#else
-#UNITS += dyncall_x64_system_v
-#endif
-
-endif
-
-
-# --- powerpc -----------------------------------------------------------------
-
-ifdef BUILD_ARCH_ppc32
-UNITS += dyncall_callvm_ppc32
-ifdef BUILD_OS_darwin
-UNITS += dyncall_ppc32_darwin
+ifdef BUILD_ASM_nasm
+UNITS += dyncall_call_x64_nasm
 else
-UNITS += dyncall_ppc32_as
+UNITS += dyncall_call_x64_masm
 endif
-endif
-
-# --- arm ---------------------------------------------------------------------
-
-ifdef BUILD_ARCH_arm9e
-UNITS += dyncall_callvm_arm9e_arm
-UNITS += dyncall_arm9e_arm
-endif
-
-# --- mips --------------------------------------------------------------------
-
-ifdef BUILD_ARCH_mips32
-UNITS += dyncall_callvm_mips32
-UNITS += dyncall_mips32
-ifdef BUILD_TOOL_pspsdk
-ASFLAGS += -c
 endif
 endif
 

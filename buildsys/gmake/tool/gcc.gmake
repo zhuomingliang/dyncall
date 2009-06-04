@@ -41,11 +41,14 @@ include $(GMAKE_TOP)/tool/gcc_$(BUILD_CONFIG).gmake
 ifdef BUILD_OS_darwin
 
 else
-ASFLAGS		+= --defsym BUILD_OS_$(BUILD_OS)=1 --defsym BUILD_ARCH_$(BUILD_ARCH)=1 
+#ASFLAGS		+= --defsym BUILD_OS_$(BUILD_OS)=1 --defsym BUILD_ARCH_$(BUILD_ARCH)=1 
 endif
 
 $(BUILD_DIR)/%.o: %.s
 	$(COMPILE.s) $(OUTPUT_OPTION) $<
+
+$(BUILD_DIR)/%.o: %.S
+	$(COMPILE.S) $(OUTPUT_OPTION) $<
 
 # ---Compile flags ------------------------------------------------------------
 
@@ -82,13 +85,14 @@ $(BUILD_DIR)/%.o: %.c
 $(BUILD_DIR)/%.o: %.cpp
 	$(COMPILE.cpp) $< $(OUTPUT_OPTION)
 
-# --- Build static lib --------------------------------------------------------
+# --- static library ----------------------------------------------------------
+
+LIBTOOL_STATIC ?= $(RM) $@ ; $(AR) -cr $@ $^
 
 $(BUILD_DIR)/%.a:
-	$(RM) $@
-	$(AR) -cr $@ $^
+	$(LIBTOOL_STATIC)
 
-# --- Linking -----------------------------------------------------------------
+# --- dynamic library ---------------------------------------------------------
 
 ifdef LINK_DIRS
 LDFLAGS +=$(foreach X,$(LINK_DIRS),-L$X)

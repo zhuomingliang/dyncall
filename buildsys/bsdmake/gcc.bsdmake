@@ -19,10 +19,13 @@
 
 #	dyncall bsdmake build system
 #	gcc.bsdmake
+# REVISION
+# 2009/03/23
+#	dadler: cross-compilation support through externally specified variables
 
-CC		= gcc
-CXX		= g++
-AR		= ar
-AS		= as
-LD		= g++ # to link in standard libs automatically
+CC		?= gcc
+CXX		?= g++
+AR		?= ar
+AS		?= as
+LD		?= g++ # to link in standard libs automatically
 

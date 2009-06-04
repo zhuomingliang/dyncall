@@ -17,16 +17,19 @@
 
 */
 
-#include "dynload.h"
+#include "../../dynload/dynload.h"
 #include <stdio.h>
 
 void list_syms(DLLib* pLib)
 {
-  DLSyms* pSyms = (DLSyms*) malloc( dlSyms_sizeof() );
+  DLSyms* pSyms;
+  int i,n;
+  pSyms = (DLSyms*) malloc( dlSyms_sizeof() );
+
   
   dlSymsInit(pSyms, pLib);
 
-  int i = 0, n = dlSymsCount(pSyms);
+  i = 0, n = dlSymsCount(pSyms);
 
   for (; i < n; ++i) {
     const char* name = dlSymsName(pSyms,i);

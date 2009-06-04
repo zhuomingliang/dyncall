@@ -27,25 +27,10 @@
 TOP = ..
 
 TARGET_LIB = dynload
-
+UNITS = dynload dynload_syms
+CPPFLAGS = -I../dyncall
 INSTALL_HEADERS = dynload.h
 INSTALL_LIB = 1
 
-include $(TOP)/MakeProlog
-
-ifdef BUILD_OS_windows
-UNITS += dynload_win32 dynload_syms_pe32
-else
-ifdef BUILD_OS_cygwin
-UNITS += dynload_win32 dynload_syms_pe32
-else
-ifndef BUILD_OS_psp
-UNITS += dynload_unix dynload_syms_elf
-endif
-endif
-endif
-
-include $(TOP)/MakeEpilog
-
-
+include $(TOP)/MakeRules
 

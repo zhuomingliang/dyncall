@@ -19,9 +19,9 @@
 
 /*///////////////////////////////////////////////////////////////////////
 
-	dyncall_x64_apple.s
+	dyncall_x64_system_v.s
 
-	SystemV x64 calls for apple GNU AS
+	SystemV x64 calls for GAS
 	November 28, 2007
 
 /*///////////////////////////////////////////////////////////////////////
@@ -29,10 +29,10 @@
 .intel_syntax
 .text
 
-.globl _dcCall_x64
+.globl dcCall_x64_sysv
+	.type dcCall_x64_sysv, @function
 
-/* Main dyncall call. */
-_dcCall_x64:
+dcCall_x64_sysv:
 
 	/* arguments: */
 	/* rdi : size of arguments to be passed via stack */
@@ -48,14 +48,14 @@ _dcCall_x64:
 
 	mov			%rbx, %r8
 
-	movsd		%xmm0, [%rcx   ]	/* Copy first 8 floats to xmm0-xmm7 (this makes rcx free to use). */
-	movsd		%xmm1, [%rcx+ 8]
-	movsd		%xmm2, [%rcx+16]
-	movsd		%xmm3, [%rcx+24]
-	movsd		%xmm4, [%rcx+32]
-	movsd		%xmm5, [%rcx+40]
-	movsd		%xmm6, [%rcx+48]
-	movsd		%xmm7, [%rcx+56]	/* 'movsd' is a 128-bit media instruction here, not a string operation */
+	movsd		%xmm0, qword ptr[%rcx   ]	/* Copy first 8 floats to xmm0-xmm7 (this makes rcx free to use). */
+	movsd		%xmm1, qword ptr[%rcx+ 8]
+	movsd		%xmm2, qword ptr[%rcx+16]
+	movsd		%xmm3, qword ptr[%rcx+24]
+	movsd		%xmm4, qword ptr[%rcx+32]
+	movsd		%xmm5, qword ptr[%rcx+40]
+	movsd		%xmm6, qword ptr[%rcx+48]
+	movsd		%xmm7, qword ptr[%rcx+56]
 
 	sub			%rsp, %rdi					/* Setup stack frame by subtracting the size of the arguments. */
 
@@ -69,12 +69,12 @@ _dcCall_x64:
 
 	rep movsb	/* @@@ should be optimized (e.g. movq) */
 
-	mov			%rdi, [%rdx   ]	/* Copy first six int/pointer arguments to rdi, rsi, rdx, rcx, r8, r9. */
-	mov			%rsi, [%rdx+ 8]
-	mov			%rcx, [%rdx+24]
-	mov			%r8,  [%rdx+32]
-	mov			%r9,  [%rdx+40]
-	mov			%rdx, [%rdx+16]	/* Set rdx last to not overwrite it to soon. */
+	mov			%rdi, qword ptr[%rdx   ]	/* Copy first six int/pointer arguments to rdi, rsi, rdx, rcx, r8, r9. */
+	mov			%rsi, qword ptr[%rdx+ 8]
+	mov			%rcx, qword ptr[%rdx+24]
+	mov			%r8,  qword ptr[%rdx+32]
+	mov			%r9,  qword ptr[%rdx+40]
+	mov			%rdx, qword ptr[%rdx+16]	/* Set rdx last to not overwrite it to soon. */
 
 	mov			%al, 8						/* Put upper bound of number of used xmm registers in al. */
 	call		%rbx						/* Invoke function. */
@@ -85,4 +85,17 @@ _dcCall_x64:
 	pop			%rbp						/* Pseudo-epilog. */
 
 	ret
+
+/* Stack markings for ELF/GNU to specify no executable stack */
+
+.globl dcCall_x64_win64
+	.type dcCall_x64_win64, @function
+
+
+dcCall_x64_win64:
+	ret
+
+#if defined (__linux__) && defined(__ELF__)
+.section .note.GNU-stack,"",%progbits
+#endif
 

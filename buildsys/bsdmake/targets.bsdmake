@@ -19,12 +19,18 @@
 
 #	dyncall bsdmake build system
 #	targets.bsdmake
+# REVISION
+# 2009/03/23
+#	dadler: Added UNITS variable, makes MODS deprecated
 
 
 # Create a list of .o files to make.
 
-OBJS_ != echo $(MODS) | sed s/[[:\>:]]/$(OBJ_SUFFIX)/g
+OBJS_ != echo $(UNITS) | sed s/[[:\>:]]/$(OBJ_SUFFIX)/g
 OBJS += $(OBJS_)
+# Deprecated:
+OBJS2_ != echo $(MODS) | sed s/[[:\>:]]/$(OBJ_SUFFIX)/g
+OBJS += $(OBJS2_)
 
 
 # applications

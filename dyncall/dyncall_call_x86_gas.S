@@ -30,6 +30,16 @@
 .file "dyncall_x86_as.S"
 .intel_syntax
 .section .text
+
+#include "dyncall_macros.h"
+
+#if defined(DC__OS_Win32) || defined(DC__OS_Cygwin) || defined(DC__OS_MinGW)
+#define CSYM(X) _##X
+#else
+#define CSYM(X) X
+#endif
+
+
 /* ============================================================================
 
    macro EXPORT_C
@@ -38,28 +48,6 @@
    x86/Windows).
 
    ------------------------------------------------------------------------- */
-
-.ifdef BUILD_OS_windows
- .macro EXPORT_C name
-  .global _\name
-  _\name:
- .endm
-.else
-
-.ifdef BUILD_OS_cygwin
- .macro EXPORT_C name
-  .global _\name
-  _\name:
- .endm
-.else
- .macro EXPORT_C name
-  .global \name
-  \name:
- .endm
-.endif
-.endif
-
-
 
 # -----------------------------------------------------------------------------
 # Calling Convention IA32 standard C
@@ -70,7 +58,8 @@
 #   dcCallC(DCptr funptr, DCptr args, DCsize size)
 # -----------------------------------------------------------------------------
 
-EXPORT_C dcCall_x86_cdecl
+.globl CSYM(dcCall_x86_cdecl)
+CSYM(dcCall_x86_cdecl):
 
 	push	%ebp        	/* prolog */
  	mov 	%ebp, %esp
@@ -117,7 +106,8 @@ EXPORT_C dcCall_x86_cdecl
 #   dcCallThisMS(DCptr funptr, DCptr args, DCsize size)
 # -----------------------------------------------------------------------------
 
-EXPORT_C dcCall_x86_win32_msthis
+.globl CSYM(dcCall_x86_win32_msthis)
+CSYM(dcCall_x86_win32_msthis):
 
     push %esp               /* prolog */
     mov  %ebp, %esp         
@@ -164,7 +154,8 @@ EXPORT_C dcCall_x86_win32_msthis
 #   dcCallStd(DCptr funptr, DCptr args, DCsize size)
 # -----------------------------------------------------------------------------
     
-EXPORT_C dcCall_x86_win32_std
+.globl CSYM(dcCall_x86_win32_std)
+CSYM(dcCall_x86_win32_std):
 
     push %ebp               # prolog 
     mov  %ebp, %esp         
@@ -206,7 +197,8 @@ EXPORT_C dcCall_x86_win32_std
 #   dcCallFast(DCptr funptr, DCptr args, DCsize size)
 # -----------------------------------------------------------------------------
     
-EXPORT_C dcCall_x86_win32_fast
+.globl CSYM(dcCall_x86_win32_fast)
+CSYM(dcCall_x86_win32_fast):
 
     push %ebp               # prolog 
     mov  %ebp, %esp
@@ -243,10 +235,4 @@ EXPORT_C dcCall_x86_win32_fast
     pop  %ebp
 
     ret    
-
-/* Stack markings for ELF/GNU to specify no executable stack */
-
-#if defined (__linux__) && defined(__ELF__)
-.section .note.GNU-stack,"",%progbits
-#endif
 

@@ -34,8 +34,7 @@ TOP=..
 
 TARGETS = libdyncall_s.lib #libdyncall.lib libdyncall.dll
 
-OBJS = dyncall.obj dyncall_callf.obj dyncall_callvm_$(BUILD_ARCH).obj dyncall_vector.obj dyncall_$(BUILD_ARCH)_windows.obj
-
+OBJS = dyncall_call_$(BUILD_ARCH)_masm.obj dyncall_vector.obj dyncall_callvm_$(BUILD_ARCH).obj dyncall_api.obj dyncall_callf.obj
 
 libdyncall_s.lib: $(OBJS)
 	echo Creating library $@ ...

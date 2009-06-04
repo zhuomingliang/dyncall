@@ -35,10 +35,10 @@ int vf_iii(int x,int y,int z)
 
 int main(int argc, char* argv[])
 {
-  dcTest_initPlatform();
-
   DCCallVM* vm;
   DCValue r;
+
+  dcTest_initPlatform();
 
   /* allocate call vm */
   vm = dcNewCallVM(4096);

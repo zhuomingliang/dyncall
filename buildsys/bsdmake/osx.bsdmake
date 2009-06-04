@@ -19,6 +19,11 @@
 
 #	dyncall bsdmake build system
 #	osx.bsdmake
+# REVISION
+# 2009/03/23  dadler
+#  * overload LINK_LIB_CMD (from unix) to use darwin's "libtool"
+#  * added "universal build support"
+
 
 
 DLL_SUFFIX	= .dylib
@@ -26,16 +31,10 @@ as_FLAGS	=
 
 LINK_DLL_CMD	= $(CXX) -o $(.TARGET) -dynamiclib $(LDFLAGS) $(.ALLSRC) $(LIBS)
 #LINK_DLL_CMD	= $(LD) -o $(.TARGET) -dylib $(LDFLAGS) $(.ALLSRC) $(LIBS)
+LINK_LIB_CMD	= libtool -static -o $(.TARGET) $(.ALLSRC)
 
-.if $(BUILD_ARCH) == "x86"
-ASFLAGS		+= -arch i386
-CFLAGS		+= -arch i386
-CXXFLAGS	+= -arch i386
-.endif
-
-.if $(BUILD_ARCH) == "ppc32"
-ASFLAGS		+= -arch ppc
-CFLAGS		+= -arch ppc
-CXXFLAGS	+= -arch ppc
+.if $(BUILD_ARCH) == "universal"
+TARGET_ARCH	= -arch i386 -arch ppc -arch x86_64
+TARGET_MACH     = $(TARGET_ARCH)
 .endif
 
