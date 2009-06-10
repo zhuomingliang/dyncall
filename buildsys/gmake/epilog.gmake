@@ -21,7 +21,7 @@
 include $(GMAKE_TOP)/tool/uidl.gmake
 include $(GMAKE_TOP)/tool/ucom.gmake
 
-include $(GMAKE_TOP)/os/$(BUILD_OS).gmake
+-include $(GMAKE_TOP)/os/$(BUILD_OS).gmake
 
 ifdef BUILD_ASM_nasm
 include $(GMAKE_TOP)/tool/nasm.gmake

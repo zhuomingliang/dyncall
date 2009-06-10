@@ -83,14 +83,19 @@ Signature character & C/C++ data type \\
 \hline
 \sigchar{B} & \_Bool,bool \\
 \sigchar{c} & char \\
+\sigchar{C} & unsigned char \\
 \sigchar{s} & short \\
+\sigchar{S} & unsigned short \\
 \sigchar{i} & int \\
-\sigchar{l} & long \\
-\sigchar{L} & long long,int64\_t \\
+\sigchar{I} & unsigned int \\
+\sigchar{j} & long \\
+\sigchar{J} & unsigned long \\
+\sigchar{l} & long long,int64\_t \\
+\sigchar{L} & unsigned long long, uint64\_t \\
 \sigchar{f} & float \\
 \sigchar{d} & double \\
 \sigchar{p} & void* \\
-\sigchar{S} & const char* \\
+\sigchar{Z} & const char* \\
 \sigchar{v} & void \\
 \hline
 \end{tabular*}
@@ -103,8 +108,12 @@ While the size and encoding scheme (integer, float or double) is an important
 property for the \product{dyncall} library to establish the function in a
 correct way, the distinction between \capi{signed} and \capi{unsigned} integer
 data types (\capi{char}, \capi{short}, \capi{int}, \capi{long},
-\capi{long long}) in C is not of importance as these types share the same
+\capi{long long}) in C is not of importance for the library itself. as these types share the same
 machine storage semantics in regard to register usage, size and alignment.
+
+On a higher level, such as in the binding of a scripting environment, it is vital to have a
+correct conversion between different storage schemas among scripting languages.  Therefore we
+define also the unsigned/signed variants for a later use in the language binding part.
 
 
 \paragraph{Examples of C function prototypes}
@@ -118,7 +127,7 @@ machine storage semantics in regard to register usage, size and alignment.
 void      & f1();                                     & \sigstr{)v}\\
 int       & f2(int, int);                             & \sigstr{ii)i}\\
 long long & f3(void*);                                & \sigstr{p)L}\\
-double    & f4(int, bool, char, double, const char*); & \sigstr{iBcdS)d}\\
+double    & f4(int, bool, char, double, const char*); & \sigstr{iBcdZ)d}\\
 \hline
 \end{tabular*}
 \caption{Type signature examples of C function prototypes}
@@ -145,8 +154,8 @@ Signature character & accepted Python data types\\
 \sigchar{c} & if string, take first item\\
 \sigchar{s} & int, check in range\\
 \sigchar{i} & int\\
-\sigchar{l} & int\\
-\sigchar{L} & long, casted to long long\\
+\sigchar{j} & int\\
+\sigchar{l} & long, casted to long long\\
 \sigchar{f} & float\\
 \sigchar{d} & double\\
 \sigchar{p} & string or long casted to void*\\
@@ -160,8 +169,8 @@ Signature character & accepted Python data types\\
 
 \subsection{R language bindings}
 
-The R package {\tt rdc} implements the R langugae bindings providing
-four functions, namely {\tt rdcLoad}, {\tt rdcFree}, {\tt rdcFind} and {\tt rdcCall}.
+The R package {\tt rdyncall} implements the R langugae bindings providing the function
+{\tt .dyncall() }.
 
 \begin{table}[h]
 \begin{center}
@@ -170,12 +179,20 @@ four functions, namely {\tt rdcLoad}, {\tt rdcFree}, {\tt rdcFind} and {\tt rdcC
 Signature character & accepted R data types\\
 \hline
 \sigchar{B} & coerced to logical vector, first item\\
+\sigchar{c} & coerced to integer vector, first item truncated char\\
+\sigchar{C} & coerced to integer vector, first item truncated to unsigned char\\
+\sigchar{s} & coerced to integer vector, first item truncated to short\\
+\sigchar{S} & coerced to integer vector, first item truncated to unsigned short\\
 \sigchar{i} & coerced to integer vector, first item\\
+\sigchar{I} & coerced to integer vector, first item casted to unsigned int\\
+\sigchar{j} & coerced to integer vector, first item\\
+\sigchar{J} & coerced to integer vector, first item casted to unsigned long\\
+\sigchar{l} & coerced to numeric, first item casted to long long\\
+\sigchar{L} & coerced to numeric, first item casted to unsigned long long\\
 \sigchar{f} & coerced to numeric, first item casted to float\\
 \sigchar{d} & coerced to numeric, first item\\
-\sigchar{L} & coerced to numeric, first item casted to long long\\
 \sigchar{p} & external pointer or coerced to string vector, first item\\
-\sigchar{S} & coerced to string vector, first item\\
+\sigchar{Z} & coerced to string vector, first item\\
 \sigchar{v} & no return type\\
 \hline
 \end{tabular*}
@@ -183,6 +200,12 @@ Signature character & accepted R data types\\
 \label{Rsigchar}
 \end{center}
 \end{table}
+
+Some notes on the R Binding:
+\begin{itemize}
+\item Unsigned 32-bit integers are represented as signed integers in R.
+\item 64-bit integer types do not exist in R, therefore we use double floats to represent 64-bit integers (using only the 52-bit mantisa part).
+\end{itemize}
 
 \pagebreak
 
@@ -200,8 +223,8 @@ Signature character & accepted Ruby data types\\
 \sigchar{c} & Fixnum cast to char\\
 \sigchar{s} & Fixnum cast to short\\
 \sigchar{i} & Fixnum cast to int\\
-\sigchar{l} & Fixnum cast to long\\
-\sigchar{L} & Fixnum cast to long long\\
+\sigchar{j} & Fixnum cast to long\\
+\sigchar{l} & Fixnum cast to long long\\
 \sigchar{f} & Float cast to float\\
 \sigchar{d} & Float cast to double\\
 \sigchar{p} & String cast to void*\\

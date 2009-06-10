@@ -28,7 +28,7 @@ default: build
 
 # config settings
 
-include $(TOP)/ConfigVars
+-include $(TOP)/ConfigVars
 
 
 # project settings 

@@ -5,6 +5,12 @@ o test suite clean up (GNUmake, BSDmake):
 o bugfix: GNU fastcall calling convention for float and double arguments
   was wrong. no skip of register.
 o update: x86win32* suite tests are built on cygwin now, added total result output
+o signature types change:
+  C Strings: 'S' -> 'Z'
+  long: 'l' -> 'j'
+  long long: 'L' -> 'l'
+  added unsigned integer type signature characters: upper case encoding  
+o added: callbacks component
 
 Version 0.3
 o added Linux PPC32 support
