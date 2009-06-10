@@ -24,8 +24,3 @@ include $(TOP)/MakeRules
 .PHONY: test
 test:
 	$(MAKE) -C $@
-
-.PHONY: doxy
-doxy:
-	doxygen buildsys/doxygen
-
