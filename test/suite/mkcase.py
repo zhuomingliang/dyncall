@@ -24,8 +24,8 @@ import sys
 
 nargs    = 3
 
-types    = ["DCbool","DCint","DClong","DClonglong","DCdouble","DCpointer","DCfloat"]
-typeSigs = ["b",     "i",    "l",     "L",         "d",       "p",        "f"      ]
+types    = ["DCbool","DCint","DClonglong","DCdouble","DCpointer","DCfloat"]
+typeSigs = ["b"     ,"i"    ,"l"         ,"d"       ,"p"        ,"f"      ]
 
 # generator
 

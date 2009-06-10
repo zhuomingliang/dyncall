@@ -20,8 +20,8 @@
 #include "../common/platformInit.h"
 #include "config.h"
 #include <math.h>
-#include "../../dyncall/dyncall_value.h"
-#include "../../dyncall/dyncall.h"
+#include "dyncall.h"
+#include "dyncall_value.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -39,7 +39,7 @@ bool equals(int select, int pos, void* data)
   switch(select)
   {
     case 0: return ( getArg(pos)->i == valueInt     [pos] ); break;
-    case 1: return ( getArg(pos)->L == valueLongLong[pos] ); break;
+    case 1: return ( getArg(pos)->l == valueLongLong[pos] ); break;
     case 2: return ( getArg(pos)->d == valueDouble  [pos] ); break;
     case 3: return ( getArg(pos)->p == valuePointer [pos] ); break;
   }

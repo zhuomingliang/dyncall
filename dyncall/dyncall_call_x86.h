@@ -1,5 +1,9 @@
 /*
-
+ Package: dyncall
+ File: dyncall/dyncall_alloc.c
+ Description: heap memory management interface (header only)
+ License:
+ 
  Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
 

@@ -49,7 +49,7 @@ bool equals(int select, int pos, void* data)
   {
     case 0: return ( getArg(pos)->B == valueBool[pos] ); break;
     case 1: return ( getArg(pos)->i == valueInt[pos] ); break;
-    case 2: return ( getArg(pos)->L == valueLongLong[pos] ); break;
+    case 2: return ( getArg(pos)->l == valueLongLong[pos] ); break;
     case 3: return ( getArg(pos)->d == valueDouble[pos] ); break;
     case 4: return ( getArg(pos)->p == valuePointer[pos] ); break;
     case 5: return ( getArg(pos)->f == valueFloat[pos] ); break;

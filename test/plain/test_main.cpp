@@ -22,9 +22,8 @@
 
 #include "../common/platformInit.h"
 #include "test_framework.h"
-#include "../../dyncall/dyncall.h"
-#include "../../dyncall/dyncall_macros.h"
-
+#include "dyncall.h"
+#include <cstdio>
 /* ------------------------------------------------------------------------- 
  * test: identity function calls 
  * ------------------------------------------------------------------------- */
@@ -33,17 +32,17 @@
 void       API fun_##NAME##_v()             {           } \
 DCbool     API fun_##NAME##_b(DCbool x)     { return x; } \
 DCint      API fun_##NAME##_i(DCint x)      { return x; } \
-DClong     API fun_##NAME##_l(DClong x)     { return x; } \
-DClonglong API fun_##NAME##_L(DClonglong x) { return x; } \
+DClong     API fun_##NAME##_j(DClong x)     { return x; } \
+DClonglong API fun_##NAME##_l(DClonglong x) { return x; } \
 DCfloat    API fun_##NAME##_f(DCfloat x)    { return x; } \
 DCdouble   API fun_##NAME##_d(DCdouble x)   { return x; } \
 DCpointer  API fun_##NAME##_p(DCpointer  x) { return x; }
 
 /* __cdecl */
 
-#ifndef DC__OS_Win32
-#define __declspec(X)
-#define __cdecl
+#if !defined(DC__OS_Win32)
+#  define __declspec(X)
+#  define __cdecl
 #endif
 
 DEF_FUNCS(__cdecl,c)
@@ -81,7 +80,7 @@ DC_DEFINE_TEST_FUNC_BEGIN(testCallC)
     DClong r;
     dcReset(pc);
     dcArgLong(pc, 0xCAFEBABEUL);
-    r = dcCallLong(pc, (DCpointer) &fun_c_l);
+    r = dcCallLong(pc, (DCpointer) &fun_c_j);
     DC_TEST(r == (DClong)0xCAFEBABEUL);
   }
   /* long long */
@@ -89,7 +88,7 @@ DC_DEFINE_TEST_FUNC_BEGIN(testCallC)
     DClonglong r;
     dcReset(pc);
     dcArgLongLong(pc, 0xCAFEBABEDEADC0DEULL);
-    r = dcCallLongLong(pc, (DCpointer) &fun_c_L);
+    r = dcCallLongLong(pc, (DCpointer) &fun_c_l);
     DC_TEST(r == (DClonglong)0xCAFEBABEDEADC0DEULL);
   }
   /* float */
@@ -159,7 +158,7 @@ DC_DEFINE_TEST_FUNC_BEGIN(testCallStd)
     DClong r;
     dcReset(pc);
     dcArgLong(pc, 0xCAFEBABEUL);
-    r = dcCallLong(pc, (DCpointer) &fun_std_l);
+    r = dcCallLong(pc, (DCpointer) &fun_std_j);
     DC_TEST(r == 0xCAFEBABEUL);
   }
   /* long long */
@@ -167,7 +166,7 @@ DC_DEFINE_TEST_FUNC_BEGIN(testCallStd)
     DClonglong r;
     dcReset(pc);
     dcArgLongLong(pc, 0xCAFEBABEDEADC0DEULL);
-    r = dcCallLongLong(pc, (DCpointer) &fun_std_L);
+    r = dcCallLongLong(pc, (DCpointer) &fun_std_l);
     DC_TEST(r == 0xCAFEBABEDEADC0DEULL);
   }
   /* float */
@@ -243,7 +242,7 @@ DC_DEFINE_TEST_FUNC_BEGIN(testCallFast)
     DClong r;
     dcReset(pc);
     dcArgLong(pc, 0xCAFEBABEUL);
-    r = dcCallLong(pc, (DCpointer) &fun_fast_l);
+    r = dcCallLong(pc, (DCpointer) &fun_fast_j);
     DC_TEST(r == 0xCAFEBABEUL);
   }
   /* long long */
@@ -251,7 +250,7 @@ DC_DEFINE_TEST_FUNC_BEGIN(testCallFast)
     DClonglong r;
     dcReset(pc);
     dcArgLongLong(pc, 0xCAFEBABEDEADC0DEULL);
-    r = dcCallLongLong(pc, (DCpointer) &fun_fast_L);
+    r = dcCallLongLong(pc, (DCpointer) &fun_fast_l);
     DC_TEST(r == 0xCAFEBABEDEADC0DEULL);
   }
   /* float */
@@ -290,28 +289,60 @@ DC_DEFINE_TEST_FUNC_END
 
 union ValueUnion
 {
-  DCbool     b;
+  DCbool     B;
   DCint      i;
-  DClong     l;
-  DClonglong L;
+  DClong     j;
+  DClonglong l;
   DCfloat    f;
   DCdouble   d;
   DCpointer  p;
 };
 
+/* C++ class using __cdecl this call */
+
+// #define VTBI_DESTRUCTOR 0
+
+/*
+ * the layout of the VTable is non-standard and it is not clear what is the initial real first method index.
+ * so for it turns out that: 
+ * on vc/x86  : 1
+ * on GCC/x86 : 2
+ */
+
+#if defined DC__C_MSVC
+#define VTBI_BASE 1
+#else
+#define VTBI_BASE 2
+#endif
+
+#define VTBI_SET_BOOL VTBI_BASE+0
+#define VTBI_GET_BOOL VTBI_BASE+1
+#define VTBI_SET_INT  VTBI_BASE+2
+#define VTBI_GET_INT  VTBI_BASE+3
+#define VTBI_SET_LONG VTBI_BASE+4
+#define VTBI_GET_LONG VTBI_BASE+5
+#define VTBI_SET_LONG_LONG VTBI_BASE+6
+#define VTBI_GET_LONG_LONG VTBI_BASE+7
+#define VTBI_SET_FLOAT VTBI_BASE+8
+#define VTBI_GET_FLOAT VTBI_BASE+9
+#define VTBI_SET_DOUBLE VTBI_BASE+10
+#define VTBI_GET_DOUBLE VTBI_BASE+11
+#define VTBI_SET_POINTER VTBI_BASE+12
+#define VTBI_GET_POINTER VTBI_BASE+13
+
 class Value
 {
 public:
-  virtual ~Value()    {}
+  virtual __cdecl ~Value()    {}
 
-  virtual void       __cdecl setBool(DCbool x)         { mValue.b = x; }
-  virtual DCbool     __cdecl getBool()                 { return mValue.b; }
+  virtual void       __cdecl setBool(DCbool x)         { mValue.B = x; }
+  virtual DCbool     __cdecl getBool()                 { return mValue.B; }
   virtual void       __cdecl setInt(DCint x)           { mValue.i = x; }
   virtual DCint      __cdecl getInt()                  { return mValue.i; }
-  virtual void       __cdecl setLong(DClong x)         { mValue.l = x; }
-  virtual DClong     __cdecl getLong()                 { return mValue.l; }
-  virtual void       __cdecl setLongLong(DClonglong x) { mValue.L = x; }
-  virtual DClonglong __cdecl getLongLong()             { return mValue.L; }
+  virtual void       __cdecl setLong(DClong x)         { mValue.j = x; }
+  virtual DClong     __cdecl getLong()                 { return mValue.j; }
+  virtual void       __cdecl setLongLong(DClonglong x) { mValue.l = x; }
+  virtual DClonglong __cdecl getLongLong()             { return mValue.l; }
   virtual void       __cdecl setFloat(DCfloat x)       { mValue.f = x; }
   virtual DCfloat    __cdecl getFloat()                { return mValue.f; }
   virtual void       __cdecl setDouble(DCdouble x)     { mValue.d = x; }
@@ -322,19 +353,21 @@ private:
   ValueUnion mValue;
 };
 
+/* C++ class using (on win32: microsoft) this call */
+
 class ValueMS
 {
 public:
   virtual ~ValueMS()    {}
 
-  virtual void       setBool(DCbool x)         { mValue.b = x; }
-  virtual DCbool     getBool()                 { return mValue.b; }
+  virtual void       setBool(DCbool x)         { mValue.B = x; }
+  virtual DCbool     getBool()                 { return mValue.B; }
   virtual void       setInt(DCint x)           { mValue.i = x; }
   virtual DCint      getInt()                  { return mValue.i; }
-  virtual void       setLong(DClong x)         { mValue.l = x; }
-  virtual DClong     getLong()                 { return mValue.l; }
-  virtual void       setLongLong(DClonglong x) { mValue.L = x; }
-  virtual DClonglong getLongLong()             { return mValue.L; }
+  virtual void       setLong(DClong x)         { mValue.j = x; }
+  virtual DClong     getLong()                 { return mValue.j; }
+  virtual void       setLongLong(DClonglong x) { mValue.l = x; }
+  virtual DClonglong getLongLong()             { return mValue.l; }
   virtual void       setFloat(DCfloat x)       { mValue.f = x; }
   virtual DCfloat    getFloat()                { return mValue.f; }
   virtual void       setDouble(DCdouble x)     { mValue.d = x; }
@@ -357,80 +390,79 @@ void testCallValue(DCCallVM* pc)
   dcReset(pc);
   dcArgPointer(pc, pThis);
   dcArgBool(pc,DC_TRUE);
-  dcCallVoid(pc, vtbl[0] );
+  dcCallVoid(pc, vtbl[VTBI_SET_BOOL] );
   dcReset(pc);
   dcArgPointer(pc, pThis);
-  DC_TEST( dcCallBool(pc, vtbl[1] ) == DC_TRUE );
-
+  DC_TEST( dcCallBool(pc, vtbl[VTBI_GET_BOOL] ) == DC_TRUE );
   /* set/get bool (FALSE) */
 
   dcReset(pc);
   dcArgPointer(pc, pThis);
   dcArgBool(pc,DC_FALSE);
-  dcCallVoid(pc, vtbl[0] );
+  dcCallVoid(pc, vtbl[VTBI_SET_BOOL] );
   dcReset(pc);
   dcArgPointer(pc, pThis);
-  DC_TEST( dcCallBool(pc, vtbl[1] ) == DC_FALSE );
+  DC_TEST( dcCallBool(pc, vtbl[VTBI_GET_BOOL] ) == DC_FALSE );
 
   /* set/get int */
 
   dcReset(pc);
   dcArgPointer(pc, pThis);
   dcArgInt(pc,1234);
-  dcCallVoid(pc, vtbl[2] );
+  dcCallVoid(pc, vtbl[VTBI_SET_INT] );
   dcReset(pc);
   dcArgPointer(pc, pThis);
-  DC_TEST( dcCallInt(pc, vtbl[3] ) == 1234 );
+  DC_TEST( dcCallInt(pc, vtbl[VTBI_GET_INT] ) == 1234 );
 
   /* set/get long */
 
   dcReset(pc);
   dcArgPointer(pc, pThis);
   dcArgLong(pc,0xCAFEBABEUL);
-  dcCallVoid(pc, vtbl[4] );
+  dcCallVoid(pc, vtbl[VTBI_SET_LONG] );
   dcReset(pc);
   dcArgPointer(pc, pThis);
-  DC_TEST( dcCallLong(pc, vtbl[5] ) == (DClong)0xCAFEBABEUL );
+  DC_TEST( dcCallLong(pc, vtbl[VTBI_GET_LONG] ) == (DClong)0xCAFEBABEUL );
 
   /* set/get long long */
 
   dcReset(pc);
   dcArgPointer(pc, pThis);
-  dcArgLongLong(pc,0xCAFEBABEDEADC0DEULL);
-  dcCallVoid(pc, vtbl[4] );
+  dcArgLongLong(pc,0xCAFEBABEDEADC0DELL);
+  dcCallVoid(pc, vtbl[VTBI_SET_LONG_LONG] );
   dcReset(pc);
   dcArgPointer(pc, pThis);
-  DC_TEST( dcCallLongLong(pc, vtbl[5] ) == (DClonglong)0xCAFEBABEDEADC0DEULL );
+  DC_TEST( dcCallLongLong(pc, vtbl[VTBI_GET_LONG_LONG] ) == (DClonglong)0xCAFEBABEDEADC0DELL );
 
   /* set/get float */
 
   dcReset(pc);
   dcArgPointer(pc, pThis);
   dcArgFloat(pc,1.2345f);
-  dcCallVoid(pc, vtbl[6] );
+  dcCallVoid(pc, vtbl[VTBI_SET_FLOAT] );
   dcReset(pc);
   dcArgPointer(pc, pThis);
-  DC_TEST( dcCallFloat(pc, vtbl[7] ) == 1.2345f );
+  DC_TEST( dcCallFloat(pc, vtbl[VTBI_GET_FLOAT] ) == 1.2345f );
 
   /* set/get double */
 
   dcReset(pc);
   dcArgPointer(pc, pThis);
   dcArgDouble(pc,1.23456789);
-  dcCallVoid(pc, vtbl[8] );
+  dcCallVoid(pc, vtbl[VTBI_SET_DOUBLE] );
   dcReset(pc);
   dcArgPointer(pc, pThis);
-  DC_TEST( dcCallDouble(pc, vtbl[9] ) == 1.23456789 );
+  DC_TEST( dcCallDouble(pc, vtbl[VTBI_GET_DOUBLE] ) == 1.23456789 );
 
   /* set/get pointer */
 
   dcReset(pc);
   dcArgPointer(pc, pThis);
   dcArgPointer(pc, (DCpointer) 0xCAFEBABE );
-  dcCallVoid(pc, vtbl[10] );
+  dcCallVoid(pc, vtbl[VTBI_SET_POINTER] );
   dcReset(pc);
   dcArgPointer(pc, pThis);
-  DC_TEST( dcCallPointer(pc, vtbl[11] ) == ( (DCpointer) 0xCAFEBABE ) );
+  DC_TEST( dcCallPointer(pc, vtbl[VTBI_GET_POINTER] ) == ( (DCpointer) 0xCAFEBABE ) );
 }
 
 
@@ -471,14 +503,16 @@ int main(int argc, char* argv[])
   printf("C:%d\n",b);
 
 #if defined(DC__OS_Win32)	// ThisCall temporarily only for win 32 @@@
-
+  
   b = b && testCallThisC();
   printf("ThisC:%d\n",b);
+
 
 #if defined(DC__C_MSVC)
   b = b && testCallThisMS();
   printf("ThisMS:%d\n",b);
 #endif
+  
 
   b = b && testCallStd();
   printf("Std:%d\n",b);

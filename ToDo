@@ -1,3 +1,5 @@
+simplify alloc_wx to malloc_wx returning a pointer, which fails if NULL.
+
 general:
 - vararg function calls don't work for PPC32 System V ABI
 - vararg function calls don't work for ARM THUMB mode

@@ -30,7 +30,6 @@ template<typename T> void g(T value, int pos);
 template<> void g(DCchar value, int pos) { mValue[pos].c = value; }
 template<> void g(DCshort value, int pos) { mValue[pos].s = value; }
 template<> void g(DCint value, int pos) { mValue[pos].i = value; }
-template<> void g(DClong value, int pos) { mValue[pos].l = value; }
 template<> void g(DClonglong value, int pos) { mValue[pos].L = value; }
 template<> void g(DCfloat value, int pos) { mValue[pos].f = value; }
 template<> void g(DCdouble value, int pos) { mValue[pos].d = value; }

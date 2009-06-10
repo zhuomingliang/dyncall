@@ -1,4 +1,7 @@
 /*
+ Package: dyncall
+ File: dyncall/dyncall_macros.h
+ Description: Platform detection macros
 
  Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>

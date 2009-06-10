@@ -26,7 +26,7 @@ N = 1000
 MINARG = 0
 MAXARG = 19
 
-argtypes = [ 'B','c','s','i','l','L','f','d','p' ]
+argtypes = [ 'B','c','s','i','l','f','d','p' ]
 apitypes = [ '_' ]
 
 def sig(n):

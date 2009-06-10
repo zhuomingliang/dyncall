@@ -42,6 +42,6 @@ include $(TOP)/buildsys/gmake/epilog.gmake
 
 .PHONY: config
 config: 
-	python mkcase.py >case.h 2>config.h
 	python rand.py >design.cfg
+	python mkcase.py >case.h 2>config.h
 

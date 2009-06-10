@@ -1,4 +1,8 @@
 /*
+ Package: dyncall
+ File: dyncall/dyncall.h
+ Description: main header file for dyncall
+ License:
 
  Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>

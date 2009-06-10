@@ -1,4 +1,7 @@
 /*
+ Package: dyncall
+ File: dyncall/dyncall_vector.h
+ Description: Simple dynamic vector container type header
 
  Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>

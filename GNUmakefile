@@ -18,7 +18,7 @@
 #//////////////////////////////////////////////////////////////////////////////
 
 TOP	= .
-DIRS	= dyncall dynload
+DIRS	= dyncall dynload dyncallback
 include $(TOP)/MakeRules
 
 .PHONY: test

@@ -1,4 +1,7 @@
 /*
+ Package: dyncall
+ File: dyncall/dyncall_signature.h
+ Description: Type and calling-convention signature character defines
 
  Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
@@ -49,6 +52,13 @@ typedef char DCsigchar;
 #define DC_SIGCHAR_POINTER      'p'
 #define DC_SIGCHAR_STRING       'Z'
 #define DC_SIGCHAR_ENDARG       ')'
+
+/* callback signatures */
+
+#define DC_SIGCHAR_CC_PREFIX        '_'
+#define DC_SIGCHAR_CC_STDCALL       's'
+#define DC_SIGCHAR_CC_FASTCALL_GNU  'f'
+#define DC_SIGCHAR_CC_FASTCALL_MS   'F'
 
 #endif /* DYNCALL_SIGNATURE_H */
 

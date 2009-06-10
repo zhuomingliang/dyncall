@@ -29,17 +29,9 @@ DCpointer getFunc(int x);
 DCValue* getArg(int pos);
 
 
-typedef double precise;
-
-
-// DCbool     valueBool    [NARGS];
-// DCshort    valueShort   [NARGS];
-// DCchar     valueChar    [NARGS];
 DCint      valueInt     [NARGS];
-// DClong     valueLong    [NARGS];
 DClonglong valueLongLong[NARGS];
 DCdouble   valueDouble  [NARGS];
-// DCpointer  valuePointer [NARGS];
 DCfloat    valueFloat   [NARGS];
 
 
@@ -48,7 +40,7 @@ bool equals(int select, int pos, void* data)
   switch(select)
   {
     case 0: return ( getArg(pos)->i == valueInt     [pos] ); break;
-    case 1: return ( getArg(pos)->L == valueLongLong[pos] ); break;
+    case 1: return ( getArg(pos)->l == valueLongLong[pos] ); break;
     case 2: return ( getArg(pos)->d == valueDouble  [pos] ); break;
     case 3: return ( getArg(pos)->f == valueFloat   [pos] ); break;
   }

@@ -27,7 +27,7 @@ nargs  = 3
 # all types without (float)
 
 types  = ["DCint","DClonglong","DCdouble","DCpointer"]
-sigs   = ['i','L','d','p']
+sigs   = ['i','l','d','p']
 
 
 # generator

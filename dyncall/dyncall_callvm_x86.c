@@ -1,4 +1,7 @@
 /*
+ Package: dyncall
+ File: dyncall/dyncall_callvm_x86.c
+ Description: Call VM for x86 architecture implementation
 
  Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>

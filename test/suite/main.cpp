@@ -36,7 +36,6 @@ DCbool     valueBool    [NARGS];
 DCshort    valueShort   [NARGS];
 DCchar     valueChar    [NARGS];
 DCint      valueInt     [NARGS];
-DClong     valueLong    [NARGS];
 DClonglong valueLongLong[NARGS];
 DCdouble   valueDouble  [NARGS];
 DCpointer  valuePointer [NARGS];
@@ -49,11 +48,10 @@ bool equals(int select, int pos, void* data)
   {
     case 0: return ( getArg(pos)->B == valueBool    [pos] ); break;
     case 1: return ( getArg(pos)->i == valueInt     [pos] ); break;
-    case 2: return ( getArg(pos)->l == valueLong    [pos] ); break;
-    case 3: return ( getArg(pos)->L == valueLongLong[pos] ); break;
-    case 4: return ( getArg(pos)->d == valueDouble  [pos] ); break;
-    case 5: return ( getArg(pos)->p == valuePointer [pos] ); break;
-    case 6: return ( getArg(pos)->f == valueFloat   [pos] ); break;
+    case 2: return ( getArg(pos)->l == valueLongLong[pos] ); break;
+    case 3: return ( getArg(pos)->d == valueDouble  [pos] ); break;
+    case 4: return ( getArg(pos)->p == valuePointer [pos] ); break;
+    case 5: return ( getArg(pos)->f == valueFloat   [pos] ); break;
   }
   return false;
 }
@@ -68,7 +66,6 @@ void init()
 
     valueBool[i]     = DCbool( (i % 1) ? DC_TRUE : DC_FALSE );
     valueInt[i]      = DCint(i);
-    valueLong[i]     = DClong(i);
     valueLongLong[i] = DClonglong(i);
     valueDouble[i]   = DCdouble(i);
     valuePointer[i]  = DCpointer(i);
@@ -83,11 +80,10 @@ void push(DCCallVM* pCall, int select, int pos)
   {
     case 0: dcArgBool    ( pCall, valueBool    [pos] ); break;
     case 1: dcArgInt     ( pCall, valueInt     [pos] ); break;
-    case 2: dcArgLong    ( pCall, valueLong    [pos] ); break;
-    case 3: dcArgLongLong( pCall, valueLongLong[pos] ); break;
-    case 4: dcArgDouble  ( pCall, valueDouble  [pos] ); break;
-    case 5: dcArgPointer ( pCall, valuePointer [pos] ); break;
-    case 6: dcArgFloat   ( pCall, valueFloat   [pos] ); break;
+    case 2: dcArgLongLong( pCall, valueLongLong[pos] ); break;
+    case 3: dcArgDouble  ( pCall, valueDouble  [pos] ); break;
+    case 4: dcArgPointer ( pCall, valuePointer [pos] ); break;
+    case 5: dcArgFloat   ( pCall, valueFloat   [pos] ); break;
   }
 }
 

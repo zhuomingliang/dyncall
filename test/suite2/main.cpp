@@ -37,7 +37,6 @@ DCbool     valueBool    [MAXARGS];
 DCchar     valueChar    [MAXARGS];
 DCshort    valueShort   [MAXARGS];
 DCint      valueInt     [MAXARGS];
-DClong     valueLong    [MAXARGS];
 DClonglong valueLongLong[MAXARGS];
 DCdouble   valueDouble  [MAXARGS];
 DCpointer  valuePointer [MAXARGS];
@@ -45,6 +44,12 @@ DCfloat    valueFloat   [MAXARGS];
 
 
 void clearValues();
+
+void error(const char* message)
+{
+  fprintf(stderr, "error: %s\n", message);
+  exit(-1);
+}
 
 void init()
 {
@@ -54,7 +59,6 @@ void init()
     valueChar[i]     = DCchar(i);
     valueShort[i]    = DCshort(i);
     valueInt[i]      = DCint(i);
-    valueLong[i]     = DClong(i);
     valueLongLong[i] = DClonglong(i);
     valueDouble[i]   = DCdouble(i);
     valuePointer[i]  = DCpointer(i);
@@ -87,11 +91,11 @@ bool test(int x)
       case DC_SIGCHAR_CHAR:     dcArgChar    ( pCall, valueChar    [pos] ); break;
       case DC_SIGCHAR_SHORT:    dcArgShort   ( pCall, valueShort   [pos] ); break;
       case DC_SIGCHAR_INT:      dcArgInt     ( pCall, valueInt     [pos] ); break;
-      case DC_SIGCHAR_LONG:     dcArgLong    ( pCall, valueLong    [pos] ); break;
       case DC_SIGCHAR_LONGLONG: dcArgLongLong( pCall, valueLongLong[pos] ); break;
       case DC_SIGCHAR_FLOAT:    dcArgFloat   ( pCall, valueFloat   [pos] ); break;
       case DC_SIGCHAR_DOUBLE:   dcArgDouble  ( pCall, valueDouble  [pos] ); break;
       case DC_SIGCHAR_POINTER:  dcArgPointer ( pCall, valuePointer [pos] ); break;
+      default: error("unsupported signature character"); break;
     }
     ++pos;
   }
@@ -110,11 +114,11 @@ bool test(int x)
         case DC_SIGCHAR_CHAR: if ( getArg(pos)->c != valueChar  [pos] ) r = false; break;
         case DC_SIGCHAR_SHORT: if ( getArg(pos)->s != valueShort  [pos] ) r = false; break;
         case DC_SIGCHAR_INT: if ( getArg(pos)->i != valueInt   [pos] ) r = false; break;
-        case DC_SIGCHAR_LONG: if ( getArg(pos)->l != valueLong [pos] ) r = false; break;
         case DC_SIGCHAR_LONGLONG: if ( getArg(pos)->L != valueLongLong  [pos] ) r = false; break;
         case DC_SIGCHAR_FLOAT: if ( getArg(pos)->f != valueFloat [pos] ) r = false; break;
         case DC_SIGCHAR_DOUBLE: if ( getArg(pos)->d != valueDouble[pos] ) r = false; break;
         case DC_SIGCHAR_POINTER: if ( getArg(pos)->p != valuePointer   [pos] ) r = false; break;
+        default: error("unsupported signature character"); break;
       }
       ++pos;
     }

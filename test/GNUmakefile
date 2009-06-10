@@ -34,6 +34,10 @@ DIRS	+= suite_x86win32fast
 DIRS	+= suite_x86win32std
 DIRS	+= suite2_x86win32fast
 DIRS	+= suite2_x86win32std
+ifdef BUILD_TOOL_gcc
+DIRS	+= thunk
+DIRS	+= malloc_wx
+endif
 endif
 
 include $(TOP)/MakeEpilog

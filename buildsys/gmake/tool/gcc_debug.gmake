@@ -19,5 +19,5 @@
 
 CFLAGS		+= -g
 CXXFLAGS	+= -g
-ASFLAGS		+= --gstabs
+#ASFLAGS		+= --gstabs
 

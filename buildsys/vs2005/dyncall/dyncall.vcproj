@@ -156,7 +156,11 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\..\dyncall\dyncall.c"
+				RelativePath="..\..\..\dyncall\dyncall_api.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\dyncall\dyncall_call_x86_masm.asm"
 				>
 			</File>
 			<File
@@ -169,10 +173,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\dyncall\dyncall_vector.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\dyncall\dyncall_x86_windows.asm"
 				>
 			</File>
 		</Filter>
