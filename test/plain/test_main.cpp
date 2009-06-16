@@ -22,7 +22,7 @@
 
 #include "../common/platformInit.h"
 #include "test_framework.h"
-#include "dyncall.h"
+#include "../../dyncall/dyncall.h"
 #include <cstdio>
 /* ------------------------------------------------------------------------- 
  * test: identity function calls 

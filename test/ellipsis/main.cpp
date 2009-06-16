@@ -20,8 +20,8 @@
 #include "../common/platformInit.h"
 #include "config.h"
 #include <math.h>
-#include "dyncall.h"
-#include "dyncall_value.h"
+#include "../../dyncall/dyncall.h"
+#include "../../dyncall/dyncall_value.h"
 #include <stdio.h>
 #include <stdlib.h>
 
