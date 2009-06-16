@@ -11,6 +11,8 @@ o signature types change:
   long long: 'L' -> 'l'
   added unsigned integer type signature characters: upper case encoding  
 o added: callbacks component
+o added: test cases for alloc_wx, thunk
+o updated Documentation
 
 Version 0.3
 o added Linux PPC32 support

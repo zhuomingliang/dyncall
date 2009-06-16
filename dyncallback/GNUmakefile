@@ -6,7 +6,7 @@ INSTALL_LIB	 = 1
 
 # uses some dyncall headers - no other dependencies.
 
-CPPFLAGS	 = -I$(TOP)/dyncall
+CPPFLAGS	 += -I$(TOP)/dyncall
 
 # component: thunks
 
