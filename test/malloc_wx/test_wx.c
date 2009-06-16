@@ -1,4 +1,4 @@
-#include "dyncall_alloc_wx.h"
+#include "../../dyncallback/dyncall_alloc_wx.h"
 #include <stdio.h>
 
 int main(int argc, char* argv)

@@ -22,7 +22,7 @@
  **
  **/
 
-#include "dyncall_macros.h"
+#include "../dyncall/dyncall_macros.h"
 
 typedef struct DCThunk_ DCThunk;
 

@@ -1,5 +1,6 @@
-#include "dyncall_thunk.h"
-#include "dyncall_alloc_wx.h"
+#include "../../dyncall/dyncall.h"
+#include "../../dyncallback/dyncall_thunk.h"
+#include "../../dyncallback/dyncall_alloc_wx.h"
 
 /**
  ** test: thunks with several allocation modes
