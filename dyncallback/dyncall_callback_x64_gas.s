@@ -4,24 +4,24 @@
 
 /* sizes */
 
-.eqv DCThunk_size	,  24
-.eqv DCArgs_size	, 128
-.eqv DCValue_size	,   8
+.set DCThunk_size	,  24
+.set DCArgs_size	, 128
+.set DCValue_size	,   8
 
 /* frame local variable offsets relative to %rbp*/
 
-.eqv FRAME_arg0		,  16
-.eqv FRAME_return	,   8
-.eqv FRAME_parent	,   0
-.eqv FRAME_DCArgs	,-128
-.eqv FRAME_DCValue	,-136
+.set FRAME_arg0		,  16
+.set FRAME_return	,   8
+.set FRAME_parent	,   0
+.set FRAME_DCArgs	,-128
+.set FRAME_DCValue	,-136
 
 /* struct DCCallback */
 
-.eqv CTX_thunk		,   0
-.eqv CTX_handler	,  24
-.eqv CTX_userdata	,  32
-.eqv DCCallback_size	,  40
+.set CTX_thunk		,   0
+.set CTX_handler	,  24
+.set CTX_userdata	,  32
+.set DCCallback_size	,  40
 
 dcCallbackThunkEntry:
 
@@ -74,8 +74,8 @@ dcCallbackThunkEntry:
 
 	// return values
 
-	movq  %rdx, [%rbp+FRAME_DCValue]
-	movq  %xmm0, %rdx
+	movq %rdx, [%rbp+FRAME_DCValue]
+	movd %xmm0, %rdx
 
 	mov  %rsp, %rbp
 	pop  %rbp

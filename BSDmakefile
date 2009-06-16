@@ -30,7 +30,7 @@ TOP   = .
 .include "$(TOP)/buildsys/bsdmake/prolog.bsdmake"
 
 # directories:
-DIRS  = dyncall dynload
+DIRS  = dyncall dyncallback dynload
 AUTOS = ConfigVars
 
 .include "$(TOP)/buildsys/bsdmake/epilog.bsdmake"
