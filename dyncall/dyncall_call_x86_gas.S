@@ -1,6 +1,6 @@
-/*/////////////////////////////////////////////////////////////////////////////
+/*
 
- Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
+ Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>,
                          Tassilo Philipp <tphilipp@potion-studios.com>
 
  Permission to use, copy, modify, and distribute this software for any
@@ -15,7 +15,7 @@
  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-/////////////////////////////////////////////////////////////////////////////*/
+*/
 
 /* ///////////////////////////////////////////////////////////////////////////
 
@@ -54,7 +54,7 @@
 # - all arguments are on the stack
 # - caller cleans up stack
 #
-# C proto 
+# C proto
 #   dcCallC(DCptr funptr, DCptr args, DCsize size)
 # -----------------------------------------------------------------------------
 
@@ -64,7 +64,7 @@ CSYM(dcCall_x86_cdecl):
 	push	%ebp        	/* prolog */
  	mov 	%ebp, %esp
 
-	/* arguments :	 
+	/* arguments :
 
 	   funptr  ebp+8
 	   args    ebp+12
@@ -81,7 +81,7 @@ CSYM(dcCall_x86_cdecl):
 
 	sub  %esp, %ecx         /* cdecl call: allocate 'size' bytes on stack */
 	mov  %edi, %esp         /* edi = stack args */
-	
+
 	shr  %ecx, 2		/* ecx = number of DWORDs */
 	rep movsd               /* copy DWORDs */
 
@@ -101,7 +101,7 @@ CSYM(dcCall_x86_cdecl):
 # Calling Convention IA32 microsoft thiscall
 # - thispointer is in ECX, rest is on the stack
 # - callee cleans up stack
-#  
+#
 # C proto
 #   dcCallThisMS(DCptr funptr, DCptr args, DCsize size)
 # -----------------------------------------------------------------------------
@@ -110,14 +110,14 @@ CSYM(dcCall_x86_cdecl):
 CSYM(dcCall_x86_win32_msthis):
 
     push %esp               /* prolog */
-    mov  %ebp, %esp         
+    mov  %ebp, %esp
 
     # arguments:
     #
     # funptr  ebp+8
     # args    ebp+12
     # size    ebp+16
-  
+
     push %esi               /* save esi, edi */
     push %edi
 
@@ -130,7 +130,7 @@ CSYM(dcCall_x86_win32_msthis):
 
     sub  %esp, %ecx         # allocate argument-block on stack
     mov  %edi, %esp         # edi = stack args
-    
+
     rep movsb               # copy arguments
 
     mov  %ecx, %eax         # ecx = this pointer
@@ -143,29 +143,29 @@ CSYM(dcCall_x86_win32_msthis):
     mov  %esp, %ebp         # epilog
     pop  %ebp
 
-    ret    
-    
+    ret
+
 # -----------------------------------------------------------------------------
 # Calling Convention IA32 win32 stdcall
 # - all arguments are passed by stack
 # - callee cleans up stack
-# 
+#
 # C proto
 #   dcCallStd(DCptr funptr, DCptr args, DCsize size)
 # -----------------------------------------------------------------------------
-    
+
 .globl CSYM(dcCall_x86_win32_std)
 CSYM(dcCall_x86_win32_std):
 
-    push %ebp               # prolog 
-    mov  %ebp, %esp         
+    push %ebp               # prolog
+    mov  %ebp, %esp
 
     # arguments:
     #
     # funptr  ebp+8
     # args    ebp+12
     # size    ebp+16
-  
+
     push %esi               # save esi, edi
     push %edi
 
@@ -174,7 +174,7 @@ CSYM(dcCall_x86_win32_std):
 
     sub  %esp, %ecx         # stdcall: allocate 'size'-8 bytes on stack
     mov  %edi, %esp         # edi = stack args
-    
+
     rep movsb               # copy arguments
 
     call [%ebp+8]           # call function (stdcall: cleanup by callee)
@@ -192,15 +192,15 @@ CSYM(dcCall_x86_win32_std):
 # - first two integer (up to 32bits) are passed in ECX and EDX
 # - others are passed on the stack
 # - callee cleans up stack
-# 
+#
 # C proto
 #   dcCallFast(DCptr funptr, DCptr args, DCsize size)
 # -----------------------------------------------------------------------------
-    
+
 .globl CSYM(dcCall_x86_win32_fast)
 CSYM(dcCall_x86_win32_fast):
 
-    push %ebp               # prolog 
+    push %ebp               # prolog
     mov  %ebp, %esp
 
     # arguments:
@@ -208,7 +208,7 @@ CSYM(dcCall_x86_win32_fast):
     # funptr  ebp+8
     # args    ebp+12
     # size    ebp+16
-  
+
     push %esi               # save esi, edi
     push %edi
 
@@ -221,7 +221,7 @@ CSYM(dcCall_x86_win32_fast):
 
     sub  %esp, %ecx         # fastcall: allocate 'size'-8 bytes on stack
     mov  %edi, %esp         # edi = stack args
-    
+
     rep movsb               # copy arguments
 
     mov  %ecx, %eax         # ecx = first argument
@@ -234,5 +234,5 @@ CSYM(dcCall_x86_win32_fast):
     mov  %esp, %ebp         # epilog
     pop  %ebp
 
-    ret    
+    ret
 

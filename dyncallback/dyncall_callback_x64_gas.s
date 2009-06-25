@@ -1,3 +1,26 @@
+/*
+ Package: dyncall
+ Library: dyncallback
+ File: dyncallback/dyncall_callback_x64_gas.s
+ Description: Callback Thunk - Implementation for x64
+ License:
+
+ Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>,
+                         Tassilo Philipp <tphilipp@potion-studios.com>
+
+ Permission to use, copy, modify, and distribute this software for any
+ purpose with or without fee is hereby granted, provided that the above
+ copyright notice and this permission notice appear in all copies.
+
+ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+ WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+ MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+ WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+*/
 .intel_syntax
 .text
 .globl dcCallbackThunkEntry
@@ -27,7 +50,7 @@ dcCallbackThunkEntry:
 
 	pushq %rbp
 	movq  %rbp, %rsp
-	
+
 	// initialize DCArgs
 
 	// float parameters (8 registers spill to DCArgs)
@@ -51,7 +74,7 @@ dcCallbackThunkEntry:
 
 	// register counts for integer/pointer and float regs
 			# struct offset 12: fcount
-	pushq 0		# struct offset 8:  icount	
+	pushq 0		# struct offset 8:  icount
 
 	lea  %rdx, [%rbp+FRAME_arg0]	# struct offset 0: stack pointer
 	pushq %rdx
@@ -66,7 +89,7 @@ dcCallbackThunkEntry:
 
 	mov  %rdi, %rax			# parameter 0 (RDI) = DCCallback* (RAX)
 	mov  %rcx, [%rdi+CTX_userdata]	# arg3 = userdata*
-	mov  %rdx, %rsp 		# arg2 (RDX) = DCValue* 
+	mov  %rdx, %rsp 		# arg2 (RDX) = DCValue*
 
 	pushq 0				# align to 16 bytes
 

@@ -1,9 +1,26 @@
 /*
- * dyncall_callback.c
- *
- *  Created on: Feb 9, 2009
- *      Author: dadler
- */
+ Package: dyncall
+ Library: dyncallback
+ File: dyncallback/dyncall_callback_x86.c
+ Description: Callback - Implementation for x86
+ Depends: dyncall header 'dyncall_signature.h'
+ License:
+ Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>,
+                         Tassilo Philipp <tphilipp@potion-studios.com>
+
+ Permission to use, copy, modify, and distribute this software for any
+ purpose with or without fee is hereby granted, provided that the above
+ copyright notice and this permission notice appear in all copies.
+
+ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+ WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+ MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+ WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+*/
 
 #include "dyncall_callback_x86.h"
 #include "dyncall_args_x86.h"
@@ -32,7 +49,7 @@ int dcCleanupSize_x86_std(const char* signature)
   const char* ptr = signature;
   int size = 0;
   char ch;
-  while( (ch = *ptr++) != ')' ) {
+  while( (ch = *ptr++) != DC_SIGCHAR_ENDARG ) {
     switch(ch) {
       case DC_SIGCHAR_BOOL:
       case DC_SIGCHAR_CHAR:
@@ -64,7 +81,7 @@ int dcCleanupSize_x86_fast_ms(const char* signature)
   int size = 0;
   int regs = 0;
   char ch;
-  while( (ch = *ptr++) != ')' )
+  while( (ch = *ptr++) != DC_SIGCHAR_ENDARG )
   {
     switch(ch)
     {
@@ -103,7 +120,7 @@ int dcCleanupSize_x86_fast_gnu(const char* signature)
   char ch;
   int size = 0;
   int regs = 0;
-  while( (ch = *ptr++) != ')' ) {
+  while( (ch = *ptr++) != DC_SIGCHAR_ENDARG ) {
     switch(ch) {
       case DC_SIGCHAR_FLOAT:
         size += 4;
@@ -142,14 +159,14 @@ void dcInitCallback(DCCallback* pcb, const char* signature, DCCallbackHandler* h
 
   mode = DC_CALL_C_X86_CDECL;
 
-  if (ch == '_')
+  if (ch == DC_SIGCHAR_CC_PREFIX)
   {
     ptr++;
     ch = *ptr++;
     switch(ch) {
-      case 's': mode = DC_CALL_C_X86_WIN32_STD;      break;
-      case 'f': mode = DC_CALL_C_X86_WIN32_FAST_MS;  break;
-      case 'F': mode = DC_CALL_C_X86_WIN32_FAST_GNU; break;
+      case DC_SIGCHAR_CC_STDCALL:      mode = DC_CALL_C_X86_WIN32_STD;      break;
+      case DC_SIGCHAR_CC_FASTCALL_GNU: mode = DC_CALL_C_X86_WIN32_FAST_GNU; break;
+      case DC_SIGCHAR_CC_FASTCALL_MS:  mode = DC_CALL_C_X86_WIN32_FAST_MS;  break;
     }
   }
 
