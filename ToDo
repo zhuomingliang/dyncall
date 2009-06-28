@@ -1,9 +1,15 @@
-simplify alloc_wx to malloc_wx returning a pointer, which fails if NULL.
+urgent issues:
+- test microsoft builds for win32 and win64 (nmake)
+- update: microsoft visual c++ build files - integrate all test suites in solution file
+- consistency: on x64 platforms: make both ABIs available ('win64','sysv') for all x64 OS ports
 
-general:
+nice to have:
+- microsoft build enhancement: autodetect assembly via C preprocessor (like with .S gcc files)
+- enhancement: state-machine error reporting (stack overflow and invalid mode)? (e.g. dcError() )
+
+bugs:
 - vararg function calls don't work for PPC32 System V ABI
 - vararg function calls don't work for ARM THUMB mode
-- error reporting for stack overflow and wrong mode? (e.g. dcGetError() )
 
 missing implementations (descending priority):
 - sparc, sparc64
