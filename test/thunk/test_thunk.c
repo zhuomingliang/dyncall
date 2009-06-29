@@ -22,8 +22,9 @@ typedef void (printfun)(const char*);
 void test_stack()
 {
   DCThunk t;
+  printfun* fp;
   dcThunkInit(&t, (void*) my_entry);
-  printfun* fp = (printfun*) &t;
+  fp = (printfun*) &t;
   fp("stack\n");
 }
 
@@ -31,9 +32,10 @@ void test_stack()
 
 void test_heap()
 {
+  printfun* fp;
   DCThunk* p = (DCThunk*) malloc( sizeof(DCThunk) );
   dcThunkInit(p, (void*) my_entry);
-  printfun* fp = (printfun*) p;
+  fp = (printfun*) p;
   fp("heap\n");
   free(p);
 }
@@ -41,10 +43,11 @@ void test_heap()
 void test_wx()
 {
   DCThunk* p;
+  printfun* fp;
   int err = dcAllocWX( sizeof(DCThunk), (void**) &p );
   assert(!err);
   dcThunkInit(p, (void*) my_entry);
-  printfun* fp = (printfun*) p;
+  fp = (printfun*) p;
   fp("wx\n");
   dcFreeWX( (void*) p, sizeof(DCThunk) );
 }
