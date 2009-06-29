@@ -333,7 +333,7 @@ union ValueUnion
 class Value
 {
 public:
-  virtual __cdecl ~Value()    {}
+  virtual ~Value()   {}
 
   virtual void       __cdecl setBool(DCbool x)         { mValue.B = x; }
   virtual DCbool     __cdecl getBool()                 { return mValue.B; }
