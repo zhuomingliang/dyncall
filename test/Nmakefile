@@ -30,7 +30,11 @@ TOP = ..
 !INCLUDE $(TOP)\buildsys\nmake\prolog.nmake
 
 
+!IF "$(BUILD_ARCH)" == "x86"
 DIRS = suite suite2 suite3 callf ellipsis plain nm suite_x86win32fast suite_x86win32std suite2_x86win32fast suite2_x86win32std thunk malloc_wx
+!ELSE
+DIRS = suite suite2 suite3 callf ellipsis plain nm
+!ENDIF
 
 
 !INCLUDE $(TOP)\buildsys\nmake\epilog.nmake
