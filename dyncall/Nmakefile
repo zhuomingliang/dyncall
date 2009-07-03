@@ -49,7 +49,7 @@ libdyncall.dll libdyncall.lib: $(OBJS)
 
 TARGETS = libdyncall_s.a
 
-OBJS = dyncall.o dyncall_callf.o dyncall_callvm_$(BUILD_ARCH).o dyncall_vector.o dyncall_$(BUILD_ARCH).o
+OBJS = dyncall_call_$(BUILD_ARCH)_gas.o dyncall_vector.o dyncall_callvm_$(BUILD_ARCH).o dyncall_api.o dyncall_callf.o
 
 libdyncall_s.a: $(OBJS)
 	echo Creating library $@ ...
