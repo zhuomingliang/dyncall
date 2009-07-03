@@ -33,6 +33,7 @@ README.txt    -- general information
 buildsys/     -- build systems ({BSD,GNU,N}make)
 doc/          -- manual
 dyncall/      -- dyncall library source code
+dyncallback/  -- dyncallback library source code
 dynload/      -- dynload library source code
 test/         -- test suites
 \end{verbatim}
@@ -95,6 +96,14 @@ This is a modified version of suite.
 \item [callf]
 
 Tests the \emph{formatted call} \product{dyncall} C API.
+
+\item [malloc\_wx]
+
+Tests \emph{writable and executable memory allocation} used by the \product{dyncallback} C API.
+
+\item [thunk]
+
+Tests \emph{callbacks} for the \product{dyncallback} C API.
 
 \end{description}
 

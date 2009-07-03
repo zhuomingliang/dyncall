@@ -29,14 +29,13 @@ TOP = .
 
 !INCLUDE $(TOP)\buildsys\nmake\prolog.nmake
 
-!IF "$(BUILD_ARCH)" == "x86"
 DIRS = dyncall dynload dyncallback
-!ELSE
-DIRS = dyncall dynload
-!ENDIF
 
 test: dummy 
-	!echo Building tests ... && cd test && $(MAKE) /NOLOGO /F Nmakefile && cd ..
+	!echo Building tests ... && cd $@ && $(MAKE) /NOLOGO /F Nmakefile && cd ..
+
+doc: dummy 
+	!echo Building tests ... && cd $@ && $(MAKE) /NOLOGO /F Nmakefile && cd ..
 
 # Pseudo-targets are always out of date...
 dummy:

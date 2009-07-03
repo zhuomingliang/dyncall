@@ -71,7 +71,9 @@ one, please let us know.\\
 {\bf{\large x64}}  &                                           \\
 \hline\hline
 {\bf Windows}      & nmake                                     \\
+{\bf Darwin}       & GNU make, BSD make                        \\
 {\bf Linux}        & GNU make                                  \\
+{\bf SunOS}        & GNU make (Sun's make tool isn't supported)\\
 {\bf FreeBSD}      & BSD make                                  \\
 {\bf NetBSD}       & BSD make                                  \\
 {\bf OpenBSD}      & BSD make                                  \\
@@ -84,6 +86,7 @@ one, please let us know.\\
 \hline\hline
 {\bf Darwin}       & GNU make, BSD make                        \\
 {\bf Linux}        & GNU make                                  \\
+{\bf NetBSD}       & BSD make                                  \\
 \hline
                    &                                           \\
                    &                                           \\
@@ -98,7 +101,7 @@ one, please let us know.\\
 
 {\bf{\large MIPS32}} &                                         \\
 \hline\hline
-{\bf Playstation Portable} & GNU make                          \\
+{\bf Playstation Portable} & GNU make (and psptoolchain\cite{psptoolchain} tools) \\
 \hline
 
 \end{tabular}\\
@@ -142,18 +145,18 @@ Available options:
 {\tt config-debug}      & build debug version \\
 \end{tabular}
 
-\item Build the static libraries \product{dyncall} and \product{dynload}
+\item Build the static libraries \product{dyncall}, \product{dynload} and \product{dyncallback}
 \begin{lstlisting}
 make                     # when using {GNU,BSD} Make
 bsdmake                  # when using BSD Make on Darwin
 make -f BSDmakefile      # when using BSD Make on NetBSD
 nmake /f Nmakefile       # when using NMake on Windows
 \end{lstlisting}
-\item Install libraries and includes
+\item Install libraries and includes (not supported for nmake based builds)
 \begin{lstlisting}
 make install 
 \end{lstlisting}
-\item Optionally, build the test suites 
+\item Optionally, build the test suites
 \begin{lstlisting}
 make test                # when using {GNU,BSD} Make
 bsdmake test             # when using BSD Make on Darwin
@@ -162,10 +165,9 @@ nmake /f Nmakefile test  # when using NMake on Windows
 \end{lstlisting}
 \item Optionally, build the manual (Latex required)
 \begin{lstlisting}
-cd doc
-make                     # when using {GNU,BSD} Make
-bsdmake                  # when using BSD Make on Darwin
-make -f BSDmakefile      # when using BSD Make on NetBSD
-nmake /f Nmakefile       # when using NMake on Windows
+make doc                 # when using {GNU,BSD} Make
+bsdmake doc              # when using BSD Make on Darwin
+make -f BSDmakefile doc  # when using BSD Make on NetBSD
+nmake /f Nmakefile doc   # when using NMake on Windows
 \end{lstlisting}
 \end{enumerate}

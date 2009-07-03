@@ -22,7 +22,11 @@
 
 Through binding of the \product{dyncall} library into a scripting environment,
 the scripting language can gain system programming status to a certain degree.\\
-The \product{dyncall} library provides bindings to Python, R and Ruby.
+The \product{dyncall} library provides bindings to Java\cite{Java},
+Lua\cite{Lua}, Python\cite{Python}, R\cite{R} and Ruby\cite{Ruby}.\\
+However, please note that some of these bindings are work-in-progress and not
+automatically tested, meaning it might require some additional work to make them
+work.
 
 \subsection{Common Architecture}
 
@@ -37,9 +41,8 @@ for loading a code module.
 
 \subsubsection{Functions}
 
-The \product{dyncall} library currently supports bindings to R, Ruby and Python.
-All bindings are based on a common interface convention.\\
-All bindings provide a common set of 4 functions:
+All bindings are based on a common interface convention providing a common set
+of the following 4 functions:
 \begin{description}
 \item [load] loading a module of compiled code
 \item [free] unloading a module of compiled code
@@ -95,7 +98,7 @@ Signature character & C/C++ data type \\
 \sigchar{f} & float \\
 \sigchar{d} & double \\
 \sigchar{p} & void* \\
-\sigchar{Z} & const char* \\
+\sigchar{Z} & const char* (pointing to C string) \\
 \sigchar{v} & void \\
 \hline
 \end{tabular*}
@@ -115,6 +118,7 @@ On a higher level, such as in the binding of a scripting environment, it is vita
 correct conversion between different storage schemas among scripting languages.  Therefore we
 define also the unsigned/signed variants for a later use in the language binding part.
 
+\pagebreak
 
 \paragraph{Examples of C function prototypes}
 
@@ -136,8 +140,6 @@ double    & f4(int, bool, char, double, const char*); & \sigstr{iBcdZ)d}\\
 \end{table}
 
 
-
-\pagebreak
 
 \subsection{Python language bindings}
 
@@ -204,7 +206,8 @@ Signature character & accepted R data types\\
 Some notes on the R Binding:
 \begin{itemize}
 \item Unsigned 32-bit integers are represented as signed integers in R.
-\item 64-bit integer types do not exist in R, therefore we use double floats to represent 64-bit integers (using only the 52-bit mantisa part).
+\item 64-bit integer types do not exist in R, therefore we use double floats
+to represent 64-bit integers (using only the 52-bit mantissa part).
 \end{itemize}
 
 \pagebreak

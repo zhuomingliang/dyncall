@@ -39,7 +39,7 @@ types int and long remain 32 bits in size, whereas long long becomes 64 bits.
 Under Linux/*BSD/... it's LP64.\\
 \\
 Compared to the x86 architecture, the 64 bit versions of the registers are
-called rax, rbx, etc.... Furthermore, there are eight new general purpose
+called rax, rbx, etc.. Furthermore, there are eight new general purpose
 registers r8-r15.
 
 
@@ -89,7 +89,7 @@ Name                & Brief description\\
 preserve area for the first 4)
 \item float and double parameters are passed via xmm0l-xmm3l
 \item first 4 parameters are passed via the correct register depending on the parameter type - with mixed float and int parameters,
-some registers are left out (e.g. first parameter ends up in rcx or xmm0, second in rdx or xmm1, etc...)
+some registers are left out (e.g. first parameter ends up in rcx or xmm0, second in rdx or xmm1, etc.)
 \item parameters in registers are right justified
 \item parameters \textless\ 64bits are not zero extended - zero the upper bits contiaining garbage if needed (but they are always
 passed as a qword)
@@ -116,8 +116,8 @@ as defined for ellipse calls)
 
 \paragraph{Stack layout}
 
-Stack frame is always 16-byte aligned.\\
-\\
+Stack frame is always 16-byte aligned. Stack directly after function prolog:\\
+
 \begin{figure}[h]
 \begin{tabular}{5|3|1 1}
 \hhline{~-~~}
@@ -211,8 +211,9 @@ will be returned in rax
 
 \paragraph{Stack layout}
 
-Stack frame is always 16-byte aligned. Note that there is no spill area.\\
-\\
+Stack frame is always 16-byte aligned. Note that there is no spill area.
+Stack directly after function prolog:\\
+
 \begin{figure}[h]
 \begin{tabular}{5|3|1 1}
 \hhline{~-~~}

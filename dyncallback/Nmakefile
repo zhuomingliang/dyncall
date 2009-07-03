@@ -30,17 +30,10 @@ TOP=..
 !INCLUDE $(TOP)\buildsys\nmake\prolog.nmake
 
 
-!IF "$(BUILD_OS)" == "windows"
+!IF "$(BUILD_ARCH)" == "x86"
 
 TARGETS = libdyncallback_s.lib #libdyncallback.lib libdyncallback.dll
-
-OBJS = dyncall_thunk.obj dyncall_alloc_wx.obj dyncall_args.obj dyncall_callback.obj
-
-!IF "$(BUILD_ARCH)" == "x64"
-OBJS = $(OBJS) dyncall_callback_$(BUILD_ARCH)_masm.obj 
-!ELSE
-OBJS = $(OBJS) dyncall_callback_$(BUILD_ARCH)_msvc.obj 
-!ENDIF
+OBJS = dyncall_thunk.obj dyncall_alloc_wx.obj dyncall_args.obj dyncall_callback.obj dyncall_callback_$(BUILD_ARCH)_msvc.obj 
 
 CFLAGS   = $(CFLAGS)   /I$(TOP)\dyncall
 CPPFLAGS = $(CPPFLAGS) /I$(TOP)\dyncall
@@ -54,15 +47,15 @@ libdyncallback.dll libdyncallback.lib: $(OBJS)
 	$(LD) /DLL $(LDFLAGS) $(OBJS) > nul
 
 
-!ELSE IF "$(BUILD_OS)" == "nds"
+!ELSE
 
 TARGETS = libdyncallback_s.a
+OBJS = dyncall_thunk.obj dyncall_alloc_wx.obj dyncall_args.obj dyncall_callback.obj dyncall_callback_$(BUILD_ARCH).obj
 
-OBJS = dyncall_callback_$(BUILD_ARCH).obj dyncall_thunk.obj dyncall_alloc_wx.obj dyncall_args.obj dyncall_callback.obj
-
-libdyncallback_s.a: $(OBJS)
-	echo Creating library $@ ...
-	$(AR) -rc $(ARFLAGS) "$@" $(OBJS)
+libdyncallback_s.a:# $(OBJS)
+	echo Not building dyncallback: There is no dyncallback support on this platform.
+#	echo Creating library $@ ...
+#	$(AR) -rc $(ARFLAGS) "$@" $(OBJS)
 
 !ENDIF
 

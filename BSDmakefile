@@ -33,5 +33,11 @@ TOP   = .
 DIRS  = dyncall dyncallback dynload
 AUTOS = ConfigVars
 
+.PHONY: test doc
+test:
+	cd $@; $(MAKE)
+doc:
+	cd $@; $(MAKE)
+
 .include "$(TOP)/buildsys/bsdmake/epilog.bsdmake"
 

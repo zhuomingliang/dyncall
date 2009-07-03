@@ -1,5 +1,4 @@
 urgent issues:
-- test microsoft builds for win32 and win64 (nmake)
 - update: microsoft visual c++ build files - integrate all test suites in solution file
 - consistency: on x64 platforms: make both ABIs available ('win64','sysv') for all x64 OS ports
 

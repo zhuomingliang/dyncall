@@ -21,6 +21,8 @@ TOP	= .
 DIRS	= dyncall dynload dyncallback
 include $(TOP)/MakeRules
 
-.PHONY: test
+.PHONY: test doc
 test:
+	$(MAKE) -C $@
+doc:
 	$(MAKE) -C $@
