@@ -23,7 +23,17 @@
 */
 .intel_syntax
 .text
-.globl _dcCallbackThunkEntry
+
+#include "../dyncall/dyncall_macros.h"
+
+#if defined(DC__OS_Win32) || defined(DC__OS_Cygwin) || defined(DC__OS_MinGW)
+#define CSYM(X) _##X
+#else
+#define CSYM(X) X
+#endif
+
+
+.globl CSYM(dcCallbackThunkEntry)
 
 DCThunk_size		= 16
 DCArgs_size			= 20
@@ -42,7 +52,7 @@ frame_CTX          = -4
 frame_DCArgs       = -24
 frame_DCValue      = -32
 
-_dcCallbackThunkEntry:
+CSYM(dcCallbackThunkEntry):
 	push %ebp
 	mov  %ebp, %esp
 

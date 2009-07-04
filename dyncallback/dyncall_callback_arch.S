@@ -34,7 +34,7 @@
 #endif
 #else
 #if defined(DC__Arch_Intel_x86)
-#include "dyncall_callback_x86_gas.s"
+#include "dyncall_callback_x86_gas.S"
 #elif defined(DC__Arch_AMD64)
 #include "dyncall_callback_x64_gas.s"
 #elif defined(DC__Arch_PowerPC)
