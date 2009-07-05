@@ -131,7 +131,10 @@ void dlSymsInit(DLSyms* pSyms, DLLib* pLib)
               case DT_STRTAB:   pSyms->pStrTab  = (const char*)   pDyn->d_un.d_ptr; break;
               case DT_SYMTAB:   pSyms->pSymTab  = (Elf_Sym*)      pDyn->d_un.d_ptr; break;
               case DT_HASH:     pSyms->pHash    = (Elf_Hash*)     pDyn->d_un.d_ptr; break;
+/* this one was not defined on dyncall.org machine */
+#if defined DT_GNU_HASH
               case DT_GNU_HASH: pSyms->pGNUHash = (Elf_GNU_Hash*) pDyn->d_un.d_ptr; break;
+#endif
             }
             pDyn++;
           }
