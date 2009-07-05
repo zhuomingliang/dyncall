@@ -145,7 +145,7 @@ void dc_callvm_call_x64(DCCallVM* in_self, DCpointer target)
 {
   DCCallVM_x64* self = (DCCallVM_x64*)in_self;
 #if defined(DC_UNIX)
-  dcCall_x64_sysV(
+  dcCall_x64_sysv(
 #else
   dcCall_x64_win64(
 #endif
