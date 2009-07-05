@@ -19,16 +19,16 @@
 
 /* ///////////////////////////////////////////////////////////////////////////
 
-	dyncall_x86_as.s
+	dyncall_x86_apple.s
 
-	x86 calls written in GNU Assembler
+	x86 calls written in Apple Assembler
 	November 28, 2007
 
  ////////////////////////////////////////////////////////////////////////// */
 
 
 .text
-.file "dyncall_x86_darwin.S"
+.file "dyncall_x86_apple.s"
 .intel_syntax
 
 # -----------------------------------------------------------------------------

@@ -19,7 +19,7 @@
 
 /* ///////////////////////////////////////////////////////////////////////////
 
-	dyncall_x86_as.s
+	dyncall_x86_as.S
 
 	x86 calls written in GNU Assembler
 	November 28, 2007
