@@ -65,7 +65,7 @@ ifdef TEST_DIRS
 .PHONY: test test-dirs $(TEST_DIRS)
 test-dirs: $(TEST_DIRS)
 $(TEST_DIRS):
-	gmake -C $@ $(MAKECMDGOALS)
+	$(MAKE) -C $@ $(MAKECMDGOALS)
 test: test-dirs
 endif
 
@@ -76,7 +76,7 @@ endif
 dirs: $(DIRS)
 ifdef DIRS
 $(DIRS): 
-	gmake -C $@ $(MAKECMDGOALS)
+	$(MAKE) -C $@ $(MAKECMDGOALS)
 endif
 
 extra-dirs: $(EXTRA_DIRS)

@@ -23,6 +23,7 @@ include $(TOP)/MakeRules
 
 .PHONY: test doc
 test:
-	gmake -C $@
+	$(MAKE) -C $@
 doc:
-	gmake -C $@
+	$(MAKE) -C $@
+
