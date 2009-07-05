@@ -29,7 +29,5 @@
 # include "dyncall_thunk_x64.c"
 #elif defined(DC__Arch_PowerPC)
 # include "dyncall_thunk_ppc32.c"
-#else
-# error Unsupported Architecture for thunks.
 #endif
 

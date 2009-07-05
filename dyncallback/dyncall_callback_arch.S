@@ -24,20 +24,17 @@
 
 #include "dyncall_macros.h"
 
-# if defined(DC__OS_Darwin)
+#if defined(DC__OS_Darwin)
 #  if defined(DC__Arch_Intel_x86)
-#   include "dyncall_callback_x86_apple.s"
+#    include "dyncall_callback_x86_apple.s"
 #  elif defined(DC__Arch_AMD64)
-#   include "dyncall_callback_x64_apple.s"
-#  else
-#   error Unsupported Architecture on Darwin for dyncallback.
+#    include "dyncall_callback_x64_apple.s"
 #  endif
-# else
+#else
 #  if defined(DC__Arch_Intel_x86)
 #   include "dyncall_callback_x86_gas.S"
 #  elif defined(DC__Arch_AMD64)
 #   include "dyncall_callback_x64_gas.s"
-#  else
-#   error Unsupported Architecture for dyncallback.
+#  endif
 #endif
 
