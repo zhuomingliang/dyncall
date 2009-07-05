@@ -42,7 +42,7 @@ frame_CTX          = -4
 frame_DCArgs       = -24
 frame_DCValue      = -32
 
-ASCII_L = 76
+ASCII_l = 108
 ASCII_d	= 100
 ASCII_f = 102
 ASCII_i = 105
@@ -98,7 +98,7 @@ _dcCallbackThunkEntry:
 	je .return_f64
 	cmp %al, ASCII_f
 	je .return_f32
-	cmp %al, ASCII_L
+	cmp %al, ASCII_l
 	je .return_i64
 	cmp %al, ASCII_i
 	je .return_i32

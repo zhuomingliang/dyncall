@@ -88,7 +88,7 @@ void __declspec(naked) dcCallbackThunkEntry()
 	je return_f64
 	cmp al, 'f'
 	je return_f32
-	cmp al, 'L'
+	cmp al, 'l'
 	je return_i64
 	cmp al, 'i'
 	je return_i32
