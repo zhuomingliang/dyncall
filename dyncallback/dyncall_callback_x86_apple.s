@@ -70,7 +70,11 @@ _dcCallbackThunkEntry:
 
 	mov  %edx, %esp			# EDX = DCValue*
 
-	// call handler (context
+	// align 16 bytes
+	add  esp, 15		/* align size to 16 byte */
+	and  esp, -16
+	
+	// call handler 
 	push [%eax+CTX_userdata]	# userdata
 	push %edx			# DCValue*
 	push %ecx			# DCArgs*
