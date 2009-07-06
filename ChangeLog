@@ -1,4 +1,5 @@
 Version 0.4
+o added 'doc' makefile target for coherency and ease of use
 o fixed nmake buildfiles and configure.bat (were out of date and wrong)
 o test suite clean up (GNUmake, BSDmake):
   target "config" modified, phony without dependencies to other builds
@@ -10,7 +11,7 @@ o signature types change:
   long: 'l' -> 'j'
   long long: 'L' -> 'l'
   added unsigned integer type signature characters: upper case encoding  
-o added: callbacks component
+o added: callbacks component (support only for some platforms ATM)
 o added: test cases for alloc_wx, thunk
 o updated Documentation
 
