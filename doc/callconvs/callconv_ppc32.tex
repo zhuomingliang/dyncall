@@ -31,6 +31,7 @@
 \item Apple Mac OS X/Darwin PPC is specified in "Mac OS X ABI Function Call Guide". It uses Big Endian (MSB).
 \item Linux PPC 32-bit ABI is specified in "LSB for PPC 2.1" which is based on "System V ABI". It uses Big Endian (MSB).
 \item Ellipse calls do not work on Linux/System V PPC ABI currently.
+\item PowerPC EABI is defined in the "PowerPC Embedded Application Binary Interface 32-Bit Implementation".
 \end{itemize}
 
 
@@ -196,7 +197,7 @@ Name                & Brief description\\
 \paragraph{Parameter passing}
 
 \begin{itemize}
-\item Stack pointer (r1) is always 16-byte aligned.
+\item Stack pointer (r1) is always 16-byte aligned. The EABI differs here - it is 8-byte alignment.
 \item 8 general-purpose registers (r3-r10) for integer and pointer types.
 \item 8 floating-pointer registers (f1-f8) for float (promoted to double) and double types.
 \item Additional arguments are passed on the stack directly after the back-chain and saved return address (8 bytes structure) on the callers stack frame.
