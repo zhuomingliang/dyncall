@@ -173,6 +173,9 @@ args()
       --prefix=*)
         CONFIG_PREFIX=`echo $OPT | cut -c 10-` 
         ;;
+      --prefix-bd=*)
+        CONFIG_BUILDPREFIX=`echo $OPT | cut -c 13-` 
+        ;;
       --target-universal)
         CONFIG_ARCH=universal
         ;;
@@ -315,6 +318,9 @@ output()
   echo "CONFIG_ASM=$CONFIG_ASM" >>$1
   echo "CONFIG_CONFIG=$CONFIG_CONFIG" >>$1
   echo "CONFIG_PREFIX=$CONFIG_PREFIX" >>$1
+  if [ $CONFIG_BUILDPREFIX ]; then
+    echo "CONFIG_BUILDPREFIX=$CONFIG_BUILDPREFIX" >>$1
+  fi
   echo "" >>$1
 }
 
