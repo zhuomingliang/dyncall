@@ -19,7 +19,7 @@
 
 /*
 
-  dyncall callvm for 32bit ARM9E family of processors
+  dyncall callvm for 32bit ARM9 family of processors
 
   SUPPORTED CALLING CONVENTIONS
   armthumbcall
@@ -30,10 +30,10 @@
 */
 
 
-#ifndef DYNCALL_CALLVM_ARM9E_THUMB_H
-#define DYNCALL_CALLVM_ARM9E_THUMB_H
+#ifndef DYNCALL_CALLVM_ARM9_THUMB_H
+#define DYNCALL_CALLVM_ARM9_THUMB_H
 
-#include "dyncall_call_arm9e_thumb.h"
+#include "dyncall_call_arm9_thumb.h"
 #include "dyncall_callvm.h"
 #include "dyncall_vector.h"
 
@@ -43,10 +43,10 @@ typedef struct
   DCCallVM  mInterface;
   DCpointer mpCallFunc;
   DCVecHead mVecHead;
-} DCCallVM_arm9e_thumb;
+} DCCallVM_arm9_thumb;
 
-DCCallVM* dcNewCallVM_arm9e_thumb(DCsize size);
+DCCallVM* dcNewCallVM_arm9_thumb(DCsize size);
 
 
-#endif /* DYNCALL_CALLVM_ARM9E_THUMB_H */
+#endif /* DYNCALL_CALLVM_ARM9_THUMB_H */
 

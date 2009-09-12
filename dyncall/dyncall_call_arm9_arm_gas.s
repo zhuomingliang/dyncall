@@ -19,9 +19,9 @@
 
 /*//////////////////////////////////////////////////////////////////////
 
-	dyncall_arm9e_arm.s
+	dyncall_arm9_arm.s
 
-	ARM9E family of processors (ARM mode).
+	ARM9 family of processors (ARM mode).
 	2007-10-11
 
 //////////////////////////////////////////////////////////////////////*/
@@ -29,10 +29,10 @@
 .text
 .code 32	/* ARM mode */
 
-.globl dcCall_arm9e_arm
+.globl dcCall_arm9_arm
 
 /* Main dyncall call. */
-dcCall_arm9e_arm:
+dcCall_arm9_arm:
 	/* Prolog. This function never needs to spill inside its prolog, so just store the permanent registers. */
 	mov		%r12, %r13	/* Stack ptr (r13) -> temporary (r12). */
 	stmdb	%r13!, {%r4-%r12, %r14}	/* Permanent registers and stack pointer (now in r12), etc... -> save area on stack (except counter). */

@@ -10,9 +10,9 @@
 #elif defined(DC__Arch_MIPS)
 #  include "dyncall_callvm_mips.c"
 #elif defined(DC__Arch_ARM_ARM)
-#  include "dyncall_callvm_arm9e_arm.c"
+#  include "dyncall_callvm_arm9_arm.c"
 #elif defined(DC__Arch_ARM_THUMB)
-#  include "dyncall_callvm_arm9e_thumb.c"
+#  include "dyncall_callvm_arm9_thumb.c"
 #else
 #  error unsupported platform
 #endif

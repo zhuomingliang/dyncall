@@ -19,9 +19,9 @@
 
 /*//////////////////////////////////////////////////////////////////////
 
-	dyncall_arm9e_thumb.s
+	dyncall_arm9_thumb.s
 
-	ARM9E family of processors (THUMB mode).
+	ARM9 family of processors (THUMB mode).
 	2008-08-12
 
 //////////////////////////////////////////////////////////////////////*/
@@ -29,11 +29,11 @@
 .text
 .code 16	/* THUMB mode */
 
-.globl dcCall_arm9e_thumb
+.globl dcCall_arm9_thumb
 .thumb_func
 
 /* Main dyncall call. */
-dcCall_arm9e_thumb:
+dcCall_arm9_thumb:
 
 	/* Prolog. This function never needs to spill inside its prolog, so just store the permanent registers. */
 	push	{%r4-%r7, %r14}	   	/* Frame ptr, permanent registers, link register -> save area on stack. */
@@ -86,16 +86,16 @@ call:
 
 
 /* Internally used to avoid compiler overwriting r0 and r1 in call stub */
-.globl dcCall_arm9e_thumb_word
+.globl dcCall_arm9_thumb_word
 .thumb_func
 
-dcCall_arm9e_thumb_word:
-	b	dcCall_arm9e_thumb
+dcCall_arm9_thumb_word:
+	b	dcCall_arm9_thumb
 
 
-.globl dcCall_arm9e_thumb_dword
+.globl dcCall_arm9_thumb_dword
 .thumb_func
 
-dcCall_arm9e_thumb_dword:
-	b	dcCall_arm9e_thumb
+dcCall_arm9_thumb_dword:
+	b	dcCall_arm9_thumb
 

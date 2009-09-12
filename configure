@@ -132,7 +132,7 @@ guess_arch()
   elif [ "$ARCH" = "amd64" ] || [ "$ARCH" = "x86_64" ] || [ "$ARCH" = "x64" ]; then
     CONFIG_ARCH="x64"
 #  elif [ "$ARCH" = "cats" ]; then
-#    CONFIG_ARCH="arm9e_arm"
+#    CONFIG_ARCH="arm9_arm"
   fi
   info "guess arch $CONFIG_ARCH"
 }
@@ -194,16 +194,16 @@ args()
         CONFIG_TOOL=gcc
         ;;
 #      --target-arm)
-#        CONFIG_ARCH=arm9e_arm
+#        CONFIG_ARCH=arm9_arm
 #        ;;
       --target-nds-arm)
         CONFIG_OS=nds
-        CONFIG_ARCH=arm9e_arm
+        CONFIG_ARCH=arm9_arm
         CONFIG_TOOL=gcc
         ;;
       --target-nds-thumb)
         CONFIG_OS=nds
-        CONFIG_ARCH=arm9e_thumb
+        CONFIG_ARCH=arm9_thumb
         CONFIG_TOOL=gcc
         ;;
       --target-cygwin)

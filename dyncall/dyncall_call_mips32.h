@@ -46,7 +46,7 @@ struct DCRegData_mips32
 };
 
 /* 
-** arm9e arm mode calling convention calls 
+** mips32 calling convention calls 
 **
 ** - hybrid return-type call (bool ... pointer)
 **
