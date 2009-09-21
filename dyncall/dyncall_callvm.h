@@ -1,8 +1,4 @@
 /*
- Package: dyncall
- File: dyncall/dyncall_callvm.h
- Description: Call virtual machine interface
- License:
 
  Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
