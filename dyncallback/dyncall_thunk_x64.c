@@ -30,7 +30,7 @@ void dcThunkInit(DCThunk* p, void* entry)
     .intel_syntax
 
     thunk:
-        lea   rax, (rip)  # copy RIP to RAX and use address in
+        lea   rax, (rip)  # copy RIP (=p?) to RAX and use address in
         jmp   [rax+16]    # 'entry' (stored at RIP+16) for jump
         nop
         nop
