@@ -23,15 +23,15 @@
 */
 #include "dyncall_thunk.h"
 
-void dcThunkInit(DCThunk* p, void* entry )
+void dcThunkInit(DCThunk* p, void* entry)
 {
   /*
     # x64 thunk code:
     .intel_syntax
 
     thunk:
-        lea   rax, (rip)
-        jmp   [rax+16]
+        lea   rax, (rip)  # copy RIP to RAX and use address in
+        jmp   [rax+16]    # 'entry' (stored at RIP+16) for jump
         nop
         nop
         nop
