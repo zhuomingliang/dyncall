@@ -69,7 +69,7 @@ Name         & Brief description\\
 {\bf r12}    & scratch\\
 {\bf r13}    & stack pointer, permanent\\
 {\bf r14}    & link register, permanent\\
-{\bf r15}    & program counter\\
+{\bf r15}    & program counter (note: due to pipeline, r15 points to 2 instructions ahead)\\
 \hline
 \end{tabular}
 \caption{Register usage on arm9}
@@ -160,7 +160,7 @@ Name         & Brief description\\
 {\bf r12}    & scratch\\
 {\bf r13}    & stack pointer, permanent\\
 {\bf r14}    & link register, permanent\\
-{\bf r15}    & program counter\\
+{\bf r15}    & program counter (note: due to pipeline, r15 points to 2 instructions ahead)\\
 \hline
 \end{tabular}
 \caption{Register usage on arm9 thumb mode}

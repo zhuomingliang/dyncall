@@ -1,8 +1,8 @@
 /*
  Package: dyncall
  Library: dyncallback
- File: dyncallback/dyncall_callback_x64.h
- Description: Callback - Header for x64
+ File: dyncallback/dyncall_thunk_arm9_arm.c
+ Description: Thunk - Implementation for ARM9 (ARM mode)
  License:
 
  Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>,
@@ -19,27 +19,21 @@
  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
 */
-
-#ifndef DYNCALL_CALLBACK_X64_H_
-#define DYNCALL_CALLBACK_X64_H_
-
-#include "dyncall_callback.h"
-
 #include "dyncall_thunk.h"
-#include "dyncall_args_x64.h"
 
-
-struct DCCallback
+void dcThunkInit(DCThunk* p, void* entry)
 {
-  DCThunk  	         thunk;    // offset 0,  size 24
-  DCCallbackHandler* handler;  // offset 24
-  void*              userdata; // offset 32
-  // DCArgsVT*	     args_vt;  // offset 32
-  //                           // sizeof 40
-};
+  /*
+    # ARM9 (ARM mode) thunk code:
+    .code 32
+      ldr %r15, [%r15, #-4]
+  */
 
-
-
-#endif /* DYNCALL_CALLBACK_X64_H_ */
-
+  /* This code loads 'entry+8' into r15. The -4 is needed, because r15 as program     */
+  /* counter points to the current instruction+8, but the pointer to the code to      */
+  /* execute follows the ldr instruction directly. Add 8 to entry for similar reasons */ 
+  p->code  = 0xe51ff004UL;  /* ldr %r15, [%r15, #-4] */
+  p->entry = (unsigned int)entry+8;
+}

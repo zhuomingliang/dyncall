@@ -22,9 +22,11 @@
 */
 #include "dyncall_macros.h"
 
-#ifdef DC_WINDOWS
+#if defined(DC_WINDOWS)
 #include "dyncall_alloc_wx_win32.c"
-#else
+#elif defined(DC_UNIX)
 #include "dyncall_alloc_wx_mmap.c"
+#else
+#include "dyncall_alloc_wx_malloc.c"
 #endif
 

@@ -1,8 +1,8 @@
 /*
  Package: dyncall
  Library: dyncallback
- File: dyncallback/dyncall_callback_x64.h
- Description: Callback - Header for x64
+ File: dyncallback/dyncall_thunk_arm9_arm.h
+ Description: Thunk - Header for ARM (ARM mode)
  License:
 
  Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>,
@@ -19,27 +19,20 @@
  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
 */
-
-#ifndef DYNCALL_CALLBACK_X64_H_
-#define DYNCALL_CALLBACK_X64_H_
-
-#include "dyncall_callback.h"
-
-#include "dyncall_thunk.h"
-#include "dyncall_args_x64.h"
+#ifndef DYNCALL_THUNK_ARM9_ARM_H
+#define DYNCALL_THUNK_ARM9_ARM_H
 
 
-struct DCCallback
+struct DCThunk_
 {
-  DCThunk  	         thunk;    // offset 0,  size 24
-  DCCallbackHandler* handler;  // offset 24
-  void*              userdata; // offset 32
-  // DCArgsVT*	     args_vt;  // offset 32
-  //                           // sizeof 40
+  unsigned int code;
+  unsigned int entry;
 };
 
+#define DCTHUNK_ARM9_ARM_SIZE 8
 
 
-#endif /* DYNCALL_CALLBACK_X64_H_ */
+#endif /* DYNCALL_THUNK_ARM9_ARM_H */
 

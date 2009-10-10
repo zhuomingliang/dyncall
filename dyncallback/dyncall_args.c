@@ -28,5 +28,9 @@
 #include "dyncall_args_x64.c"
 #elif defined (DC__Arch_PowerPC)
 #include "dyncall_args_ppc32.c"
+#elif defined (DC__Arch_ARM_ARM)
+#include "dyncall_args_arm9_arm.c"
+#elif defined (DC__Arch_ARM_THUMB)
+#include "dyncall_args_arm9_thumb.c"
 #endif
 

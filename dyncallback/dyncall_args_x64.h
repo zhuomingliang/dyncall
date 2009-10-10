@@ -48,7 +48,7 @@ struct DCArgs
 
 	/* reg data */
 	long long ireg_data[6];
-        double    freg_data[8];
+	double    freg_data[8];
 };
 
 #endif /* DYNCALLBACK_ARGS_X64_H */

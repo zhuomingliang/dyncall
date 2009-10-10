@@ -1,10 +1,10 @@
 /*
  Package: dyncall
  Library: dyncallback
- File: dyncallback/dyncall_callback_x64.h
- Description: Callback - Header for x64
+ File: dyncallback/dyncall_alloc_wx_malloc.c
+ Description: Allocate write/executable memory - Fallback implementation based
+              on malloc for platforms not forcing w^x by default
  License:
-
  Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>,
                          Tassilo Philipp <tphilipp@potion-studios.com>
 
@@ -19,27 +19,20 @@
  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
 */
+#include "dyncall_alloc_wx.h"
 
-#ifndef DYNCALL_CALLBACK_X64_H_
-#define DYNCALL_CALLBACK_X64_H_
-
-#include "dyncall_callback.h"
-
-#include "dyncall_thunk.h"
-#include "dyncall_args_x64.h"
+#include <stdlib.h>
 
 
-struct DCCallback
+int dcAllocWX(size_t size, void** pp)
 {
-  DCThunk  	         thunk;    // offset 0,  size 24
-  DCCallbackHandler* handler;  // offset 24
-  void*              userdata; // offset 32
-  // DCArgsVT*	     args_vt;  // offset 32
-  //                           // sizeof 40
-};
+  pp = malloc(size);
+  return 0;
+}
 
-
-
-#endif /* DYNCALL_CALLBACK_X64_H_ */
-
+void dcFreeWX(void* p, size_t size)
+{
+  free(p);
+}

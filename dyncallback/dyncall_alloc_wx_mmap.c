@@ -2,7 +2,8 @@
  Package: dyncall
  Library: dyncallback
  File: dyncallback/dyncall_alloc_wx_mmap.c
- Description: Allocate write/executable memory - Implementation for posix platforms based on mmap
+ Description: Allocate write/executable memory - Implementation for posix
+              platforms based on mmap
  License:
  Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>,
                          Tassilo Philipp <tphilipp@potion-studios.com>

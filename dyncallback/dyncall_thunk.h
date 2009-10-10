@@ -52,17 +52,16 @@ typedef struct DCThunk_ DCThunk;
 
 void   dcThunkInit(DCThunk* p, void* entry );
 
-#if defined DC__Arch_Intel_x86
+#if defined(DC__Arch_Intel_x86)
 #include "dyncall_thunk_x86.h"
-#endif
-
-#if defined DC__Arch_AMD64
+#elif defined (DC__Arch_AMD64)
 #include "dyncall_thunk_x64.h"
-#endif
-
-#if defined DC__Arch_PowerPC
+#elif defined (DC__Arch_PowerPC)
 #include "dyncall_thunk_ppc32.h"
+#elif defined (DC__Arch_ARM_ARM)
+#include "dyncall_thunk_arm9_arm.h"
+#elif defined (DC__Arch_ARM_THUMB)
+#include "dyncall_thunk_arm9_thumb.h"
 #endif
 
 #endif /* DYNCALL_THUNK_H */
-

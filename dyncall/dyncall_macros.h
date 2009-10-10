@@ -171,6 +171,8 @@
 /* Rough OS classification. */
 #if defined(DC__OS_Win32) || defined(DC__OS_Win64)
 	#define DC_WINDOWS
+#elif defined(DC__OS_NDS) || defined(DC__OS_PSP)
+	#define DC_OTHER
 #else
 	#define DC_UNIX
 #endif
