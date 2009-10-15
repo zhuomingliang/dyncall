@@ -22,8 +22,7 @@
 
 #include "dyncall_args_x64.h"
 
-
-inline long long sysv_i64(DCArgs* args)
+long long sysv_i64(DCArgs* args)
 {
   if (args->ireg_count < 6)
     return args->ireg_data[args->ireg_count++];
@@ -32,7 +31,7 @@ inline long long sysv_i64(DCArgs* args)
 }
 
 #if 0
-inline float sysv_f32(DCArgs* args)
+float sysv_f32(DCArgs* args)
 {
   if (args->freg_count < 8) {
     float value = * (float*) & args->freg_data[args->freg_count];
@@ -47,7 +46,7 @@ inline float sysv_f32(DCArgs* args)
 }
 #endif
 
-inline double sysv_f64(DCArgs* args)
+double sysv_f64(DCArgs* args)
 {
   if (args->freg_count < 8)
     return args->freg_data[args->freg_count++];
