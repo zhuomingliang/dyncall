@@ -59,7 +59,7 @@ int main()
 
   test_wx();
   test_heap();
-/*  test_stack();*/
+  test_stack();
   dcTest_deInitPlatform();
 
   return 0;
