@@ -24,10 +24,10 @@
 
 int main()
 {
-  dcTest_initPlatform();
-
   int err;
   void* ptr;
+  dcTest_initPlatform();
+
   err = dcAllocWX(23, &ptr);
   if(!err) dcFreeWX(ptr, 23);
   printf("result: test_alloc_wx: %d\n", (!err) ? 1 : 0 );
