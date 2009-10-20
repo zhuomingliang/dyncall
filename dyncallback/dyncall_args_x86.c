@@ -52,26 +52,27 @@ DCulonglong dcArgs_ulonglong(DCArgs* p) { return (DCulonglong) dcArgs_longlong(p
 // virtual tables:
 
 // cdecl calling convention
-int default_i32(DCArgs* args)
+
+static int default_i32(DCArgs* args)
 {
 	return *args->stack_ptr++;
 }
 
-long long default_i64(DCArgs* args)
+static long long default_i64(DCArgs* args)
 {
 	long long result = * (long long*) args->stack_ptr;
 	args->stack_ptr += 2;
 	return result;
 }
 
-float default_f32(DCArgs* args)
+static float default_f32(DCArgs* args)
 {
 	float result = * ( (float*) args->stack_ptr );
 	args->stack_ptr++;
 	return result;
 }
 
-double default_f64(DCArgs* args)
+static double default_f64(DCArgs* args)
 {
 	double result = * ( (double*) args->stack_ptr );
 	args->stack_ptr += 2;
@@ -82,7 +83,7 @@ DCArgsVT dcArgsVT_default   = { default_i32, default_i64, default_f32, default_f
 
 // fastcall (microsoft) calling convention:
 
-int fast_i32(DCArgs* args)
+static int fast_i32(DCArgs* args)
 {
 	if (args->fast_count < 2)
 		return args->fast_data[args->fast_count++];
@@ -94,7 +95,7 @@ DCArgsVT dcArgsVT_fast_ms = { fast_i32, default_i64, default_f32, default_f64 };
 
 // fastcall (gnu) calling convention
 
-long long fast_gnu_i64(DCArgs* args)
+static long long fast_gnu_i64(DCArgs* args)
 {
 	args->fast_count = 2;
 	return default_i64(args);
