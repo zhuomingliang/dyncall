@@ -1,0 +1,25 @@
+@echo off
+callf\callf.exe
+pause
+ellipsis\ellipsis.exe
+pause
+malloc_wx\malloc_wx.exe
+pause
+plain\plain.exe
+pause
+suite\suite.exe
+pause
+suite_x86win32std\suite.exe
+pause
+suite_x86win32fast\suite.exe
+pause
+suite2\suite2.exe
+pause
+suite2_x86win32std\suite2.exe
+pause
+suite2_x86win32fast\suite2.exe
+pause
+suite3\suite3.exe
+pause
+thunk\thunk.exe
+pause
