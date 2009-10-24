@@ -53,7 +53,7 @@ endif
 
 ifdef BUILD_TOOL_msvc
 ifdef BUILD_ARCH_x86
-UNITS += dyncall_callback_x86_msvc
+UNITS += dyncall_callback_x86_masm
 endif
 ifdef BUILD_ARCH_x64
 UNITS += dyncall_callback_x64_masm

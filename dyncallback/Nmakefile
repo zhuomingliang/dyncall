@@ -33,7 +33,7 @@ TOP=..
 !IF "$(BUILD_OS)" == "windows" && "$(BUILD_ARCH)" == "x86"
 
 TARGETS = libdyncallback_s.lib #libdyncallback.lib libdyncallback.dll
-OBJS = dyncall_thunk.obj dyncall_alloc_wx.obj dyncall_args.obj dyncall_callback.obj dyncall_callback_$(BUILD_ARCH)_msvc.obj 
+OBJS = dyncall_thunk.obj dyncall_alloc_wx.obj dyncall_args.obj dyncall_callback.obj dyncall_callback_$(BUILD_ARCH)_masm.obj 
 
 CFLAGS   = $(CFLAGS)   /I$(TOP)\dyncall
 CPPFLAGS = $(CPPFLAGS) /I$(TOP)\dyncall
