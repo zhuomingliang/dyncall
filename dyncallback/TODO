@@ -1,5 +1,4 @@
 - x64/windows support
 - nds arm and thumb support
 - psp mips support
-- transform dyncall_callback_x86_msvc.c to .asm file (on x64 we don't have inline assembly, so this would be more coherent on windows)
 
