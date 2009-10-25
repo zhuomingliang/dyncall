@@ -19,27 +19,24 @@
 
 #///////////////////////////////////////////////////
 #
-#	tests GNUmakefile
+#	bsdmake makefile
+#	BSDmakefile
 #
 #///////////////////////////////////////////////////
 
 
-TOP	=  ..
-DIRS	+= suite ellipsis suite2 callf plain suite3
+TOP=../..
 
-include $(TOP)/MakeProlog
+.include "$(TOP)/buildsys/bsdmake/prolog.bsdmake"
 
-ifdef BUILD_ARCH_x86
-DIRS	+= suite_x86win32fast
-DIRS	+= suite_x86win32std
-DIRS	+= suite2_x86win32fast
-DIRS	+= suite2_x86win32std
-ifdef BUILD_TOOL_gcc
-DIRS	+= thunk
-DIRS	+= malloc_wx
-DIRS	+= callback_suite
-endif
-endif
 
-include $(TOP)/MakeEpilog
+MODS	=	callback_suite
+APP	=	callback_suite
+
+CPPFLAGS	=
+LDFLAGS		=
+LIBS	=	"$(TOP)/dyncall/libdyncall_s.a"	"$(TOP)/dyncallback/libdyncallback_s.a"
+
+
+.include "$(TOP)/buildsys/bsdmake/epilog.bsdmake"
 

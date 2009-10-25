@@ -17,29 +17,14 @@
 #
 #//////////////////////////////////////////////////////////////////////////////
 
-#///////////////////////////////////////////////////
-#
-#	tests GNUmakefile
-#
-#///////////////////////////////////////////////////
-
-
-TOP	=  ..
-DIRS	+= suite ellipsis suite2 callf plain suite3
-
+TOP = ../..
 include $(TOP)/MakeProlog
 
-ifdef BUILD_ARCH_x86
-DIRS	+= suite_x86win32fast
-DIRS	+= suite_x86win32std
-DIRS	+= suite2_x86win32fast
-DIRS	+= suite2_x86win32std
-ifdef BUILD_TOOL_gcc
-DIRS	+= thunk
-DIRS	+= malloc_wx
-DIRS	+= callback_suite
-endif
-endif
+TARGET_APP	 = callback_suite
+UNITS		 = callback_suite
+CPPFLAGS  	+= -I$(TOP)/dyncallback -I$(TOP)/dyncall
+LINK_DIRS	+= $(TOP)/dyncallback/$(BUILD_DIR)
+LINK_LIBS 	+= dyncallback_s
 
 include $(TOP)/MakeEpilog
 

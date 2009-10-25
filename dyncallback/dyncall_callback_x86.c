@@ -200,10 +200,10 @@ DCCallback* dcNewCallback(const char* signature, DCCallbackHandler* handler, voi
 {
   int err;
   DCCallback* pcb;
-  err = dcAllocWX( sizeof(DCCallback), (void**) &pcb);
+  err = dcAllocWX(sizeof(DCCallback), (void**) &pcb);
   if (err != 0) return 0;
 
-  dcThunkInit( &pcb->thunk, dcCallbackThunkEntry );
+  dcThunkInit(&pcb->thunk, dcCallbackThunkEntry);
   dcInitCallback(pcb, signature, handler, userdata);
   return pcb;
 }
@@ -214,6 +214,6 @@ DCCallback* dcNewCallback(const char* signature, DCCallbackHandler* handler, voi
 
 void dcFreeCallback(DCCallback* pcb)
 {
-  dcFreeWX( pcb, sizeof(DCCallback) );
+  dcFreeWX(pcb, sizeof(DCCallback));
 }
 

@@ -62,7 +62,7 @@ dcCall_x64_win64 PROC EXPORT
 
 	mov			rcx,  qword ptr[r8   ]		; Copy first four arguments to rcx, rdx, r8, r9 and xmm0-xmm3.
 	mov			rdx,  qword ptr[r8+ 8]
-	mov			r9,   qword ptr[r8+24]		; Set r9 first to not overwrite r8 to soon.
+	mov			r9,   qword ptr[r8+24]		; Set r9 first to not overwrite r8 too soon.
 	mov			r8,   qword ptr[r8+16]
 	movd		xmm0, rcx
 	movd		xmm1, rdx
