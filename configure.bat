@@ -127,6 +127,17 @@ ECHO CONFIG_CONFIG=%CONFIG_CONFIG%#>>ConfigVars
 ECHO CONFIG_PREFIX=%CONFIG_PREFIX%#>>ConfigVars
 ECHO CONFIG_BUILDPREFIX=%CONFIG_BUILDPREFIX%#>>ConfigVars
 
+ECHO Writing following configuration to ConfigVars:
+ECHO.
+ECHO Host OS:             %CONFIG_HOST%
+ECHO Target OS:           %CONFIG_OS%
+ECHO Target Architecture: %CONFIG_ARCH%
+ECHO Compiler:            %CONFIG_TOOL%
+ECHO Assembler:           %CONFIG_ASM%
+ECHO Build configuration: %CONFIG_CONFIG%
+ECHO Install prefix:      %CONFIG_PREFIX%
+ECHO Build prefix:        %CONFIG_BUILDPREFIX%
+
 
 REM We have to transform some pathes for the nds/devkitPro build.
 IF [%CONFIG_OS%]==[nds] (
