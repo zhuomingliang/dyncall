@@ -6,7 +6,7 @@ char cbHandler(DCCallback* cb, DCArgs* args, DCValue* result, void* userdata)
 {
   (*(int*)userdata) = 1;
   result->s = 1234;
-  return 's';
+  return 'i';
 }
 
 
@@ -19,7 +19,7 @@ int main()
   dcTest_initPlatform();
 
   cb = dcNewCallback("if)s", &cbHandler, &success);
-  result = ((short(*)(int, float))&cb)(123, 23.f);
+  result = ((short(*)(int, float))cb)(123, 23.f);
   dcFreeCallback(cb);
 
   printf("result: callback_suite: %s\n", success && (result == 1234) ? "1" : "0");
