@@ -6,7 +6,7 @@ char cbHandler(DCCallback* cb, DCArgs* args, DCValue* result, void* userdata)
 {
   (*(int*)userdata) = 1;
   result->s = 1234;
-  return 'i';
+  return 's';		// @@@ support needed
 }
 
 
