@@ -119,11 +119,27 @@ guess_os()
 guess_arch()
 {
   ARCH=`uname -m`
+  # OS Specifics
   if [ "$OS" = "SunOS" ]; then
     if [ "$ARCH" = "i86pc" ] && [ "`isainfo -n`" = "amd64" ]; then
       CONFIG_ARCH="x64"
     else
       CONFIG_ARCH="x86"
+    fi
+  elif [ "$OS" = "Darwin" ]; then
+    # On OS X 10.6 (Darwin 10) the default architecture is now x86_64
+    # Still, BSD 'uname' and 'machine' reveals only that it is of arch i386
+    # We switch to x86_64 if it is darwin 10.
+    OS_VERSION=`uname -r`
+    OS_VERSION_MAJOR=`echo $OS_VERSION | sed 's/^\([0-9]*\).*/\1/'`
+    if [ "$OS_VERSION_MAJOR" = "10" ]; then
+      CONFIG_ARCH="x64"
+    elif [ "$ARCH" = "Power Macintosh" ] || [ "$ARCH" = "ppc" ] || [ "$ARCH" = "macppc" ]; then
+      CONFIG_ARCH="ppc32"
+    elif [ "$ARCH" = "x86" ] || [ "$ARCH" = "i386" ] || [ "$ARCH" = "i486" ] || [ "$ARCH" = "i586" ] || [ "$ARCH" = "i686" ] || [ "$ARCH" = "i86pc" ]; then
+      CONFIG_ARCH="x86"
+    elif [ "$ARCH" = "amd64" ] || [ "$ARCH" = "x86_64" ] || [ "$ARCH" = "x64" ]; then
+      CONFIG_ARCH="x64"
     fi
   elif [ "$ARCH" = "Power Macintosh" ] || [ "$ARCH" = "ppc" ] || [ "$ARCH" = "macppc" ]; then
     CONFIG_ARCH="ppc32"
