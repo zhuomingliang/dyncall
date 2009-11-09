@@ -26,6 +26,18 @@ ifdef BUILD_ARCH_universal
 TARGET_ARCH?=-arch i386 -arch ppc -arch x86_64
 endif
 
+ifdef BUILD_ARCH_ppc32
+TARGET_ARCH?=-arch ppc
+endif
+
+ifdef BUILD_ARCH_x86
+TARGET_ARCH?=-arch i386
+endif
+
+ifdef BUILD_ARCH_x64
+TARGET_ARCH?=-arch x86_64
+endif
+
 # Make sure TARGET_MACH variable equals TARGET_ARCH
 TARGET_MACH?=$(TARGET_ARCH)
 
