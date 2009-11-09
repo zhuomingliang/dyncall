@@ -1,6 +1,6 @@
 #include "../common/platformInit.h"
 #include "../../dyncallback/dyncall_callback.h"
-
+#include <stdio.h>
 
 char cbHandler(DCCallback* cb, DCArgs* args, DCValue* result, void* userdata)
 {
