@@ -243,7 +243,7 @@ sysv_done:
 
 	/* this call support using ctr branch register */
 
-	mtctr r3
+	mr    r12, r3
 	
 	mr   r11 , r4
 
@@ -272,6 +272,7 @@ sysv_done:
 
 	/* branch with this call support */
 	
+	mtctr r12
 	bctrl 
 
 	/* epilog */
