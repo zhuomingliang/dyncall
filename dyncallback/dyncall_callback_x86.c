@@ -149,8 +149,6 @@ void dcInitCallback(DCCallback* pcb, const char* signature, DCCallbackHandler* h
   int mode;
   pcb->handler = handler;
   pcb->userdata = userdata;
-  pcb->handler = handler;
-  pcb->userdata = userdata;
 
   ptr = signature;
   ch = *ptr;

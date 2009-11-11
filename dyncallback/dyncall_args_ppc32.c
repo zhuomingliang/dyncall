@@ -25,7 +25,16 @@
 DClonglong  dcArgs_longlong (DCArgs* p) { return 0; }
 DCulonglong dcArgs_ulonglong(DCArgs* p) { return (DCulonglong)dcArgs_longlong(p); }
 
-DCint       dcArgs_int      (DCArgs* p) { return 0; }
+DCint       dcArgs_int      (DCArgs* p) 
+{
+  DCint value;
+  if (p->ireg_count < 8)
+    value = p->ireg_data[p->ireg_count++];
+  else
+    value = *( (int*) p->stackptr );
+  p->stackptr += sizeof(int);
+  return value;
+}
 DCuint      dcArgs_uint     (DCArgs* p) { return (DCuint)  dcArgs_int(p);  }
 DClong      dcArgs_long     (DCArgs* p) { return (DClong)  dcArgs_uint(p); }
 DCulong     dcArgs_ulong    (DCArgs* p) { return (DCulong) dcArgs_uint(p); }
@@ -37,6 +46,33 @@ DCbool      dcArgs_bool     (DCArgs* p) { return (DCbool)  dcArgs_uint(p); }
 
 DCpointer   dcArgs_pointer  (DCArgs* p) { return (DCpointer)dcArgs_uint(p); }
 
-DCdouble    dcArgs_double   (DCArgs* p) { return 0; }
-DCfloat     dcArgs_float    (DCArgs* p) { return (float)dcArgs_double(p); }
+DCdouble    dcArgs_double   (DCArgs* p) 
+{ 
+  DCdouble result;
+  if (p->ireg_count < 7) { 
+    p->ireg_count+=2;
+  } else if (p->ireg_count == 7) {
+    p->ireg_count = 8;
+  }
+  if (p->freg_count < 13) {
+    result = p->freg_data[p->freg_count++];
+  } else {
+    result = * ( (double*) p->stackptr );
+  }
+  p->stackptr += sizeof(double);
+  return result;
+}
+DCfloat     dcArgs_float    (DCArgs* p)
+{ 
+  DCfloat result;
+  if (p->ireg_count < 8)
+    p->ireg_count++;
+  if (p->freg_count < 13) {
+    result = (DCfloat) p->freg_data[p->freg_count++];
+  } else {
+    result = * ( (float*) p->stackptr );
+  }
+  p->stackptr += sizeof(float);
+  return result; 
+}
 

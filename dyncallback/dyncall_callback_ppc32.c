@@ -21,13 +21,33 @@
 
 */
 #include "dyncall_callback.h"
+#include "dyncall_callback_ppc32.h"
+
+void dcInitCallback(DCCallback* pcb, const char* signature, DCCallbackHandler* handler, void* userdata)
+{
+  const char* ptr;
+  char ch;
+
+  pcb->handler  = handler;
+  pcb->userdata = userdata;
+}
+
+extern void dcCallbackThunkEntry();
 
 DCCallback* dcNewCallback(const char* signature, DCCallbackHandler* handler, void* userdata)
 {
-  return 0;
+  DCCallback* pcb;
+  int err = dcAllocWX(sizeof(DCCallback), (void**) &pcb);
+  if (err != 0) return 0;
+
+  dcThunkInit(&pcb->thunk, dcCallbackThunkEntry);
+  dcInitCallback(pcb, signature, handler, userdata);
+
+  return pcb;
 }
 
 void dcFreeCallback(DCCallback* pcb)
 {
+  dcFreeWX(pcb, sizeof(DCCallback));
 }
 

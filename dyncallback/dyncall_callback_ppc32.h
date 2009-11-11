@@ -1,8 +1,8 @@
 /*
  Package: dyncall
  Library: dyncallback
- File: dyncallback/dyncall_args_ppc32.h
- Description: Callback's Arguments VM - Header for ppc32
+ File: dyncallback/dyncall_callback_ppc32.h
+ Description: Callback - Header for ppc32
  License:
  Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>,
                          Tassilo Philipp <tphilipp@potion-studios.com>
@@ -20,19 +20,21 @@
  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 */
-#ifndef DYNCALLBACK_ARGS_PPC32_H
-#define DYNCALLBACK_ARGS_PPC32_H
+#ifndef DYNCALL_CALLBACK_PPC32_H
+#define DYNCALL_CALLBACK_PPC32_H
 
-#include "dyncall_args.h"
+#include "dyncall_callback.h"
 
-struct DCArgs
+#include "dyncall_thunk.h"
+#include "dyncall_args_ppc32.h"
+
+struct DCCallback
 {
-  int    ireg_data[8];
-  double freg_data[13];
-  unsigned char* stackptr;
-  int    ireg_count;
-  int    freg_count;
+  DCThunk            thunk;         /* offset  0, size 40 */
+  DCCallbackHandler* handler;       /* offset 40, size  4 */
+  size_t             stack_cleanup; /* offset 44, size  4 */
+  void*              userdata;      /* offset 48, size  4 */
 };
 
-#endif /* DYNCALLBACK_ARGS_PPC32_H */
+#endif /* DYNCALL_CALLBACK_PPC32_H */
 

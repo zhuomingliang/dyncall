@@ -31,11 +31,11 @@
 
 struct DCCallback
 {
-	DCThunk				thunk;			// offset 0,  size 16
-	DCCallbackHandler*	handler;		// offset 16
-	DCArgsVT*			args_vt;		// offset 20
-	size_t				stack_cleanup;	// offset 24
-	void*				userdata;		// offset 28
+  DCThunk	      thunk;		/* offset 0,  size 16 */
+  DCCallbackHandler*  handler;		/* offset 16 */
+  DCArgsVT*	      args_vt;		/* offset 20 */
+  size_t	      stack_cleanup;	/* offset 24 */
+  void*               userdata;		/* offset 28 */
 };
 
 int dcCleanupSize_x86_cdecl   (const char* args_signature);
@@ -44,3 +44,4 @@ int dcCleanupSize_x86_fast_ms (const char* args_signature);
 int dcCleanupSize_x86_fast_gnu(const char* args_signature);
 
 #endif /* DYNCALL_CALLBACK_X86_H_ */
+
