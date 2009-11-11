@@ -16,9 +16,10 @@ function randomSignatures(nsigs)
     end
     local rtypeindex = math.random(nrettypes)
     signature = signature .. ")" .. string.sub(rettypes, rtypeindex, rtypeindex)
-    print(signature)
+    io.write(signature .. "\n")
   end
 end
 
 randomSignatures(nsigs)
+io.flush()
 

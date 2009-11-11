@@ -5,8 +5,8 @@ const char* sigstrings[CONFIG_NSIGS] =
 #include "_auto_sigstrings.h"
 };
 
-const char* GetSignature(int id)
+const char* GetSignature(int index)
 {
-  return sigstrings[id-1];
+  return sigstrings[index];
 }
 

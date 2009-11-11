@@ -1,1 +1,1 @@
-void DoInvoke(int id, void* addr);
+void DoInvoke(int index, void* addr);

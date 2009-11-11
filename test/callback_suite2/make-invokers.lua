@@ -11,4 +11,5 @@ for signature in io.lines() do
   io.write( outline )
   id = id + 1
 end
+io.flush()
 

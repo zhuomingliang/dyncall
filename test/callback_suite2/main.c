@@ -16,7 +16,6 @@ void test_range(int from, int to)
   for(i = from ; i <= to ; ++i )
   {
     int status = DoTest(i);
-    printf("%d:%d\n", i, status );
     totalErrorCodes[status]++;
   }
 }
@@ -35,7 +34,7 @@ int main(int argc, char* argv[] )
 
   test_range(from, to);
 
-  printf("result:", (totalErrorCodes[0] == n) ? 1 : 0 );
+  printf("result:%d\n", (totalErrorCodes[1] == n) ? 1 : 0 );
 
   return 0;
 }

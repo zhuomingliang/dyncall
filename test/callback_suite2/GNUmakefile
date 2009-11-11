@@ -37,12 +37,12 @@ _auto_invokers.h: _auto_signatures.txt
 	lua make-invokers.lua <$< >$@
 
 _auto_sigstrings.h: _auto_signatures.txt
-	lua make-sigstrings.lua <$< >$@
+	lua make-cstrings.lua <$< >$@
 
 _auto_config.h: 
 	lua make-config.lua >$@
 
-autoclean:
+autoclean: clean
 	$(RM) $(AUTOS)
 
 include $(TOP)/MakeEpilog

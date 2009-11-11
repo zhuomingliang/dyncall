@@ -53,16 +53,19 @@ DCCallbackHandler handler; /* see handler.c for implementation */
 
 int DoTest(int id)
 {
-  int result;
+  int index, result;
   const char* signature;
   DCCallback* pcb;
+
+  assert( id > 0 && id <= CONFIG_NSIGS );
+  index = id - 1;
   
-  signature = GetSignature(id);
+  signature = GetSignature(index);
   fprintf(stdout, "f%d(%s:", id,signature);
   fflush(stdout);
   pcb = dcNewCallback( signature, handler, (void*) signature );
   assert(pcb != NULL);
-  DoInvoke(id, (void*) signature);
+  DoInvoke(index, (void*) pcb);
   result = Compare(signature); 
   fprintf(stdout, "%d\n", result);
   dcFreeCallback(pcb);

@@ -1,4 +1,5 @@
 #include "_auto_config.h"
+#include <assert.h>
 #include "invokers.h"
 #include "env.h"
 
@@ -39,13 +40,34 @@ typedef DCstring    Z;
   (A[0].A0 , A[1].A1 ); }
 #define F3(ID,R,A0,A1,A2) void ID(void* addr) { Result.R = ((R(*)(A0,A1,A2))addr)\
   (A[0].A0 , A[1].A1 , A[2].A2); }
+#define F4(ID,R,A0,A1,A2,A3) void ID(void* addr) { Result.R = ((R(*)(A0,A1,A2,A3))addr)\
+  (A[0].A0 , A[1].A1 , A[2].A2, A[3].A3); }
+#define F5(ID,R,A0,A1,A2,A3,A4) void ID(void* addr) { Result.R = ((R(*)(A0,A1,A2,A3,A4))addr)\
+  (A[0].A0 , A[1].A1 , A[2].A2, A[3].A3, A[4].A4); }
+#define F6(ID,R,A0,A1,A2,A3,A4,A5) void ID(void* addr) { Result.R = ((R(*)(A0,A1,A2,A3,A4,A5))addr)\
+  (A[0].A0 , A[1].A1 , A[2].A2, A[3].A3, A[4].A4, A[5].A5); }
+#define F7(ID,R,A0,A1,A2,A3,A4,A5,A6) void ID(void* addr) { Result.R = ((R(*)(A0,A1,A2,A3,A4,A5,A6))addr)\
+  (A[0].A0 , A[1].A1 , A[2].A2, A[3].A3, A[4].A4, A[5].A5, A[6].A6); }
+#define F8(ID,R,A0,A1,A2,A3,A4,A5,A6,A7) void ID(void* addr) { Result.R = ((R(*)(A0,A1,A2,A3,A4,A5,A6,A7))addr)\
+  (A[0].A0 , A[1].A1 , A[2].A2, A[3].A3, A[4].A4, A[5].A5, A[6].A6, A[7].A7); }
+#define F9(ID,R,A0,A1,A2,A3,A4,A5,A6,A7,A8) void ID(void* addr) { Result.R = ((R(*)(A0,A1,A2,A3,A4,A5,A6,A7,A8))addr)\
+  (A[0].A0 , A[1].A1 , A[2].A2, A[3].A3, A[4].A4, A[5].A5, A[6].A6, A[7].A7, A[8].A8); }
+#define F10(ID,R,A0,A1,A2,A3,A4,A5,A6,A7,A8,A9) void ID(void* addr) { Result.R = ((R(*)(A0,A1,A2,A3,A4,A5,A6,A7,A8,A9))addr)\
+  (A[0].A0 , A[1].A1 , A[2].A2, A[3].A3, A[4].A4, A[5].A5, A[6].A6, A[7].A7, A[8].A8, A[9].A9); }
 #include "_auto_invokers.h"
 
 #undef A
-#undef F0(ID,R)
-#undef F1(ID,R,A1)
-#undef F2(ID,R,A1,A2)
-#undef F3(ID,R,A1,A2,A3)
+#undef F0
+#undef F1
+#undef F2
+#undef F3
+#undef F4
+#undef F5
+#undef F6
+#undef F7
+#undef F8
+#undef F9
+#undef F10
 
 /* table of invokers */
 
@@ -55,6 +77,13 @@ typedef void (invoker)(void*);
 #define F1(ID,R,A1) &ID,
 #define F2(ID,R,A1,A2) &ID,
 #define F3(ID,R,A1,A2,A3) &ID,
+#define F4(ID,R,A0,A1,A2,A3) &ID,
+#define F5(ID,R,A0,A1,A2,A3,A4) &ID, 
+#define F6(ID,R,A0,A1,A2,A3,A4,A5) &ID, 
+#define F7(ID,R,A0,A1,A2,A3,A4,A5,A6) &ID, 
+#define F8(ID,R,A0,A1,A2,A3,A4,A5,A6,A7) &ID,
+#define F9(ID,R,A0,A1,A2,A3,A4,A5,A6,A7,A8) &ID, 
+#define F10(ID,R,A0,A1,A2,A3,A4,A5,A6,A7,A8,A9) &ID, 
 
 invoker* invokers[CONFIG_NSIGS] = {
 #include "_auto_invokers.h"
@@ -62,8 +91,8 @@ invoker* invokers[CONFIG_NSIGS] = {
 
 /* front-end */
 
-void DoInvoke(int id, void* addr)
+void DoInvoke(int index, void* addr)
 {
-  invokers[id](addr);
+  invokers[index](addr);
 }
 
