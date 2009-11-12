@@ -100,8 +100,9 @@ _dcCall_ppc32_darwin:
 
 .done:
 
-	mtctr r3		/* setup target function */
-	mr r2, r4		/* r2 = reg data */
+	mr    r12, r3		/* r12 = target function */
+	mtctr r12		/* control register = target function */
+	mr     r2, r4		/* r2 = reg data */
 
         /* load 8 integer registers */
 
