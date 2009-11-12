@@ -1,10 +1,10 @@
 #include <assert.h>
-#include <stdio.h>
 #include "_auto_config.h"
 #include "invokers.h"
 #include "dyncall_callback.h"
 #include "sigstrings.h"
 #include "env.h"
+#include "print.h"
 
 int CompareValues(char type, DCValue* a, DCValue* b)
 {
@@ -49,7 +49,7 @@ int Compare(const char* signature)
 }
 
 
-DCCallbackHandler handler; /* see handler.c for implementation */
+extern DCCallbackHandler handler; /* see handler.c for implementation */
 
 int DoTest(int id)
 {
@@ -61,13 +61,13 @@ int DoTest(int id)
   index = id - 1;
   
   signature = GetSignature(index);
-  fprintf(stdout, "f%d(%s:", id,signature);
-  fflush(stdout);
+  PrintCaseInfo(id,signature);
+
   pcb = dcNewCallback( signature, handler, (void*) signature );
   assert(pcb != NULL);
   DoInvoke(index, (void*) pcb);
   result = Compare(signature); 
-  fprintf(stdout, "%d\n", result);
+  PrintCaseResult(result);
   dcFreeCallback(pcb);
   return result;
 }

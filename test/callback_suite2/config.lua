@@ -1,18 +1,8 @@
-nsigs     = 1000      -- number of functions to generate (used by make-signature)
-maxargs   = 10        -- maximum function arithy
-argtypes  = "Bilpfd"  -- supported argument types
-rettypes  = argtypes  -- supported return types (currently no void support)
-typemap   =           -- type map from signature character to C type name
-{ 
-  v="DCvoid",
-  B="DCbool",
-  c="DCchar",
-  s="DCshort",
-  i="DCint",
-  j="DClong",
-  l="DClonglong",
-  p="DCpointer",
-  f="DCfloat",
-  d="DCdouble"
-}
+-- calculate maxargs when mode = "ordered" ( hint: use log )
+nsigs     = 2000       -- number of functions to generate (used by make-signature)
+offset    = 0          -- when 'ordered': add offset to base number
+mode      = "random"   -- generatore mode: 'random' or 'ordered' type sequences
+maxargs   = 10         -- maximum function arithy
+argtypes  = "Bilpfd"   -- supported argument types
+rettypes  = argtypes   -- supported return types (currently no void support)
 

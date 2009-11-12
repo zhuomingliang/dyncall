@@ -24,7 +24,7 @@ void InitReferenceArg(DCValue* output, char ch, int pos)
     case DC_SIGCHAR_FLOAT:    output->f = ( (float) pos ) * Kf; break;
     case DC_SIGCHAR_DOUBLE:   output->d = ( (double) pos ) * Kd; break;
     case DC_SIGCHAR_LONGLONG: output->l = ( (long long) pos ) * Kl; break;
-    case DC_SIGCHAR_POINTER:  output->p = (void*) (pos*Kp); break;
+    case DC_SIGCHAR_POINTER:  output->p = (DCpointer) (unsigned long) (pos*Kp); break;
     default: assert(0);
   }
 }
@@ -47,4 +47,7 @@ void InitEnv()
     InitReferenceArg( &ref, DC_SIGCHAR_POINTER, pos); ValueMatrix[pos].p = ref.p;
   }
 }
+
+/* Global Options. */
+int OptionVerbose = 0;
 

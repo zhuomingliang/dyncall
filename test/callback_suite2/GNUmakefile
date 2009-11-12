@@ -22,7 +22,7 @@ include $(TOP)/MakeProlog
 
 TARGET_APP	 = callback_suite2
 AUTOS		 = _auto_config.h _auto_signatures.txt _auto_sigstrings.h _auto_invokers.h 
-UNITS		 = env handler sigstrings invokers do_test main
+UNITS		 = env handler sigstrings invokers do_test main print
 CPPFLAGS  	+= -I$(TOP)/dyncallback -I$(TOP)/dyncall
 LINK_DIRS	+= $(TOP)/dyncallback/$(BUILD_DIR)
 LINK_LIBS 	+= dyncallback_s
