@@ -31,7 +31,6 @@ static long long sysv_i64(DCArgs* args)
     return *args->stack_ptr++;
 }
 
-#if 0
 static float sysv_f32(DCArgs* args)
 {
   if (args->freg_count < 8) {
@@ -45,7 +44,6 @@ static float sysv_f32(DCArgs* args)
     return value;
   }
 }
-#endif
 
 static double sysv_f64(DCArgs* args)
 {
@@ -82,5 +80,5 @@ DCulonglong dcArgs_ulonglong(DCArgs* p) { return (DCulonglong) dcArgs_longlong(p
 DCpointer   dcArgs_pointer  (DCArgs* p) { return (DCpointer)   dcArgs_longlong(p); }
 
 DCdouble    dcArgs_double   (DCArgs* p) { return sysv_f64(p); }
-DCfloat     dcArgs_float    (DCArgs* p) { return (float) dcArgs_double(p); }
+DCfloat     dcArgs_float    (DCArgs* p) { return sysv_f32(p); } // (float) dcArgs_double(p); }
 

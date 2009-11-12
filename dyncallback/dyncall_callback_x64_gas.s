@@ -95,13 +95,23 @@ dcCallbackThunkEntry:
 
 	call [%rax+CTX_handler]
 
-	// return values
+	// check return type
 
+	cmp  %al, 'f'
+	je   .float
+	cmp  %al, 'd'
+	je   .float
+
+.int:
+	movq %rax, [%rbp+FRAME_DCValue]
+	jmp  .return
+
+.float:
 	movq %rdx, [%rbp+FRAME_DCValue]
 	movd %xmm0, %rdx
 
+.return:
 	mov  %rsp, %rbp
 	pop  %rbp
-
 	ret
 
