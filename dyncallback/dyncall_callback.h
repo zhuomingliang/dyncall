@@ -25,9 +25,9 @@
 #ifndef DYNCALL_CALLBACK_H
 #define DYNCALL_CALLBACK_H
 
-#include "../dyncall/dyncall_signature.h"
-#include "../dyncall/dyncall_value.h"
+#include "dyncall_signature.h"
 #include "dyncall_args.h"
+#include "dyncall_value.h"
 
 typedef struct DCCallback DCCallback;
 
@@ -38,3 +38,4 @@ void        dcInitCallback(DCCallback* pcb, const char* signature, DCCallbackHan
 void        dcFreeCallback(DCCallback* pcb);
 
 #endif // DYNCALL_CALLBACK_H
+

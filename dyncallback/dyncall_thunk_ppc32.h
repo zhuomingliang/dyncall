@@ -32,7 +32,7 @@ struct DCThunk_
   void*          addr_entry;
 };
 
-#define DCTHUNK_SIZE_PPC32 40
+#define DCTHUNK_SIZE_PPC32 24
 
 #endif // DYNCALL_THUNK_PPC32_H
 
