@@ -29,8 +29,18 @@ int main(int argc, char* argv[] )
   int from = 1;
   int to = CONFIG_NSIGS;
   int n = (to - from) + 1;
+  
+  if (argc == 2)
+    from = to = atoi(argv[1]);
+  else if (argc == 3) {
+    from = atoi(argv[1]);
+    to   = atoi(argv[2]);
+  }
 
-  assert(n <= CONFIG_NSIGS);
+
+  assert(from <= to);
+  assert(from > 0);
+  assert(to   <= CONFIG_NSIGS);
 
   test_range(from, to);
 
