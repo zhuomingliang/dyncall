@@ -22,9 +22,6 @@
 */
 #include "dyncall_args_ppc32.h"
 
-DClonglong  dcArgs_longlong (DCArgs* p) { return 0; }
-DCulonglong dcArgs_ulonglong(DCArgs* p) { return (DCulonglong)dcArgs_longlong(p); }
-
 DCint       dcArgs_int      (DCArgs* p) 
 {
   DCint value;
@@ -36,6 +33,16 @@ DCint       dcArgs_int      (DCArgs* p)
   return value;
 }
 DCuint      dcArgs_uint     (DCArgs* p) { return (DCuint)  dcArgs_int(p);  }
+
+DCulonglong  dcArgs_ulonglong (DCArgs* p) 
+{
+  DCulonglong value;
+  value  = ( (DCulonglong) dcArgs_uint(p) ) << 16UL;
+  value |= dcArgs_uint(p);
+  return value;
+}
+DClonglong  dcArgs_longlong(DCArgs* p) { return (DClonglong)dcArgs_ulonglong(p); }
+
 DClong      dcArgs_long     (DCArgs* p) { return (DClong)  dcArgs_uint(p); }
 DCulong     dcArgs_ulong    (DCArgs* p) { return (DCulong) dcArgs_uint(p); }
 DCchar      dcArgs_char     (DCArgs* p) { return (DCchar)  dcArgs_uint(p); }

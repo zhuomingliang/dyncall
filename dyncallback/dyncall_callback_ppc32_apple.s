@@ -86,6 +86,11 @@ DCV_LONG_HI32	= 0
 DCV_LONG_LO32	= 4
 DCV_SIZE	= 8
 
+iregfile	= ARGS_OFFSET+DCA_IARRAY
+fregfile	= ARGS_OFFSET+DCA_FARRAY
+save_sp		= ARGS_OFFSET+DCA_SP
+icount		= ARGS_OFFSET+DCA_ICOUNT
+fcount		= ARGS_OFFSET+DCA_FCOUNT
 	.globl _dcCallbackThunkEntry
 
 	/* 
@@ -93,78 +98,80 @@ DCV_SIZE	= 8
 	  R2 = DCCallback*
 	*/
 _dcCallbackThunkEntry:
-	
-	mflr   r0			
-	stw    r0,  8(r1)		/* store return address */
-	stmw  r30, -8(r1)		/* store preserved registers (r30/r31) */
-	addi  r30, r1, PAR_OFFSET	/* r30 = parameter area on callers stack frame */
-	stwu   r1, -FRAME_SIZE(r1)	/* save callers stack pointer and make new stack frame. */
-	stw    r3, ARGS_OFFSET+DCA_IARRAY+0*4(r1)	/* spill 8 integer parameter registers */
-	stw    r4, ARGS_OFFSET+DCA_IARRAY+1*4(r1)
-	stw    r5, ARGS_OFFSET+DCA_IARRAY+2*4(r1)
-	stw    r6, ARGS_OFFSET+DCA_IARRAY+3*4(r1)
-	stw    r7, ARGS_OFFSET+DCA_IARRAY+4*4(r1)
-	stw    r8, ARGS_OFFSET+DCA_IARRAY+5*4(r1)
-	stw    r9, ARGS_OFFSET+DCA_IARRAY+6*4(r1)
-	stw   r10, ARGS_OFFSET+DCA_IARRAY+7*4(r1)
-	stfd   f1, ARGS_OFFSET+DCA_FARRAY+ 0*8(r1)	/* spill 13 float parameter registers */
-	stfd   f2, ARGS_OFFSET+DCA_FARRAY+ 1*8(r1)
-	stfd   f3, ARGS_OFFSET+DCA_FARRAY+ 2*8(r1)
-	stfd   f4, ARGS_OFFSET+DCA_FARRAY+ 3*8(r1)
-	stfd   f5, ARGS_OFFSET+DCA_FARRAY+ 4*8(r1)
-	stfd   f6, ARGS_OFFSET+DCA_FARRAY+ 5*8(r1)
-	stfd   f7, ARGS_OFFSET+DCA_FARRAY+ 6*8(r1)
-	stfd   f8, ARGS_OFFSET+DCA_FARRAY+ 7*8(r1)
-	stfd   f9, ARGS_OFFSET+DCA_FARRAY+ 8*8(r1)
-	stfd  f10, ARGS_OFFSET+DCA_FARRAY+ 9*8(r1)
-	stfd  f11, ARGS_OFFSET+DCA_FARRAY+10*8(r1)
-	stfd  f12, ARGS_OFFSET+DCA_FARRAY+11*8(r1)
-	stfd  f13, ARGS_OFFSET+DCA_FARRAY+12*8(r1)
 
-							/* initialize struct DCCallback */
-	stw   r30, ARGS_OFFSET+DCA_SP(r1)		/* init stack pointer */
-	xor    r0, r0, r0				/* init register counters */
-	stw    r0, ARGS_OFFSET+DCA_ICOUNT(r1)
-	stw    r0, ARGS_OFFSET+DCA_FCOUNT(r1)
-							/* invoke callback handler */
-	mr     r3, r2			/* arg 1: DCCallback* pcb 	*/
-	addi   r4, r1, ARGS_OFFSET	/* arg 2: DCArgs* args 		*/
-	addi   r5, r1, RESULT_OFFSET	/* arg 3: DCValue* result	*/
-	lwz    r6, DCB_USERDATA(r2)     /* arg 4: void* userdata 	*/
+	mflr	r0			
+	stw	r0,  8(r1)		/* store return address */
+	/* stmw  r30, -8(r1) */	/* store preserved registers (r30/r31) */
+	addi	r12, r1, PAR_OFFSET	/* temporary r12 = parameter area on callers stack frame */
+	stwu	r1, -FRAME_SIZE(r1)	/* save callers stack pointer and make new stack frame. */
+	stw	r3, iregfile+0*4(r1)	/* spill 8 integer parameter registers */
+	stw	r4, iregfile+1*4(r1)
+	stw	r5, iregfile+2*4(r1)
+	stw     r6, iregfile+3*4(r1)
+	stw     r7, iregfile+4*4(r1)
+	stw     r8, iregfile+5*4(r1)
+	stw     r9, iregfile+6*4(r1)
+	stw     r10,iregfile+7*4(r1)
+	stfd    f1, fregfile+ 0*8(r1)	/* spill 13 float parameter registers */
+	stfd    f2, fregfile+ 1*8(r1)
+	stfd    f3, fregfile+ 2*8(r1)
+	stfd    f4, fregfile+ 3*8(r1)
+	stfd    f5, fregfile+ 4*8(r1)
+	stfd    f6, fregfile+ 5*8(r1)
+	stfd    f7, fregfile+ 6*8(r1)
+	stfd    f8, fregfile+ 7*8(r1)
+	stfd    f9, fregfile+ 8*8(r1)
+	stfd    f10,fregfile+ 9*8(r1)
+	stfd    f11,fregfile+10*8(r1)
+	stfd    f12,fregfile+11*8(r1)
+	stfd    f13,fregfile+12*8(r1)
+					/* initialize struct DCCallback */
+	stw	r12,save_sp(r1)		/* init stack pointer */
+	xor	r0, r0, r0		/* init register counters */
+	stw	r0, icount(r1)
+	stw	r0, fcount(r1)
+					/* invoke callback handler */
+	mr	r3, r2			/* arg 1: DCCallback* pcb 	*/
+	addi	r4, r1, ARGS_OFFSET	/* arg 2: DCArgs* args 		*/
+	addi	r5, r1, RESULT_OFFSET	/* arg 3: DCValue* result	*/
+	lwz	r6, DCB_USERDATA(r2)    /* arg 4: void* userdata 	*/
 
-					/* branch to DCCallback.handler */
-	lwz   r12, DCB_HANDLER(r2)
-	mtctr r12
+					/* branch-and-link to DCCallback.handler */
+	lwz	r12,  DCB_HANDLER(r2)
+	mtctr	r12
 	bctrl
-	
-	addi   r0, r1, RESULT_OFFSET	/* r0 = DCValue* */
-
-	/* switch on base result type */	
-
-	cmpi  cr0, r3, 'i
-	beq  .i32 
-	cmpi  cr0, r3, 'f
-	beq  .f32
-	cmpi  cr0, r3, 'd
-	beq  .f64
-	cmpi  cr0, r3, 'l
-	beq  .i64
+	addi	r0, r1, RESULT_OFFSET	/* r0 = DCValue* */
+					/* switch on base result type */	
+	cmpi	cr0, r3, 'B
+	beq	.i32
+	cmpi	cr0, r3, 'i
+	beq	.i32 
+	cmpi	cr0, r3, 'l
+	beq	.i64
+	cmpi	cr0, r3, 'f
+	beq	.f32
+	cmpi	cr0, r3, 'd
+	beq	.f64
+	cmpi	cr0, r3, 'p
+	beq	.i32
 .void:				/* ignore result (void call) */
-	b .end
+	b	.end
 .i32:				/* result is integer <= 32-bit result */
-	lwz    r3, RESULT_OFFSET + DCV_INT(r1)	
-	b .end
+	lwz	r3, RESULT_OFFSET + DCV_INT(r1)	
+	b	.end
 .f32:				/* result is C float result */
+	lfs	f1, RESULT_OFFSET + DCV_FLOAT(r1)
+	b	.end
 .f64:
-	lfd    f1, RESULT_OFFSET + DCV_FLOAT(r1)
-	b .end
+	lfd	f1, RESULT_OFFSET + DCV_FLOAT(r1)
+	b	.end
 .i64:				/* result is C double result */
 	lwz    r3, RESULT_OFFSET + DCV_LONG_HI32(r1)
 	lwz    r4, RESULT_OFFSET + DCV_LONG_LO32(r1)
 	b .end
 .end:
 	lwz    r1,  0(r1)	/* restore stack pointer */
-	lmw   r30, -8(r1)	/* restore preserved registers */
+	/* lmw   r30, -8(r1)	*/  /* restore preserved registers */
 	lwz    r0,  8(r1)	/* load link register with return address */
 	mtlr   r0
 	blr			/* branch back to link register */
