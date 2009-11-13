@@ -5,6 +5,7 @@
 #include "sigstrings.h"
 #include "env.h"
 #include "print.h"
+#include <stdio.h>
 
 int CompareValues(char type, DCValue* a, DCValue* b)
 {
@@ -25,27 +26,42 @@ int CompareValues(char type, DCValue* a, DCValue* b)
 int Compare(const char* signature)
 {
   DCValue ref;
+  int total = 1;
   int pos;
   int isequal;
   char ch;
+
+  /* check arguments */
+
   pos = 0;
+
   for(;;) {
 
     ch  = *signature++;
     
     if (ch == DC_SIGCHAR_ENDARG) break;
-    InitReferenceArg(&ref, ch, pos);
+    GetReferenceArg(&ref, ch, pos);
     isequal = CompareValues( ch, &ref, &Args[pos] );
-    if ( !isequal ) return 0;
+    if ( !isequal ) {
+      if (OptionVerbose) { total = 0; fprintf(stdout, " @%d ", pos); }
+      else return 0;
+    }
     ++ pos;
   }
     
   ch  = *signature++;
 
-  InitReferenceResult(&ref, ch);
+  /* check result */
+
+  GetReferenceResult(&ref, ch);
 
   isequal = CompareValues(ch, &ref, &Result);
-  return isequal;
+  if (!isequal) {
+    if (OptionVerbose) { total = 0; fprintf(stdout, " @-1 "); }
+    else return 0;
+  }
+
+  return total;
 }
 
 

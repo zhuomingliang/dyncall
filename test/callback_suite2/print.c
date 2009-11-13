@@ -2,7 +2,7 @@
 
 void PrintUsage(const char* appName)
 {
-  printf("usage:\n\
+  fprintf(stdout, "usage:\n\
 %s [ -v ] [ from [to] ]\n\
 where\n\
   from, to: test range\n\
@@ -11,6 +11,7 @@ options\n\
   -h        help on usage\n\
 \n\
 ", appName);
+  fflush(stdout);
 }
 
 void PrintHeader()
@@ -26,12 +27,13 @@ void PrintCaseInfo(int caseId, const char* signatureString)
 
 void PrintCaseResult(int resultId)
 {
-  fprintf(stdout, "%d\n", resultId);
+  fprintf(stdout, ":%d\n", resultId);
   fflush(stdout);
 }
 
 void PrintTotalResult(int resultId)
 {
   printf("result:%d\n", resultId );
+  fflush(stdout);
 }
 

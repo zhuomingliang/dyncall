@@ -4,8 +4,12 @@
 /* test related */
 
 void InitEnv(); /* initializes ValueMatrix */
-void InitReferenceArg(DCValue* output, char type, int argpos);
-void InitReferenceResult(DCValue* output, char type);
+
+
+/* function of type and position */
+void GetReferenceArg(DCValue* output, char type, int argpos);
+/* function of type (position = -1) */
+void GetReferenceResult(DCValue* output, char type);
 
 extern DCValueSet    ValueMatrix[CONFIG_MAXARGS];
 extern DCValue       Args[CONFIG_MAXARGS];

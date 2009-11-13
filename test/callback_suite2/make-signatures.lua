@@ -5,6 +5,7 @@ require "string"
 local nargtypes = string.len(argtypes)
 local nrettypes = string.len(rettypes)
 local argrange  = maxargs - minargs
+math.randomseed(seed)
 
 function randomSignatures(nsigs)
   local i 

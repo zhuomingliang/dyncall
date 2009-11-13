@@ -7,14 +7,14 @@ DCValueSet ValueMatrix[CONFIG_MAXARGS];
 DCValue    Args[CONFIG_MAXARGS];
 DCValue    Result;
 
+void GetReferenceArg(DCValue* output, char ch, int pos)
+{
 static const int Ki = 134;
 static const double Kd = 1.012356;
 static const float Kf = 1.20432545f; 
 static const int Kp = 0x1020345;
 static const DClonglong Kl = 24534543;
 
-void InitReferenceArg(DCValue* output, char ch, int pos)
-{
   DCValue value;
   output->L = 0xCAFEBABEDEADC0DELL;
   pos = pos + 2;
@@ -29,9 +29,9 @@ void InitReferenceArg(DCValue* output, char ch, int pos)
   }
 }
 
-void InitReferenceResult(DCValue* output, char ch)
+void GetReferenceResult(DCValue* output, char ch)
 {
-  InitReferenceArg(output, ch, -1);
+  GetReferenceArg(output, ch, -1);
 }
 
 void InitEnv()
@@ -39,12 +39,12 @@ void InitEnv()
   int pos;
   for(pos = 0 ;pos < CONFIG_MAXARGS ;++pos) {
     DCValue ref;
-    InitReferenceArg( &ref, DC_SIGCHAR_BOOL, pos); ValueMatrix[pos].B = ref.B;
-    InitReferenceArg( &ref, DC_SIGCHAR_INT,  pos); ValueMatrix[pos].i = ref.i;
-    InitReferenceArg( &ref, DC_SIGCHAR_FLOAT, pos); ValueMatrix[pos].f = ref.f;
-    InitReferenceArg( &ref, DC_SIGCHAR_DOUBLE, pos); ValueMatrix[pos].d = ref.d;
-    InitReferenceArg( &ref, DC_SIGCHAR_LONGLONG, pos); ValueMatrix[pos].l = ref.l;
-    InitReferenceArg( &ref, DC_SIGCHAR_POINTER, pos); ValueMatrix[pos].p = ref.p;
+    GetReferenceArg( &ref, DC_SIGCHAR_BOOL     , pos);     ValueMatrix[pos].B = ref.B;
+    GetReferenceArg( &ref, DC_SIGCHAR_INT      , pos);     ValueMatrix[pos].i = ref.i;
+    GetReferenceArg( &ref, DC_SIGCHAR_FLOAT    , pos);    ValueMatrix[pos].f = ref.f;
+    GetReferenceArg( &ref, DC_SIGCHAR_DOUBLE   , pos);   ValueMatrix[pos].d = ref.d;
+    GetReferenceArg( &ref, DC_SIGCHAR_LONGLONG , pos); ValueMatrix[pos].l = ref.l;
+    GetReferenceArg( &ref, DC_SIGCHAR_POINTER  , pos);  ValueMatrix[pos].p = ref.p;
   }
 }
 

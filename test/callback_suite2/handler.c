@@ -28,7 +28,7 @@ char handler(DCCallback* that, DCArgs* input, DCValue* output, void* userdata)
   ch = *signature++;
 
   /* currently, no void result is supported by the suite */
-  InitReferenceResult(output, ch);
+  GetReferenceResult(output, ch);
   switch(ch) {
     case DC_SIGCHAR_BOOL:     return 'i';
     case DC_SIGCHAR_INT:      return 'i';
