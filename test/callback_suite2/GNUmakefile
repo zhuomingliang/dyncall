@@ -21,7 +21,12 @@ TOP = ../..
 include $(TOP)/MakeProlog
 
 TARGET_APP	 = callback_suite2
-AUTOS		 = _auto_config.h _auto_signatures.txt _auto_sigstrings.h _auto_invokers.h 
+AUTOS		 = _auto_config.h _auto_sigstrings.h _auto_invokers.h \
+		   _auto_invoke_macros.h _auto_invoke_table.h
+
+# Comment to have user-designed cases:
+AUTOS		+= _auto_signatures.txt
+
 UNITS		 = env handler sigstrings invokers do_test main print
 CPPFLAGS  	+= -I$(TOP)/dyncallback -I$(TOP)/dyncall
 LINK_DIRS	+= $(TOP)/dyncallback/$(BUILD_DIR)
@@ -41,6 +46,12 @@ _auto_sigstrings.h: _auto_signatures.txt
 
 _auto_config.h: 
 	lua make-config.lua >$@
+
+_auto_invoke_macros.h:
+	lua make-invoke-macros.lua >$@
+
+_auto_invoke_table.h:
+	lua make-invoke-table.lua >$@
 
 autoclean: clean
 	$(RM) $(AUTOS)

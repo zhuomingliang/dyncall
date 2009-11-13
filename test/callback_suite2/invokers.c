@@ -54,7 +54,8 @@ typedef DCstring    Z;
   (A[0].A0 , A[1].A1 , A[2].A2, A[3].A3, A[4].A4, A[5].A5, A[6].A6, A[7].A7, A[8].A8); }
 #define F10(ID,R,A0,A1,A2,A3,A4,A5,A6,A7,A8,A9) void ID(void* addr) { Result.R = ((R(*)(A0,A1,A2,A3,A4,A5,A6,A7,A8,A9))addr)\
   (A[0].A0 , A[1].A1 , A[2].A2, A[3].A3, A[4].A4, A[5].A5, A[6].A6, A[7].A7, A[8].A8, A[9].A9); }
-#include "_auto_invokers.h"
+
+// #include "_auto_invokers.h"
 
 #undef A
 #undef F0
@@ -69,10 +70,13 @@ typedef DCstring    Z;
 #undef F9
 #undef F10
 
+#define A ValueMatrix
+#include "_auto_invoke_macros.h"
+#include "_auto_invokers.h"
 /* table of invokers */
 
-typedef void (invoker)(void*);
 
+/*
 #define F0(ID,R) &ID,
 #define F1(ID,R,A1) &ID,
 #define F2(ID,R,A1,A2) &ID,
@@ -84,9 +88,13 @@ typedef void (invoker)(void*);
 #define F8(ID,R,A0,A1,A2,A3,A4,A5,A6,A7) &ID,
 #define F9(ID,R,A0,A1,A2,A3,A4,A5,A6,A7,A8) &ID, 
 #define F10(ID,R,A0,A1,A2,A3,A4,A5,A6,A7,A8,A9) &ID, 
+*/
+
+typedef void (invoker)(void*);
 
 invoker* invokers[CONFIG_NSIGS] = {
-#include "_auto_invokers.h"
+// #include "_auto_invokers.h"
+#include "_auto_invoke_table.h"
 };
 
 /* front-end */

@@ -4,11 +4,12 @@ require "string"
 
 local nargtypes = string.len(argtypes)
 local nrettypes = string.len(rettypes)
+local argrange  = maxargs - minargs
 
 function randomSignatures(nsigs)
   local i 
   for i = 1, nsigs do
-    local nargs = math.random(maxargs+1) - 1
+    local nargs = minargs + math.random(argrange+1) - 1 
     local signature = ""
     for j = 1, nargs do
       local typeindex = math.random(nargtypes)
@@ -37,7 +38,7 @@ end
 function orderedSignatures(nsigs)
   local i 
   for i = 1, nsigs do
-    io.write( orderedSignature(offset+i) .. "\n" )
+    io.write( orderedSignature(offset+i*step) .. "\n" )
   end
 end
 
