@@ -2,7 +2,7 @@
  Package: dyncall
  Library: dyncallback
  File: dyncallback/dyncall_callback_x64_apple.s
- Description: Callback Thunk - Implementation for x64 (apple)
+ Description: Callback Thunk - Implementation for x64 (Apple as assembly)
  License:
 
  Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>,
@@ -96,13 +96,25 @@ _dcCallbackThunkEntry:
 
 	call [%rax+CTX_handler]
 
-	// return values
+	// pass return type via registers
+	// distinguish two basic classes 'integer' and 'float'
+	
+	mov  %dl, %al
+	movq %rax, [%rbp+FRAME_DCValue]
 
-	movq %rdx, [%rbp+FRAME_DCValue]
-	movd %xmm0, %rdx
+ASCII_f	= 102
+ASCII_d = 100
 
+	cmpb	%dl, ASCII_f
+	je	.float
+	cmpb	%dl, ASCII_d
+	jne	.return
+.float:
+	movd %xmm0, %rax
+
+.return:
 	mov  %rsp, %rbp
 	pop  %rbp
-
 	ret
+
 

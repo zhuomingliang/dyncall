@@ -2,7 +2,7 @@
  Package: dyncall
  Library: dyncallback
  File: dyncallback/dyncall_callback_x64_gas.s
- Description: Callback Thunk - Implementation for x64
+ Description: Callback Thunk - Implementation for x64 (GNU as assembler)
  License:
 
  Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>,
@@ -95,20 +95,20 @@ dcCallbackThunkEntry:
 
 	call [%rax+CTX_handler]
 
-	// check return type
+	// pass return type via registers
+	// distinguish two basic classes 'integer' and 'float'
 
-	cmp  %al, 'f'
-	je   .float
-	cmp  %al, 'd'
-	je   .float
-
-.int:
+	mov  %dl, %al
 	movq %rax, [%rbp+FRAME_DCValue]
-	jmp  .return
 
+	cmp  %dl, 'f'
+	je   .float
+	cmp  %dl, 'd'
+	je   .float
+.int:
+	jmp  .return
 .float:
-	movq %rdx, [%rbp+FRAME_DCValue]
-	movd %xmm0, %rdx
+	movd %xmm0, %rax
 
 .return:
 	mov  %rsp, %rbp

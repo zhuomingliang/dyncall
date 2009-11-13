@@ -21,8 +21,10 @@
  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 */
-.intel_syntax
 .text
+.file "dyncall_callback_x86_apple.s"
+.intel_syntax
+
 .globl _dcCallbackThunkEntry
 
 DCThunk_size		= 16
