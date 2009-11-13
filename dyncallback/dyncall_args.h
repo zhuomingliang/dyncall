@@ -31,7 +31,7 @@
  *
  */
 
-#include "../dyncall/dyncall.h"
+#include "dyncall.h"
 
 #ifndef DC_API
 #define DC_API
