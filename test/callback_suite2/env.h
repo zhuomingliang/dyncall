@@ -3,6 +3,7 @@
 
 /* test related */
 
+void InitEnv(); /* initializes ValueMatrix */
 void InitReferenceArg(DCValue* output, char type, int argpos);
 void InitReferenceResult(DCValue* output, char type);
 

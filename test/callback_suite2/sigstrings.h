@@ -1,2 +1,2 @@
-const char* GetSignature(int index); /* count starts at 0 */
+const char* GetSignature(int index); /* index starts at 0 */
 

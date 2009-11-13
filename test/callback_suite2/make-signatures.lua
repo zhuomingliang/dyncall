@@ -45,6 +45,8 @@ if mode == "random" then
   randomSignatures(nsigs)
 elseif mode == "ordered" then
   orderedSignatures(nsigs)
+else
+  error("'mode' must be 'random' or 'ordered'")
 end
 
 io.flush()

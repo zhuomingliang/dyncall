@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "_auto_config.h"
 #include "env.h"
+#include "print.h"
 
 const char* appname = "unknown";
 
