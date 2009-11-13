@@ -51,7 +51,7 @@ static double sysv_f64(DCArgs* args)
     return args->freg_data[args->freg_count++];
   else
   {
-    double value = args->stack_ptr[0];
+    double value = * ( (double*) args->stack_ptr );
     args->stack_ptr++;
     return value;
   }
