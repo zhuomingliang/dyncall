@@ -1,8 +1,3 @@
-all: test
-
-test: test.s
-	gcc $< -o $@
-
 #//////////////////////////////////////////////////////////////////////////////
 #
 # Copyright (c) 2007,2009 Daniel Adler <dadler@uni-goettingen.de>, 
