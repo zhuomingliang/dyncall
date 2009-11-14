@@ -10,8 +10,8 @@ char cbHandler(DCCallback* cb, DCArgs* args, DCValue* result, void* userdata)
   printf("reached callback\n");
 
   if(*ud == 1337) *ud = 1;
-  if(dcArgs_int  () ==  123) ++*ud;
-  if(dcArgs_float() == 23.f) ++*ud;
+  if(dcArgs_int  (args) ==  123) ++*ud;
+  if(dcArgs_float(args) == 23.f) ++*ud;
   result->s = 1234;
   return 'i';		// @@@ support needed for 's', etc
 }
