@@ -23,3 +23,5 @@ suite3\suite3.exe
 pause
 thunk\thunk.exe
 pause
+callback_plain\callback_plain.exe
+pause
