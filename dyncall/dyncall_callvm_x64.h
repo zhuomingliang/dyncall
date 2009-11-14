@@ -44,19 +44,9 @@
 typedef long long int64;	// llp64
 
 #define numIntRegs   4
-#define numFloatRegs 4 
-
-typedef union
-{
-  int i;
-  int f;
-} DCRegCount_x64;
-
-typedef union
-{
-  int64  i[numIntRegs  ];
-  double f[numFloatRegs];
-} DCRegData_x64;
+#define numFloatRegs 4
+#define DCRegCount_x64 DCRegCount_x64_u
+#define DCRegData_x64  DCRegData_x64_u
 
 #elif defined(DC_UNIX)
 
@@ -64,24 +54,38 @@ typedef long int64;		// lp64
 
 #define numIntRegs   6
 #define numFloatRegs 8
-
-typedef struct
-{
-  int i;
-  int f;
-} DCRegCount_x64;
-
-typedef struct
-{
-  int64  i[numIntRegs  ];
-  double f[numFloatRegs];
-} DCRegData_x64;
+#define DCRegCount_x64 DCRegCount_x64_s
+#define DCRegData_x64  DCRegData_x64_s
 
 #else
 
 #error Unsupported OS.
 
 #endif
+
+typedef union
+{
+  int i;
+  int f;
+} DCRegCount_x64_u;
+
+typedef struct
+{
+  int i;
+  int f;
+} DCRegCount_x64_s;
+
+typedef union
+{
+  int64  i[numIntRegs  ];
+  double f[numFloatRegs];
+} DCRegData_x64_u;
+
+typedef struct
+{
+  int64  i[numIntRegs  ];
+  double f[numFloatRegs];
+} DCRegData_x64_s;
 
 
 typedef struct
