@@ -27,8 +27,17 @@
 
 typedef int DCerror;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 DCerror dcAllocWX(DCsize size, void** p);
 void    dcFreeWX (void* p, DCsize size);
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif // DYNCALL_ALLOC_WX_HPP
 

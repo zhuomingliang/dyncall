@@ -1,4 +1,3 @@
-- x64/windows support
 - nds arm and thumb support
 - psp mips support
 - rename dcChunkInit to dcInitChunk

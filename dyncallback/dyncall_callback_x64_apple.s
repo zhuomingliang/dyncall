@@ -56,9 +56,9 @@ _dcCallbackThunkEntry:
 
 	// float parameters (8 registers spill to DCArgs)
 	sub %rsp, 8*8
-	movq [%rsp+8*7], %xmm7  # struct offset 124: float parameter 7
-	movq [%rsp+8*6], %xmm6  # struct offset 116: float parameter 6
-	movq [%rsp+8*5], %xmm5  # struct offset 108: float parameter 5
+	movq [%rsp+8*7], %xmm7  # struct offset 120: float parameter 7
+	movq [%rsp+8*6], %xmm6  # struct offset 112: float parameter 6
+	movq [%rsp+8*5], %xmm5  # struct offset 104: float parameter 5
 	movq [%rsp+8*4], %xmm4  # struct offset  96: float parameter 4
 	movq [%rsp+8*3], %xmm3  # struct offset  88: float parameter 3
 	movq [%rsp+8*2], %xmm2  # struct offset  80: float parameter 2

@@ -29,16 +29,16 @@
 .CODE
 
 ; sizes
-DCThunk_size    =   24
-DCArgs_size     =  128
-DCValue_size    =    8
+DCThunk_size    =  24
+DCArgs_size     =  80
+DCValue_size    =   8
 
 ; frame local variable offsets relative to rbp
-FRAME_arg0      =   16
-FRAME_return    =    8
-FRAME_parent    =    0
-FRAME_DCArgs    = -128
-FRAME_DCValue   = -136
+FRAME_arg0      =  16
+FRAME_return    =   8
+FRAME_parent    =   0
+FRAME_DCArgs    = -80
+FRAME_DCValue   = -80
 
 ; struct DCCallback
 CTX_thunk       =    0
@@ -51,56 +51,46 @@ dcCallbackThunkEntry PROC EXPORT
 
   OPTION PROLOGUE:NONE, EPILOGUE:NONE
 
+  ; prolog
   push     rbp
   mov      rbp, rsp
-
+  
   ; initialize DCArgs
 
-  ; float parameters (8 registers spill to DCArgs)
-  sub      rsp, 8*8
-  movd     qword ptr[rsp+8*7], xmm7         ; struct offset 124: float parameter 7
-  movd     qword ptr[rsp+8*6], xmm6         ; struct offset 116: float parameter 6
-  movd     qword ptr[rsp+8*5], xmm5         ; struct offset 108: float parameter 5
-  movd     qword ptr[rsp+8*4], xmm4         ; struct offset  96: float parameter 4
-  movd     qword ptr[rsp+8*3], xmm3         ; struct offset  88: float parameter 3
-  movd     qword ptr[rsp+8*2], xmm2         ; struct offset  80: float parameter 2
-  movd     qword ptr[rsp+8*1], xmm1         ; struct offset  72: float parameter 1
-  movd     qword ptr[rsp+8*0], xmm0         ; struct offset  64: float parameter 0
+  ; float parameters (4 registers spill to DCArgs)
+  sub      rsp, 4*8
+  movq     qword ptr[rsp+8*3], xmm3  ; struct offset 72: float parameter 3
+  movq     qword ptr[rsp+8*2], xmm2  ; struct offset 64: float parameter 2
+  movq     qword ptr[rsp+8*1], xmm1  ; struct offset 56: float parameter 1
+  movq     qword ptr[rsp+8*0], xmm0  ; struct offset 48: float parameter 0
 
-  ; integer parameters (6 registers spill to DCArgs)
-  push     r9                      ; struct offset 56: parameter 5
-  push     r8                      ; struct offset 48: parameter 4
-  push     rcx                     ; struct offset 40: parameter 3
-  push     rdx                     ; struct offset 32: parameter 2
-  push     rsi                     ; struct offset 24: parameter 1
-  push     rdi                     ; struct offset 16: parameter 0
+  ; integer parameters (4 registers spill to DCArgs)
+  push     r9                        ; struct offset 40: int parameter 3
+  push     r8                        ; struct offset 32: int parameter 2
+  push     rdx                       ; struct offset 24: int parameter 1
+  push     rcx                       ; struct offset 16: int parameter 0
 
-  ; register counts for integer/pointer and float regs
-                                   ; struct offset 12: fcount
-  push     0                       ; struct offset  8: icount
+  push     0                         ; struct offset  8: register count
 
-  lea      rdx, [rbp+FRAME_arg0]   ; struct offset  0: stack pointer
+  lea      rdx, [rbp+FRAME_arg0]     ; struct offset  0: stack pointer
   push     rdx
+  
+  mov      rdx, rsp                  ; parameter 1 (RDX) = DCArgs*
 
-  mov      rsi, rsp                ; parameter 1 (RSI) = DCArgs*
-
-  ; initialize DCValue
-
-  push     0                       ; structo offset 0: return value (max long long)
+  ;push     0                         ; @@@ needed??? (don't think so - already aligned)... @@@ align to 16 bytes and provide long long for return value DCValue
 
   ; call handler( *ctx, *args, *value, *userdata)
-  mov      rdi, rax                ; parameter 0 (RDI) = DCCallback* (RAX)
-  mov      rcx, [rdi+CTX_userdata] ; arg3 = userdata*
-  mov      rdx, rsp                ; arg2 (RDX) = DCValue*
-
-  push     0                       ; align to 16 bytes
-
+  mov      rcx, rax                  ; parameter 0 (RCX) = DCCallback* (RAX)
+  mov      r9,  [rax+CTX_userdata]   ; parameter 3 (R9) : void* userdata
+  mov      r8,  rsp                  ; parameter 2 (R8) : DCValue* value
+  
   call     qword ptr[rax+CTX_handler]
 
-  ; return values
-  mov      rdx, [rbp+FRAME_DCValue]
-  movd     xmm0, rdx
+  ; Always put return value in rax and xmm0 (so we get ints and floats covered)
+  mov      rax, [rbp+FRAME_DCValue]
+  movd     xmm0, rax
 
+  ; epilog
   mov      rsp, rbp
   pop      rbp
 

@@ -50,6 +50,10 @@
 
 typedef struct DCThunk_ DCThunk;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void   dcThunkInit(DCThunk* p, void* entry );
 
 #if defined(DC__Arch_Intel_x86)
@@ -63,5 +67,10 @@ void   dcThunkInit(DCThunk* p, void* entry );
 #elif defined (DC__Arch_ARM_THUMB)
 #include "dyncall_thunk_arm9_thumb.h"
 #endif
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif /* DYNCALL_THUNK_H */

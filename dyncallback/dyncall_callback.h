@@ -25,17 +25,24 @@
 #ifndef DYNCALL_CALLBACK_H
 #define DYNCALL_CALLBACK_H
 
-#include "dyncall_signature.h"
 #include "dyncall_args.h"
-#include "dyncall_value.h"
+#include "../dyncall/dyncall_signature.h"
+#include "../dyncall/dyncall_value.h"
 
 typedef struct DCCallback DCCallback;
 
 typedef char (DCCallbackHandler)(DCCallback* pcb, DCArgs* args, DCValue* result, void* userdata);
 
+#ifdef __cplusplus
+extern "C" {
+#endif 
+
 DCCallback* dcNewCallback(const char* signature, DCCallbackHandler* funcptr, void* userdata);
 void        dcInitCallback(DCCallback* pcb, const char* signature, DCCallbackHandler* handler, void* userdata);
 void        dcFreeCallback(DCCallback* pcb);
 
-#endif // DYNCALL_CALLBACK_H
+#ifdef __cplusplus
+}
+#endif 
 
+#endif // DYNCALL_CALLBACK_H

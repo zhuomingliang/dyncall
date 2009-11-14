@@ -35,11 +35,7 @@ struct DCCallback
   DCThunk  	         thunk;    // offset 0,  size 24
   DCCallbackHandler* handler;  // offset 24
   void*              userdata; // offset 32
-  // DCArgsVT*	     args_vt;  // offset 32
-  //                           // sizeof 40
 };
-
-
 
 #endif /* DYNCALL_CALLBACK_X64_H_ */
 

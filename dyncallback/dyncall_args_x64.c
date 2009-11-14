@@ -23,39 +23,25 @@
 #include "dyncall_args_x64.h"
 
 
-static long long sysv_i64(DCArgs* args)
+static long long* arg_i64(DCArgs* args)
 {
-  if (args->ireg_count < 6)
-    return args->ireg_data[args->ireg_count++];
+  if (args->reg_count.i < numIntRegs)
+    return &args->reg_data.i[args->reg_count.i++];
   else
-    return *args->stack_ptr++;
+    return args->stack_ptr++;
 }
 
-static float sysv_f32(DCArgs* args)
-{
-  if (args->freg_count < 8) {
-    float value = * (float*) & args->freg_data[args->freg_count];
-    args->freg_count++;
-    return value;
-  }
-  else {
-    float value = * (float*) ( args->stack_ptr );
-    args->stack_ptr++;
-    return value;
-  }
-}
 
-static double sysv_f64(DCArgs* args)
+static double* arg_f64(DCArgs* args)
 {
-  if (args->freg_count < 8)
-    return args->freg_data[args->freg_count++];
+  if (args->reg_count.f < numFloatRegs)
+    return &args->reg_data.f[args->reg_count.f++];
   else
   {
-    double value = * ( (double*) args->stack_ptr );
-    args->stack_ptr++;
-    return value;
+    return (double*)args->stack_ptr++;
   }
 }
+
 
 // ----------------------------------------------------------------------------
 // C API implementation:
@@ -63,12 +49,12 @@ static double sysv_f64(DCArgs* args)
 
 // base operations:
 
-DClonglong  dcArgs_longlong (DCArgs* p) { return sysv_i64(p); }
+DClonglong  dcArgs_longlong (DCArgs* p) { return *arg_i64(p); }
 DCint       dcArgs_int      (DCArgs* p) { return (int)   dcArgs_longlong(p); }
 DClong      dcArgs_long     (DCArgs* p) { return (long)  dcArgs_longlong(p); }
 DCchar      dcArgs_char     (DCArgs* p) { return (char)  dcArgs_longlong(p); }
 DCshort     dcArgs_short    (DCArgs* p) { return (short) dcArgs_longlong(p); }
-DCbool      dcArgs_bool     (DCArgs* p) { return ( dcArgs_int(p) == 0 ) ? 0 : 1; }
+DCbool      dcArgs_bool     (DCArgs* p) { return (dcArgs_int(p) == 0) ? 0 : 1; }
 
 DCuint      dcArgs_uint     (DCArgs* p) { return (DCuint)      dcArgs_int(p);      }
 DCuchar     dcArgs_uchar    (DCArgs* p) { return (DCuchar)     dcArgs_char(p);     }
@@ -79,6 +65,6 @@ DCulonglong dcArgs_ulonglong(DCArgs* p) { return (DCulonglong) dcArgs_longlong(p
 
 DCpointer   dcArgs_pointer  (DCArgs* p) { return (DCpointer)   dcArgs_longlong(p); }
 
-DCdouble    dcArgs_double   (DCArgs* p) { return sysv_f64(p); }
-DCfloat     dcArgs_float    (DCArgs* p) { return sysv_f32(p); } // (float) dcArgs_double(p); }
+DCdouble    dcArgs_double   (DCArgs* p) { return *arg_f64(p); }
+DCfloat     dcArgs_float    (DCArgs* p) { return *(float*)arg_f64(p); }
 
