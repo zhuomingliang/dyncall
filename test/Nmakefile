@@ -31,9 +31,9 @@ TOP = ..
 
 
 !IF "$(BUILD_ARCH)" == "x86"
-DIRS = suite suite2 suite3 callf ellipsis plain nm callback_suite suite_x86win32fast suite_x86win32std suite2_x86win32fast suite2_x86win32std thunk malloc_wx
+DIRS = suite suite2 suite3 callf ellipsis plain nm callback_plain callback_suite2 suite_x86win32fast suite_x86win32std suite2_x86win32fast suite2_x86win32std thunk malloc_wx
 !ELSE
-DIRS = suite suite2 suite3 callf ellipsis plain nm callback_suite
+DIRS = suite suite2 suite3 callf ellipsis plain nm callback_plain callback_suite2
 !ENDIF
 
 

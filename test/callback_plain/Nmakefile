@@ -32,8 +32,8 @@ TOP = ..\..
 
 !IF "$(BUILD_OS)" == "windows"
 
-TARGETS = callback_suite.exe
-OBJS = callback_suite.obj# ..\testmain\main_ansic.obj
+TARGETS = callback_plain.exe
+OBJS = callback_plain.obj
 
 $(TARGETS): $(OBJS)
 	echo Linking $@ ...
@@ -42,8 +42,8 @@ $(TARGETS): $(OBJS)
 
 !ELSE IF "$(BUILD_OS)" == "nds"
 
-TARGETS = callback_suite.nds
-OBJS = callback_suite.o# ..\testmain\main_NDS.o
+TARGETS = callback_plain.nds
+OBJS = callback_plain.o
 
 $(TARGETS): $(OBJS)
 	echo Linking $@ ...

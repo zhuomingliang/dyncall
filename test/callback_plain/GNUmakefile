@@ -20,8 +20,8 @@
 TOP = ../..
 include $(TOP)/MakeProlog
 
-TARGET_APP	 = callback_suite
-UNITS		 = callback_suite
+TARGET_APP	 = callback_plain
+UNITS		 = callback_plain
 CPPFLAGS  	+= -I$(TOP)/dyncallback -I$(TOP)/dyncall
 LINK_DIRS	+= $(TOP)/dyncallback/$(BUILD_DIR)
 LINK_LIBS 	+= dyncallback_s

@@ -37,7 +37,8 @@ DIRS	+= suite2_x86win32std
 ifdef BUILD_TOOL_gcc
 DIRS	+= thunk
 DIRS	+= malloc_wx
-DIRS	+= callback_suite
+DIRS	+= callback_plain
+DIRS	+= callback_suite2
 endif
 endif
 
