@@ -30,7 +30,7 @@
 struct DCArgs
 {
 	/* state */
-	long long*       stack_ptr;
+	int64*           stack_ptr;
 	DCRegCount_x64_u reg_count;	/* @@@ win64 version should maybe force alignment to 8 in order to be secure */
 
 	/* reg data */

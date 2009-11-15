@@ -23,7 +23,7 @@
 #include "dyncall_args_x64.h"
 
 
-static long long* arg_i64(DCArgs* args)
+static int64* arg_i64(DCArgs* args)
 {
   if (args->reg_count.i < numIntRegs)
     return &args->reg_data.i[args->reg_count.i++];
