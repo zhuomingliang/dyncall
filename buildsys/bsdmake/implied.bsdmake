@@ -29,11 +29,11 @@
 
 .c.o: .SILENT
 	echo .c.o: Compiling $(.IMPSRC)...
-	$(CC) $(CPPFLAGS) $(CFLAGS) $(TARGET_ARCH) -c $(.IMPSRC) -o $(.TARGET)
+	$(CC) $(CPPFLAGS) $(CFLAGS) -Idyncall $(TARGET_ARCH) -c $(.IMPSRC) -o $(.TARGET)
 
 .cpp.o: .SILENT
 	echo .cpp.o: Compiling $(.IMPSRC)...
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(TARGET_ARCH) -c $(.IMPSRC) -o $(.TARGET)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -Idyncall $(TARGET_ARCH) -c $(.IMPSRC) -o $(.TARGET)
 
 .s.o: .SILENT
 	echo .s.o: Compiling $(.IMPSRC)...
