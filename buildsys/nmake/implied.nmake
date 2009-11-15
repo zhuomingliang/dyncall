@@ -35,11 +35,11 @@
 
 .c.obj:
 	echo .c.obj: Compiling $< ...
-	$(CC) $(CFLAGS) /c /nologo /Idyncall $< > nul
+	$(CC) $(CFLAGS) /c /nologo /I$(TOP)/dyncall $< > nul
 
 .cpp.obj:
 	echo .cpp.obj: Compiling $< ...
-	$(CPP) $(CPPFLAGS) /c /nologo /Idyncall $< > nul
+	$(CPP) $(CPPFLAGS) /c /nologo /I$(TOP)/dyncall $< > nul
 
 .tex.pdf:
 	pdflatex $<

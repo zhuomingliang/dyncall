@@ -67,4 +67,3 @@ DCpointer   dcArgs_pointer  (DCArgs* p) { return (DCpointer)   dcArgs_longlong(p
 
 DCdouble    dcArgs_double   (DCArgs* p) { return *arg_f64(p); }
 DCfloat     dcArgs_float    (DCArgs* p) { return *(float*)arg_f64(p); }
-
