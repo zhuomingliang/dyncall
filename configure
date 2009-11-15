@@ -98,6 +98,8 @@ guess_os()
     CONFIG_OS="darwin"
   elif [ "$OS" = "CYGWIN_NT-5.1" ]; then
     CONFIG_OS="cygwin"
+  elif [ "$OS" = "MINGW32_NT-5.1" ]; then
+    CONFIG_OS="msys"
   elif [ "$OS" = "Linux" ]; then
     CONFIG_OS="linux"
   elif [ "$OS" = "SunOS" ]; then
