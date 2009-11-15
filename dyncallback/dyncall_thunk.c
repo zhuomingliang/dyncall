@@ -21,7 +21,7 @@
  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 */
-#include "../dyncall/dyncall_macros.h"
+#include "dyncall_macros.h"
 
 #if defined(DC__Arch_Intel_x86)
 # include "dyncall_thunk_x86.c"
