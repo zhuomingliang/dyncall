@@ -35,8 +35,9 @@ another toolchain.
 \begin{itemize}
 \item C compiler to build the \product{dyncall} library (GCC or Microsoft C/C++ compiler)
 \item C++ compiler to build the optional test cases (GCC or Microsoft C/C++ compiler)
-\item Python (optional - for generation of some test cases)
 \item BSD make, GNU make, or Microsoft nmake as automated build tools
+\item Python (optional - for generation of some test cases)
+\item Lua (optional - for generation of some test cases)
 \end{itemize}
 
 
@@ -55,7 +56,7 @@ one, please let us know.\\
 \begin{tabular}{l l}
 {\bf{\large x86}} &                                            \\
 \hline\hline
-{\bf Windows}      & nmake, GNU make (via MinGW)               \\
+{\bf Windows}      & nmake, GNU make (via Cygwin, MSYS, unixutils) \\
 {\bf Darwin}       & GNU make, BSD make                        \\
 {\bf Linux}        & GNU make                                  \\
 {\bf Solaris}      & GNU make (Sun's make tool isn't supported)\\
@@ -171,3 +172,11 @@ make -f BSDmakefile doc  # when using BSD Make on NetBSD
 nmake /f Nmakefile doc   # when using NMake on Windows
 \end{lstlisting}
 \end{enumerate}
+
+\subsection{Build-tool specific notes}
+
+Problem: On windows using mingw and msys/unixutils 'Make', the make uses
+'cc' for C compilation, which does not exist in mingw.
+
+Solution: Set and export the 'CC' environment variable explicitly to 'gcc'. 
+
