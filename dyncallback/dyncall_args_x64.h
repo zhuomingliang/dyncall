@@ -30,11 +30,11 @@
 struct DCArgs
 {
 	/* state */
-	int64*           stack_ptr;
-	DCRegCount_x64_u reg_count;	/* @@@ win64 version should maybe force alignment to 8 in order to be secure */
+	int64*          stack_ptr;
+	DCRegCount_x64  reg_count;	/* @@@ win64 version should maybe force alignment to 8 in order to be secure */
 
 	/* reg data */
-	DCRegData_x64_s  reg_data;
+	DCRegData_x64_s reg_data;
 };
 
 #endif /* DYNCALLBACK_ARGS_X64_H */
