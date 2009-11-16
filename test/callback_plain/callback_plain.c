@@ -12,7 +12,7 @@ char cbHandler(DCCallback* cb, DCArgs* args, DCValue* result, void* userdata)
   printf("reached callback\n");
   printf("userdata (should be 1337): %d\n", *ud);
   printf("1st argument (should be  123): %d\n", arg1);
-  printf("2nd argument (should be 23.f): %d\n", arg2);
+  printf("2nd argument (should be 23.f): %f\n", arg2);
 
   if(*ud == 1337) *ud = 1;
   if(arg1 ==  123) ++*ud;
