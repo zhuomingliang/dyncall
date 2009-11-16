@@ -37,18 +37,20 @@ void ExitWithUsage()
 
 int main(int argc, char* argv[] )
 {
-  InitEnv();
-  appname = argv[0];
-
   int from = 1;
   int to = CONFIG_NSIGS;
   int ncases;
 
   int i,j;
   int pos;
+  int number;
+  int totalResult;
+
+  InitEnv();
+  appname = argv[0];
+
   pos = 0;
   for(i = 1 ; i < argc ; ++i ) {
-    int number;
 
     if ( argv[i][0] == '-' ) {
       switch(argv[i][1]) {
@@ -74,7 +76,7 @@ int main(int argc, char* argv[] )
 
   PrintHeader();
   TestRange(from, to);
-  int totalResult = (totalErrorCodes[1] == ncases) ? 1 : 0; 
+  totalResult = (totalErrorCodes[1] == ncases) ? 1 : 0; 
   PrintTotalResult(totalResult);
 
   return 0;
