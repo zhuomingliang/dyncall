@@ -13,8 +13,16 @@ int CompareValues(char type, DCValue* a, DCValue* b)
   switch(type) 
   {
     case DC_SIGCHAR_BOOL:      isequal = (a->B == b->B) ? 1 : 0 ; break;
+    case DC_SIGCHAR_CHAR:      isequal = (a->c == b->c) ? 1 : 0 ; break;
+    case DC_SIGCHAR_UCHAR:     isequal = (a->C == b->C) ? 1 : 0 ; break;
+    case DC_SIGCHAR_SHORT:     isequal = (a->s == b->s) ? 1 : 0 ; break;
+    case DC_SIGCHAR_USHORT:    isequal = (a->S == b->S) ? 1 : 0 ; break;
     case DC_SIGCHAR_INT:       isequal = (a->i == b->i) ? 1 : 0 ; break;
+    case DC_SIGCHAR_UINT:      isequal = (a->I == b->I) ? 1 : 0 ; break;
+    case DC_SIGCHAR_LONG:      isequal = (a->j == b->j) ? 1 : 0 ; break;
+    case DC_SIGCHAR_ULONG:     isequal = (a->J == b->J) ? 1 : 0 ; break;
     case DC_SIGCHAR_LONGLONG:  isequal = (a->l == b->l) ? 1 : 0 ; break;
+    case DC_SIGCHAR_ULONGLONG: isequal = (a->L == b->L) ? 1 : 0 ; break;
     case DC_SIGCHAR_FLOAT:     isequal = (a->f == b->f) ? 1 : 0 ; break;
     case DC_SIGCHAR_DOUBLE:    isequal = (a->d == b->d) ? 1 : 0 ; break;
     case DC_SIGCHAR_POINTER:   isequal = (a->p == b->p) ? 1 : 0 ; break;

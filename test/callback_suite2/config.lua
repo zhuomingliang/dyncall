@@ -8,7 +8,7 @@ maxargs   = 67          -- maximum num. of supported arguments (>= minargs)
 
 -- section 'types' -------------------------------------------------------------
 
-argtypes  = "Bilpfd"    -- supported argument types
+argtypes  = "BcCsSiIjJlLpfd"    -- supported argument types
 rettypes  = argtypes    -- supported return types (currently no void support)
 
 
