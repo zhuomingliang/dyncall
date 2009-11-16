@@ -83,7 +83,9 @@ dcCallbackThunkEntry PROC EXPORT
   mov      rcx, rax                  ; parameter 0 (RCX) = DCCallback* (RAX)
   mov      r9,  [rax+CTX_userdata]   ; parameter 3 (R9) : void* userdata
   mov      r8,  rsp                  ; parameter 2 (R8) : DCValue* value
-  
+
+  ; make room for spill area and call
+  sub      rsp, 4*8
   call     qword ptr[rax+CTX_handler]
 
   ; Always put return value in rax and xmm0 (so we get ints and floats covered)
