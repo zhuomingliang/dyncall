@@ -34,7 +34,6 @@ TOP=..
 
 TARGETS = libdynload_s.lib
 OBJS = dynload.obj dynload_syms.obj
-CFLAGS = -I../dyncall
 
 $(TARGETS): $(OBJS)
 	echo Creating library $@ ...

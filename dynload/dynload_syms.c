@@ -20,7 +20,7 @@
 #include "dyncall_macros.h"
 #if defined(DC_WINDOWS)
 # include "dynload_syms_pe32.c"
-#elif defined(DC__OS_Linux)
+#elif defined(DC_UNIX)
 # include "dynload_syms_elf.c"
 #else
 void dummy() { }

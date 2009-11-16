@@ -42,8 +42,8 @@ configure:
 
 
 # Include config rules.
-!IF EXISTS($(TOP)/ConfigVars)
-!  INCLUDE $(TOP)/ConfigVars
+!IF EXISTS($(TOP)\ConfigVars)
+!  INCLUDE $(TOP)\ConfigVars
 !ENDIF
 
 # Include site rules.

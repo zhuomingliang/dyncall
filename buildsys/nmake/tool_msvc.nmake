@@ -25,37 +25,22 @@
 #///////////////////////////////////////////////////
 
 
+
+CC  =cl
+CXX =cl
+AR  =lib
 !IF "$(BUILD_ARCH)" == "x64"
-
-CC  =cl
-CXX =cl
-AR  =lib
 AS  =ml64
-LD  =link
-
-ASFLAGS =
-CFLAGS = /EHsc /GR- /GS- /Ox
-CXXFLAGS = $(CFLAGS)
-LDFLAGS = /OPT:REF /OPT:ICF /NOLOGO
-ARFLAGS = /NOLOGO
-
 !ELSE IF "$(BUILD_ARCH)" == "x86"
-
-CC  =cl
-CXX =cl
-AR  =lib
 AS  =ml
+!ENDIF
 LD  =link
 
-ASFLAGS   =
-CFLAGS   = /EHsc /GR- /GS- /Ox
+ASFLAGS  = /c /nologo
+CFLAGS   = /EHsc /GR- /GS- /Ox /c /nologo /I$(TOP)\dyncall
 CXXFLAGS = $(CFLAGS)
 LDFLAGS  = /OPT:REF /OPT:ICF /NOLOGO
 ARFLAGS  = /NOLOGO
-
-!ENDIF
-
-
 
 
 .SUFFIXES:
@@ -64,15 +49,15 @@ ARFLAGS  = /NOLOGO
 
 .asm.obj:
 	echo .asm.obj: Assembling $< ...
-	$(AS) $(ASFLAGS) /c /nologo /Fo$@ $<
+	$(AS) $(ASFLAGS) /Fo$@ $<
 
 .c.obj:
 	echo .c.obj: Compiling $< ...
-	$(CC) $(CFLAGS) /c /nologo /Fo$@ $<
+	$(CC) $(CFLAGS) /Fo$@ $<
 
 .cpp.obj:
 	echo .cpp.obj: Compiling $< ...
-	$(CXX) $(CXXFLAGS) /c /nologo /Fo$@ $<
+	$(CXX) $(CXXFLAGS) /Fo$@ $<
 
 .tex.pdf:
 	pdflatex $<
