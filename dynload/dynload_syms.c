@@ -18,12 +18,16 @@
 */
 
 #include "dyncall_macros.h"
+
 #if defined(DC_WINDOWS)
 # include "dynload_syms_pe32.c"
 #elif defined(DC_UNIX)
+# if defined (DC__OS_Darwin)
+void dummy() { }
+# else
 # include "dynload_syms_elf.c"
+# endif
 #else
 void dummy() { }
 #endif
 
- 
