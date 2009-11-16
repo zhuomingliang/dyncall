@@ -21,7 +21,7 @@
 ;
 ; Package: dyncall
 ; Library: dyncallback
-; File: dyncallback/dyncall_callback_x64_msvc.asm
+; File: dyncallback/dyncall_callback_x64_masm.asm
 ; Description: Callback Thunk - MASM implementation for x64
 ;
 ;///////////////////////////////////////////////////////////////////////
