@@ -52,7 +52,7 @@ char handler(DCCallback* that, DCArgs* input, DCValue* output, void* userdata)
     case DC_SIGCHAR_LONG:     return (sizeof(long) == 4) ? 'i' : 'l';
     case DC_SIGCHAR_ULONG:    return (sizeof(long) == 4) ? 'i' : 'l';
     case DC_SIGCHAR_LONGLONG: return 'l';
-    case DC_SIGCHAR_ULONGLONG:return 'L';
+    case DC_SIGCHAR_ULONGLONG:return 'l';
     case DC_SIGCHAR_FLOAT:    return 'f';
     case DC_SIGCHAR_DOUBLE:   return 'd';
     case DC_SIGCHAR_POINTER:  return (sizeof(void*) == 4) ? 'i' : 'l';
