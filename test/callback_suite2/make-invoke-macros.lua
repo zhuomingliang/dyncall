@@ -16,7 +16,7 @@ for i = minargs, maxargs do
       argset = argset .. "A[" .. j .. "].A" .. j
     end
   end
-  line = line .. argdef .. ") void ID(void* addr) { Result.R = ((R(*)("  .. argdef .. "))addr)(" .. argset .. ");}\n"
+  line = line .. argdef .. ") void ID(void* addr) { Result.R = ((CONFIG_API R(*)("  .. argdef .. "))addr)(" .. argset .. ");}\n"
   io.write(line)
 end
 io.flush()

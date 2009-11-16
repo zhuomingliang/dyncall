@@ -6,11 +6,15 @@ REQUIREMENTS
 - ANSI C compiler
 - lua (tested with 5.1)
 
+CONFIGURE SUITE
+
+  edit config.lua and run "make config".
+
 DESCRIPTION
 
 Generates a set of callback invokers in C using lua as a preprocessor.
-The invokers put up an argument vector using a Value-Matrix which is
-setup according to a certail pattern.
+The invokers put up an argument vector using a global Value-Matrix which
+holds a specific type-specific value pattern as a function of position.
 
 The Value-Matrix
 
@@ -21,16 +25,14 @@ It is used in the body of the auto-generated callback invokers (C code).
 
 The Callback Invocation Body
 
-The callback body is 
-
 Example:
 The body for a signature of type  "dpdf)p" at case id 19 is:
 
 void f19(void* addr) 
 { 
-  Result.p = ((p(*)(d,p,d,f))addr)(ValueMatrix[0].d,ValueMatrix[1].p,ValueMatrix[2].d,ValueMatrix[3].f);
-}
-              ^^^^^^^^^^^^^- signature
+  Result.p = ((CONFIG_API p(*)(d,p,d,f))addr)(ValueMatrix[0].d,ValueMatrix[1].p,ValueMatrix[2].d,ValueMatrix[3].f);
+}              ^^^^^^^^^^- calling convention
+                          ^^^^^^^^^^^^^- signature
          ^- return type signature
                                                   ^- arg signature char 0 (later expected) value
 
@@ -50,6 +52,15 @@ relay on the input arguments - if called with same arguments it will reveal
 the same value.
 
 It defined in env.c.
+
+Tssting for exotic calling conventions on Windows:
+
+Specify 'api' and 'ccprefix' accordingly:
+
+
+"__stdcall"	"_s"
+"__fastcall"	"_f" for gcc compiler
+		"_F" for microsoft compiler
 
 
 

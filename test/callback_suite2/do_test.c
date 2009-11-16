@@ -31,6 +31,10 @@ int Compare(const char* signature)
   int isequal;
   char ch;
 
+  /* skip prefix */
+
+  signature = SignatureSkipCallPrefix(signature);
+
   /* check arguments */
 
   pos = 0;

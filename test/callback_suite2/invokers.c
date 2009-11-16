@@ -36,7 +36,7 @@ typedef DCstring    Z;
 
 /* table of invokers */
 
-typedef void (invoker)(void*);
+typedef void (invoker) (void*);
 
 invoker* invokers[CONFIG_NSIGS] = {
 #include "_auto_invoke_table.h"

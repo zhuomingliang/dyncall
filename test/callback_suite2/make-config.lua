@@ -2,7 +2,8 @@ require "config"
 
 local defs = {
   MAXARGS = maxargs,
-  NSIGS   = nsigs
+  NSIGS   = nsigs,
+  API     = api
 }
 
 for k,v in pairs(defs) do

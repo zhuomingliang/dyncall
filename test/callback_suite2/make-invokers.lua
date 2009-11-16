@@ -1,3 +1,4 @@
+require "config"
 local id = 1
 for signature in io.lines() do
   local nargs = string.len(signature) - 2

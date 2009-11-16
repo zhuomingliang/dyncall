@@ -2,6 +2,7 @@
 #include <assert.h>
 #include "dyncall_callback.h"
 #include "env.h"
+#include "signature_utils.h"
 
 char handler(DCCallback* that, DCArgs* input, DCValue* output, void* userdata)
 {
@@ -9,9 +10,12 @@ char handler(DCCallback* that, DCArgs* input, DCValue* output, void* userdata)
   const char* signature = (const char*) userdata;
   
   char ch;
+
+  signature = SignatureSkipCallPrefix(signature);
+
   int pos = 0; 
   for(;;) {
-    ch  = *signature++;
+    ch = *signature++;
     if (ch == DC_SIGCHAR_ENDARG) break;
     Args[pos].L = 0xDEADC0DECAFEBABELL;
     switch(ch) {

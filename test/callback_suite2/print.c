@@ -21,13 +21,13 @@ void PrintHeader()
 
 void PrintCaseInfo(int caseId, const char* signatureString)
 {
-  fprintf(stdout, "f%d(\t%s\t", caseId, signatureString);
+  fprintf(stdout, "f%d(\t%s", caseId, signatureString);
   fflush(stdout);
 }
 
 void PrintCaseResult(int resultId)
 {
-  fprintf(stdout, ":%d\n", resultId);
+  fprintf(stdout, " :%d\n", resultId);
   fflush(stdout);
 }
 
