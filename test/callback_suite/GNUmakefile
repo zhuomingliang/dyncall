@@ -30,7 +30,7 @@ else
 LUA		 = lua
 endif
 
-TARGET_APP	 = callback_suite2
+TARGET_APP	 = callback_suite
 
 UNITS		 = env handler sigstrings invokers do_test main print signature_utils
 CPPFLAGS  	+= -I$(TOP)/dyncallback -I$(TOP)/dyncall
