@@ -29,7 +29,7 @@ TOP = ..
 
 .include "$(TOP)/buildsys/bsdmake/prolog.bsdmake"
 
-DIRS = suite suite2 suite3 ellipsis callf plain thunk malloc_wx callback_plain callback_suite2
+DIRS = suite suite2 suite3 ellipsis callf plain thunk malloc_wx callback_plain callback_suite
 
 .include "$(TOP)/buildsys/bsdmake/epilog.bsdmake"
 
