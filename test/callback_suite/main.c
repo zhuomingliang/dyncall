@@ -10,10 +10,8 @@ const char* appname = "unknown";
 /* test one case, returns error code */
 int DoTest(int id);
 
-#define MAX_ERRORS 1
-
 /* capture total results for failure (0) and success (1) */
-int totalErrorCodes[MAX_ERRORS];
+int totalErrorCodes[2];
 
 void TestRange(int from, int to)
 {

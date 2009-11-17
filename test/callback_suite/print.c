@@ -33,7 +33,7 @@ void PrintCaseResult(int resultId)
 
 void PrintTotalResult(int resultId)
 {
-  printf("result:%d\n", resultId );
+  printf("result: %d\n", resultId);
   fflush(stdout);
 }
 
