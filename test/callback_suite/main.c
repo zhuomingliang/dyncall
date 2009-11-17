@@ -11,7 +11,7 @@ const char* appname = "unknown";
 int DoTest(int id);
 
 /* capture total results for failure (0) and success (1) */
-int totalErrorCodes[2];
+int totalErrorCodes[2] = { 0, 0 };
 
 void TestRange(int from, int to)
 {
