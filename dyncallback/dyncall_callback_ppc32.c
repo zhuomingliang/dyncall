@@ -40,7 +40,7 @@ DCCallback* dcNewCallback(const char* signature, DCCallbackHandler* handler, voi
   int err = dcAllocWX(sizeof(DCCallback), (void**) &pcb);
   if (err != 0) return 0;
 
-  dcThunkInit(&pcb->thunk, dcCallbackThunkEntry);
+  dcInitThunk(&pcb->thunk, dcCallbackThunkEntry);
   dcInitCallback(pcb, signature, handler, userdata);
 
   return pcb;

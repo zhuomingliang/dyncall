@@ -35,8 +35,6 @@ DCValue_size    =   8
 
 ; frame local variable offsets relative to rbp
 FRAME_arg0      =  48
-FRAME_return    =   8
-FRAME_parent    =   0
 FRAME_DCArgs    = -80
 FRAME_DCValue   = -80
 

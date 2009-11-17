@@ -24,7 +24,7 @@ void test_stack()
 {
   DCThunk t;
   printfun* fp;
-  dcThunkInit(&t, (void*)&my_entry);
+  dcInitThunk(&t, (void*)&my_entry);
   fp = (printfun*)&t;
   fp("stack\n");
 }
@@ -35,7 +35,7 @@ void test_heap()
 {
   printfun* fp;
   DCThunk* p = (DCThunk*)malloc( sizeof(DCThunk));
-  dcThunkInit(p, (void*)&my_entry);
+  dcInitThunk(p, (void*)&my_entry);
   fp = (printfun*)p;
   fp("heap\n");
   free(p);
@@ -47,7 +47,7 @@ void test_wx()
   printfun* fp;
   int err = dcAllocWX(sizeof(DCThunk), (void**) &p);
   assert(!err);
-  dcThunkInit(p, (void*)&my_entry);
+  dcInitThunk(p, (void*)&my_entry);
   fp = (printfun*)p;
   fp("wx\n");
   dcFreeWX((void*)p, sizeof(DCThunk));
