@@ -46,25 +46,25 @@ CONFIG_FILES	+= _auto_signatures.txt
 config: clean-config $(CONFIG_FILES) .SILENT
 
 clean-config: clean
-	$(RM) $(CONFIG_FILES)
+	rm -f $(CONFIG_FILES)
 
 _auto_signatures.txt: 
-	lua make-signatures.lua >$@
+	lua make-signatures.lua >$(.TARGET)
 
 _auto_invokers.h: _auto_signatures.txt 
-	lua make-invokers.lua <$< >$@
+	lua make-invokers.lua <$(.ALLSRC) >$(.TARGET)
 
 _auto_sigstrings.h: _auto_signatures.txt
-	lua make-cstrings.lua <$< >$@
+	lua make-cstrings.lua <$(.ALLSRC) >$(.TARGET)
 
 _auto_config.h: 
-	lua make-config.lua >$@
+	lua make-config.lua >$(.TARGET)
 
 _auto_invoke_macros.h:
-	lua make-invoke-macros.lua >$@
+	lua make-invoke-macros.lua >$(.TARGET)
 
 _auto_invoke_table.h:
-	lua make-invoke-table.lua >$@
+	lua make-invoke-table.lua >$(.TARGET)
 
 
 .include "$(TOP)/buildsys/bsdmake/epilog.bsdmake"
