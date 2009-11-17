@@ -31,7 +31,7 @@ TOP=../..
 
 
 MODS	=	env handler sigstrings invokers do_test main print signature_utils
-APP	=	callbacksuite
+APP	=	callback_suite
 
 CPPFLAGS	=
 LDFLAGS		=

@@ -29,3 +29,6 @@ AR		?= ar
 AS		?= as
 LD		?= g++ # to link in standard libs automatically
 
+.if $(BUILD_CONFIG) == "debug"
+CFLAGS += -ggdb3
+.endif
