@@ -35,7 +35,7 @@ OCP =arm-eabi-objcopy
 !IF "$(BUILD_ARCH)" == "arm9_thumb"
 
 ASFLAGS  = -g -mthumb -mthumb-interwork
-CFLAGS   = -g -Wall -O2 -I$(TOP)\dyncall -DARM9 -mcpu=arm9tdmi -mtune=arm9tdmi -fomit-frame-pointer -ffast-math -mthumb -mthumb-interwork
+CFLAGS   = -g -Wall -O2 -I$(TOP)\dyncall -I$(TOP)\dyncallback -DARM9 -mcpu=arm9tdmi -mtune=arm9tdmi -fomit-frame-pointer -ffast-math -mthumb -mthumb-interwork
 CXXFLAGS = $(CFLAGS) -fno-rtti -fno-exceptions
 LDFLAGS  = -g -mthumb -mthumb-interwork -mno-fpu #-Wl,-Map,$(notdir $*.map)
 ARFLAGS  =
@@ -43,7 +43,7 @@ ARFLAGS  =
 !ELSE IF "$(BUILD_ARCH)" == "arm9_arm"
 
 ASFLAGS  = -g
-CFLAGS   = -g -Wall -O2 -I$(TOP)\dyncall -DARM9 -mcpu=arm9tdmi -mtune=arm9tdmi -fomit-frame-pointer -ffast-math
+CFLAGS   = -g -Wall -O2 -I$(TOP)\dyncall -I$(TOP)\dyncallback -DARM9 -mcpu=arm9tdmi -mtune=arm9tdmi -fomit-frame-pointer -ffast-math
 CXXFLAGS = $(CFLAGS) -fno-rtti -fno-exceptions
 LDFLAGS  = -g -mno-fpu #-Wl,-Map,$(notdir $*.map)
 ARFLAGS  =

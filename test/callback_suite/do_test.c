@@ -3,6 +3,7 @@
 #include "invokers.h"
 #include "dyncall_callback.h"
 #include "sigstrings.h"
+#include "signature_utils.h"
 #include "env.h"
 #include "print.h"
 #include <stdio.h>

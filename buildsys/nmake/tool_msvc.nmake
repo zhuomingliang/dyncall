@@ -37,7 +37,7 @@ AS  =ml
 LD  =link
 
 ASFLAGS  = /c /nologo
-CFLAGS   = /EHsc /GR- /GS- /Ox /c /nologo /I$(TOP)\dyncall
+CFLAGS   = /EHsc /GR- /GS- /Ox /c /nologo /I$(TOP)\dyncall /I$(TOP)\dyncallback
 CXXFLAGS = $(CFLAGS)
 LDFLAGS  = /OPT:REF /OPT:ICF /NOLOGO
 ARFLAGS  = /NOLOGO

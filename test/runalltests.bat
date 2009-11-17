@@ -25,3 +25,5 @@ thunk\thunk.exe
 pause
 callback_plain\callback_plain.exe
 pause
+callback_suite\callback_suite.exe
+pause
