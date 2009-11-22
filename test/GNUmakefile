@@ -25,11 +25,12 @@
 
 
 TOP	=  ..
-DIRS	+= suite ellipsis suite2 callf plain suite3
+DIRS	+= suite ellipsis suite2 callf plain suite3 callback_suite
 
 include $(TOP)/MakeProlog
 
 ifdef BUILD_ARCH_x86
+DIRS	+= callback_suite
 DIRS	+= suite_x86win32fast
 DIRS	+= suite_x86win32std
 DIRS	+= suite2_x86win32fast
@@ -38,7 +39,16 @@ ifdef BUILD_TOOL_gcc
 DIRS	+= thunk
 DIRS	+= malloc_wx
 DIRS	+= callback_plain
-DIRS	+= callback_suite2
+endif
+endif
+
+ifdef BUILD_ARCH_x64
+DIRS	+= callback_suite
+endif
+
+ifdef BUILD_ARCH_ppc32
+ifdef BUILD_OS_darwin
+DIRS	+= callback_suite
 endif
 endif
 
