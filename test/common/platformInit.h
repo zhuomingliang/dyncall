@@ -27,7 +27,7 @@
 
 void dcTest_initPlatform()
 {
-  powerON(POWER_ALL);
+  powerOn(POWER_ALL);
 
   /* Interrupt handlers. */
   /*irqInit();*/
@@ -38,12 +38,13 @@ void dcTest_initPlatform()
   vramSetBankA(VRAM_A_LCD);
   videoSetModeSub(MODE_0_2D | DISPLAY_BG0_ACTIVE);
   vramSetBankC(VRAM_C_SUB_BG);
-  SUB_BG0_CR = BG_MAP_BASE(31);
+  REG_BG0CNT_SUB = BG_MAP_BASE(31);
 
   /* Set the colour of the font. */
-  BG_PALETTE_SUB[255] = RGB15(25, 11, 9);
+  /* BG_PALETTE_SUB[255] = RGB15(25, 11, 9); */
 
-  consoleInitDefault((u16*)SCREEN_BASE_BLOCK_SUB(31), (u16*)CHAR_BASE_BLOCK_SUB(0), 16);
+  /* consoleInitDefault((u16*)SCREEN_BASE_BLOCK_SUB(31), (u16*)CHAR_BASE_BLOCK_SUB(0), 16); */
+  consoleDemoInit();
 }
 
 
