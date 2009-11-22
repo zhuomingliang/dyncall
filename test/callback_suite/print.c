@@ -33,7 +33,7 @@ void PrintCaseResult(int resultId)
 
 void PrintTotalResult(int resultId)
 {
-  printf("result: %d\n", resultId);
+  printf("result: callback_suite: %d\n", resultId);
   fflush(stdout);
 }
 
