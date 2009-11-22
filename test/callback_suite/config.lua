@@ -26,4 +26,6 @@ seed      = 1           -- random seed
 -- section 'calling convention' (useful on Windows for now) --------------------
                         
 api       = ""          -- calling convention ("__stdcall" or "__fastcall")
-ccprefix  = ""          -- signature prefix ("_s", "_f" (gcc) or "_F" (MSVC))
+            -- for gcc use "__attribute__((__stdcall__))" or "__attribute__((__fastcall__))"
+            -- for ms ?
+ccprefix  = ""          -- signature prefix ("_s" (stdcall), "_f" (gcc fastcall) or "_F" (microsoft fastcall))
