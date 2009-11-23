@@ -1,4 +1,6 @@
 #include "../common/platformInit.h"
+#include "../../dyncallback/dyncall_thunk.h"
+#include "../../dyncallback/dyncall_callback_arm9_arm.h"
 #include "../../dyncallback/dyncall_callback.h"
 #include <stdio.h>
 
@@ -41,7 +43,7 @@ int main()
 
   printf("about to callback...\n");
   cb = dcNewCallback("if)s", &cbHandler, &userdata);
-  result = ((short(*)(int, float, short, double, long long))cb)(123, 23.f, 3, 1.82, 9909);
+  result = ((short(*)(int, float, short, double, long long))cb)(123, 23.f, 3, 1.82, 9909ll);
   dcFreeCallback(cb);
   printf("successfully returned from callback\n");
   printf("return value (should be 1234): %d\n", result);

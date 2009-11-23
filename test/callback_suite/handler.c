@@ -6,7 +6,6 @@
 
 char handler(DCCallback* that, DCArgs* input, DCValue* output, void* userdata)
 {
-  DCValue ref;
   const char* signature = (const char*) userdata;
   int pos = 0; 
   char ch;

@@ -43,7 +43,7 @@ $(TARGETS): $(OBJS)
 !ELSE IF "$(BUILD_OS)" == "nds"
 
 TARGETS = callback_suite.nds
-OBJS = env.obj handler.obj sigstrings.obj invokers.obj do_test.obj main.obj print.obj signature_utils.obj
+OBJS = env.o handler.o sigstrings.o invokers.o do_test.o main.o print.o signature_utils.o
 
 $(TARGETS): $(OBJS)
 	echo Linking $@ ...

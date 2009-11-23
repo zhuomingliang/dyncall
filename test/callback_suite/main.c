@@ -31,7 +31,7 @@ void ExitWithUsage()
   exit(0);
 }
         
-#define Error(X, Y ) fprintf(stderr, X, Y );ExitWithUsage()
+#define Error(X, Y) fprintf(stderr, X, Y); ExitWithUsage()
 
 int main(int argc, char* argv[] )
 {
@@ -39,7 +39,7 @@ int main(int argc, char* argv[] )
   int to = CONFIG_NSIGS;
   int ncases;
 
-  int i,j;
+  int i;
   int pos;
   int number;
   int totalResult;
@@ -54,7 +54,7 @@ int main(int argc, char* argv[] )
       switch(argv[i][1]) {
         case 'v': OptionVerbose = 1; continue;
         case 'h': PrintUsage(appname); return 0;
-        default: Error( "invalid option: %s", argv[i] );
+        default: Error("invalid option: %s", argv[i]);
       }      
     }
 
@@ -62,7 +62,7 @@ int main(int argc, char* argv[] )
     switch(pos) {
       case 0: to   = from = number; ++pos; break;
       case 1: to   = number; break;
-      default: Error("too many arguments", "");
+      default: Error("too many arguments%s", "");
     }
   }
 

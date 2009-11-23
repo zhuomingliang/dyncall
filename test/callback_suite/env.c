@@ -19,7 +19,6 @@ static const int Kp = 0x1020345;
 static const DClonglong Kl = 24534543;
 */
 
-  DCValue value;
   output->L = 0xCAFEBABEDEADC0DELL;
   pos = pos + 2;
   switch(ch) {

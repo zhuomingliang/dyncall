@@ -25,7 +25,7 @@
 #///////////////////////////////////////////////////
 
 
-.SILENT:
+#.SILENT:
 
 # Default "build all" target.
 all: configure build
