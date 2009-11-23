@@ -18,7 +18,7 @@ char cbHandler(DCCallback* cb, DCArgs* args, DCValue* result, void* userdata)
   printf("2nd argument (should be 23.f): %f\n", arg2);
   printf("3rd argument (should be    3): %d\n", arg3);
   printf("4th argument (should be 1.82): %f\n", arg4);
-  printf("5th argument (should be 9909): %d\n", arg5);
+  printf("5th argument (should be 9909): %lld\n", arg5);
 
   if(*ud == 1337) *ud = 1;
   if(arg1 ==  123) ++*ud;
