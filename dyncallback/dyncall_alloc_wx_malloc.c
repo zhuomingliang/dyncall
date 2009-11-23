@@ -28,7 +28,7 @@
 
 int dcAllocWX(size_t size, void** pp)
 {
-  pp = malloc(size);
+  *pp = malloc(size);
   return 0;
 }
 

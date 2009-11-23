@@ -31,9 +31,9 @@ void dcInitThunk(DCThunk* p, void* entry)
       ldr %r15, [%r15, #-4]
   */
 
-  /* This code loads 'entry+8' into r15. The -4 is needed, because r15 as program     */
+  /* This code loads 'entry+4' into r15. The -4 is needed, because r15 as program     */
   /* counter points to the current instruction+8, but the pointer to the code to      */
   /* execute follows the ldr instruction directly. Add 8 to entry for similar reasons */ 
   p->code  = 0xe51ff004UL;  /* ldr %r15, [%r15, #-4] */
-  p->entry = (unsigned int)entry+8;
+  p->entry = (unsigned int)entry/*+8*/; /* seems to be implicit with newest gnu tools @@@*/
 }
