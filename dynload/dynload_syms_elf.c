@@ -25,7 +25,11 @@
 
 #include "dynload.h"
 #include "dynload_macros.h"
-#include <elf.h>
+#if defined(DC__OS_OpenBSD)
+#	include <elf_abi.h>
+#else
+#	include <elf.h>
+#endif
 #include <assert.h>
 
 /* run-time configuration 64/32 */
