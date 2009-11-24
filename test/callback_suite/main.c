@@ -4,6 +4,7 @@
 #include "_auto_config.h"
 #include "env.h"
 #include "print.h"
+#include "../common/platformInit.h"
 
 const char* appname = "unknown";
 
@@ -44,6 +45,8 @@ int main(int argc, char* argv[] )
   int number;
   int totalResult;
 
+  dcTest_initPlatform();
+
   InitEnv();
   appname = argv[0];
 
@@ -76,6 +79,8 @@ int main(int argc, char* argv[] )
   TestRange(from, to);
   totalResult = (totalErrorCodes[1] == ncases) ? 1 : 0; 
   PrintTotalResult(totalResult);
+
+  dcTest_deInitPlatform();
 
   return 0;
 }

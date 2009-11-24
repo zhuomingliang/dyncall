@@ -23,6 +23,19 @@
 #include "dyncall_args_arm9_arm.h"
 
 
+#if defined(DC__C_GNU)
+static void* arm_align_64(DCArgs* args)
+{
+  /* Respect GCC alignment for 64bit parameters */
+  if(args->reg_count < 4)
+    args->reg_count = (args->reg_count+1)&~1;
+
+  if(args->reg_count >= 4 && (int)args->stack_ptr & 4)
+	++args->stack_ptr;
+}
+#endif
+
+
 static void* arm_word(DCArgs* args)
 {
   if(args->reg_count < 4)
@@ -36,9 +49,9 @@ static DCdouble arm_double(DCArgs* args)
 {
   DClong d[2];
 #if defined(DC__C_GNU)
-  /* Respect GCC alignment for 64bit parameters */
-  args->reg_count = (args->reg_count+1)&~1;
+  arm_align_64(args);
 #endif
+  args->reg_count = (args->reg_count+1)&~1;
   d[0] = *(DClong*)arm_word(args);
   d[1] = *(DClong*)arm_word(args);
   return *(DCdouble*)d;
@@ -49,8 +62,7 @@ static DClonglong arm_longlong(DCArgs* args)
 {
   DClong ll[2];
 #if defined(DC__C_GNU)
-  /* Respect GCC alignment for 64bit parameters */
-  args->reg_count = (args->reg_count+1)&~1;
+  arm_align_64(args);
 #endif
   ll[0] = *(DClong*)arm_word(args);
   ll[1] = *(DClong*)arm_word(args);
