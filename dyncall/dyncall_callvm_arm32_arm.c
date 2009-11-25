@@ -33,6 +33,7 @@
 #include "dyncall_callvm_arm32_arm.h"
 #include "dyncall_alloc.h"
 
+static void dc_callvm_mode_arm32_arm(DCCallVM* in_self,DCint mode);
 
 static DCCallVM* dc_callvm_new_arm32_arm(DCCallVM_vt* vt, DCsize size)
 {
@@ -200,7 +201,12 @@ DCCallVM_vt gVT_arm32_arm_eabi =
 
 DCCallVM* dcNewCallVM_arm32_arm(DCsize size) 
 {
+/* Check OS if we need EABI as default. */
+#if defined(DC__OS_NDS)
+  return dc_callvm_new_arm32_arm(&gVT_arm32_arm_eabi, size);
+#else
   return dc_callvm_new_arm32_arm(&gVT_arm32_arm, size);
+#endif
 }
 
 
@@ -215,7 +221,12 @@ static void dc_callvm_mode_arm32_arm(DCCallVM* in_self,DCint mode)
   DCCallVM_arm32_arm* self = (DCCallVM_arm32_arm*) in_self;
   DCCallVM_vt*  vt;
   switch(mode) {
+/* Check OS if we need EABI as default. */
+#if defined(DC__OS_NDS)
+    case DC_CALL_C_DEFAULT:          vt = &gVT_arm32_arm_eabi; break;
+#else
     case DC_CALL_C_DEFAULT:          vt = &gVT_arm32_arm;      break;
+#endif
     case DC_CALL_C_ARM_ARM:          vt = &gVT_arm32_arm;      break;
     case DC_CALL_C_ARM_ARM_EABI:     vt = &gVT_arm32_arm_eabi; break;
     default: return;

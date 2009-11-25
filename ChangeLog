@@ -1,3 +1,16 @@
+This file lists big/noteworthy changes, only...
+
+Version 0.5
+o renamed arm9 stuff to arm32
+o added non-EABI ABI for arm32 (before, EABI was the default implementation)
+o added dyncallback support for x64/windows, ppc32/sysv, arm32/arm
+o synced documentation again with current state of the source (lots of small changes)
+o updated ruby binding to current state of signature string (still some features missing, though)
+o added a couple of new options to configure scripts (e.g. prefix-bd, new targets, etc.)
+o darwin universal binary support
+o added new tests callback_plain and calback_suite
+o updated NDS init in test/common, to reflect latest devkitPro/libnds changes
+
 Version 0.4
 o added 'doc' makefile target for coherency and ease of use
 o fixed nmake buildfiles and configure.bat (were out of date and wrong)

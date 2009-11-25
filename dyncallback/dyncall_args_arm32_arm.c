@@ -23,16 +23,26 @@
 #include "dyncall_args_arm32_arm.h"
 
 
-static void* arm_align_64(DCArgs* args)
+static void arm_align_64(DCArgs* args)
 {
-#if defined(DC__C_GNU) && defined(DC__OS_NDS)
-  /* Respect 'eabi' @@@ alignment for 64bit parameters */
-  if(args->reg_count < 4)
-    args->reg_count = (args->reg_count+1)&~1;
+  /* Look at signature to see if current calling convention needs alignment */
+  /* or not (e.g. EABI has different alignment). If nothing specified, fall */
+  /* back to default behaviour for this platform.                           */
+  /* @@@ check signature string */
 
-  if(args->reg_count >= 4 && (int)args->stack_ptr & 4)
-	++args->stack_ptr;
+  int sig =
+#if defined(DC__OS_NDS)
+    0; /* EABI */
+#else
+    1; /* ATPCS */
 #endif
+
+  if(sig == 0) {
+    if(args->reg_count < 4)
+      args->reg_count = (args->reg_count+1)&~1;
+    if(args->reg_count >= 4 && (int)args->stack_ptr & 4)
+	  ++args->stack_ptr;
+  }
 }
 
 

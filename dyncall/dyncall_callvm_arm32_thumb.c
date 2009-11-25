@@ -33,6 +33,7 @@
 #include "dyncall_callvm_arm32_thumb.h"
 #include "dyncall_alloc.h"
 
+static void dc_callvm_mode_arm32_thumb(DCCallVM* in_self,DCint mode);
 
 static DCCallVM* dc_callvm_new_arm32_thumb(DCCallVM_vt* vt, DCsize size)
 {
@@ -215,7 +216,12 @@ DCCallVM_vt gVT_arm32_thumb_eabi =
 
 DCCallVM* dcNewCallVM_arm32_thumb(DCsize size) 
 {
+/* Check OS if we need EABI as default. */
+#if defined(DC__OS_NDS)
+  return dc_callvm_new_arm32_thumb(&gVT_arm32_thumb_eabi, size);
+#else
   return dc_callvm_new_arm32_thumb(&gVT_arm32_thumb, size);
+#endif
 }
 
 
@@ -230,9 +236,14 @@ static void dc_callvm_mode_arm32_thumb(DCCallVM* in_self,DCint mode)
   DCCallVM_arm32_thumb* self = (DCCallVM_arm32_thumb*) in_self;
   DCCallVM_vt*  vt;
   switch(mode) {
-    case DC_CALL_C_DEFAULT:            vt = &gVT_arm32_thumb;      break;
-    case DC_CALL_C_ARM_THUMB:          vt = &gVT_arm32_thumb;      break;
-    case DC_CALL_C_ARM_THUMB_EABI:     vt = &gVT_arm32_thumb_eabi; break;
+/* Check OS if we need EABI as default. */
+#if defined(DC__OS_NDS)
+    case DC_CALL_C_DEFAULT:          vt = &gVT_arm32_thumb_eabi; break;
+#else
+    case DC_CALL_C_DEFAULT:          vt = &gVT_arm32_thumb;      break;
+#endif
+    case DC_CALL_C_ARM_THUMB:        vt = &gVT_arm32_thumb;      break;
+    case DC_CALL_C_ARM_THUMB_EABI:   vt = &gVT_arm32_thumb_eabi; break;
     default: return;
   }
   self->mInterface.mVTpointer = vt;
