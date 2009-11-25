@@ -56,11 +56,6 @@ static void dc_callvm_reset_arm32_thumb(DCCallVM* in_self)
   dcVecReset(&self->mVecHead);
 }
 
-static void dc_callvm_mode_arm32_thumb(DCCallVM* in_self,DCint mode)
-{
-  /* do nothing */
-}
-
 
 static void dc_callvm_argInt_arm32_thumb(DCCallVM* in_self, DCint x)
 {
@@ -96,9 +91,15 @@ static void dc_callvm_argLong_arm32_thumb(DCCallVM* in_self, DClong x)
 static void dc_callvm_argLongLong_arm32_thumb(DCCallVM* in_self, DClonglong x)
 {
   DCCallVM_arm32_thumb* self = (DCCallVM_arm32_thumb*)in_self;
+  dcVecAppend(&self->mVecHead, &x, sizeof(DClonglong));
+}
 
-  /* 64 bit values need to be aligned on 8 byte boundaries (@@@ perhaps
-     this is GCC specific - it is not documented int the ATPCS, though) */
+
+static void dc_callvm_argLongLong_arm32_thumb_eabi(DCCallVM* in_self, DClonglong x)
+{
+  DCCallVM_arm32_thumb* self = (DCCallVM_arm32_thumb*)in_self;
+
+  /* 64 bit values need to be aligned on 8 byte boundaries */
   dcVecSkip(&self->mVecHead, dcVecSize(&self->mVecHead) & 4);
   dcVecAppend(&self->mVecHead, &x, sizeof(DClonglong));
 }
@@ -114,9 +115,15 @@ static void dc_callvm_argFloat_arm32_thumb(DCCallVM* in_self, DCfloat x)
 static void dc_callvm_argDouble_arm32_thumb(DCCallVM* in_self, DCdouble x)
 {
   DCCallVM_arm32_thumb* self = (DCCallVM_arm32_thumb*)in_self;
+  dcVecAppend(&self->mVecHead, &x, sizeof(DCdouble));
+}
 
-  /* 64 bit values need to be aligned on 8 byte boundaries (@@@ perhaps
-     this is GCC specific - it is not documented int the ATPCS, though) */
+
+static void dc_callvm_argDouble_arm32_thumb_eabi(DCCallVM* in_self, DCdouble x)
+{
+  DCCallVM_arm32_thumb* self = (DCCallVM_arm32_thumb*)in_self;
+
+  /* 64 bit values need to be aligned on 8 byte boundaries */
   dcVecSkip(&self->mVecHead, dcVecSize(&self->mVecHead) & 4);
   dcVecAppend(&self->mVecHead, &x, sizeof(DCdouble));
 }
@@ -178,13 +185,57 @@ DCCallVM_vt gVT_arm32_thumb =
 , (DCpointervmfunc*)    &dc_callvm_call_arm32_thumb_word
 };
 
+
+DCCallVM_vt gVT_arm32_thumb_eabi =
+{
+  &dc_callvm_free_arm32_thumb
+, &dc_callvm_reset_arm32_thumb
+, &dc_callvm_mode_arm32_thumb
+, &dc_callvm_argBool_arm32_thumb
+, &dc_callvm_argChar_arm32_thumb
+, &dc_callvm_argShort_arm32_thumb 
+, &dc_callvm_argInt_arm32_thumb
+, &dc_callvm_argLong_arm32_thumb
+, &dc_callvm_argLongLong_arm32_thumb_eabi
+, &dc_callvm_argFloat_arm32_thumb
+, &dc_callvm_argDouble_arm32_thumb_eabi
+, &dc_callvm_argPointer_arm32_thumb
+, (DCvoidvmfunc*)       &dc_callvm_call_arm32_thumb
+, (DCboolvmfunc*)       &dc_callvm_call_arm32_thumb_word
+, (DCcharvmfunc*)       &dc_callvm_call_arm32_thumb_word
+, (DCshortvmfunc*)      &dc_callvm_call_arm32_thumb_word
+, (DCintvmfunc*)        &dc_callvm_call_arm32_thumb_word
+, (DClongvmfunc*)       &dc_callvm_call_arm32_thumb_word
+, (DClonglongvmfunc*)   &dc_callvm_call_arm32_thumb_dword
+, (DCfloatvmfunc*)      &dc_callvm_call_arm32_thumb_word
+, (DCdoublevmfunc*)     &dc_callvm_call_arm32_thumb_dword
+, (DCpointervmfunc*)    &dc_callvm_call_arm32_thumb_word
+};
+
+
 DCCallVM* dcNewCallVM_arm32_thumb(DCsize size) 
 {
   return dc_callvm_new_arm32_thumb(&gVT_arm32_thumb, size);
 }
 
+
 DCCallVM* dcNewCallVM(DCsize size)
 {
   return dcNewCallVM_arm32_thumb(size);
+}
+
+
+static void dc_callvm_mode_arm32_thumb(DCCallVM* in_self,DCint mode)
+{
+  DCCallVM_arm32_thumb* self = (DCCallVM_arm32_thumb*) in_self;
+  DCCallVM_vt*  vt;
+  switch(mode) {
+    case DC_CALL_C_DEFAULT:            vt = &gVT_arm32_thumb;      break;
+    case DC_CALL_C_ARM_THUMB:          vt = &gVT_arm32_thumb;      break;
+    case DC_CALL_C_ARM_THUMB_EABI:     vt = &gVT_arm32_thumb_eabi; break;
+    default: return;
+  }
+  self->mInterface.mVTpointer = vt;
+  dcReset(in_self);
 }
 

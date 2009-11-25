@@ -84,7 +84,7 @@ functions in C.
 \hline
 Signature character & C/C++ data type \\
 \hline
-\sigchar{B} & \_Bool,bool \\
+\sigchar{B} & \_Bool, bool \\
 \sigchar{c} & char \\
 \sigchar{C} & unsigned char \\
 \sigchar{s} & short \\
@@ -93,7 +93,7 @@ Signature character & C/C++ data type \\
 \sigchar{I} & unsigned int \\
 \sigchar{j} & long \\
 \sigchar{J} & unsigned long \\
-\sigchar{l} & long long,int64\_t \\
+\sigchar{l} & long long, int64\_t \\
 \sigchar{L} & unsigned long long, uint64\_t \\
 \sigchar{f} & float \\
 \sigchar{d} & double \\
@@ -223,15 +223,15 @@ The Ruby gem {\tt rbdc}  implements the Ruby language bindings.
 Signature character & accepted Ruby data types\\
 \hline
 \sigchar{B} & TrueClass, FalseClass, NilCalss, Fixnum casted to bool\\
-\sigchar{c} & Fixnum cast to char\\
-\sigchar{s} & Fixnum cast to short\\
-\sigchar{i} & Fixnum cast to int\\
-\sigchar{j} & Fixnum cast to long\\
-\sigchar{l} & Fixnum cast to long long\\
-\sigchar{f} & Float cast to float\\
-\sigchar{d} & Float cast to double\\
-\sigchar{p} & String cast to void*\\
-\sigchar{v} & no return type\\
+\sigchar{c}, \sigchar{C} & Fixnum cast to (unsigned) char\\
+\sigchar{s}, \sigchar{S} & Fixnum cast to (unsigned) short\\
+\sigchar{i}, \sigchar{I} & Fixnum cast to (unsigned) int\\
+\sigchar{j}, \sigchar{J} & Fixnum cast to (unsigned) long\\
+\sigchar{l}, \sigchar{L} & Fixnum cast to (unsigned) long long\\
+\sigchar{f}              & Float cast to float\\
+\sigchar{d}              & Float cast to double\\
+\sigchar{p}, \sigchar{Z} & String cast to void*\\
+\sigchar{v}              & no return type\\
 \hline
 \end{tabular*}
 \caption{Type signature encoding for Ruby bindings}
