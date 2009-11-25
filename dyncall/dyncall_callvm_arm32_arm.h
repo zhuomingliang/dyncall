@@ -1,10 +1,6 @@
 /*
- Package: dyncall
- Library: dyncallback
- File: dyncallback/dyncall_args.c
- Description: Callback's Arguments VM - Implementation back-end selector
- License:
- Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>,
+
+ Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
 
  Permission to use, copy, modify, and distribute this software for any
@@ -20,17 +16,37 @@
  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 */
-#include "dyncall_macros.h"
 
-#if defined(DC__Arch_Intel_x86)
-#include "dyncall_args_x86.c"
-#elif defined (DC__Arch_AMD64)
-#include "dyncall_args_x64.c"
-#elif defined (DC__Arch_PowerPC)
-#include "dyncall_args_ppc32.c"
-#elif defined (DC__Arch_ARM_ARM)
-#include "dyncall_args_arm32_arm.c"
-#elif defined (DC__Arch_ARM_THUMB)
-#include "dyncall_args_arm32_thumb.c"
-#endif
+/*
+
+  dyncall callvm for 32bit ARM32 family of processors
+
+  SUPPORTED CALLING CONVENTIONS
+  armcall
+
+  REVISION
+  2007/12/11 initial
+
+*/
+
+
+#ifndef DYNCALL_CALLVM_ARM32_ARM_H
+#define DYNCALL_CALLVM_ARM32_ARM_H
+
+#include "dyncall_call_arm32_arm.h"
+#include "dyncall_callvm.h"
+#include "dyncall_vector.h"
+
+
+typedef struct
+{
+  DCCallVM  mInterface;
+  DCpointer mpCallFunc;
+  DCVecHead mVecHead;
+} DCCallVM_arm32_arm;
+
+DCCallVM* dcNewCallVM_arm32_arm(DCsize size);
+
+
+#endif /* DYNCALL_CALLVM_ARM32_ARM_H */
 

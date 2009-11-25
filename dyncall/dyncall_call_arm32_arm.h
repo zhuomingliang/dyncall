@@ -19,34 +19,36 @@
 
 /*
 
-  dyncall callvm for 32bit ARM9 family of processors
-
-  SUPPORTED CALLING CONVENTIONS
-  armthumbcall
+  dyncall 32bit ARM32 family interface (ARM mode)
 
   REVISION
-  2008/08/12 initial
+  2007/12/11 initial
 
 */
 
 
-#ifndef DYNCALL_CALLVM_ARM9_THUMB_H
-#define DYNCALL_CALLVM_ARM9_THUMB_H
-
-#include "dyncall_call_arm9_thumb.h"
-#include "dyncall_callvm.h"
-#include "dyncall_vector.h"
+#ifndef DYNCALL_CALL_ARM32_ARM_H
+#define DYNCALL_CALL_ARM32_ARM_H
 
 
-typedef struct
-{
-  DCCallVM  mInterface;
-  DCpointer mpCallFunc;
-  DCVecHead mVecHead;
-} DCCallVM_arm9_thumb;
+#include "dyncall_types.h"
 
-DCCallVM* dcNewCallVM_arm9_thumb(DCsize size);
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* 
+** arm32 arm mode calling convention calls 
+**
+** - hybrid return-type call (bool ... pointer)
+**
+*/
+
+void dcCall_arm32_arm(DCpointer target, DCpointer stackdata, DCsize size);
+
+#ifdef __cplusplus
+}
+#endif
 
 
-#endif /* DYNCALL_CALLVM_ARM9_THUMB_H */
-
+#endif /* DYNCALL_CALL_ARM32_ARM_H */

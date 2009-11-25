@@ -79,10 +79,10 @@ IF [%1]==[] (
 	SET CONFIG_ARCH=mips32
 	SET CONFIG_OS=psp
 ) ELSE IF [%1]==[/target-nds-arm] (
-	SET CONFIG_ARCH=arm9_arm
+	SET CONFIG_ARCH=arm32_arm
 	SET CONFIG_OS=nds
 ) ELSE IF [%1]==[/target-nds-thumb] (
-	SET CONFIG_ARCH=arm9_thumb
+	SET CONFIG_ARCH=arm32_thumb
 	SET CONFIG_OS=nds
 ) ELSE IF [%1]==[/tool-gcc] (
 	SET CONFIG_TOOL=gcc

@@ -1,9 +1,10 @@
 /*
  Package: dyncall
  Library: dyncallback
- File: dyncallback/dyncall_args_arm9_arm.h
- Description: Callback's Arguments VM - Header for ARM9 (ARM mode)
+ File: dyncallback/dyncall_callback_arm32_arm.c
+ Description: Callback - Implementation for ARM32 (ARM mode)
  License:
+
  Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>,
                          Tassilo Philipp <tphilipp@potion-studios.com>
 
@@ -20,18 +21,37 @@
  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 */
-#ifndef DYNCALLBACK_ARGS_ARM9_ARM_H
-#define DYNCALLBACK_ARGS_ARM9_ARM_H
 
-#include "dyncall_args.h"
+#include "dyncall_callback_arm32_arm.h"
+#include "dyncall_args_arm32_arm.h"
 
-struct DCArgs
+#include "dyncall_alloc_wx.h"
+#include "dyncall_signature.h"
+
+extern void dcCallbackThunkEntry();
+
+void dcInitCallback(DCCallback* pcb, const char* signature, DCCallbackHandler* handler, void* userdata)
 {
-	/* Don't change order! */
-	long  reg_data[4];
-	int   reg_count;
-	long* stack_ptr;
-};
+  pcb->handler  = handler;
+  pcb->userdata = userdata;
+}
 
-#endif /* DYNCALLBACK_ARGS_ARM9_ARM_H */
+
+DCCallback* dcNewCallback(const char* signature, DCCallbackHandler* handler, void* userdata)
+{
+  int err;
+  DCCallback* pcb;
+  err = dcAllocWX(sizeof(DCCallback), (void**)&pcb);
+  if(err || !pcb)
+    return 0;
+  dcInitThunk(&pcb->thunk, dcCallbackThunkEntry);
+  dcInitCallback(pcb, signature, handler, userdata);
+  return pcb;
+}
+
+
+void dcFreeCallback(DCCallback* pcb)
+{
+  dcFreeWX(pcb, sizeof(DCCallback));
+}
 

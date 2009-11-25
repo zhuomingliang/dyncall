@@ -1,8 +1,8 @@
 /*
  Package: dyncall
  Library: dyncallback
- File: dyncallback/dyncall_thunk_arm9_arm.c
- Description: Thunk - Implementation for ARM9 (ARM mode)
+ File: dyncallback/dyncall_thunk_arm32_arm.h
+ Description: Thunk - Header for ARM32 (ARM mode)
  License:
 
  Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>,
@@ -21,23 +21,18 @@
  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 */
-#include "dyncall_thunk.h"
+#ifndef DYNCALL_THUNK_ARM32_ARM_H
+#define DYNCALL_THUNK_ARM32_ARM_H
 
-void dcInitThunk(DCThunk* p, void* entry)
+
+struct DCThunk_
 {
-  /*
-    # ARM9 (ARM mode) thunk code:
-    .code 32
-      sub %r12, %r15, #8
-      ldr %r15, [%r15, #-4]
-  */
+  unsigned int code[2];
+  unsigned int entry;
+};
 
-  /* This code loads 'entry+8' into r15. The -4 is needed, because r15 as  */
-  /* program counter points to the current instruction+8, but the pointer  */
-  /* to the code to execute follows the ldr instruction directly. Add 8 to */
-  /* entry for similar reasons. NOTE: Latter seems to be implicit with     */ 
-  /* latest update of arm-eabi0* tools.                                    */
-  p->code[0]  = 0xe24fc008UL;  /* sub %r12, %r15, #8 */
-  p->code[1]  = 0xe51ff004UL;  /* ldr %r15, [%r15, #-4] */
-  p->entry = (unsigned int)entry/*+8*/;
-}
+#define DCTHUNK_ARM32_ARM_SIZE 12
+
+
+#endif /* DYNCALL_THUNK_ARM32_ARM_H */
+

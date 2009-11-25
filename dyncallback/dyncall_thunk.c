@@ -30,8 +30,8 @@
 #elif defined(DC__Arch_PowerPC)
 # include "dyncall_thunk_ppc32.c"
 #elif defined (DC__Arch_ARM_ARM)
-#include "dyncall_thunk_arm9_arm.c"
+#include "dyncall_thunk_arm32_arm.c"
 #elif defined (DC__Arch_ARM_THUMB)
-#include "dyncall_thunk_arm9_thumb.c"
+#include "dyncall_thunk_arm32_thumb.c"
 #endif
 

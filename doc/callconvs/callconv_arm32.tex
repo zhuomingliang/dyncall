@@ -18,13 +18,13 @@
 %//////////////////////////////////////////////////////////////////////////////
 
 % ==================================================
-% ARM9
+% ARM32
 % ==================================================
-\subsection{ARM9 Calling Convention}
+\subsection{ARM32 Calling Convention}
 
 \paragraph{Overview}
 
-The ARM9 family of processors is based on the ARM processor architecture (32 bit RISC). The word size is 32 bits (and the programming model is LLP64).\\
+The ARM32 family of processors is based on the ARM processor architecture (32 bit RISC). The word size is 32 bits (and the programming model is LLP64).\\
 Basically, this family of microprocessors can be run in 2 major modes:\\
 \\
 \begin{tabular}{2 B}
@@ -42,7 +42,7 @@ Take a look at the ARM-THUMB procedure call standard (ATPCS) \cite{ATPCS} for mo
 
 \paragraph{\product{dyncall} support}
 
-Currently, the \product{dyncall} library supports the ARM and THUMB mode of the ARM9 family, excluding ARM-THUMB interworking. Although it's quite possible that the current implementation runs on other ARM processor families as well, please note that only the ARM9 family has been thoroughly tested at the time of writing. Please report if the code runs on other ARM families, too.\\
+Currently, the \product{dyncall} library supports the ARM and THUMB mode of the ARM32 family, excluding ARM-THUMB interworking. Although it's quite possible that the current implementation runs on other ARM processor families as well, please note that only the ARMv4t family has been thoroughly tested at the time of writing. Please report if the code runs on other ARM families, too.\\
 It is important to note, that dyncall supports the ARM architecture calling convention variant {\bf with floating point hardware disabled} (meaning that the FPA and the VFP (scalar mode) procedure call standards are not supported).
 This processor family features some instruction sets accelerating DSP and multimedia application like the ARM Jazelle Technology (direct Java bytecode execution, providing acceleration for some bytecodes while calling software code for others), etc. that are not supported by the dyncall library.\\
 
@@ -54,7 +54,7 @@ This processor family features some instruction sets accelerating DSP and multim
 
 \paragraph{Registers and register usage}
 
-In ARM mode, the ARM9 processor has sixteen 32 bit general purpose registers, namely r0-15:\\
+In ARM mode, the ARM32 processor has sixteen 32 bit general purpose registers, namely r0-15:\\
 \\
 \begin{table}[h]
 \begin{tabular}{3 B}
@@ -72,7 +72,7 @@ Name         & Brief description\\
 {\bf r15}    & program counter (note: due to pipeline, r15 points to 2 instructions ahead)\\
 \hline
 \end{tabular}
-\caption{Register usage on arm9}
+\caption{Register usage on arm32}
 \end{table}
 
 \paragraph{Parameter passing}
@@ -87,7 +87,7 @@ Name         & Brief description\\
 \item 64 bit parameters are passed as two 32 bit parts (even partly via the register and partly via the stack - GCC needs them to be aligned on 8 byte boundaries, although this doesn't seem to be specified in the ATPCS), with the loword coming first
 \item structures and unions are passed by value, with the first four words of the parameters in r0-r3
 \item if return value is a structure, a pointer pointing to the return value's space is passed in r0, the first parameter in r1, etc... (see {\bf return values})
-\item keeping the stack eight-byte aligned can improve memory access performance and is required by LDRD and STRD on ARMv5TE processors which are part of the ARM9 family, so, in order to avoid problems one should always align the stack (tests have shown, that GCC does care about the alignment when using the ellipsis)
+\item keeping the stack eight-byte aligned can improve memory access performance and is required by LDRD and STRD on ARMv5TE processors which are part of the ARM32 family, so, in order to avoid problems one should always align the stack (tests have shown, that GCC does care about the alignment when using the ellipsis)
 \end{itemize}
 
 \paragraph{Return values}
@@ -126,7 +126,7 @@ local data                               &        &                             
 parameter area                           & \vdots &                                      &                              \\
 \hhline{~-~~}
 \end{tabular}
-\caption{Stack layout on arm9}
+\caption{Stack layout on arm32}
 \end{figure}
 
 
@@ -144,7 +144,7 @@ parameter area                           & \vdots &                             
 
 \paragraph{Registers and register usage}
 
-In THUMB mode, the ARM9 processor family supports eight 32 bit general purpose registers r0-r7 and access to high order registers r8-r15:\\
+In THUMB mode, the ARM32 processor family supports eight 32 bit general purpose registers r0-r7 and access to high order registers r8-r15:\\
 \\
 \begin{table}[h]
 \begin{tabular}{3 B}
@@ -163,7 +163,7 @@ Name         & Brief description\\
 {\bf r15}    & program counter (note: due to pipeline, r15 points to 2 instructions ahead)\\
 \hline
 \end{tabular}
-\caption{Register usage on arm9 thumb mode}
+\caption{Register usage on arm32 thumb mode}
 \end{table}
 
 \paragraph{Parameter passing}
@@ -178,7 +178,7 @@ Name         & Brief description\\
 \item 64 bit parameters are passed as two 32 bit parts (even partly via the register and partly via the stack - GCC needs them to be aligned on 8 byte boundaries, although this doesn't seem to be specified in the ATPCS), with the loword coming first
 \item structures and unions are passed by value, with the first four words of the parameters in r0-r3
 \item if return value is a structure, a pointer pointing to the return value's space is passed in r0, the first parameter in r1, etc. (see {\bf return values})
-\item keeping the stack eight-byte aligned can improve memory access performance and is required by LDRD and STRD on ARMv5TE processors which are part of the ARM9 family, so, in order to avoid problems one should always align the stack (tests have shown, that GCC does care about the alignment when using the ellipsis)
+\item keeping the stack eight-byte aligned can improve memory access performance and is required by LDRD and STRD on ARMv5TE processors which are part of the ARM32 family, so, in order to avoid problems one should always align the stack (tests have shown, that GCC does care about the alignment when using the ellipsis)
 \end{itemize}
 
 
@@ -218,6 +218,6 @@ local data                               &        &                             
 parameter area                           & \vdots &                                      &                              \\
 \hhline{~-~~}
 \end{tabular}
-\caption{Stack layout on arm9 thumb mode}
+\caption{Stack layout on arm32 thumb mode}
 \end{figure}
 

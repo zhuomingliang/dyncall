@@ -1,8 +1,8 @@
 /*
  Package: dyncall
  Library: dyncallback
- File: dyncallback/dyncall_args_arm9_arm.c
- Description: Callback's Arguments VM - Implementation for ARM9 (ARM mode)
+ File: dyncallback/dyncall_args_arm32_arm.c
+ Description: Callback's Arguments VM - Implementation for ARM32 (ARM mode)
  License:
  Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>,
                          Tassilo Philipp <tphilipp@potion-studios.com>
@@ -20,7 +20,7 @@
  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 */
 
-#include "dyncall_args_arm9_arm.h"
+#include "dyncall_args_arm32_arm.h"
 
 
 #if defined(DC__C_GNU)

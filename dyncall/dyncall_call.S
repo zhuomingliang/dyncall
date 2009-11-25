@@ -43,9 +43,9 @@
 # elif defined(DC__Arch_PPC64)
 #  include "dyncall_call_ppc64_gas.s"
 # elif defined(DC__Arch_ARM_ARM)
-#  include "dyncall_call_arm9_arm_gas.s"
+#  include "dyncall_call_arm32_arm_gas.s"
 # elif defined(DC__Arch_ARM_THUMB)
-#  include "dyncall_call_arm9_thumb_gas.s"
+#  include "dyncall_call_arm32_thumb_gas.s"
 # elif defined(DC__Arch_MIPS)
 #  include "dyncall_call_mips_eabi.s"
 # else

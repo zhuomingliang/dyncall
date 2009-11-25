@@ -10,8 +10,8 @@ new build strategy on dyncall:
     
     archs so far:
     
-    arm9_thumb		.s
-    arm9_arm		.s
+    arm32_thumb		.s
+    arm32_arm		.s
     mips		.s
     ppc32		.s
     x64			.s

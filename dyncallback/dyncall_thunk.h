@@ -63,9 +63,9 @@ void   dcInitThunk(DCThunk* p, void* entry );
 #elif defined (DC__Arch_PowerPC)
 #include "dyncall_thunk_ppc32.h"
 #elif defined (DC__Arch_ARM_ARM)
-#include "dyncall_thunk_arm9_arm.h"
+#include "dyncall_thunk_arm32_arm.h"
 #elif defined (DC__Arch_ARM_THUMB)
-#include "dyncall_thunk_arm9_thumb.h"
+#include "dyncall_thunk_arm32_thumb.h"
 #endif
 
 #ifdef __cplusplus

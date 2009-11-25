@@ -1,6 +1,11 @@
 /*
+ Package: dyncall
+ Library: dyncallback
+ File: dyncallback/dyncall_callback_arm32_arm.h
+ Description: Callback - Header for ARM32 (ARM mode)
+ License:
 
- Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
+ Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>,
                          Tassilo Philipp <tphilipp@potion-studios.com>
 
  Permission to use, copy, modify, and distribute this software for any
@@ -14,41 +19,24 @@
  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-
 */
 
-/*
+#ifndef DYNCALL_CALLBACK_ARM32_ARM_H_
+#define DYNCALL_CALLBACK_ARM32_ARM_H_
 
-  dyncall 32bit ARM9 family interface (ARM mode)
+#include "dyncall_callback.h"
 
-  REVISION
-  2007/12/11 initial
-
-*/
-
-
-#ifndef DYNCALL_CALL_ARM9_ARM_H
-#define DYNCALL_CALL_ARM9_ARM_H
+#include "dyncall_thunk.h"
+#include "dyncall_args_arm32_arm.h"
 
 
-#include "dyncall_types.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-/* 
-** arm9 arm mode calling convention calls 
-**
-** - hybrid return-type call (bool ... pointer)
-**
-*/
-
-void dcCall_arm9_arm(DCpointer target, DCpointer stackdata, DCsize size);
-
-#ifdef __cplusplus
-}
-#endif
+struct DCCallback
+{
+  DCThunk  	         thunk;    // offset 0
+  DCCallbackHandler* handler;  // offset 12
+  void*              userdata; // offset 16
+};
 
 
-#endif /* DYNCALL_CALL_ARM9_ARM_H */
+#endif /* DYNCALL_CALLBACK_ARM32_ARM_H_ */
+

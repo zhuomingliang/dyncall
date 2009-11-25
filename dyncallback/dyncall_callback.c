@@ -31,8 +31,8 @@
 #elif defined (DC__Arch_PowerPC)
 #include "dyncall_callback_ppc32.c"
 #elif defined (DC__Arch_ARM_ARM)
-#include "dyncall_callback_arm9_arm.c"
+#include "dyncall_callback_arm32_arm.c"
 #elif defined (DC__Arch_ARM_THUMB)
-#include "dyncall_callback_arm9_thumb.c"
+#include "dyncall_callback_arm32_thumb.c"
 #endif
 

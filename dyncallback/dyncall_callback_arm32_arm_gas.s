@@ -1,8 +1,8 @@
 /*
  Package: dyncall
  Library: dyncallback
- File: dyncallback/dyncall_callback_arm9_arm_gas.s
- Description: Callback Thunk - Implementation for ARM9 (ARM mode)
+ File: dyncallback/dyncall_callback_arm32_arm_gas.s
+ Description: Callback Thunk - Implementation for ARM32 (ARM mode)
  License:
 
  Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>,

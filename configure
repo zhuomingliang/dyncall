@@ -65,7 +65,7 @@ usage()
   echo "  --target-ppc32     build for ppc32 architecture platform"
   echo "  --target-ppc64     build for ppc64 architecture platform"
   echo "  --target-psp       build for Playstation Portable platform (PSPSDK)"
-#  echo "  --target-arm       build for ARM architecture platform (ARM mode)"
+  echo "  --target-arm       build for ARM architecture platform (ARM mode)"
   echo "  --target-nds-arm   build for Nintendo DS platform (devkitPro, ARM mode)"
   echo "  --target-nds-thumb build for Nintendo DS platform (devkitPro, THUMB mode)"
   echo "  --target-cygwin    build for cygwin platform"
@@ -149,8 +149,9 @@ guess_arch()
     CONFIG_ARCH="x86"
   elif [ "$ARCH" = "amd64" ] || [ "$ARCH" = "x86_64" ] || [ "$ARCH" = "x64" ]; then
     CONFIG_ARCH="x64"
-#  elif [ "$ARCH" = "cats" ]; then
-#    CONFIG_ARCH="arm9_arm"
+#  elif [ "$ARCH" = "acorn32" ] || [ "$ARCH" = "cats" ] || [ "$ARCH" = "evbarm" ] || [ "$ARCH" = "hpcarm" ] || [ "$ARCH" = "iyonix" ] || [ "$ARCH" = "netwinder" ] || [ "$ARCH" = "shark" ] || [ "$ARCH" = "zaurus" ]; then
+  elif [ "$ARCH" = "acorn32" ] || [ "$ARCH" = "cats" ] || [ "$ARCH" = "shark" ]; then
+    CONFIG_ARCH="arm32_arm"
   fi
   info "guess arch $CONFIG_ARCH"
 }
@@ -211,17 +212,17 @@ args()
         CONFIG_ARCH=mips32
         CONFIG_TOOL=gcc
         ;;
-#      --target-arm)
-#        CONFIG_ARCH=arm9_arm
-#        ;;
+      --target-arm)
+        CONFIG_ARCH=arm32_arm
+        ;;
       --target-nds-arm)
         CONFIG_OS=nds
-        CONFIG_ARCH=arm9_arm
+        CONFIG_ARCH=arm32_arm
         CONFIG_TOOL=gcc
         ;;
       --target-nds-thumb)
         CONFIG_OS=nds
-        CONFIG_ARCH=arm9_thumb
+        CONFIG_ARCH=arm32_thumb
         CONFIG_TOOL=gcc
         ;;
       --target-cygwin)
