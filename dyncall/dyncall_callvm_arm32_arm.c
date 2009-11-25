@@ -97,9 +97,11 @@ static void dc_callvm_argLongLong_arm32_arm(DCCallVM* in_self, DClonglong x)
 {
   DCCallVM_arm32_arm* self = (DCCallVM_arm32_arm*)in_self;
 
-  /* 64 bit values need to be aligned on 8 byte boundaries (@@@ perhaps
-     this is GCC specific - it is not documented int the ATPCS, though) */
+  /* 64 bit values need to be aligned on 8 byte boundaries (@@@ seems to be 'eabi'
+     specific (at least, the NDS needs it) - it is not documented int the ATPCS, though) */
+#if defined(DC__C_GNU) && defined(DC__OS_NDS)
   dcVecSkip(&self->mVecHead, dcVecSize(&self->mVecHead) & 4);
+#endif
   dcVecAppend(&self->mVecHead, &x, sizeof(DClonglong));
 
   /* Store as if 'x' were two parameters, with the loword as first parameter. */
@@ -119,9 +121,11 @@ static void dc_callvm_argDouble_arm32_arm(DCCallVM* in_self, DCdouble x)
 {
   DCCallVM_arm32_arm* self = (DCCallVM_arm32_arm*)in_self;
 
-  /* 64 bit values need to be aligned on 8 byte boundaries (@@@ perhaps
-     this is GCC specific - it is not documented int the ATPCS, though) */
+  /* 64 bit values need to be aligned on 8 byte boundaries (@@@ seems to be 'eabi'
+     specific (at least, the NDS needs it) - it is not documented int the ATPCS, though) */
+#if defined(DC__C_GNU) && defined(DC__OS_NDS)
   dcVecSkip(&self->mVecHead, dcVecSize(&self->mVecHead) & 4);
+#endif
   dcVecAppend(&self->mVecHead, &x, sizeof(DCdouble));
 }
 
