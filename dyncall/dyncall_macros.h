@@ -94,6 +94,9 @@
 #elif defined(__psp__) || defined(PSP)
         #define DC__OS_PSP
 
+/* Haiku (BeOS alike). */
+#elif defined(__HAIKU__)
+	#define DC__OS_BEOS
 #else
 	#error Unsupported OS.
 #endif
@@ -125,28 +128,24 @@
 
 /* Architecture. */
 
+#if defined(__i386__) || defined(__i486__) || defined(__i586__) || defined(__i686__) || defined(_M_IX86)
+#	define DC__Arch_Intel_x86
+#elif defined(__amd64__) || defined(__amd64) || defined(__x86_64__) || defined(__x86_64) || defined(_M_X64_ || defined(_M_AMD64)
+#	define DC__Arch_AMD64
+#endif
+
 /* Check architecture. */
 #if defined(DC__C_Intel) || defined(DC__C_MSVC)
-	#if defined(_M_IX86)
-		#define DC__Arch_Intel_x86
-	#elif defined(_M_X64) || defined(_M_AMD64)
-		#define DC__Arch_AMD64
-	#elif defined(_M_PPC)
+	#if defined(_M_PPC)
 		#define DC__Arch_PowerPC
 	#elif defined(_M_IA64)
 		#define DC__Arch_Itanium
 	#elif defined(_M_MRX000)
 		#define DC__Arch_MIPS
-	#else
-		#error Architecture not supported.
 	#endif
 
 #elif defined(DC__C_GNU)
-	#if defined(__i386__) || defined(__i486__) || defined(__i586__) || defined(__i686__)
-		#define DC__Arch_Intel_x86
-	#elif defined(__amd64__) || defined(__amd64) || defined(__x86_64__) || defined(__x86_64)
-		#define DC__Arch_AMD64
-	#elif defined(__ppc64__) || defined(_ARCH_PPC64)
+	#if defined(__ppc64__) || defined(_ARCH_PPC64)
 		#define DC__Arch_PPC64
 	#elif defined(__powerpc__) || defined(__powerpc) || defined(__POWERPC__) || defined(__ppc__)
 		#define DC__Arch_PowerPC
@@ -160,8 +159,6 @@
 		#define DC__Arch_ARM_THUMB
 	#elif defined(__sh__)
 		#define DC__Arch_SuperH
-	#else
-		#error Architecture not supported.
 	#endif
 
 #endif

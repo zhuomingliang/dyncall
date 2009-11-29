@@ -111,6 +111,8 @@ guess_os()
     CONFIG_OS="netbsd"
   elif [ "$OS" = "DragonFly" ]; then
     CONFIG_OS="dragonfly"
+  elif [ "$OS" = "Haiku" ]; then
+    CONFIG_OS="beos"
   fi
   info "guess operating system $CONFIG_OS"
 }
@@ -151,6 +153,8 @@ guess_arch()
 #  elif [ "$ARCH" = "acorn32" ] || [ "$ARCH" = "cats" ] || [ "$ARCH" = "evbarm" ] || [ "$ARCH" = "hpcarm" ] || [ "$ARCH" = "iyonix" ] || [ "$ARCH" = "netwinder" ] || [ "$ARCH" = "shark" ] || [ "$ARCH" = "zaurus" ]; then
   elif [ "$ARCH" = "acorn32" ] || [ "$ARCH" = "cats" ] || [ "$ARCH" = "shark" ]; then
     CONFIG_ARCH="arm32_arm"
+  elif [ "$ARCH" = "BePC" ]; then
+    CONFIG_ARCH="x86"
   fi
   info "guess arch $CONFIG_ARCH"
 }
