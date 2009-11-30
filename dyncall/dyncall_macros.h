@@ -128,39 +128,25 @@
 
 /* Architecture. */
 
-#if defined(__i386__) || defined(__i486__) || defined(__i586__) || defined(__i686__) || defined(_M_IX86)
-#	define DC__Arch_Intel_x86
-#elif defined(__amd64__) || defined(__amd64) || defined(__x86_64__) || defined(__x86_64) || defined(_M_X64_ || defined(_M_AMD64)
-#	define DC__Arch_AMD64
-#endif
-
 /* Check architecture. */
-#if defined(DC__C_Intel) || defined(DC__C_MSVC)
-	#if defined(_M_PPC)
-		#define DC__Arch_PowerPC
-	#elif defined(_M_IA64)
-		#define DC__Arch_Itanium
-	#elif defined(_M_MRX000)
-		#define DC__Arch_MIPS
-	#endif
-
-#elif defined(DC__C_GNU)
-	#if defined(__ppc64__) || defined(_ARCH_PPC64)
-		#define DC__Arch_PPC64
-	#elif defined(__powerpc__) || defined(__powerpc) || defined(__POWERPC__) || defined(__ppc__)
-		#define DC__Arch_PowerPC
-	#elif defined(__ia64__)
-		#define DC__Arch_Itanium
-	#elif defined(__mips__)
-		#define DC__Arch_MIPS
-	#elif defined(__arm__) && !defined(__thumb__)
-		#define DC__Arch_ARM_ARM
-	#elif defined(__arm__) && defined(__thumb__)
-		#define DC__Arch_ARM_THUMB
-	#elif defined(__sh__)
-		#define DC__Arch_SuperH
-	#endif
-
+#if defined(_M_IX86) || defined(__i386__) || defined(__i486__) || defined(__i586__) || defined(__i686__) 
+# define DC__Arch_Intel_x86
+#elif defined(_M_X64_) || defined(_M_AMD64) || defined(__amd64__) || defined(__amd64) || defined(__x86_64__) || defined(__x86_64) 
+# define DC__Arch_AMD64
+#elif defined(_M_IA64) || defined(__ia64__)
+# define DC__Arch_Itanium
+#elif defined(_M_PPC) || defined(__powerpc__) || defined(__powerpc) || defined(__POWERPC__) || defined(__ppc__)
+# define DC__Arch_PowerPC
+#elif defined(__ppc64__) || defined(_ARCH_PPC64)
+# define DC__Arch_PPC64
+#elif defined(_M_MRX000) || defined(__mips__)
+# define DC__Arch_MIPS
+#elif defined(__arm__) && !defined(__thumb__)
+# define DC__Arch_ARM_ARM
+#elif defined(__arm__) && defined(__thumb__)
+# define DC__Arch_ARM_THUMB
+#elif defined(__sh__)
+# define DC__Arch_SuperH
 #endif
 
 
