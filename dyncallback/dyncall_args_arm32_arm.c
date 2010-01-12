@@ -57,22 +57,27 @@ static void* arm_word(DCArgs* args)
 
 static DCdouble arm_double(DCArgs* args)
 {
-  DClong d[2];
+  union {
+    DCdouble d;
+    DClong   l[2];
+  } d;
   arm_align_64(args);
-  args->reg_count = (args->reg_count+1)&~1;
-  d[0] = *(DClong*)arm_word(args);
-  d[1] = *(DClong*)arm_word(args);
-  return *(DCdouble*)d;
+  d.l[0] = *(DClong*)arm_word(args);
+  d.l[1] = *(DClong*)arm_word(args);
+  return d.d;
 }
 
 
 static DClonglong arm_longlong(DCArgs* args)
 {
-  DClong ll[2];
+  union {
+    DClonglong ll;
+    DClong     l[2];
+  } ll;
   arm_align_64(args);
-  ll[0] = *(DClong*)arm_word(args);
-  ll[1] = *(DClong*)arm_word(args);
-  return *(DClonglong*)ll;
+  ll.l[0] = *(DClong*)arm_word(args);
+  ll.l[1] = *(DClong*)arm_word(args);
+  return ll.ll;
 }
 
 
