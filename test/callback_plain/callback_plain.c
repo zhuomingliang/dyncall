@@ -48,7 +48,7 @@ int main()
   printf("successfully returned from callback\n");
   printf("return value (should be 1234): %d\n", result);
 
-  printf("result: callback_suite: %s\n", (userdata == 6) && (result == 1234) ? "1" : "0");
+  printf("result: callback_plain: %s\n", (userdata == 6) && (result == 1234) ? "1" : "0");
 
   dcTest_deInitPlatform();
 
