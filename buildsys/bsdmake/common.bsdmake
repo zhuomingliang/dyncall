@@ -30,16 +30,12 @@ build: dirs autos $(TARGETS)
 CLEAN_FILES=$(TARGETS) $(OBJS)
 clean: dirs .SILENT
 	echo Cleaning $(.CURDIR)...
-.if $(CLEAN_FILES) != ""
-	rm -f $(CLEAN_FILES)
-.endif
+	rm -f $(CLEAN_FILES) || true
 
 AUTO_FILES=$(AUTOS) $(AUTO_DIRS)
 distclean: clean .SILENT
 	echo Cleaning auto-generated files in $(.CURDIR)...
-.if $(AUTO_FILES) != ""
-	rm -f $(AUTOS) $(AUTO_DIRS)
-.endif
+	rm -f $(AUTOS) $(AUTO_DIRS) || true
 
 
 # --- auto generated -----------------------------------------------------------

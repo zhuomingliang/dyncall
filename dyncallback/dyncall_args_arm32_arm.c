@@ -41,7 +41,7 @@ static void arm_align_64(DCArgs* args)
     if(args->reg_count < 4)
       args->reg_count = (args->reg_count+1)&~1;
     if(args->reg_count >= 4 && (int)args->stack_ptr & 4)
-	  ++args->stack_ptr;
+      ++args->stack_ptr;
   }
 }
 
