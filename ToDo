@@ -3,6 +3,7 @@ urgent issues:
 - consistency: on x64 platforms: make both ABIs available ('win64','sysv') for all x64 OS ports
 - finish arm32/normalABI dyncallback
 - add and test arm32/normalABI/THUMB
+- look over code and fix TODO or @@@ marks
 
 nice to have:
 - microsoft build enhancement: autodetect assembly via C preprocessor (like with .S gcc files)
