@@ -9,6 +9,7 @@ o updated ruby binding to current state of signature string (still some features
 o added a couple of new options to configure scripts (e.g. prefix-bd, new targets, etc.)
 o darwin universal binary support
 o added new tests callback_plain and calback_suite
+o added Haiku/BeOS support
 
 Version 0.4
 o added 'doc' makefile target for coherency and ease of use

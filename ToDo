@@ -1,6 +1,8 @@
 urgent issues:
 - update: microsoft visual c++ build files - integrate all test suites in solution file
 - consistency: on x64 platforms: make both ABIs available ('win64','sysv') for all x64 OS ports
+- finish arm32/normalABI dyncallback
+- add and test arm32/normalABI/THUMB
 
 nice to have:
 - microsoft build enhancement: autodetect assembly via C preprocessor (like with .S gcc files)
@@ -23,12 +25,12 @@ missing implementations (descending priority):
 - z80
 - hppa
 - vax
+- propeller
 
 available hardware for outstanding ports:
 - 68k: Tassilo's old Palm m100 (MC68EZ328 (16MHz))
 - sh4: Tassilo's Dreamcast
 - mips R5900: Daniel's PS2
-- ARM7: Tassilo's DS
 - mips (?): Daniel's router
 - sigmatel stmp3550b: Daniel's iPod Nano
 
