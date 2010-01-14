@@ -65,6 +65,7 @@ IF [%1]==[] (
 	ECHO.
 	ECHO.  /config-release   build release version ^(default^)
 	ECHO.  /config-debug     build debug version
+	GOTO:EOF
 ) ELSE IF [%1]==[/prefix] (
 	SET CONFIG_PREFIX=%2
 	SHIFT
