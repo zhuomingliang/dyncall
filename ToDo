@@ -1,11 +1,12 @@
 urgent issues:
 - update: microsoft visual c++ build files - integrate all test suites in solution file
-- consistency: on x64 platforms: make both ABIs available ('win64','sysv') for all x64 OS ports
 - add arm32/ATPCS/THUMB
 - add dyncallback for arm32/EABI/THUMB
 - look over code and fix TODO or @@@ marks
 
 nice to have:
+- consistency: on x64 platforms: make both ABIs available ('win64','sysv') for all x64 OS ports
+- dynamic choice of ARM/THUMB mode - ATM one has to compile for ARM or THUMB
 - microsoft build enhancement: autodetect assembly via C preprocessor (like with .S gcc files)
 - enhancement: state-machine error reporting (stack overflow and invalid mode)? (e.g. dcError() )
 
