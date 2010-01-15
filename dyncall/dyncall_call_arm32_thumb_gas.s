@@ -30,9 +30,9 @@
 .code 16	/* THUMB mode */
 
 .globl dcCall_arm32_thumb
-.thumb_func
 
 /* Main dyncall call. */
+.thumb_func
 dcCall_arm32_thumb:
 
 	/* Prolog. This function never needs to spill inside its prolog, so just store the permanent registers. */
@@ -87,15 +87,15 @@ call:
 
 /* Internally used to avoid compiler overwriting r0 and r1 in call stub */
 .globl dcCall_arm32_thumb_word
-.thumb_func
 
+.thumb_func
 dcCall_arm32_thumb_word:
 	b	dcCall_arm32_thumb
 
 
 .globl dcCall_arm32_thumb_dword
-.thumb_func
 
+.thumb_func
 dcCall_arm32_thumb_dword:
 	b	dcCall_arm32_thumb
 
