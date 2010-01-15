@@ -86,8 +86,8 @@ the float - 1 register for single precision and 2 for double precision floating 
 \item the caller pushes subsequent parameters onto the stack
 \item for every parameter passed via a register, space is reserved in the stack parameter area (in order to spill the parameters if
 needed - e.g. varargs)
-\item ellipse calls take floating point values in int and float registers (single precision floats are promoted to double precision
-as defined for ellipse calls)
+\item ellipsis calls take floating point values in int and float registers (single precision floats are promoted to double precision
+as defined for ellipsis calls)
 \item all nonvector parameters are aligned on 4-byte boundaries
 \item vector parameters are aligned on 16-byte boundaries
 \item integer parameters \textless\ 32 bit occupy high-order bytes of their 4-byte area

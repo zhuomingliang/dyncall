@@ -99,8 +99,8 @@ floating point parameters, value must be stored in integer AND floating point re
 \item caller cleans up the stack, not the callee (like cdecl)
 \item stack is always 16byte aligned - since return address is 64 bits in size, stacks with an odd number of parameters are
 already aligned
-\item ellipse calls take floating point values in int and float registers (single precision floats are promoted to double precision
-as defined for ellipse calls)
+\item ellipsis calls take floating point values in int and float registers (single precision floats are promoted to double precision
+as defined for ellipsis calls)
 \item if size of parameters \textgreater\ 1 page of memory (usually between 4k and 64k), chkstk must be called
 \end{itemize}
 
