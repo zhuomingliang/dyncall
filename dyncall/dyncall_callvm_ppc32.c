@@ -60,7 +60,7 @@ static void dc_callvm_reset_ppc32(DCCallVM* in_self)
   self->mFloatRegs = 0;
 }
 
-/* OS X/Darwin : fillup integer register file AND push on stack (for ellipse) */
+/* OS X/Darwin: fillup integer register file AND push on stack (for ellipsis) */
 
 static void dc_callvm_argInt_ppc32_darwin(DCCallVM* in_self, DCint i)
 {
@@ -136,7 +136,7 @@ static void dc_callvm_argDouble_ppc32_sysv(DCCallVM* in_self, DCdouble d)
   
   
 /* darwin:
- * - skip one integer register file entry (write in - for ellipse calls) 
+ * - skip one integer register file entry (write in - for ellipsis calls) 
  * sysv:
  * - 
  */
@@ -148,7 +148,7 @@ static void dc_callvm_argFloat_ppc32_darwin(DCCallVM* in_self, DCfloat f)
     self->mRegData.mFloatData[self->mFloatRegs++] = (DCdouble) (f);
   }
   
-  /* AND skip one integer register file entry (write in - for ellipse calls) */
+  /* AND skip one integer register file entry (write in - for ellipsis calls) */
   
   if (self->mIntRegs < 8) 
     self->mRegData.mIntData[self->mIntRegs++] = *( (DCint*) &f );
