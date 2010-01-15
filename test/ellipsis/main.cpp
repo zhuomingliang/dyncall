@@ -71,7 +71,7 @@ void arg(DCCallVM* pCall, int select, int pos)
 
 #define assert(x) if (!(x)) return false
 
-bool test_ellipse_case(int x)
+bool test_ellipsis_case(int x)
 {
   clearValues();
 
@@ -110,7 +110,7 @@ bool run_range(int from, int to)
   bool tr = true;
   for (int i = from ; i < to ; ++i ) {
     printf("%d:", i);
-    bool r = test_ellipse_case(i);
+    bool r = test_ellipsis_case(i);
     printf("%d\n", r);
 
     tr &= r;
