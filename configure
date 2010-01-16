@@ -65,6 +65,7 @@ usage()
   echo "  --target-ppc32     build for ppc32 architecture platform"
   echo "  --target-psp       build for Playstation Portable platform (PSPSDK)"
   echo "  --target-arm-arm   build for ARM architecture platform (ARM mode)"
+  echo "  --target-arm-thumb build for ARM architecture platform (THUMB mode)"
   echo "  --target-nds-arm   build for Nintendo DS platform (devkitPro, ARM mode)"
   echo "  --target-nds-thumb build for Nintendo DS platform (devkitPro, THUMB mode)"
   echo "  --target-cygwin    build for Cygwin platform"
@@ -215,8 +216,11 @@ args()
         CONFIG_ARCH=mips32
         CONFIG_TOOL=gcc
         ;;
-      --target-arm)
+      --target-arm-arm)
         CONFIG_ARCH=arm32_arm
+        ;;
+      --target-arm-thumb)
+        CONFIG_ARCH=arm32_thumb
         ;;
       --target-nds-arm)
         CONFIG_OS=nds
