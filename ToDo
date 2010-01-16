@@ -1,8 +1,9 @@
 urgent issues:
 - update: microsoft visual c++ build files - integrate all test suites in solution file
-- add arm32/ATPCS/THUMB
-- add dyncallback for arm32/EABI/THUMB
+- test arm32/ATPCS/THUMB
 - look over code and fix TODO or @@@ marks
+- add MIPS callbacks
+- finish PPC32 callbacks
 
 nice to have:
 - consistency: on x64 platforms: make both ABIs available ('win64','sysv') for all x64 OS ports
