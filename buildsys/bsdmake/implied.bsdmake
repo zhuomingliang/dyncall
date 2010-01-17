@@ -27,23 +27,23 @@
 .SUFFIXES: .o .c .cpp .s .S .pdf .tex
 
 
-.c.o: #.SILENT
+.c.o: .SILENT
 	echo .c.o: Compiling $(.IMPSRC)...
 	$(CC) $(CPPFLAGS) $(CFLAGS) -I$(TOP)/dyncall -I$(TOP)/dyncallback $(TARGET_ARCH) -c $(.IMPSRC) -o $(.TARGET)
 
-.cpp.o: #.SILENT
+.cpp.o: .SILENT
 	echo .cpp.o: Compiling $(.IMPSRC)...
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -I$(TOP)/dyncall -I$(TOP)/dyncallback $(TARGET_ARCH) -c $(.IMPSRC) -o $(.TARGET)
 
-.s.o: #.SILENT
+.s.o: .SILENT
 	echo .s.o: Compiling $(.IMPSRC)...
 	$(AS) $(ASFLAGS) -o $(.TARGET) $(.IMPSRC)
 	
-.S.o: #.SILENT
+.S.o: .SILENT
 	echo .s.o: Compiling $(.IMPSRC)...
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(TARGET_MACH) -c $(.IMPSRC) -o $(.TARGET)
 
-.tex.pdf: #.SILENT
+.tex.pdf: .SILENT
 	echo .tex.pdf: Creating $(.TARGET)...
 	pdflatex $(.IMPSRC)
 
