@@ -1,6 +1,6 @@
 urgent issues:
 - update: microsoft visual c++ build files - integrate all test suites in solution file
-- test arm32/ATPCS/THUMB
+- test arm32/ATPCS/THUMB (and then chane Status in doc Appendix)
 - look over code and fix TODO or @@@ marks
 - add MIPS callbacks
 - finish PPC32 callbacks
