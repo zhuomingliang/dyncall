@@ -36,6 +36,13 @@ LIB_SUFFIX	= .a
 
 include $(GMAKE_TOP)/tool/gcc_$(BUILD_CONFIG).gmake
 
+ifdef BUILD_ARCH_arm32_thumb
+ASFLAGS  += -mthumb -mthumb-interwork
+CFLAGS   += -mthumb -mthumb-interwork
+CXXFLAGS += -mthumb -mthumb-interwork
+LDFLAGS  += -mthumb -mthumb-interwork
+endif
+
 # --- Assemble ----------------------------------------------------------------
 
 ifdef BUILD_OS_darwin

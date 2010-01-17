@@ -32,3 +32,11 @@ LD		?= g++ # to link in standard libs automatically
 .if $(BUILD_CONFIG) == "debug"
 CFLAGS += -ggdb3
 .endif
+
+.if $(BUILD_ARCH) == "arm32_thumb"
+ASFLAGS  += -mthumb -mthumb-interwork
+CFLAGS   += -mthumb -mthumb-interwork
+CXXFLAGS += -mthumb -mthumb-interwork
+LDFLAGS  += -mthumb -mthumb-interwork
+.endif
+
