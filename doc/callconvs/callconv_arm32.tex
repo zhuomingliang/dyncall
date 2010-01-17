@@ -42,7 +42,7 @@ Take a look at the ARM-THUMB procedure call standard (ATPCS) \cite{ATPCS} for mo
 
 \paragraph{\product{dyncall} support}
 
-Currently, the \product{dyncall} library supports the ARM and THUMB mode of the ARM32 family, excluding ARM-THUMB interworking. Although it's quite possible that the current implementation runs on other ARM processor families as well, please note that only the ARMv4t family has been thoroughly tested at the time of writing. Please report if the code runs on other ARM families, too.\\
+Currently, the \product{dyncall} library supports the ARM and THUMB mode of the ARM32 family (ATPCS \cite{ATPCS} and EABI \cite{armeabi}), excluding manually triggered ARM-THUMB interworking calls. Although it's quite possible that the current implementation runs on other ARM processor families as well, please note that only the ARMv4t family has been thoroughly tested at the time of writing. Please report if the code runs on other ARM families, too.\\
 It is important to note, that dyncall supports the ARM architecture calling convention variant {\bf with floating point hardware disabled} (meaning that the FPA and the VFP (scalar mode) procedure call standards are not supported).
 This processor family features some instruction sets accelerating DSP and multimedia application like the ARM Jazelle Technology (direct Java bytecode execution, providing acceleration for some bytecodes while calling software code for others), etc. that are not supported by the dyncall library.\\
 
