@@ -138,7 +138,8 @@ parameter area                           & \vdots &                             
 \paragraph{Status}
 
 \begin{itemize}
-\item Ellipse calls on EABI do not work.
+\item The ATPCS THUMB mode is untested.
+\item Ellipse calls may not work.
 \item C++ this calls do not work.
 \end{itemize}
 
@@ -234,3 +235,13 @@ are aligned on 8-byte boundaries on the stack and 2-registers for parameters
 passed via register. In order to achieve such an alignment, a register might
 have to be skipped for parameters passed via registers, or 4-bytes on the stack
 for parameters passed via the stack. Refer to the Debian ARM EABI port wiki for more information \cite{armeabi}.
+
+
+\paragraph{Status}
+
+\begin{itemize}
+\item The EABI THUMB mode is tested and works fine (contrary to the ATPCS).
+\item Ellipse calls do not work.
+\item C++ this calls do not work.
+\end{itemize}
+
