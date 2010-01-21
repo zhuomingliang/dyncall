@@ -217,7 +217,7 @@ DCCallVM_vt gVT_arm32_thumb_eabi =
 DCCallVM* dcNewCallVM_arm32_thumb(DCsize size) 
 {
 /* Check OS if we need EABI as default. */
-#if defined(DC__OS_NDS)
+#if defined(DC__ABI_ARM_EABI)
   return dc_callvm_new_arm32_thumb(&gVT_arm32_thumb_eabi, size);
 #else
   return dc_callvm_new_arm32_thumb(&gVT_arm32_thumb, size);
@@ -237,7 +237,7 @@ static void dc_callvm_mode_arm32_thumb(DCCallVM* in_self,DCint mode)
   DCCallVM_vt*  vt;
   switch(mode) {
 /* Check OS if we need EABI as default. */
-#if defined(DC__OS_NDS)
+#if defined(DC__ABI_ARM_EABI)
     case DC_CALL_C_DEFAULT:          vt = &gVT_arm32_thumb_eabi; break;
 #else
     case DC_CALL_C_DEFAULT:          vt = &gVT_arm32_thumb;      break;

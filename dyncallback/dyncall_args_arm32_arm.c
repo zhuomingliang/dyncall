@@ -31,12 +31,11 @@ static void arm_align_64(DCArgs* args)
   /* @@@ check signature string */
 
   int sig =
-#if defined(DC__OS_NDS)
+#if defined(DC__ABI_ARM_EABI)
     0; /* EABI */
 #else
     1; /* ATPCS */
 #endif
-
   if(sig == 0) {
     if(args->reg_count < 4)
       args->reg_count = (args->reg_count+1)&~1;
