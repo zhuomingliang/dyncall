@@ -22,7 +22,7 @@
 */
 #include "dyncall_args_ppc32.h"
 
-DCint       dcArgs_int      (DCArgs* p) 
+DCint       dcbArgInt      (DCArgs* p) 
 {
   DCint value;
   if (p->ireg_count < 8)
@@ -32,28 +32,28 @@ DCint       dcArgs_int      (DCArgs* p)
   p->stackptr += sizeof(int);
   return value;
 }
-DCuint      dcArgs_uint     (DCArgs* p) { return (DCuint)  dcArgs_int(p);  }
+DCuint      dcbArgUInt     (DCArgs* p) { return (DCuint)  dcbArgInt(p);  }
 
-DCulonglong  dcArgs_ulonglong (DCArgs* p) 
+DCulonglong  dcbArgULongLong (DCArgs* p) 
 {
   DCulonglong value;
-  value  = ( (DCulonglong) dcArgs_uint(p) ) << 16UL;
-  value |= dcArgs_uint(p);
+  value  = ( (DCulonglong) dcbArgUInt(p) ) << 16UL;
+  value |= dcbArgUInt(p);
   return value;
 }
-DClonglong  dcArgs_longlong(DCArgs* p) { return (DClonglong)dcArgs_ulonglong(p); }
+DClonglong  dcbArgLongLong(DCArgs* p) { return (DClonglong)dcbArgULongLong(p); }
 
-DClong      dcArgs_long     (DCArgs* p) { return (DClong)  dcArgs_uint(p); }
-DCulong     dcArgs_ulong    (DCArgs* p) { return (DCulong) dcArgs_uint(p); }
-DCchar      dcArgs_char     (DCArgs* p) { return (DCchar)  dcArgs_uint(p); }
-DCuchar     dcArgs_uchar    (DCArgs* p) { return (DCuchar) dcArgs_uint(p); }
-DCshort     dcArgs_short    (DCArgs* p) { return (DCshort) dcArgs_uint(p); }
-DCushort    dcArgs_ushort   (DCArgs* p) { return (DCushort)dcArgs_uint(p); }
-DCbool      dcArgs_bool     (DCArgs* p) { return (DCbool)  dcArgs_uint(p); }
+DClong      dcbArgLong     (DCArgs* p) { return (DClong)  dcbArgUInt(p); }
+DCulong     dcbArgULong    (DCArgs* p) { return (DCulong) dcbArgUInt(p); }
+DCchar      dcbArgChar     (DCArgs* p) { return (DCchar)  dcbArgUInt(p); }
+DCuchar     dcbArgUChar    (DCArgs* p) { return (DCuchar) dcbArgUInt(p); }
+DCshort     dcbArgShort    (DCArgs* p) { return (DCshort) dcbArgUInt(p); }
+DCushort    dcbArgUShort   (DCArgs* p) { return (DCushort)dcbArgUInt(p); }
+DCbool      dcbArgBool     (DCArgs* p) { return (DCbool)  dcbArgUInt(p); }
 
-DCpointer   dcArgs_pointer  (DCArgs* p) { return (DCpointer)dcArgs_uint(p); }
+DCpointer   dcbArgPointer  (DCArgs* p) { return (DCpointer)dcbArgUInt(p); }
 
-DCdouble    dcArgs_double   (DCArgs* p) 
+DCdouble    dcbArgDouble   (DCArgs* p) 
 { 
   DCdouble result;
   if (p->ireg_count < 7) { 
@@ -69,7 +69,7 @@ DCdouble    dcArgs_double   (DCArgs* p)
   p->stackptr += sizeof(double);
   return result;
 }
-DCfloat     dcArgs_float    (DCArgs* p)
+DCfloat     dcbArgFloat    (DCArgs* p)
 { 
   DCfloat result;
   if (p->ireg_count < 8)

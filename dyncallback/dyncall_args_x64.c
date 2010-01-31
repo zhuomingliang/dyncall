@@ -49,21 +49,21 @@ static double* arg_f64(DCArgs* args)
 
 // base operations:
 
-DClonglong  dcArgs_longlong (DCArgs* p) { return *arg_i64(p); }
-DCint       dcArgs_int      (DCArgs* p) { return (int)   dcArgs_longlong(p); }
-DClong      dcArgs_long     (DCArgs* p) { return (long)  dcArgs_longlong(p); }
-DCchar      dcArgs_char     (DCArgs* p) { return (char)  dcArgs_longlong(p); }
-DCshort     dcArgs_short    (DCArgs* p) { return (short) dcArgs_longlong(p); }
-DCbool      dcArgs_bool     (DCArgs* p) { return (dcArgs_int(p) == 0) ? 0 : 1; }
+DClonglong  dcbArgLongLong (DCArgs* p) { return *arg_i64(p); }
+DCint       dcbArgInt      (DCArgs* p) { return (int)   dcbArgLongLong(p); }
+DClong      dcbArgLong     (DCArgs* p) { return (long)  dcbArgLongLong(p); }
+DCchar      dcbArgChar     (DCArgs* p) { return (char)  dcbArgLongLong(p); }
+DCshort     dcbArgShort    (DCArgs* p) { return (short) dcbArgLongLong(p); }
+DCbool      dcbArgBool     (DCArgs* p) { return (dcbArgInt(p) == 0) ? 0 : 1; }
 
-DCuint      dcArgs_uint     (DCArgs* p) { return (DCuint)      dcArgs_int(p);      }
-DCuchar     dcArgs_uchar    (DCArgs* p) { return (DCuchar)     dcArgs_char(p);     }
-DCushort    dcArgs_ushort   (DCArgs* p) { return (DCushort)    dcArgs_short(p);    }
-DCulong     dcArgs_ulong    (DCArgs* p) { return (DCulong)     dcArgs_long(p);     }
-DCulonglong dcArgs_ulonglong(DCArgs* p) { return (DCulonglong) dcArgs_longlong(p); }
+DCuint      dcbArgUInt     (DCArgs* p) { return (DCuint)      dcbArgInt(p);      }
+DCuchar     dcbArgUChar    (DCArgs* p) { return (DCuchar)     dcbArgChar(p);     }
+DCushort    dcbArgUShort   (DCArgs* p) { return (DCushort)    dcbArgShort(p);    }
+DCulong     dcbArgULong    (DCArgs* p) { return (DCulong)     dcbArgLong(p);     }
+DCulonglong dcbArgULongLong(DCArgs* p) { return (DCulonglong) dcbArgLongLong(p); }
 
 
-DCpointer   dcArgs_pointer  (DCArgs* p) { return (DCpointer)   dcArgs_longlong(p); }
+DCpointer   dcbArgPointer  (DCArgs* p) { return (DCpointer)   dcbArgLongLong(p); }
 
-DCdouble    dcArgs_double   (DCArgs* p) { return *arg_f64(p); }
-DCfloat     dcArgs_float    (DCArgs* p) { return *(float*)arg_f64(p); }
+DCdouble    dcbArgDouble   (DCArgs* p) { return *arg_f64(p); }
+DCfloat     dcbArgFloat    (DCArgs* p) { return *(float*)arg_f64(p); }

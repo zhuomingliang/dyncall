@@ -27,26 +27,26 @@
 
 // base operations:
 
-DCint      dcArgs_int     (DCArgs* p) { return p->vt->i32(p); }
-DClonglong dcArgs_longlong(DCArgs* p) { return p->vt->i64(p); }
-DCfloat    dcArgs_float   (DCArgs* p) { return p->vt->f32(p); }
-DCdouble   dcArgs_double  (DCArgs* p) { return p->vt->f64(p); }
+DCint      dcbArgInt     (DCArgs* p) { return p->vt->i32(p); }
+DClonglong dcbArgLongLong(DCArgs* p) { return p->vt->i64(p); }
+DCfloat    dcbArgFloat   (DCArgs* p) { return p->vt->f32(p); }
+DCdouble   dcbArgDouble  (DCArgs* p) { return p->vt->f64(p); }
 
 // promote to integer: bool, char, short, long and pointer
 
-DCbool     dcArgs_bool    (DCArgs* p) { return ( dcArgs_int(p) == 0 ) ? 0 : 1; }
-DCchar     dcArgs_char    (DCArgs* p) { return (char)  dcArgs_int(p); }
-DCshort    dcArgs_short   (DCArgs* p) { return (short) dcArgs_int(p); }
-DClong     dcArgs_long    (DCArgs* p) { return (long)  dcArgs_int(p); }
-DCpointer  dcArgs_pointer (DCArgs* p) { return (DCpointer) dcArgs_int(p); }
+DCbool     dcbArgBool    (DCArgs* p) { return ( dcbArgInt(p) == 0 ) ? 0 : 1; }
+DCchar     dcbArgChar    (DCArgs* p) { return (char)      dcbArgInt(p); }
+DCshort    dcbArgShort   (DCArgs* p) { return (short)     dcbArgInt(p); }
+DClong     dcbArgLong    (DCArgs* p) { return (long)      dcbArgInt(p); }
+DCpointer  dcbArgPointer (DCArgs* p) { return (DCpointer) dcbArgInt(p); }
 
 // unsigned types
 
-DCuint      dcArgs_uint     (DCArgs* p) { return (DCuint)   dcArgs_int(p); }
-DCuchar     dcArgs_uchar    (DCArgs* p) { return (DCuchar)  dcArgs_char(p); }
-DCushort    dcArgs_ushort   (DCArgs* p) { return (DCushort) dcArgs_short(p); }
-DCulong     dcArgs_ulong    (DCArgs* p) { return (DCulong)  dcArgs_long(p); }
-DCulonglong dcArgs_ulonglong(DCArgs* p) { return (DCulonglong) dcArgs_longlong(p); }
+DCuint      dcbArgUInt     (DCArgs* p) { return (DCuint)      dcbArgInt(p); }
+DCuchar     dcbArgUChar    (DCArgs* p) { return (DCuchar)     dcbArgChar(p); }
+DCushort    dcbArgUShort   (DCArgs* p) { return (DCushort)    dcbArgShort(p); }
+DCulong     dcbArgULong    (DCArgs* p) { return (DCulong)     dcbArgLong(p); }
+DCulonglong dcbArgULongLong(DCArgs* p) { return (DCulonglong) dcbArgLongLong(p); }
 
 // ----------------------------------------------------------------------------
 // virtual tables:

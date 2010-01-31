@@ -87,22 +87,22 @@ static DClonglong arm_longlong(DCArgs* args)
 
 // base operations:
 
-DClonglong  dcArgs_longlong (DCArgs* p) { return arm_longlong(p); }
-DClong      dcArgs_long     (DCArgs* p) { return *(DClong*)arm_word(p); }
-DCint       dcArgs_int      (DCArgs* p) { return (DCint)   dcArgs_long(p); }
-DCchar      dcArgs_char     (DCArgs* p) { return (DCchar)  dcArgs_long(p); }
-DCshort     dcArgs_short    (DCArgs* p) { return (DCshort) dcArgs_long(p); }
-DCbool      dcArgs_bool     (DCArgs* p) { return (dcArgs_long(p) == 0) ? 0 : 1; }
+DClonglong  dcbArgLongLong (DCArgs* p) { return arm_longlong(p); }
+DClong      dcbArgLong     (DCArgs* p) { return *(DClong*)arm_word(p); }
+DCint       dcbArgInt      (DCArgs* p) { return (DCint)   dcbArgLong(p); }
+DCchar      dcbArgChar     (DCArgs* p) { return (DCchar)  dcbArgLong(p); }
+DCshort     dcbArgShort    (DCArgs* p) { return (DCshort) dcbArgLong(p); }
+DCbool      dcbArgBool     (DCArgs* p) { return (dcbArgLong(p) == 0) ? 0 : 1; }
 
-DCuint      dcArgs_uint     (DCArgs* p) { return (DCuint)     dcArgs_int(p);      }
-DCuchar     dcArgs_uchar    (DCArgs* p) { return (DCuchar)    dcArgs_char(p);     }
-DCushort    dcArgs_ushort   (DCArgs* p) { return (DCushort)   dcArgs_short(p);    }
-DCulong     dcArgs_ulong    (DCArgs* p) { return (DCulong)    dcArgs_long(p);     }
-DCulonglong dcArgs_ulonglong(DCArgs* p) { return (DCulonglong)dcArgs_longlong(p); }
+DCuint      dcbArgUInt     (DCArgs* p) { return (DCuint)     dcbArgInt(p);      }
+DCuchar     dcbArgUChar    (DCArgs* p) { return (DCuchar)    dcbArgChar(p);     }
+DCushort    dcbArgUShort   (DCArgs* p) { return (DCushort)   dcbArgShort(p);    }
+DCulong     dcbArgULong    (DCArgs* p) { return (DCulong)    dcbArgLong(p);     }
+DCulonglong dcbArgULongLong(DCArgs* p) { return (DCulonglong)dcbArgLongLong(p); }
 
 
-DCpointer   dcArgs_pointer  (DCArgs* p) { return (DCpointer)  dcArgs_long(p); }
+DCpointer   dcbArgPointer  (DCArgs* p) { return (DCpointer)  dcbArgLong(p); }
 
-DCdouble    dcArgs_double   (DCArgs* p) { return arm_double(p); }
-DCfloat     dcArgs_float    (DCArgs* p) { return *(DCfloat*)  arm_word(p); }
+DCdouble    dcbArgDouble   (DCArgs* p) { return arm_double(p); }
+DCfloat     dcbArgFloat    (DCArgs* p) { return *(DCfloat*)  arm_word(p); }
 

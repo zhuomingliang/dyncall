@@ -8,11 +8,11 @@
 char cbHandler(DCCallback* cb, DCArgs* args, DCValue* result, void* userdata)
 {
   int* ud = (int*)userdata;
-  int       arg1 = dcArgs_int     (args);
-  float     arg2 = dcArgs_float   (args);
-  short     arg3 = dcArgs_short   (args);
-  double    arg4 = dcArgs_double  (args);
-  long long arg5 = dcArgs_longlong(args);
+  int       arg1 = dcbArgInt     (args);
+  float     arg2 = dcbArgFloat   (args);
+  short     arg3 = dcbArgShort   (args);
+  double    arg4 = dcbArgDouble  (args);
+  long long arg5 = dcbArgLongLong(args);
 
   printf("reached callback\n");
   printf("userdata (should be 1337): %d\n", *ud);

@@ -17,20 +17,20 @@ char handler(DCCallback* that, DCArgs* input, DCValue* output, void* userdata)
     if (ch == DC_SIGCHAR_ENDARG) break;
     Args[pos].L = 0xDEADC0DECAFEBABELL;
     switch(ch) {
-      case DC_SIGCHAR_BOOL:     Args[pos].B = dcArgs_bool     (input); break;
-      case DC_SIGCHAR_CHAR:     Args[pos].c = dcArgs_char     (input); break;
-      case DC_SIGCHAR_UCHAR:    Args[pos].C = dcArgs_uchar    (input); break;
-      case DC_SIGCHAR_SHORT:    Args[pos].s = dcArgs_short    (input); break;
-      case DC_SIGCHAR_USHORT:   Args[pos].S = dcArgs_ushort   (input); break;
-      case DC_SIGCHAR_INT:      Args[pos].i = dcArgs_int      (input); break;
-      case DC_SIGCHAR_UINT:     Args[pos].I = dcArgs_uint     (input); break;
-      case DC_SIGCHAR_LONG:     Args[pos].l = dcArgs_long     (input); break;
-      case DC_SIGCHAR_ULONG:    Args[pos].L = dcArgs_ulong    (input); break;
-      case DC_SIGCHAR_LONGLONG: Args[pos].l = dcArgs_longlong (input); break;
-      case DC_SIGCHAR_ULONGLONG:Args[pos].L = dcArgs_ulonglong(input); break;
-      case DC_SIGCHAR_FLOAT:    Args[pos].f = dcArgs_float    (input); break; 
-      case DC_SIGCHAR_DOUBLE:   Args[pos].d = dcArgs_double   (input); break;
-      case DC_SIGCHAR_POINTER:  Args[pos].p = dcArgs_pointer  (input); break;
+      case DC_SIGCHAR_BOOL:     Args[pos].B = dcbArgBool     (input); break;
+      case DC_SIGCHAR_CHAR:     Args[pos].c = dcbArgChar     (input); break;
+      case DC_SIGCHAR_UCHAR:    Args[pos].C = dcbArgUChar    (input); break;
+      case DC_SIGCHAR_SHORT:    Args[pos].s = dcbArgShort    (input); break;
+      case DC_SIGCHAR_USHORT:   Args[pos].S = dcbArgUShort   (input); break;
+      case DC_SIGCHAR_INT:      Args[pos].i = dcbArgInt      (input); break;
+      case DC_SIGCHAR_UINT:     Args[pos].I = dcbArgUInt     (input); break;
+      case DC_SIGCHAR_LONG:     Args[pos].l = dcbArgLong     (input); break;
+      case DC_SIGCHAR_ULONG:    Args[pos].L = dcbArgULong    (input); break;
+      case DC_SIGCHAR_LONGLONG: Args[pos].l = dcbArgLongLong (input); break;
+      case DC_SIGCHAR_ULONGLONG:Args[pos].L = dcbArgULongLong(input); break;
+      case DC_SIGCHAR_FLOAT:    Args[pos].f = dcbArgFloat    (input); break; 
+      case DC_SIGCHAR_DOUBLE:   Args[pos].d = dcbArgDouble   (input); break;
+      case DC_SIGCHAR_POINTER:  Args[pos].p = dcbArgPointer  (input); break;
     }
     ++pos;
   }

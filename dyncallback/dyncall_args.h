@@ -43,20 +43,20 @@ extern "C" {
 
 typedef struct DCArgs DCArgs;
 
-DC_API DCbool      dcArgs_bool     (DCArgs*);
-DC_API DCchar      dcArgs_char     (DCArgs*);
-DC_API DCshort     dcArgs_short    (DCArgs*);
-DC_API DCint       dcArgs_int      (DCArgs*);
-DC_API DClong      dcArgs_long     (DCArgs*);
-DC_API DClonglong  dcArgs_longlong (DCArgs*);
-DC_API DCuchar     dcArgs_uchar    (DCArgs*);
-DC_API DCushort    dcArgs_ushort   (DCArgs*);
-DC_API DCuint      dcArgs_uint     (DCArgs*);
-DC_API DCulong     dcArgs_ulong    (DCArgs*);
-DC_API DCulonglong dcArgs_ulonglong(DCArgs*);
-DC_API DCfloat     dcArgs_float    (DCArgs*);
-DC_API DCdouble    dcArgs_double   (DCArgs*);
-DC_API DCpointer   dcArgs_pointer  (DCArgs*);
+DC_API DCbool      dcbArgBool     (DCArgs*);
+DC_API DCchar      dcbArgChar     (DCArgs*);
+DC_API DCshort     dcbArgShort    (DCArgs*);
+DC_API DCint       dcbArgInt      (DCArgs*);
+DC_API DClong      dcbArgLong     (DCArgs*);
+DC_API DClonglong  dcbArgLongLong (DCArgs*);
+DC_API DCuchar     dcbArgUChar    (DCArgs*);
+DC_API DCushort    dcbArgUShort   (DCArgs*);
+DC_API DCuint      dcbArgUInt     (DCArgs*);
+DC_API DCulong     dcbArgULong    (DCArgs*);
+DC_API DCulonglong dcbArgULongLong(DCArgs*);
+DC_API DCfloat     dcbArgFloat    (DCArgs*);
+DC_API DCdouble    dcbArgDouble   (DCArgs*);
+DC_API DCpointer   dcbArgPointer  (DCArgs*);
 
 #ifdef __cplusplus
 }
