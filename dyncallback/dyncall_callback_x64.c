@@ -31,27 +31,27 @@
 extern void dcCallbackThunkEntry();
 
 
-void dcInitCallback(DCCallback* pcb, const char* signature, DCCallbackHandler* handler, void* userdata)
+void dcbInitCallback(DCCallback* pcb, const char* signature, DCCallbackHandler* handler, void* userdata)
 {
   pcb->handler  = handler;
   pcb->userdata = userdata;
 }
 
 
-DCCallback* dcNewCallback(const char* signature, DCCallbackHandler* handler, void* userdata)
+DCCallback* dcbNewCallback(const char* signature, DCCallbackHandler* handler, void* userdata)
 {
   int err;
   DCCallback* pcb;
   err = dcAllocWX(sizeof(DCCallback), (void**) &pcb);
   if (err != 0) return 0;
 
-  dcInitThunk(&pcb->thunk, dcCallbackThunkEntry);
-  dcInitCallback(pcb, signature, handler, userdata);
+  dcbInitThunk(&pcb->thunk, dcCallbackThunkEntry);
+  dcbInitCallback(pcb, signature, handler, userdata);
   return pcb;
 }
 
 
-void dcFreeCallback(DCCallback* pcb)
+void dcbFreeCallback(DCCallback* pcb)
 {
   dcFreeWX(pcb, sizeof(DCCallback));
 }

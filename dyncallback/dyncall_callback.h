@@ -37,9 +37,9 @@ typedef char (DCCallbackHandler)(DCCallback* pcb, DCArgs* args, DCValue* result,
 extern "C" {
 #endif 
 
-DCCallback* dcNewCallback(const char* signature, DCCallbackHandler* funcptr, void* userdata);
-void        dcInitCallback(DCCallback* pcb, const char* signature, DCCallbackHandler* handler, void* userdata);
-void        dcFreeCallback(DCCallback* pcb);
+DCCallback* dcbNewCallback(const char* signature, DCCallbackHandler* funcptr, void* userdata);
+void        dcbInitCallback(DCCallback* pcb, const char* signature, DCCallbackHandler* handler, void* userdata);
+void        dcbFreeCallback(DCCallback* pcb);
 
 #ifdef __cplusplus
 }

@@ -92,12 +92,12 @@ int DoTest(int id)
   signature = GetSignature(index);
   PrintCaseInfo(id,signature);
 
-  pcb = dcNewCallback( signature, handler, (void*) signature );
+  pcb = dcbNewCallback( signature, handler, (void*) signature );
   assert(pcb != NULL);
   DoInvoke(index, (void*) pcb);
   result = Compare(signature); 
   PrintCaseResult(result);
-  dcFreeCallback(pcb);
+  dcbFreeCallback(pcb);
   return result;
 }
 

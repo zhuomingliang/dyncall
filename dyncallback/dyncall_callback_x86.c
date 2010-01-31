@@ -39,12 +39,12 @@ extern void dcCallbackThunkEntry();
  * stdcall,fastcall_ms,fastcall_gnu
  */
 
-int dcCleanupSize_x86_cdecl(const char* signature)
+static int dcbCleanupSize_x86_cdecl(const char* signature)
 {
   return 0;
 }
 
-int dcCleanupSize_x86_std(const char* signature)
+static int dcbCleanupSize_x86_std(const char* signature)
 {
   const char* ptr = signature;
   int size = 0;
@@ -75,7 +75,7 @@ int dcCleanupSize_x86_std(const char* signature)
   return size;
 }
 
-int dcCleanupSize_x86_fast_ms(const char* signature)
+static int dcbCleanupSize_x86_fast_ms(const char* signature)
 {
   const char* ptr = signature;
   int size = 0;
@@ -114,7 +114,7 @@ int dcCleanupSize_x86_fast_ms(const char* signature)
   return size;
 }
 
-int dcCleanupSize_x86_fast_gnu(const char* signature)
+static int dcbCleanupSize_x86_fast_gnu(const char* signature)
 {
   const char* ptr = signature;
   char ch;
@@ -142,7 +142,7 @@ int dcCleanupSize_x86_fast_gnu(const char* signature)
   return size;
 }
 
-void dcInitCallback(DCCallback* pcb, const char* signature, DCCallbackHandler* handler, void* userdata)
+void dcbInitCallback(DCCallback* pcb, const char* signature, DCCallbackHandler* handler, void* userdata)
 {
   const char* ptr;
   char  ch;
@@ -173,19 +173,19 @@ void dcInitCallback(DCCallback* pcb, const char* signature, DCCallbackHandler* h
   switch(mode) {
   case DC_CALL_C_X86_CDECL:
     pcb->args_vt = &dcArgsVT_default;
-    pcb->stack_cleanup = dcCleanupSize_x86_cdecl(ptr);
+    pcb->stack_cleanup = dcbCleanupSize_x86_cdecl(ptr);
     break;
   case DC_CALL_C_X86_WIN32_STD:
     pcb->args_vt = &dcArgsVT_default;
-    pcb->stack_cleanup = dcCleanupSize_x86_std(ptr);
+    pcb->stack_cleanup = dcbCleanupSize_x86_std(ptr);
     break;
   case DC_CALL_C_X86_WIN32_FAST_MS:
     pcb->args_vt = &dcArgsVT_fast_ms;
-    pcb->stack_cleanup = dcCleanupSize_x86_fast_ms(ptr);
+    pcb->stack_cleanup = dcbCleanupSize_x86_fast_ms(ptr);
     break;
   case DC_CALL_C_X86_WIN32_FAST_GNU:
     pcb->args_vt = &dcArgsVT_fast_gnu;
-    pcb->stack_cleanup = dcCleanupSize_x86_fast_gnu(ptr);
+    pcb->stack_cleanup = dcbCleanupSize_x86_fast_gnu(ptr);
     break;
   }
 }
@@ -194,15 +194,15 @@ void dcInitCallback(DCCallback* pcb, const char* signature, DCCallbackHandler* h
  * callback constructor
  */
 
-DCCallback* dcNewCallback(const char* signature, DCCallbackHandler* handler, void* userdata)
+DCCallback* dcbNewCallback(const char* signature, DCCallbackHandler* handler, void* userdata)
 {
   int err;
   DCCallback* pcb;
   err = dcAllocWX(sizeof(DCCallback), (void**) &pcb);
   if (err != 0) return 0;
 
-  dcInitThunk(&pcb->thunk, dcCallbackThunkEntry);
-  dcInitCallback(pcb, signature, handler, userdata);
+  dcbInitThunk(&pcb->thunk, dcCallbackThunkEntry);
+  dcbInitCallback(pcb, signature, handler, userdata);
   return pcb;
 }
 
@@ -210,7 +210,7 @@ DCCallback* dcNewCallback(const char* signature, DCCallbackHandler* handler, voi
  * free
  */
 
-void dcFreeCallback(DCCallback* pcb)
+void dcbFreeCallback(DCCallback* pcb)
 {
   dcFreeWX(pcb, sizeof(DCCallback));
 }

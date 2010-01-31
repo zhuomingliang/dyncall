@@ -23,7 +23,7 @@
 */
 #include "dyncall_thunk.h"
 
-void dcInitThunk(DCThunk* p, void* entry)
+void dcbInitThunk(DCThunk* p, void* entry)
 {
   /*
     # ARM32 (ARM mode) thunk code:

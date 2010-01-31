@@ -26,7 +26,7 @@
 unsigned short hi16(x) { return ( (unsigned short) (((unsigned int)x)>>16UL) ); }
 unsigned short lo16(x) { return ( (unsigned short)  ((unsigned int)x)        ); }   
 
-void dcInitThunk(DCThunk* p, void* entry)
+void dcbInitThunk(DCThunk* p, void* entry)
 {
   /*
     ppc32 thunk code:

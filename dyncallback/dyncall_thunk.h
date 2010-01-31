@@ -54,7 +54,7 @@ typedef struct DCThunk_ DCThunk;
 extern "C" {
 #endif
 
-void   dcInitThunk(DCThunk* p, void* entry );
+void   dcbInitThunk(DCThunk* p, void* entry );
 
 #if defined(DC__Arch_Intel_x86)
 #include "dyncall_thunk_x86.h"

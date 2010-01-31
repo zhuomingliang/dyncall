@@ -42,9 +42,9 @@ int main()
   dcTest_initPlatform();
 
   printf("about to callback...\n");
-  cb = dcNewCallback("ifsdl)s", &cbHandler, &userdata);
+  cb = dcbNewCallback("ifsdl)s", &cbHandler, &userdata);
   result = ((short(*)(int, float, short, double, long long))cb)(123, 23.f, 3, 1.82, 9909ll);
-  dcFreeCallback(cb);
+  dcbFreeCallback(cb);
   printf("successfully returned from callback\n");
   printf("return value (should be 1234): %d\n", result);
 
