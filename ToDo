@@ -1,9 +1,11 @@
 urgent issues:
 - update: microsoft visual c++ build files - integrate all test suites in solution file
-- test arm32/ATPCS/THUMB (and then chane Status in doc Appendix)
+- test arm32/ATPCS/THUMB (and then change Status in doc Appendix)
 - look over code and fix TODO or @@@ marks
 - add MIPS callbacks
 - finish PPC32 callbacks
+- consider moving bindings into dyncall/ such that releases include it in the future
+- add note to documentation, that bindings are svn-only ATM
 
 nice to have:
 - consistency: on x64 platforms: make both ABIs available ('win64','sysv') for all x64 OS ports
