@@ -73,6 +73,7 @@ usage()
   echo "  --target-universal build universal binaries (for Mac OS X/Darwin)"
   echo
   echo "  --tool-gcc         use GNU Compiler Collection"
+  echo "  --tool-pcc         use Portable C Compiler"
   echo "  --tool-msvc        use Microsoft Visual C++"
   echo "  --tool-pspsdk      use PSP SDK tool-chain"
   echo 
@@ -240,6 +241,10 @@ args()
         ;;
       --tool-gcc)
         CONFIG_TOOL=gcc
+        CONFIG_ASM=gcc
+        ;;
+      --tool-pcc)
+        CONFIG_TOOL=pcc
         CONFIG_ASM=gcc
         ;;
       --tool-msvc)

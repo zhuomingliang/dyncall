@@ -122,6 +122,13 @@
 #elif defined(__WATCOMC__)
   #define DC__C_WATCOM
 
+/* Portable C Compiler. */
+#elif defined(__PCC__)
+  #define DC__C_PCC
+
+/* Undetected C Compiler. */
+#else
+  #define DC__C_UNKNOWN
 #endif
 
 

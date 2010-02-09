@@ -25,6 +25,10 @@
 .  include "$(TOP)/buildsys/bsdmake/gcc.bsdmake"
 .endif
 
+.if defined(BUILD_TOOL) && $(BUILD_TOOL) == pcc
+.  include "$(TOP)/buildsys/bsdmake/pcc.bsdmake"
+.endif
+
 .include "$(TOP)/buildsys/bsdmake/unix.bsdmake"
 .if defined(BUILD_OS) && $(BUILD_OS) == darwin
 .  include "$(TOP)/buildsys/bsdmake/osx.bsdmake"
