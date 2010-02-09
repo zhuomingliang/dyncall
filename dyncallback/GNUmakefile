@@ -51,6 +51,10 @@ ifdef BUILD_TOOL_gcc
 UNITS += dyncall_callback_arch
 endif
 
+ifdef BUILD_TOOL_pcc
+UNITS += dyncall_callback_arch
+endif
+
 ifdef BUILD_TOOL_msvc
 ifdef BUILD_ARCH_x86
 UNITS += dyncall_callback_x86_masm

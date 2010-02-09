@@ -1,5 +1,8 @@
 This file lists big/noteworthy changes, only...
 
+Next Release
+o added build tool support for Portable C Compiler using GNU make system
+
 Version 0.5
 o renamed arm9 stuff to arm32
 o added non-EABI ABI for arm32 (before, EABI was the default implementation)
