@@ -6,6 +6,10 @@ urgent issues:
 - finish PPC32 callbacks
 - consider moving bindings into dyncall/ such that releases include it in the future
 - add note to documentation, that bindings are svn-only ATM
+- add pcc-support to doc
+- check why the iyonix, etc. platforms have been taken out of 'configure'
+- rename configure to configure.sh (so we would have .sh, .rc and .bat in the future)
+- not sure, but configure(.sh) --tool-xxx might overwrite --asm-xxx, in some cases
 
 nice to have:
 - consistency: on x64 platforms: make both ABIs available ('win64','sysv') for all x64 OS ports
