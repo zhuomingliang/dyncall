@@ -31,7 +31,7 @@
 
 
 ; Main dyncall call.
-dcCall_x64_win64 PROC EXPORT
+dcCall_x64_win64 PROC
 
 	OPTION PROLOGUE:NONE, EPILOGUE:NONE
 

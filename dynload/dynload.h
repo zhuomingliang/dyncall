@@ -33,6 +33,9 @@
 #ifndef DYNLOAD_H
 #define DYNLOAD_H
 
+#include "dyncall_alloc.h"
+#include "dyncall_macros.h"
+
 #include <stddef.h>
 #include <stdlib.h>
 
@@ -54,13 +57,14 @@ void*  dlFindSymbol(DLLib* pLib, const char* pSymbolName);
 
 typedef struct DLSyms_ DLSyms;
 
-size_t      dlSyms_sizeof();
-void        dlSymsInit   (DLSyms* pSyms, DLLib* pLib);
+DLSyms*     dlSymsInit   (DLLib* pLib);
 void        dlSymsCleanup(DLSyms* pSyms);
 
-int         dlSymsCount  (DLSyms* pSyms);
-const char* dlSymsName   (DLSyms* pSyms, int index);
-void*       dlSymsValue  (DLSyms* pSyms, int index);
+int         dlSymsCount        (DLSyms* pSyms);
+const char* dlSymsName         (DLSyms* pSyms, int index);
+void*       dlSymsValue        (DLSyms* pSyms, int index);
+const char* dlSymsNameFromValue(DLSyms* pSyms, void* value);
+
 
 #ifdef __cplusplus
 }

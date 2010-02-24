@@ -19,7 +19,7 @@
 
 /*
 
-  dynload_win32.c
+  dynload_windows.c
 
   dynload module for .dll files
 

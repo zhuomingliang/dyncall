@@ -24,11 +24,8 @@ void list_syms(DLLib* pLib)
 {
   DLSyms* pSyms;
   int i,n;
-  pSyms = (DLSyms*) malloc( dlSyms_sizeof() );
-
   
-  dlSymsInit(pSyms, pLib);
-
+  pSyms = dlSymsInit(pLib);
   i = 0, n = dlSymsCount(pSyms);
 
   for (; i < n; ++i) {
@@ -39,6 +36,7 @@ void list_syms(DLLib* pLib)
   dlSymsCleanup(pSyms);
   free(pSyms);
 }
+
 
 int main(int argc, char* argv[])
 {
@@ -59,7 +57,6 @@ int main(int argc, char* argv[])
   }
 
   list_syms(pLib);
-
 
   dlFreeLibrary(pLib);
   return 0;

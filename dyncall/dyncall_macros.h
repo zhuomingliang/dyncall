@@ -47,7 +47,7 @@
 	#define DC__OS_Win64
 
 /* MS Windows NT/95/98/ME/2000/XP/Vista32. */
-#elif defined(WIN32)|| defined(_WIN32) || defined(__WIN32__) || defined(__NT__) || defined(__WINDOWS__) || defined(_WINDOWS)
+#elif defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__) || defined(__WINDOWS__) || defined(_WINDOWS)
 	#define DC__OS_Win32
 
 /* All the OS' based on Darwin OS (MacOS X, OpenDarwin). Note that '__APPLE__' may be defined for classic MacOS, too. */

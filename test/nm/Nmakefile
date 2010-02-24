@@ -37,7 +37,7 @@ OBJS = nm.obj# ..\testmain\main_ansic.obj
 
 $(TARGETS): $(OBJS)
 	echo Linking $@ ...
-	$(LD) /OUT:"$@" $(LDFLAGS) $(OBJS) $(TOP)\dynload\libdynload_s.lib $(TOP)\dyncall\libdyncall_s.lib > nul
+	$(LD) /OUT:"$@" $(LDFLAGS) $(OBJS) Dbghelp.lib $(TOP)\dynload\libdynload_s.lib $(TOP)\dyncall\libdyncall_s.lib
 
 
 !ELSE IF "$(BUILD_OS)" == "nds"

@@ -1,7 +1,8 @@
 /*
 
- Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
+ Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
+                         Olivier Chafik <olivier.chafik@gmail.com>
 
  Permission to use, copy, modify, and distribute this software for any
  purpose with or without fee is hereby granted, provided that the above
@@ -31,6 +32,8 @@
 #	include <elf.h>
 #endif
 #include <assert.h>
+#include <dlfcn.h>
+#include <stdio.h>
 
 /* run-time configuration 64/32 */
 
@@ -50,10 +53,12 @@ typedef Elf32_Sword  Elf_tag;
 typedef Elf32_Addr   Elf_Addr;
 #endif
 
+
 struct DLLib_
 {
   Elf_Ehdr* pElf_Ehdr;
 };
+
 
 typedef struct 
 {
@@ -70,6 +75,7 @@ typedef struct
   */
 
 } Elf_Hash;
+
 
 typedef struct {
   uint32_t nbuckets; /* the number of buckets */
@@ -92,9 +98,8 @@ typedef struct {
   uint32_t chain[dynsymcount - symndx];
   
   */
-
-
 } Elf_GNU_Hash;
+
 
 struct DLSyms_
 {
@@ -105,15 +110,14 @@ struct DLSyms_
   uint32_t*     pGNUHashChain;
 };
 
-size_t dlSyms_sizeof()
+
+DLSyms dlSymsInit(DLLib* pLib)
 {
-  return sizeof(DLSyms);
-}
-#include <stdio.h>
-void dlSymsInit(DLSyms* pSyms, DLLib* pLib)
-{
-  assert(pSyms && pLib);
-  
+  DLSyms* pSyms;
+  if(!pLib)
+    return NULL;
+   
+  pSyms = (DLSyms*)dcAllocMem(sizeof(DLSyms));
   pSyms->pStrTab  = 0;
   pSyms->pSymTab  = 0;
   pSyms->pHash    = 0;
@@ -173,16 +177,21 @@ void dlSymsInit(DLSyms* pSyms, DLLib* pLib)
     uint32_t* pchain   = (uint32_t*) &pbuckets[p->nbuckets];
     pSyms->pGNUHashChain = pchain;
   }
+  return pSyms;
 }
+
 
 void dlSymsCleanup(DLSyms* pSyms)
 {
-  /* do nothing. */
+  dcFreeMem(pSyms);
 }
+
 
 int dlSymsCount(DLSyms* pSyms)
 {
-  assert(pSyms && pSyms->pHash);
+  if (!pSyms || !pSyms->pHash)
+    return 0;
+
   if (pSyms->pGNUHash) {
     return pSyms->pHash->nchain - pSyms->pGNUHash->symndx;
   } else {
@@ -190,10 +199,13 @@ int dlSymsCount(DLSyms* pSyms)
   }
 }
 
+
 const char* dlSymsName(DLSyms* pSyms, int index)
 {
-  assert(pSyms && pSyms->pSymTab && pSyms->pStrTab );
   int export_base;
+  if(!pSyms || !pSyms->pSymTab)
+    return NULL;
+
   if (pSyms->pGNUHash) {
     export_base = pSyms->pGNUHash->symndx;
   } else {
@@ -203,10 +215,13 @@ const char* dlSymsName(DLSyms* pSyms, int index)
   return &pSyms->pStrTab[str_index];
 }
 
+
 void* dlSymsValue(DLSyms* pSyms, int index)
 {
-  assert(pSyms && pSyms->pSymTab);
   int export_base;
+  if(!pSyms || !pSyms->pSymTab)
+    return NULL;
+
   if (pSyms->pGNUHash) {
     export_base = pSyms->pGNUHash->symndx;
   } else {
@@ -214,6 +229,7 @@ void* dlSymsValue(DLSyms* pSyms, int index)
   }
   return (void*) pSyms->pSymTab[ export_base + index ].st_value;
 }
+
 
 #if 0
 
@@ -230,6 +246,7 @@ dl_new_hash(const char* s)
   return h;
 }
 
+
 /* GNU binutils implementation: */
 static uint_fast32_t
 dl_new_hash(const char* s)
@@ -240,6 +257,7 @@ dl_new_hash(const char* s)
   return h & 0xffffffff;
 }
 #endif
+
 
 #if 0
 /*
@@ -344,8 +362,10 @@ void dlInitSyms_elf64(DLSyms* pResolver, DLLib* pLib)
   // return 0;
 }
 
-void dlInitSyms_elf32(DLSyms* pResolver, DLLib* pLib)
+
+void dlInitSyms_elf32(DLLib* pLib)
 {
+  DLSyms* pResolver = (DLSyms*)dcAllocMem(sizeof(DLSyms));
   pResolver->elf64 = 0;
   Elf32_Ehdr* pH   = pLib->u.pElf32_Ehdr;
   assert(pH->e_phoff > 0);
@@ -387,4 +407,13 @@ void dlInitSyms_elf32(DLSyms* pResolver, DLLib* pLib)
   }
 }
 #endif
+
+
+const char* dlSymsNameFromValue(DLSyms* pSyms, void* value)
+{
+  struct Dl_info info;
+  return (dladdr(value, &info) && (value == info.dli_saddr))
+    ? info.dli_sname
+    : NULL;
+}
 

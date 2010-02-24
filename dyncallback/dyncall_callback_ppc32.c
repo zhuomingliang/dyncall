@@ -48,6 +48,6 @@ DCCallback* dcbNewCallback(const char* signature, DCCallbackHandler* handler, vo
 
 void dcbFreeCallback(DCCallback* pcb)
 {
-  dcbFreeWX(pcb, sizeof(DCCallback));
+  dcFreeWX(pcb, sizeof(DCCallback));
 }
 

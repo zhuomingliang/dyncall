@@ -17,10 +17,15 @@
 
 */
 
-#include "dyncall_macros.h"
+#include "dynload.h"
+
 #if defined(DC_WINDOWS)
-#include "dynload_win32.c"
+#  include "dynload_windows.c"
 #elif defined(DC_UNIX)
-#include "dynload_unix.c"
+#  if defined (DC__OS_Darwin)
+#    include "dynload_darwin.c"
+#  else
+#    include "dynload_unix.c"
+#  endif
 #endif
 

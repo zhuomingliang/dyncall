@@ -33,7 +33,7 @@
 
 
 ; Main dyncall call.
-_dcCall_x86_cdecl PROC EXPORT
+_dcCall_x86_cdecl PROC
 
     OPTION PROLOGUE:NONE, EPILOGUE:NONE
 
@@ -71,7 +71,7 @@ _dcCall_x86_cdecl PROC EXPORT
 _dcCall_x86_cdecl ENDP
 
 
-_dcCall_x86_win32_msthis PROC EXPORT
+_dcCall_x86_win32_msthis PROC
 
     OPTION PROLOGUE:NONE, EPILOGUE:NONE
 
@@ -114,7 +114,7 @@ _dcCall_x86_win32_msthis PROC EXPORT
 _dcCall_x86_win32_msthis ENDP
 
 
-_dcCall_x86_win32_std PROC EXPORT
+_dcCall_x86_win32_std PROC
 
     OPTION PROLOGUE:NONE, EPILOGUE:NONE
 
@@ -151,7 +151,7 @@ _dcCall_x86_win32_std PROC EXPORT
 _dcCall_x86_win32_std ENDP
 
 
-_dcCall_x86_win32_fast PROC EXPORT
+_dcCall_x86_win32_fast PROC
 
     OPTION PROLOGUE:NONE, EPILOGUE:NONE
 

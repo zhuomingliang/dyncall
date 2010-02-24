@@ -1,12 +1,16 @@
 This file lists big/noteworthy changes, only...
 
-Next Release
+Version 0.6 (upcoming)
 o added build tool support for Portable C Compiler using GNU make system
+o dynload Mach-O support (thanks Olivier)
+o dynload Win64 support (thanks Olivier)
+o numerous convenience changes to dynload interface (thanks Olivier)
+o unexported functions in MASM files, b/c export not needed (thanks Olivier)
 
 Version 0.5
 o renamed arm9 stuff to arm32
 o added non-EABI ABI for arm32 (before, EABI was the default implementation)
-o added dyncallback support for x64/windows, x64/darwin, arm32/arm, arm32/thumb
+o added dyncallback support for x64/windows (thanks Olivier), x64/darwin, arm32/arm, arm32/thumb
 o synced documentation again with current state of the source (lots of small changes)
 o updated ruby binding to current state of signature string (still some features missing, though)
 o added a couple of new options to configure scripts (e.g. prefix-bd, new targets, etc.)

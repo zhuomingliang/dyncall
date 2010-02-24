@@ -45,7 +45,7 @@ CTX_userdata    =   32
 DCCallback_size =   40
 
 
-dcCallbackThunkEntry PROC EXPORT
+dcCallbackThunkEntry PROC
 
   OPTION PROLOGUE:NONE, EPILOGUE:NONE
 

@@ -1,4 +1,13 @@
+dynload:
+--------
+- do we need Dbghelp on windows?
+  * if so, update gmake, etc... to link Dbghelp.lib
+  * if not, get rid of the DbgHelp.lib link in test/nm
+- rename SymsInit to InitSyms and similar for cleanup function to reflect naming
+  in dyncall
+
 urgent issues:
+--------------
 - update: microsoft visual c++ build files - integrate all test suites in solution file
 - test arm32/ATPCS/THUMB (and then change Status in doc Appendix)
 - look over code and fix TODO or @@@ marks
@@ -12,16 +21,19 @@ urgent issues:
 - not sure, but configure(.sh) --tool-xxx might overwrite --asm-xxx, in some cases
 
 nice to have:
+-------------
 - consistency: on x64 platforms: make both ABIs available ('win64','sysv') for all x64 OS ports
 - dynamic choice of ARM/THUMB mode - ATM one has to compile for ARM or THUMB
 - microsoft build enhancement: autodetect assembly via C preprocessor (like with .S gcc files)
 - enhancement: state-machine error reporting (stack overflow and invalid mode)? (e.g. dcError() )
 
 bugs:
+-----
 - vararg function calls don't work for PPC32 System V ABI
 - vararg function calls don't work for ARM THUMB mode
 
 missing implementations (descending priority):
+----------------------------------------------
 - sparc, sparc64
 - ppc64
 - itanium
@@ -37,6 +49,7 @@ missing implementations (descending priority):
 - propeller
 
 available hardware for outstanding ports:
+-----------------------------------------
 - 68k: Tassilo's old Palm m100 (MC68EZ328 (16MHz))
 - sh4: Tassilo's Dreamcast
 - mips R5900: Daniel's PS2

@@ -49,7 +49,7 @@ frame_CTX         =  -4
 frame_DCArgs      = -24
 frame_DCValue     = -32
 
-_dcCallbackThunkEntry PROC EXPORT
+_dcCallbackThunkEntry PROC
 
   OPTION PROLOGUE:NONE, EPILOGUE:NONE
 
