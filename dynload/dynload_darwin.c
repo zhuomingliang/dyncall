@@ -28,6 +28,7 @@
 #include "dynload.h"
 
 #include <dlfcn.h>
+#include <string.h>
 
 struct DLLib_
 {
