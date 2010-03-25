@@ -53,6 +53,7 @@ fn usage {
   echo '   -h                print this page'
   echo
   echo '  --target-x86       build for x86 architecture platform'
+  echo '  --target-x64       build for x64 architecture platform'
   echo '  --target-ppc32     build for ppc32 architecture platform'
   echo '  --target-arm-arm   build for ARM architecture platform (ARM mode)'
   echo '  --target-arm-thumb build for ARM architecture platform (THUMB mode)'
@@ -71,7 +72,7 @@ fn usage {
 
 CONFIG_OS=()
 fn guess_os {
-  CONFIG_OS='Plan9'
+  CONFIG_OS='plan9'
   info 'guess os '$CONFIG_OS
 }
 
@@ -127,6 +128,8 @@ fn args {
         CONFIG_ARCH='x86'
       case --target-x64
         CONFIG_ARCH='x64'
+      case --target-ppc32
+        CONFIG_ARCH='ppc32'
       case --target-arm-arm
         CONFIG_ARCH='arm32_arm'
       case --target-arm-thumb
