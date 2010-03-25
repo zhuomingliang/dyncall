@@ -80,9 +80,8 @@ fn guess_os {
 CONFIG_ARCH=()
 fn guess_arch {
   CONFIG_ARCH='x86'
-  switch($cputype)
-  {
-    case '386'
+  switch($cputype) {
+    case 386
       CONFIG_ARCH='x86'
     case amd64
       CONFIG_ARCH='x64'
