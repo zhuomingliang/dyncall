@@ -83,7 +83,7 @@
 	#define DC__OS_Cygwin
 
 /* The "Minimalist GNU for Windows" - MinGW. */
-#elif defined(__MINGW__)//@@@
+#elif defined(__MINGW__)/*@@@*/
 	#define DC__OS_MinGW
 
 /* The Nintendo DS (homebrew) using devkitpro. */
