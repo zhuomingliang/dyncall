@@ -99,7 +99,7 @@
 	#define DC__OS_BEOS
 
 /* The Unix successor - Plan9 from Bell Labs */
-#elif defined(__Plan9__)
+#elif defined(Plan9) || defined(__Plan9__)
 	#define DC__OS_Plan9
 
 /* Digital's Unix-like OS - VMS */
