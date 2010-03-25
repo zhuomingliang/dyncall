@@ -97,6 +97,15 @@
 /* Haiku (BeOS alike). */
 #elif defined(__HAIKU__)
 	#define DC__OS_BEOS
+
+/* The Unix successor - Plan9 from Bell Labs */
+#elif defined(__Plan9__)
+	#define DC__OS_Plan9
+
+/* Digital's Unix-like OS - VMS */
+#elif defined(__vms)
+	#define DC__OS_VMS
+
 #else
 	#error Unsupported OS.
 #endif
