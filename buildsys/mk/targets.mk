@@ -19,14 +19,14 @@
 
 
 # Create a list of .o files to make.
-OBJS_ = `{echo $UNITS | sed s/[[:\>:]]/$OBJ_SUFFIX/g}
-OBJS = $OBJS $OBJS_
+#@@@OBJS_ = `{echo $UNITS | sed s/[[:\>:]]/$OBJ_SUFFIX/g}
+OBJS_ = `{echo $UNITS | sed 's/ /$OBJ_SUFFIX/g'}
+OBJS = $OBJS $OBJS_$OBJ_SUFFIX
 
 
 # Library.
 LIB_FILE	= $LIB_PREFIX$LIBRARY$LIB_SUFFIX
 TARGETS		= $TARGETS $LIB_FILE
-$LIB_FILE:Q: $OBJS
-	echo Creating archive $target...
+$LIB_FILE: $OBJS
 	$LINK_LIB_CMD
 

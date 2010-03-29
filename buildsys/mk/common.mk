@@ -24,12 +24,12 @@
 build:V: dirs $TARGETS
 
 CLEAN_FILES=$TARGETS $OBJS
-clean:V: dirs
+clean:VQ: dirs
 	echo Cleaning `{pwd}...
 	rm -f $CLEAN_FILES || true
 
 AUTO_FILES=$AUTOS $AUTO_DIRS
-distclean:V: clean
+distclean:VQ: clean
 	echo Cleaning auto-generated files in `{pwd}...
 	rm -f $AUTOS $AUTO_DIRS || true
 
