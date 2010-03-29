@@ -19,7 +19,7 @@
 
 /*//////////////////////////////////////////////////////////////////////
 
-	dyncall_arm32_arm.s
+	dyncall_call_arm32_arm_gas.s
 
 	ARM32 family of processors (ARM mode).
 	2007-10-11

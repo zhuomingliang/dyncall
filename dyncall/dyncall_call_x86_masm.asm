@@ -19,7 +19,7 @@
 
 ;///////////////////////////////////////////////////////////////////////
 ;
-;	dyncall_x86_windows.asm
+;	dyncall_call_x86_masm.asm
 ;
 ;	MS Windows x86 calls (for MASM)
 ;	November 28, 2007

@@ -19,7 +19,7 @@
 
 /*///////////////////////////////////////////////////////////////////////
 
-	dyncall_x64_system_v.s
+	dyncall__call_x64_gas.s
 
 	SystemV x64 calls for GAS
 	November 28, 2007

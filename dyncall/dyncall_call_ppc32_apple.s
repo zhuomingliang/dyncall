@@ -19,7 +19,7 @@
 
 /*///////////////////////////////////////////////////////////////////////
 
-      dyncall_ppc32_darwin.s
+      dyncall_call_ppc32_apple.s
  
       powerpc 32 bit C call, Darwin Assembler source.
       

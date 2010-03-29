@@ -19,7 +19,7 @@
 
 /*//////////////////////////////////////////////////////////////////////
 
-	dyncall_arm32_thumb.s
+	dyncall_call_arm32_thumb_gas.s
 
 	ARM32 family of processors (THUMB mode).
 	2008-08-12

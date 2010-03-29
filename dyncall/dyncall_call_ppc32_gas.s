@@ -19,7 +19,7 @@
 
 /*///////////////////////////////////////////////////////////////////////
 
-      dyncall_ppc32_as.s
+      dyncall_call_ppc32_gas.s
  
       powerpc 32 bit C call, GNU Assembler source.
 

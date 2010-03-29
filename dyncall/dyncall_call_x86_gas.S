@@ -19,7 +19,7 @@
 
 /* ///////////////////////////////////////////////////////////////////////////
 
-	dyncall_x86_as.S
+	dyncall_call_x86_gas.S
 
 	x86 calls written in GNU Assembler
 	November 28, 2007
@@ -27,7 +27,7 @@
  ////////////////////////////////////////////////////////////////////////// */
 
 
-.file "dyncall_x86_as.S"
+.file "dyncall_call_x86_gas.S"
 .intel_syntax
 .section .text
 

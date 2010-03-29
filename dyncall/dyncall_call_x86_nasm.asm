@@ -19,7 +19,7 @@
 
 ;///////////////////////////////////////////////////////////////////////
 ;
-;	dyncall_x86_nasm.nasm
+;	dyncall_call_x86_nasm.nasm
 ;
 ;	X86 Calls for nasm assembler
 ;

@@ -19,7 +19,7 @@
 
 /* ///////////////////////////////////////////////////////////////////////////
 
-	dyncall_x86_apple.s
+	dyncall_call_x86_apple.s
 
 	x86 calls written in Apple Assembler
 	November 28, 2007

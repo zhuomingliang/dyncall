@@ -19,7 +19,7 @@
 
 /*//////////////////////////////////////////////////////////////////////
 
-	dyncall_mips32.s
+	dyncall_call_mips32_gas.s
 
 	MIPS 32bit family of processors.
 	2008-01-03

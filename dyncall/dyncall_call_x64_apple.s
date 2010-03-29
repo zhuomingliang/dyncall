@@ -19,7 +19,7 @@
 
 /*///////////////////////////////////////////////////////////////////////
 
-	dyncall_x64_apple.s
+	dyncall_call_x64_apple.s
 
 	SystemV x64 calls for apple GNU AS
 	November 28, 2007
