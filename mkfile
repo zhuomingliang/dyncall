@@ -20,7 +20,7 @@
 
 TOP = .
 
-<$TOP"/buildsys/mk/prolog.mk"
+<$TOP/buildsys/mk/prolog.mk
 
 # directories:
 DIRS  = dyncall dyncallback dynload
@@ -32,5 +32,5 @@ test:
 doc:
 	cd $target; $MK
 
-<$TOP"/buildsys/mk/epilog.mk"
+<$TOP/buildsys/mk/epilog.mk
 

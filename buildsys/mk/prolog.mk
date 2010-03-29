@@ -25,7 +25,7 @@ all:V: build
 
 
 # Include config rules.
-<$TOP"/ConfigVars"
+<$TOP/ConfigVars
 
 BUILD_HOST   = $CONFIG_HOST
 BUILD_OS     = $CONFIG_OS
@@ -36,5 +36,5 @@ BUILD_CONFIG = $CONFIG_CONFIG
 
 
 # Include local config if it exists.
-<|cat $TOP"/SiteVars" || true
+#@@@<|cat $TOP/SiteVars || true
 

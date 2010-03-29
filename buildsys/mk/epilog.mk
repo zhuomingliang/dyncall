@@ -18,10 +18,10 @@
 #//////////////////////////////////////////////////////////////////////////////
 
 
-<$TOP"/buildsys/mk/pcc.mk"
-<$TOP"/buildsys/mk/unix.mk"
+<$TOP/buildsys/mk/pcc.mk
+<$TOP/buildsys/mk/unix.mk
 
-<$TOP"/buildsys/mk/targets.mk"
-<$TOP"/buildsys/mk/common.mk"
-<$TOP"/buildsys/mk/implied.mk"
+<$TOP/buildsys/mk/targets.mk
+<$TOP/buildsys/mk/common.mk
+<$TOP/buildsys/mk/implied.mk
 
