@@ -111,7 +111,7 @@ struct DLSyms_
 };
 
 
-DLSyms dlSymsInit(DLLib* pLib)
+DLSyms* dlSymsInit(DLLib* pLib)
 {
   DLSyms* pSyms;
   if(!pLib)
@@ -411,7 +411,7 @@ void dlInitSyms_elf32(DLLib* pLib)
 
 const char* dlSymsNameFromValue(DLSyms* pSyms, void* value)
 {
-  struct Dl_info info;
+  Dl_info info;
   return (dladdr(value, &info) && (value == info.dli_saddr))
     ? info.dli_sname
     : NULL;
