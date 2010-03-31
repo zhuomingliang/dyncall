@@ -102,7 +102,7 @@ fn guess_arch {
 
 CONFIG_TOOL=()
 fn guess_tool {
-  #CONFIG_TOOL=`{grep AS /$objtype/mkfile | sed /AS.//}
+  #CONFIG_TOOL=`{grep CC /$objtype/mkfile | sed s/CC.//}
   CONFIG_TOOL='pcc'
   info 'guess tool '$CONFIG_TOOL
 }
@@ -111,7 +111,7 @@ fn guess_tool {
 
 CONFIG_ASM=()
 fn guess_asm {
-  CONFIG_ASM=`{grep AS /$objtype/mkfile | sed /AS.//}
+  CONFIG_ASM=`{grep AS /$objtype/mkfile | sed s/AS.//}
   info 'guess assembler '$CONFIG_ASM
 }
 
