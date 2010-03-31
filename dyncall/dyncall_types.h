@@ -32,7 +32,9 @@
 #ifndef DYNCALL_TYPES_H
 #define DYNCALL_TYPES_H
 
+#if !defined(DC__OS_Plan9)
 #include <stddef.h>
+#endif
 
 #include "dyncall_config.h"
 
