@@ -17,8 +17,11 @@
 #
 #//////////////////////////////////////////////////////////////////////////////
 
-#CC = pcc
+CC = pcc
+AS = pcc
 
 #@@@.if $(BUILD_CONFIG) == "debug"
-#@@@CFLAGS += -g
+#@@@ add -g option or similar
 #@@@.endif
+CFLAGS   = $CFLAGS   -D__Plan9__
+CXXFLAGS = $CXXFLAGS -D__Plan9__
