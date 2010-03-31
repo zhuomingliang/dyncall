@@ -57,13 +57,13 @@ fn usage {
   echo '  --target-ppc32     build for ppc32 architecture platform'
   echo '  --target-arm-arm   build for ARM architecture platform (ARM mode)'
   echo '  --target-arm-thumb build for ARM architecture platform (THUMB mode)'
-  echo
-  echo '  --tool-pcc         use Portable C Compiler'
-  echo 
-  echo '  --asm-xa           use Plan9 Assemblers (0a, 1a, 2a, etc.)'
-  echo
-  echo '  --config-release   build release version (default)'
-  echo '  --config-debug     build debug version'
+  #echo
+  #echo '  --tool-pcc         use Portable C Compiler'
+  #echo 
+  #echo '  --asm-xa           use Plan9 Assemblers (0a, 1a, 2a, etc.)'
+  #echo
+  #echo '  --config-release   build release version (default)'
+  #echo '  --config-debug     build debug version'
   echo
   exit 0
 }
@@ -102,6 +102,7 @@ fn guess_arch {
 
 CONFIG_TOOL=()
 fn guess_tool {
+  #CONFIG_TOOL=`{grep AS /$objtype/mkfile | sed /AS.//}
   CONFIG_TOOL='pcc'
   info 'guess tool '$CONFIG_TOOL
 }
@@ -110,7 +111,7 @@ fn guess_tool {
 
 CONFIG_ASM=()
 fn guess_asm {
-  CONFIG_ASM='2a' #@@@ check platform
+  CONFIG_ASM=`{grep AS /$objtype/mkfile | sed /AS.//}
   info 'guess assembler '$CONFIG_ASM
 }
 
@@ -134,15 +135,15 @@ fn args {
         CONFIG_ARCH='arm32_arm'
       case --target-arm-thumb
         CONFIG_ARCH='arm32_thumb'
-      case --tool-pcc
-        CONFIG_TOOL=pcc
-        CONFIG_ASM=2a
-      case --tool-pcc
-        CONFIG_ASM=2a
-      case --config-release
-        CONFIG_CONFIG=release
-      case --config-debug
-        CONFIG_CONFIG=debug
+      #case --tool-pcc
+        #CONFIG_TOOL=pcc
+        #CONFIG_ASM=2a
+      #case --tool-xa
+        #CONFIG_ASM=2a
+      #case --config-release
+        #CONFIG_CONFIG=release
+      #case --config-debug
+        #CONFIG_CONFIG=debug
       case *
         warning 'unknown option '$OPT
     }
