@@ -19,16 +19,16 @@
 
 
 %.o: %.c
-	$CC $CPPFLAGS $CFLAGS -I$TOP/dyncall -I$TOP/dyncallback -c $prereq -o $stem.o
+	$CC $CFLAGS -I$TOP/dyncall -I$TOP/dyncallback -c $prereq -o $stem.o
 
 %.o: %.cpp
-	$CXX $CPPFLAGS $CXXFLAGS -I$TOP/dyncall -I$TOP/dyncallback -c $prereq -o $stem.o
+	$CXX $CXXFLAGS -I$TOP/dyncall -I$TOP/dyncallback -c $prereq -o $stem.o
 
 %.o: %.s
 	$AS $ASFLAGS -o $stem.o
 	
 %.o: %.S
-	$CC $CPPFLAGS $CFLAGS $TARGET_MACH -c $prereq -o $stem.o
+	$CC $CFLAGS $TARGET_MACH -c $prereq -o $stem.o
 
 %.pdf: %.tex
 	pdflatex $prereq

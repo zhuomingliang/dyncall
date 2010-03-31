@@ -27,12 +27,6 @@ APP_SUFFIX	=
 DLL_PREFIX	= lib
 DLL_SUFFIX	= .so
 
-# Assembler flags.
-CFLAGS = 
-CPPFLAGS = 
-#@@@as_FLAGS	?= --defsym BUILD_OS_$BUILD_OS=1 --defsym BUILD_ARCH_$BUILD_ARCH=1
-#@@@nasm_FLAGS	?= -D BUILD_OS_$BUILD_OS=1 -D BUILD_ARCH_$BUILD_ARCH=1
-
 LINK_LIB_CMD	= $AR $ARFLAGS $target $prereq
 LINK_DLL_CMD	= $CXX -o $target -shared $LDFLAGS $prereq $LIBS
 LINK_APP_CMD	= $CXX -o $target $LDFLAGS $prereq $LIBS
