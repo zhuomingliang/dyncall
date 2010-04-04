@@ -20,7 +20,7 @@
 
 # Create a list of .o files to make.
 #@@@OBJS_ = `{echo $UNITS | sed s/[[:\>:]]/$OBJ_SUFFIX/g}
-OBJS_ = `{echo $UNITS | sed 's/ /$OBJ_SUFFIX/g'}
+OBJS_ = `{echo $UNITS | sed 's/ /$OBJ_SUFFIX /g'}
 OBJS = $OBJS $OBJS_$OBJ_SUFFIX
 
 
