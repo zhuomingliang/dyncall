@@ -25,10 +25,10 @@
 	$CXX $CXXFLAGS -I$TOP/dyncall -I$TOP/dyncallback -c $prereq -o $stem.o
 
 %.o: %.s
-	$AS $ASFLAGS -o $stem.o
+	$AS $ASFLAGS -o $stem.o $prereq
 	
 %.o: %.S
-	$CC $CFLAGS $TARGET_MACH -c $prereq -o $stem.o
+	cpp $CPPFLAGS $prereq | $AS $ASFLAGS -o $stem.o $prereq
 
 %.pdf: %.tex
 	pdflatex $prereq
