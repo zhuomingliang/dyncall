@@ -25,4 +25,5 @@ AS = $BUILD_ASM
 #@@@.endif
 CFLAGS   = $CFLAGS   -D__Plan9__
 CXXFLAGS = $CXXFLAGS -D__Plan9__
-CPPFLAGS = $CFLAGS   -D__Plan9__
+CPPFLAGS = -D__Plan9__ -D__i386__ #@@@ remove that and make it dependent on $objtype, a Plan9 env var
+ASFLAGS  = -D__Plan9__
