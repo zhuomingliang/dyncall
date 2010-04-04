@@ -8,6 +8,7 @@ dynload:
 
 urgent issues:
 --------------
+- get rid of # in .S files, Plan9 cpp (and possibly other cpps) get confused
 - update: microsoft visual c++ build files - integrate all test suites in solution file
 - test arm32/ATPCS/THUMB (and then change Status in doc Appendix)
 - look over code and fix TODO or @@@ marks
