@@ -51,12 +51,12 @@ fn usage {
   echo 'Options:'
   echo '  --help'
   echo '   -h                print this page'
-  echo
-  echo '  --target-x86       build for x86 architecture platform'
-  echo '  --target-x64       build for x64 architecture platform'
-  echo '  --target-ppc32     build for ppc32 architecture platform'
-  echo '  --target-arm-arm   build for ARM architecture platform (ARM mode)'
-  echo '  --target-arm-thumb build for ARM architecture platform (THUMB mode)'
+  #echo
+  #echo '  --target-x86       build for x86 architecture platform'
+  #echo '  --target-x64       build for x64 architecture platform'
+  #echo '  --target-ppc32     build for ppc32 architecture platform'
+  #echo '  --target-arm-arm   build for ARM architecture platform (ARM mode)'
+  #echo '  --target-arm-thumb build for ARM architecture platform (THUMB mode)'
   #echo
   #echo '  --tool-pcc         use Portable C Compiler'
   #echo 
@@ -125,16 +125,16 @@ fn args {
     switch($OPT) {
       case --help -h
         usage
-      case --target-x86
-        CONFIG_ARCH='x86'
-      case --target-x64
-        CONFIG_ARCH='x64'
-      case --target-ppc32
-        CONFIG_ARCH='ppc32'
-      case --target-arm-arm
-        CONFIG_ARCH='arm32_arm'
-      case --target-arm-thumb
-        CONFIG_ARCH='arm32_thumb'
+      #case --target-x86
+        #CONFIG_ARCH='x86'
+      #case --target-x64
+        #CONFIG_ARCH='x64'
+      #case --target-ppc32
+        #CONFIG_ARCH='ppc32'
+      #case --target-arm-arm
+        #CONFIG_ARCH='arm32_arm'
+      #case --target-arm-thumb
+        #CONFIG_ARCH='arm32_thumb'
       #case --tool-pcc
         #CONFIG_TOOL=pcc
         #CONFIG_ASM=2a

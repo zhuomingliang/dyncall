@@ -20,10 +20,6 @@
 
 </$objtype/mkfile
 
-# Standard 'build all' target.
-all:V: build
-
-
 # Include config rules.
 <$TOP/ConfigVars
 
@@ -33,8 +29,4 @@ BUILD_ARCH   = $CONFIG_ARCH
 BUILD_TOOL   = $CONFIG_TOOL
 BUILD_ASM    = $CONFIG_ASM
 BUILD_CONFIG = $CONFIG_CONFIG
-
-
-# Include local config if it exists.
-#@@@<|cat $TOP/SiteVars || true
 

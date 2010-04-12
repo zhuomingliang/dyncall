@@ -17,32 +17,9 @@
 #
 #//////////////////////////////////////////////////////////////////////////////
 
-
-# --- phony targets ------------------------------------------------------------
-
-#@@@build:V: dirs autos $TARGETS
-build:V: dirs $TARGETS
-
-CLEAN_FILES=$TARGETS $OBJS
-clean:VQ: dirs
-	echo Cleaning `{pwd}...
-	rm -f $CLEAN_FILES || true
-
-AUTO_FILES=$AUTOS $AUTO_DIRS
-distclean:VQ: clean
-	echo Cleaning auto-generated files in `{pwd}...
-	rm -f $AUTOS $AUTO_DIRS || true
-
-
-# --- auto generated -----------------------------------------------------------
-
-#@@@autos:V: $AUTOS
-
-# --- handling sub directories -------------------------------------------------
-
 dirs:VQ: $DIRS
-	for (i in $DIRS) @{
-		echo Handling sub-directory $i...
-		cd $i && $MK -f mkfile $MKFLAGS $MKARGS
-	}
+       for (i in $DIRS) @{
+               echo Handling sub-directory $i...
+               cd $i && $MK -f mkfile $MKFLAGS $MKARGS
+       }
 

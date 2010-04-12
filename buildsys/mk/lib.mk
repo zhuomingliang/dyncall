@@ -18,18 +18,6 @@
 #//////////////////////////////////////////////////////////////////////////////
 
 
-# Set default unix *fixes if unspecified.
-OBJ_SUFFIX	= .o
-LIB_PREFIX	= lib
-LIB_SUFFIX	= _s.a
-APP_PREFIX	=
-APP_SUFFIX	=
-DLL_PREFIX	= lib
-DLL_SUFFIX	= .so
-
-LINK_LIB_CMD	= $AR $ARFLAGS $target $prereq
-LINK_DLL_CMD	= $CXX -o $target -shared $LDFLAGS $prereq $LIBS
-LINK_APP_CMD	= $CXX -o $target $LDFLAGS $prereq $LIBS
-#LINK_DLL_CMD	= $LD -o $target -shared $LDFLAGS $prereq $LIBS
-#LINK_APP_CMD	= $LD -o $target $LDFLAGS $prereq $LIBS
-
+# Set Plan9's mk variables.
+LIB = lib${LIBRARY}_s.a$O
+OFILES = `{echo $UNITS | sed 's/ |$/.$O /g'}

@@ -17,13 +17,23 @@
 #
 #//////////////////////////////////////////////////////////////////////////////
 
+
+#@@@ add stuff for crosscompiling here.
+
 CC = pcc
-AS = $BUILD_ASM
+LD = pcc
 
 #@@@.if $(BUILD_CONFIG) == "debug"
 #@@@ add -g option or similar
 #@@@.endif
-CFLAGS   = $CFLAGS   -D__Plan9__
-CXXFLAGS = $CXXFLAGS -D__Plan9__
-CPPFLAGS = -D__Plan9__ -D__i386__ #@@@ remove that and make it dependent on $objtype, a Plan9 env var
-ASFLAGS  = -D__Plan9__
+CPPFLAGS = -D__Plan9__ -D__${objtype}__
+CFLAGS   = $CFLAGS -D__Plan9__ -D__${objtype}__ -I$TOP/dyncall -I$TOP/dyncallback -c
+#CXXFLAGS = $CXXFLAGS -D__Plan9__
+#ASFLAGS  = -D__Plan9__
+
+# Step to transform .S into .s files.
+%.s: %.S
+	cp $prereq $prereq.c
+	pcc -E $CPPFLAGS $prereq.c > $target # replace with cpp? pcc requires .c suffix
+	rm $prereq.c
+

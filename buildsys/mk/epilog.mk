@@ -18,10 +18,9 @@
 #//////////////////////////////////////////////////////////////////////////////
 
 
+# If we have a library to build, include lib.mk and default lib buildi rules.
+<|if(! ~ x$LIBRARY x) { cat $TOP/buildsys/mk/lib.mk /sys/src/cmd/mklib }; echo
+
+# Overrides.
 <$TOP/buildsys/mk/pcc.mk
-<$TOP/buildsys/mk/unix.mk
-
-<$TOP/buildsys/mk/targets.mk
 <$TOP/buildsys/mk/common.mk
-<$TOP/buildsys/mk/implied.mk
-
