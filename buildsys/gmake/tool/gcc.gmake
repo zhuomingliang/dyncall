@@ -148,10 +148,6 @@ TARGET_ARCH += -mno-cygwin
 endif
 endif
 
-# --- Dependencies ------------------------------------------------------------
-
--include $(OBJS:.o=.d)
-
 # --- last rule ---------------------------------------------------------------
 
 $(BUILD_DIR)/%$(APP_SUFFIX):
