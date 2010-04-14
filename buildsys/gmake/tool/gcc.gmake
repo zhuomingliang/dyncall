@@ -45,17 +45,12 @@ endif
 
 # --- Assemble ----------------------------------------------------------------
 
-ifdef BUILD_OS_darwin
-
-else
-#ASFLAGS		+= --defsym BUILD_OS_$(BUILD_OS)=1 --defsym BUILD_ARCH_$(BUILD_ARCH)=1 
-endif
-
 $(BUILD_DIR)/%.o: %.s
 	$(COMPILE.s) $(OUTPUT_OPTION) $<
 
 $(BUILD_DIR)/%.o: %.S
 	$(COMPILE.S) $(OUTPUT_OPTION) $<
+	$(CC) -MM -MT $@ $(CPPFLAGS) $< > $(BUILD_DIR)/$*.d
 
 # ---Compile flags ------------------------------------------------------------
 
@@ -86,11 +81,13 @@ endif
 
 $(BUILD_DIR)/%.o: %.c
 	$(COMPILE.c) $< $(OUTPUT_OPTION)
+	$(CC) -MM -MT $@ $(CPPFLAGS) $(CFLAGS) $< > $(BUILD_DIR)/$*.d
 
 # --- Compile C++ -------------------------------------------------------------
 
 $(BUILD_DIR)/%.o: %.cpp
 	$(COMPILE.cpp) $< $(OUTPUT_OPTION)
+	$(CXX) -MM -MT $@ $(CPPFLAGS) $(CXXFLAGS) $< > $(BUILD_DIR)/$*.d
 
 # --- static library ----------------------------------------------------------
 
@@ -150,6 +147,10 @@ ifdef BUILD_OS_windows
 TARGET_ARCH += -mno-cygwin
 endif
 endif
+
+# --- Dependencies ------------------------------------------------------------
+
+-include $(OBJS:.o=.d)
 
 # --- last rule ---------------------------------------------------------------
 
