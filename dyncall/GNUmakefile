@@ -31,7 +31,8 @@ INSTALL_HEADERS	= \
 	dyncall.h \
 	dyncall_signature.h \
 	dyncall_value.h \
-	dyncall_callf.h
+	dyncall_callf.h \
+	dyncall_alloc.h
 
 INSTALL_LIB = 1
 
