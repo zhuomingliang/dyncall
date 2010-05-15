@@ -32,8 +32,9 @@ CFLAGS   = $CFLAGS -D__Plan9__ -D__${objtype}__ -I$TOP/dyncall -I$TOP/dyncallbac
 #ASFLAGS  = -D__Plan9__
 
 # Step to transform .S into .s files.
-%.s: %.S
+%.$0: %.S
 	cp $prereq $prereq.c
-	pcc -E $CPPFLAGS $prereq.c > $target # replace with cpp? pcc requires .c suffix
+	pcc -E $CPPFLAGS $prereq.c > $stem.s # replace with cpp? pcc requires .c suffix
 	rm $prereq.c
+	$AS $AFLAGS $stem.s
 

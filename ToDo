@@ -23,6 +23,7 @@ urgent issues:
 
 nice to have:
 -------------
+- maybe rename DC__Arch_PowerPC to ...PPC32 for coherency reasons (...PPC64)?
 - consistency: on x64 platforms: make both ABIs available ('win64','sysv') for all x64 OS ports
 - dynamic choice of ARM/THUMB mode - ATM one has to compile for ARM or THUMB
 - microsoft build enhancement: autodetect assembly via C preprocessor (like with .S gcc files)
