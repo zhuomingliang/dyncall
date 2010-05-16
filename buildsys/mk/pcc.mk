@@ -31,10 +31,22 @@ CFLAGS   = $CFLAGS -D__Plan9__ -D__${objtype}__ -I$TOP/dyncall -I$TOP/dyncallbac
 #CXXFLAGS = $CXXFLAGS -D__Plan9__
 #ASFLAGS  = -D__Plan9__
 
-# Step to transform .S into .s files.
-%.$0: %.S
+# Step to transform .S into object files.
+%.$O: %.S
 	cp $prereq $prereq.c
-	pcc -E $CPPFLAGS $prereq.c > $stem.s # replace with cpp? pcc requires .c suffix
+	pcc -E $CPPFLAGS $prereq.c | sed '{
+		/^$/d
+		/^#.*/d
+		s/^\.(globl|intel_syntax|file|section).*//
+		s/(.*):/TEXT \1(SB), $0/g
+		s/%//g
+		/^[	 ]+/y/abcdefghijklmnopqrstuvwxyz/ABCDEFGHIJKLMNOPQRSTUVWXYZ/
+		s/([A-Z]+)[	 ]*E(..)[,	 ]*E(..)/\1L \3, \2/
+		s/([A-Z]+)[	 ]*E(..)[,	 ]*([0-9]+)/\1L \3, \2/
+		s/([A-Z]+)[	 ]*E(..)[,	 ]*\[E(..)\+([0-9]+)\]/\1L \4(\3), \2/
+		s/([A-Z]+)[	 ]*E(..)$/\1L \2/
+		s/([A-Z]+)[	 ]*\[E(..)\+([0-9]+)\]/\1L \3(\2)/
+	}' > $stem.s # replace with cpp? pcc requires .c suffix
 	rm $prereq.c
 	$AS $AFLAGS $stem.s
 
