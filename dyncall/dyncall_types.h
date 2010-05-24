@@ -32,15 +32,7 @@
 #ifndef DYNCALL_TYPES_H
 #define DYNCALL_TYPES_H
 
-//#if defined(DC__OS_Plan9)
-//#if defined(DC__Aarch_AMD64) || defined(DC__Aarch_PPC64) || defined (DC__Arch_Itanium)
-//typedef long long size_t;
-//#else
-//typedef long size_t;
-//#endif
-//#else
 #include <stddef.h>
-//#endif
 
 #include "dyncall_config.h"
 
