@@ -155,6 +155,8 @@
 # define DC__Arch_PowerPC
 #elif defined(__ppc64__) || defined(_ARCH_PPC64) || defined(__power64__)
 # define DC__Arch_PPC64
+#elif defined(__mips64__)
+# define DC__Arch_MIPS64
 #elif defined(_M_MRX000) || defined(__mips__)
 # define DC__Arch_MIPS
 #elif defined(__arm__) && !defined(__thumb__)
