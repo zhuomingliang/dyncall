@@ -9,6 +9,15 @@ function fromConfig()
   return defs
 end
 
+function fromDesignFile()
+  local defs = { 
+    MAXARGS = maxargs,
+    NSIGS   = 5,
+    API     = api
+  }
+  return defs
+end
+
 local defs 
 
 if mode == "designed" then

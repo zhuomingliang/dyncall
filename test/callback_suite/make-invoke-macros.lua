@@ -1,4 +1,7 @@
 require "config"
+if mode == "ordered" then
+  minargs = 0
+end
 local i
 for i = minargs, maxargs do
   local line = "#define F" .. i .. "(ID,R"

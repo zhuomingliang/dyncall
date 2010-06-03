@@ -45,7 +45,8 @@ end
 
 function designedSignatures()
  for line in io.lines(designfile) do
-   io.write( line .. "\n" )
+   io.write( line )
+   io.write( "\n" )
  end
 end
 

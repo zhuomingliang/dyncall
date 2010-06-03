@@ -1,21 +1,20 @@
 -- section 'main' --------------------------------------------------------------
                   
-nsigs     = 300         -- number of test cases
+nsigs     = 6         -- number of test cases
 mode      = "designed"    -- generator mode: 'random', 'ordered' or 'designed' type sequences
-designfile= "test-mips.cfg" -- design file 
-minargs   = 1           -- minimum num. of supported arguments (>= 0)
-maxargs   = 67          -- maximum num. of supported arguments (>= minargs)
+designfile= "stress1.cfg" -- design file 
+minargs   = 0           -- minimum num. of supported arguments (>= 0)
+maxargs   = 10          -- maximum num. of supported arguments (>= minargs)
 
+-- section 'types' (not used by 'designed') ------------------------------------
 
--- section 'types' -------------------------------------------------------------
-
-argtypes  = "BcCsSiIjJlLpfd"    -- supported argument types
+argtypes  = "BcCsSiIjJlLpfd" -- "BcCsSiIjJlLpfd"    -- supported argument types
 rettypes  = argtypes    -- supported return types (currently no void support)
 
 
 -- section 'ordered' -----------------------------------------------------------
 
-offset    = 0           -- permutation index offset (default = 0)
+offset    = 0           -- permutation index offset (default = 1)
 step      = 1           -- permutation index increment (default = 1)
 
 
