@@ -1,3 +1,4 @@
+-- auto-generated file from temlate config-random.lua (created by GNUmake)
 -- section 'main' --------------------------------------------------------------
                   
 nsigs     = 300         -- number of test cases

@@ -48,11 +48,13 @@ CONFIG_FILES	+= _auto_signatures.txt
 config: clean-config $(CONFIG_FILES)
 
 config-random:
-	cp config-random.lua config.lua
+	echo "-- auto-generated file from temlate config-random.lua (created by GNUmake)" >config.lua
+	cat config-random.lua >>config.lua
 	$(MAKE) config
 
 config-stress1:
-	cp config-stress1.lua config.lua
+	echo "-- auto-generated file from temlate config-stress1.lua (created by GNUmake)" >config.lua
+	cat config-stress1.lua >>config.lua
 	$(MAKE) config
 
 clean-config: clean
