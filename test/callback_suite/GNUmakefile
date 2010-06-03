@@ -43,8 +43,17 @@ CONFIG_FILES	= _auto_config.h _auto_sigstrings.h _auto_invokers.h \
 		   _auto_invoke_macros.h _auto_invoke_table.h 
 CONFIG_FILES	+= _auto_signatures.txt
 
-.PHONY: config clean-config
+.PHONY: config clean-config config-random config-stress1
+
 config: clean-config $(CONFIG_FILES)
+
+config-random:
+	cp config-random.lua config.lua
+	$(MAKE) config
+
+config-stress1:
+	cp config-stress1.lua config.lua
+	$(MAKE) config
 
 clean-config: clean
 	$(RM) $(CONFIG_FILES)
