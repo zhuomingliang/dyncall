@@ -153,4 +153,8 @@ endif
 $(BUILD_DIR)/%$(APP_SUFFIX):
 	$(LINKCMD) $^ $(LDFLAGS) $(TARGET_ARCH) $(LDLIBS) $(OUTPUT_OPTION) 
 
+# --- Dependencies ------------------------------------------------------------
+
+-include $(OBJS:.o=.d)
+
 

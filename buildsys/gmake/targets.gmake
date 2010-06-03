@@ -31,10 +31,6 @@ endif
 OBJ_SUFFIX ?= .o
 OBJS += $(foreach X,$(UNITS) $(MODS),$(BUILD_DIR)/$X$(OBJ_SUFFIX))
 
-# --- Dependencies ------------------------------------------------------------
-
--include $(OBJS:.o=.d)
-
 # --- build application -------------------------------------------------------
 
 ifdef TARGET_APP
