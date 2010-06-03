@@ -43,10 +43,18 @@ function orderedSignatures(nsigs)
   end
 end
 
+function designedSignatures()
+ for line in io.lines(designfile) do
+   io.write( line .. "\n" )
+ end
+end
+
 if mode == "random" then
   randomSignatures(nsigs)
 elseif mode == "ordered" then
   orderedSignatures(nsigs)
+elseif mode == "designed" then
+  designedSignatures()
 else
   error("'mode' must be 'random' or 'ordered'")
 end

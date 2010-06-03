@@ -1,10 +1,21 @@
 require "config"
 
-local defs = {
-  MAXARGS = maxargs,
-  NSIGS   = nsigs,
-  API     = api
-}
+function fromConfig()
+  local defs = {
+    MAXARGS = maxargs,
+    NSIGS   = nsigs,
+    API     = api
+  }
+  return defs
+end
+
+local defs 
+
+if mode == "designed" then
+  defs = fromDesignFile()
+else
+  defs = fromConfig()
+end
 
 for k,v in pairs(defs) do
   io.write("#define CONFIG_" .. k .. " " .. v .. "\n" )

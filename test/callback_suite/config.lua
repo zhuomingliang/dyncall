@@ -1,7 +1,8 @@
 -- section 'main' --------------------------------------------------------------
                   
 nsigs     = 300         -- number of test cases
-mode      = "random"    -- generatore mode: 'random' or 'ordered' type sequences
+mode      = "designed"    -- generator mode: 'random', 'ordered' or 'designed' type sequences
+designfile= "test-mips.cfg" -- design file 
 minargs   = 1           -- minimum num. of supported arguments (>= 0)
 maxargs   = 67          -- maximum num. of supported arguments (>= minargs)
 
