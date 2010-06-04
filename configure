@@ -157,6 +157,10 @@ guess_arch()
     CONFIG_ARCH="arm32_arm"
   elif [ "$ARCH" = "BePC" ]; then
     CONFIG_ARCH="x86"
+  elif [ "$ARCH" = "mips" ]; then
+    CONFIG_ARCH="mips32"
+  elif [ "$ARCH" = "mipsel" ]; then
+    CONFIG_ARCH="mips32el"
   elif [ "$ARCH" = "loongson" ]; then
     CONFIG_ARCH="mips64el"
   fi
