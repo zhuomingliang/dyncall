@@ -18,7 +18,7 @@
 */
 
 .text
-.globl dcCall_mips64
+.globl dcCall_mips_n64
 
 dcCall_mips_n64:
 	/* $4 target function */

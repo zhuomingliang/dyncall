@@ -1,7 +1,7 @@
 /*
  Package: dyncall
  File: dyncall/dyncall_call_mips_eabi.h
- Description: mips "eabi" abi call kernel C interface
+ Description: mips "eabi" abi call kernel C interface.
  License:
  
  Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>, 
@@ -28,20 +28,22 @@
 extern "C" {
 #endif
 
+/* Call-kernel register data: 
 
-struct DCRegData_mips_eabi
+   Details:
+   Two register content buffers for the corresponding register types 
+   integer and float are filled from CallVM code and then later at
+   call-kernel loaded into the registers.
+ */
+
+typedef struct DCRegData_mips_eabi_
 {
   DCint   mIntData[8];
   DCfloat mSingleData[8];
-};
+} DCRegData_mips_eabi;
 
 
-/* 
-** mips32 calling convention calls 
-**
-** - hybrid return-type call (bool ... pointer)
-**
-*/
+/* Call kernel. */
 
 void dcCall_mips_eabi  (DCpointer target, struct DCRegData_mips_eabi*   regdata, DCsize stksize, DCpointer stkdata);
 

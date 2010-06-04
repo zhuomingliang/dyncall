@@ -23,8 +23,8 @@ OBJS = \
 	dyncall.o \
 	dyncall_vector.o \
 	dyncall_callf.o \
-	dyncall_callvm_mips32.o \
-	dyncall_mips32.o
+	dyncall_callvm_mips_eabi.o \
+	dyncall_mips_eabi.o
 
 HEADERS = \
 	dyncall_macros.h \
@@ -40,11 +40,11 @@ include $(PSPSDK)/lib/build.mak
 
 # pspsdk make fix
 #
-# As pspsdk sets AS=psp-gcc, dyncall_mips32.s would be assembled to executable using psp-gcc, the '-c' option is missing.
+# As pspsdk sets AS=psp-gcc, dyncall_mips_eabi.s would be assembled to executable using psp-gcc, the '-c' option is missing.
 # workarounds:
 #  1. modify ASFLAGS += -c ( psp-gcc assembles into object format )
 #  2. redefine AS = psp-as ( $(COMPILE.s) is defined as $(AS) $(ASFLAGS) $(TARGET_ARCH) )
-#  3. rename dyncall_mips32.s to dyncall_mips32.S ( $(COMPILE.S) uses '-c' )
+#  3. rename dyncall_mips_eabi.s to dyncall_mips_eabi.S ( $(COMPILE.S) uses '-c' )
 #
 
 ASFLAGS += -c

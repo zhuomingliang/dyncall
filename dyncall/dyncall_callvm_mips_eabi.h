@@ -43,7 +43,7 @@ typedef struct
   DCCallVM  mInterface;
   int mIntRegs;
   int mSingleRegs;
-  struct DCRegData_mips32 mRegData;
+  struct DCRegData_mips_eabi mRegData;
   DCVecHead mVecHead;
 } DCCallVM_mips_eabi;
 

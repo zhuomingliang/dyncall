@@ -33,11 +33,12 @@ extern "C" {
 
 /* Call-kernel register data:
 
-  the register info holds data for transfering float/double arguments
+  Details:
+  The structure holds the argument data for transfering float/double arguments
   via registers as well.
-
-  the call-kernel promotes two doubles taken from 4 32-bit memory locations.
-  float arguments map as following:
+  The call-kernel implements loads two doubles, which involves four
+  32-bit floating pointer registers.
+  Float arguments map as following:
   
     float argument 0 is at floats[1] and
     float argument 1 is at floats[3] of DCRegData_mips_o32 union.
@@ -50,9 +51,11 @@ typedef union DCRegData_mips_o32_
   float  floats [4];	 /* float 0 is at index 1 and float 1 is at index 3 */
 } DCRegData_mips_o32;
 
+
 /* Call kernel. */
 
-void dcCall_mips_o32(DCpointer target, DCRegData_mips_o32* mips32data, DCsize stksize, DCpointer stkdata);
+void dcCall_mips_o32(DCpointer target, DCRegData_mips_o32* regdata, DCsize stksize, DCpointer stkdata);
+
 
 #ifdef __cplusplus
 }

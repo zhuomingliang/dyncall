@@ -44,7 +44,7 @@ struct DCRegData_mips_n64
   DCdouble     mSingleData[8];
 };
 
-void dcCall_mips_n64(DCpointer target, struct DCRegData_mips_n64* mips64data, DCsize stksize, DCpointer stkdata);
+void dcCall_mips_n64(DCpointer target, struct DCRegData_mips_n64* regdata, DCsize stksize, DCpointer stkdata);
 
 #ifdef __cplusplus
 }
