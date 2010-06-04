@@ -89,7 +89,9 @@ endif
 
 .PHONY: clean
 clean: dirs extra-dirs
-	$(RM) $(OBJS) $(TARGETS) $(OBJS:.o=.d)
+	$(RM) $(OBJS) $(TARGETS)
+
+# auto-dependency: add OBJS:.o=.d to list of $(RM) args.
 
 # --- install -----------------------------------------------------------------
 

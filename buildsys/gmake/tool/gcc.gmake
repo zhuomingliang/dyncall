@@ -50,7 +50,9 @@ $(BUILD_DIR)/%.o: %.s
 
 $(BUILD_DIR)/%.o: %.S
 	$(COMPILE.S) $(OUTPUT_OPTION) $<
-	$(CC) -MM -MT $@ $(CPPFLAGS) $< > $(BUILD_DIR)/$*.d
+
+#	auto-dependency: disabled, due to problems when including *.d files, see targets.gmake for details 
+#	$(CC) -MM -MT $@ $(CPPFLAGS) $< > $(BUILD_DIR)/$*.d
 
 # ---Compile flags ------------------------------------------------------------
 
@@ -81,13 +83,15 @@ endif
 
 $(BUILD_DIR)/%.o: %.c
 	$(COMPILE.c) $< $(OUTPUT_OPTION)
-	$(CC) -MM -MT $@ $(CPPFLAGS) $(CFLAGS) $< > $(BUILD_DIR)/$*.d
+
+#	$(CC) -MM -MT $@ $(CPPFLAGS) $(CFLAGS) $< > $(BUILD_DIR)/$*.d
 
 # --- Compile C++ -------------------------------------------------------------
 
 $(BUILD_DIR)/%.o: %.cpp
 	$(COMPILE.cpp) $< $(OUTPUT_OPTION)
-	$(CXX) -MM -MT $@ $(CPPFLAGS) $(CXXFLAGS) $< > $(BUILD_DIR)/$*.d
+
+#	$(CXX) -MM -MT $@ $(CPPFLAGS) $(CXXFLAGS) $< > $(BUILD_DIR)/$*.d
 
 # --- static library ----------------------------------------------------------
 
