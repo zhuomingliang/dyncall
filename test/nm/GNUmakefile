@@ -26,7 +26,7 @@ include $(TOP)/buildsys/gmake/prolog.gmake
 
 TARGET_APP	= nm
 UNITS		= nm
-CPPFLAGS	= -I$(TOP)/dynload
+CPPFLAGS	= -I$(TOP)/dyncall -I$(TOP)/dynload
 LINK_DIRS	= $(TOP)/dynload/$(BUILD_DIR)
 LINK_LIBS	= dynload_s
 
