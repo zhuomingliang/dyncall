@@ -40,9 +40,9 @@ LINKER		= c
 
 include $(TOP)/buildsys/gmake/epilog.gmake
 
-.PHONY: config config-random config-stress1
+.PHONY: config config-random config-stress1 config-ints
 
-config: config-random
+config: config-ints
 
 config-random:
 	python rand.py >design.cfg
@@ -50,5 +50,9 @@ config-random:
 
 config-stress1:
 	cp stress1.cfg design.cfg
+	python mkcase.py >case.h 2>config.h
+
+config-ints:
+	cp ints.cfg design.cfg
 	python mkcase.py >case.h 2>config.h
 
