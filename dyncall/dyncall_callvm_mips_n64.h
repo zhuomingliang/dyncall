@@ -17,28 +17,38 @@
 
 */
 
-#include "dyncall_macros.h"
-#if defined(DC__Arch_Intel_x86)
-#  include "dyncall_callvm_x86.c"
-#elif defined(DC__Arch_AMD64)
-#  include "dyncall_callvm_x64.c"
-#elif defined(DC__Arch_PowerPC)
-#  include "dyncall_callvm_ppc32.c"
-#elif defined(DC__Arch_PPC64)
-#  include "dyncall_callvm_ppc64.c"
-#elif defined(DC__Arch_MIPS64)
-#  include "dyncall_callvm_mips_n64.c"
-#elif defined(DC__Arch_MIPS)
-#if defined(_ABIO32)
-#  include "dyncall_callvm_mips_o32.c"
-#else
-#  include "dyncall_callvm_mips_eabi.c"
-#endif
-#elif defined(DC__Arch_ARM_ARM)
-#  include "dyncall_callvm_arm32_arm.c"
-#elif defined(DC__Arch_ARM_THUMB)
-#  include "dyncall_callvm_arm32_thumb.c"
-#else
-#  error unsupported platform
-#endif
+/*
+
+  dyncall callvm for 64bit MIPS family of processors
+
+  SUPPORTED CALLING CONVENTIONS
+  n64
+
+  REVISION
+  2010/05/30 initial
+
+*/
+
+
+#ifndef DYNCALL_CALLVM_MIPS_N64_H
+#define DYNCALL_CALLVM_MIPS_N64_H
+
+#include "dyncall_call_mips_n64.h"
+#include "dyncall_callvm.h"
+#include "dyncall_vector.h"
+
+
+typedef struct
+{
+  DCCallVM  mInterface;
+  int mIntRegs;
+  int mSingleRegs;
+  struct DCRegData_mips_n64 mRegData;
+  DCVecHead mVecHead;
+} DCCallVM_mips_n64;
+
+DCCallVM* dcNewCallVM_mips_n64(DCsize size);
+
+
+#endif /* DYNCALL_CALLVM_MIPS_N64_H */
 

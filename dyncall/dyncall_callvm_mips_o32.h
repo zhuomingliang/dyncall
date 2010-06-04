@@ -19,36 +19,33 @@
 
 /*
 
-  dyncall callvm for 64bit MIPS family of processors
+  dyncall callvm for 32bit MIPS family of processors
 
   SUPPORTED CALLING CONVENTIONS
-  n64
+  eabi
 
   REVISION
-  2010/05/30 initial
+  2008/01/03 initial
 
 */
 
 
-#ifndef DYNCALL_CALLVM_MIPS64_H
-#define DYNCALL_CALLVM_MIPS64_H
+#ifndef DYNCALL_CALLVM_MIPS32_H
+#define DYNCALL_CALLVM_MIPS32_H
 
-#include "dyncall_call_mips64.h"
+#include "dyncall_call_mips_o32.h"
 #include "dyncall_callvm.h"
 #include "dyncall_vector.h"
 
-
 typedef struct
 {
-  DCCallVM  mInterface;
-  int mIntRegs;
-  int mSingleRegs;
-  struct DCRegData_mips64 mRegData;
-  DCVecHead mVecHead;
-} DCCallVM_mips64;
+  DCCallVM           mInterface;
+  int                mArgCount;
+  DCRegData_mips_o32 mRegData;
+  DCVecHead          mVecHead;
+} DCCallVM_mips_o32;
 
-DCCallVM* dcNewCallVM_mips64(DCsize size);
+DCCallVM* dcNewCallVM_mips_o32(DCsize size);
 
-
-#endif /* DYNCALL_CALLVM_MIPS64_H */
+#endif /* DYNCALL_CALLVM_MIPS32_H */
 

@@ -19,32 +19,32 @@
 
 /*//////////////////////////////////////////////////////////////////////
 
-	dyncall_call_mips64_gas.s
+	dyncall_call_mips_eabi_gas.s
 
-	MIPS 64bit family of processors.
-	2010-05-30
+	MIPS 32bit family of processors.
+	2008-01-03
 
 //////////////////////////////////////////////////////////////////////*/
 .text
-.globl dcCall_mips64
+.globl dcCall_mips_eabi
 
-dcCall_mips64:
+dcCall_mips_eabi:
 	/* $4 target function */
  	/* $5 register data */
 	/* $6 stack size */
 	/* $7 stack data */
-	addiu	$sp,$sp,-32
-	sw	$16,16($sp)
-	sw	$31,8($sp)
+	addiu	$sp,$sp,-16
+	sw	$16,8($sp)
+	sw	$31,4($sp)
 	sw	$fp,0($sp)
 
 	move	$fp,$sp
 	
 	move	$2, $0
-	add	$2, 16
+	add	$2, 8
 	neg	$2
 	and	$sp, $2
-	add	$6, 15
+	add	$6, 7
 	and	$6, $2
 
 	move	$12,$4		/* target function */
@@ -58,12 +58,12 @@ dcCall_mips64:
 .next:
 	beq	$6,$0, .skip
 	nop
-	addiu	$6,$6, -8
+	addiu	$6,$6, -4
 
 	lw	$2, 0($7)
 	sw	$2, 0($sp)
-	addiu	$7,$7, 8
-	addiu	$sp,$sp, 8
+	addiu	$7,$7, 4
+	addiu	$sp,$sp, 4
 	j	.next
 	nop
 	
@@ -74,24 +74,24 @@ dcCall_mips64:
 	/* load integer parameter registers */
 
 	lw	$4 , 0($13)
-	lw	$5 , 8($13)
-	lw	$6 , 16($13)
-	lw	$7 ,24($13)
-	lw	$8 ,32($13)
-	lw	$9 ,40($13)
-	lw	$10,48($13)
-	lw	$11,56($13)
+	lw	$5 , 4($13)
+	lw	$6 , 8($13)
+	lw	$7 ,12($13)
+	lw	$8 ,16($13)
+	lw	$9 ,20($13)
+	lw	$10,24($13)
+	lw	$11,28($13)
 
 	/* load single-precise floating pointer parameter registers */
 
-	lwc1	$f12, 64($13)
-	lwc1	$f13, 72($13)
-	lwc1	$f14, 80($13)
-	lwc1	$f15, 88($13)
-	lwc1	$f16, 96($13)
-	lwc1	$f17,104($13)
-	lwc1	$f18,112($13)
-	lwc1	$f19,120($13)	
+	lwc1	$f12, 32($13)
+	lwc1	$f13, 36($13)
+	lwc1	$f14, 40($13)
+	lwc1	$f15, 44($13)
+	lwc1	$f16, 48($13)
+	lwc1	$f17, 52($13)
+	lwc1	$f18, 56($13)
+	lwc1	$f19, 60($13)	
 
 	jal	$12
 	nop
@@ -99,10 +99,10 @@ dcCall_mips64:
 	/* add	$sp,$sp,$16  */
 	move	$sp,$fp 
 
-	lw	$16,16($sp)
-	lw	$31,8($sp)
+	lw	$16,8($sp)
+	lw	$31,4($sp)
 	lw	$fp,0($sp)
-	addiu	$sp,$sp,32
+	addiu	$sp,$sp,16
 	j	$31
 	nop
 

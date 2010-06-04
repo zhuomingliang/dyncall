@@ -30,10 +30,10 @@
 */
 
 
-#ifndef DYNCALL_CALLVM_MIPS32_H
-#define DYNCALL_CALLVM_MIPS32_H
+#ifndef DYNCALL_CALLVM_MIPS_EABI_H
+#define DYNCALL_CALLVM_MIPS_EABI_H
 
-#include "dyncall_call_mips32.h"
+#include "dyncall_call_mips_eabi.h"
 #include "dyncall_callvm.h"
 #include "dyncall_vector.h"
 
@@ -45,10 +45,10 @@ typedef struct
   int mSingleRegs;
   struct DCRegData_mips32 mRegData;
   DCVecHead mVecHead;
-} DCCallVM_mips32;
+} DCCallVM_mips_eabi;
 
-DCCallVM* dcNewCallVM_mips32(DCsize size);
+DCCallVM* dcNewCallVM_mips_eabi(DCsize size);
 
 
-#endif /* DYNCALL_CALLVM_MIPS32_H */
+#endif /* DYNCALL_CALLVM_MIPS_EABI_H */
 

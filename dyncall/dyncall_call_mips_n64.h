@@ -17,28 +17,39 @@
 
 */
 
-#include "dyncall_macros.h"
-#if defined(DC__Arch_Intel_x86)
-#  include "dyncall_callvm_x86.c"
-#elif defined(DC__Arch_AMD64)
-#  include "dyncall_callvm_x64.c"
-#elif defined(DC__Arch_PowerPC)
-#  include "dyncall_callvm_ppc32.c"
-#elif defined(DC__Arch_PPC64)
-#  include "dyncall_callvm_ppc64.c"
-#elif defined(DC__Arch_MIPS64)
-#  include "dyncall_callvm_mips_n64.c"
-#elif defined(DC__Arch_MIPS)
-#if defined(_ABIO32)
-#  include "dyncall_callvm_mips_o32.c"
-#else
-#  include "dyncall_callvm_mips_eabi.c"
+/*
+
+  dyncall 64bit MIPS family interface
+
+  REVISION
+  2010/05/30 initial
+
+*/
+
+
+#ifndef DYNCALL_CALL_MIPS_N64_H
+#define DYNCALL_CALL_MIPS_N64_H
+
+
+#include "dyncall_types.h"
+
+#ifdef __cplusplus
+extern "C" {
 #endif
-#elif defined(DC__Arch_ARM_ARM)
-#  include "dyncall_callvm_arm32_arm.c"
-#elif defined(DC__Arch_ARM_THUMB)
-#  include "dyncall_callvm_arm32_thumb.c"
-#else
-#  error unsupported platform
+
+
+struct DCRegData_mips_n64
+{
+  DClonglong   mIntData[8];
+  DCdouble     mSingleData[8];
+};
+
+void dcCall_mips_n64(DCpointer target, struct DCRegData_mips_n64* mips64data, DCsize stksize, DCpointer stkdata);
+
+#ifdef __cplusplus
+}
 #endif
+
+
+#endif /* DYNCALL_CALL_MIPS_N64_H */
 

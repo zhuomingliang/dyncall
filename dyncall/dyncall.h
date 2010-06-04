@@ -66,7 +66,9 @@ typedef struct DCCallVM_    DCCallVM;
 #define DC_CALL_C_PPC32_LINUX          13 /* alias for DC_CALL_C_PPC32_SYSV */
 #define DC_CALL_C_ARM_ARM              14
 #define DC_CALL_C_ARM_THUMB            15
-
+#define DC_CALL_C_MIPS_O32             16
+#define DC_CALL_C_MIPS_N32             17
+#define DC_CALL_C_MIPS_N64             18
 
 DC_API DCCallVM*  dcNewCallVM     (DCsize size);
 DC_API void       dcFree          (DCCallVM* vm);

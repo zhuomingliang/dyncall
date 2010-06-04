@@ -1,6 +1,10 @@
 /*
-
- Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
+ Package: dyncall
+ File: dyncall/dyncall_call_mips_eabi.h
+ Description: mips "eabi" abi call kernel C interface
+ License:
+ 
+ Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
 
  Permission to use, copy, modify, and distribute this software for any
@@ -17,28 +21,34 @@
 
 */
 
-#include "dyncall_macros.h"
-#if defined(DC__Arch_Intel_x86)
-#  include "dyncall_callvm_x86.c"
-#elif defined(DC__Arch_AMD64)
-#  include "dyncall_callvm_x64.c"
-#elif defined(DC__Arch_PowerPC)
-#  include "dyncall_callvm_ppc32.c"
-#elif defined(DC__Arch_PPC64)
-#  include "dyncall_callvm_ppc64.c"
-#elif defined(DC__Arch_MIPS64)
-#  include "dyncall_callvm_mips_n64.c"
-#elif defined(DC__Arch_MIPS)
-#if defined(_ABIO32)
-#  include "dyncall_callvm_mips_o32.c"
-#else
-#  include "dyncall_callvm_mips_eabi.c"
+#ifndef DYNCALL_CALL_MIPS_EABI_H
+#define DYNCALL_CALL_MIPS_EABI_H
+
+#ifdef __cplusplus
+extern "C" {
 #endif
-#elif defined(DC__Arch_ARM_ARM)
-#  include "dyncall_callvm_arm32_arm.c"
-#elif defined(DC__Arch_ARM_THUMB)
-#  include "dyncall_callvm_arm32_thumb.c"
-#else
-#  error unsupported platform
+
+
+struct DCRegData_mips_eabi
+{
+  DCint   mIntData[8];
+  DCfloat mSingleData[8];
+};
+
+
+/* 
+** mips32 calling convention calls 
+**
+** - hybrid return-type call (bool ... pointer)
+**
+*/
+
+void dcCall_mips_eabi  (DCpointer target, struct DCRegData_mips_eabi*   regdata, DCsize stksize, DCpointer stkdata);
+
+#ifdef __cplusplus
+}
 #endif
+
+
+#endif /* DYNCALL_CALL_MIPS_EABI_H */
 

@@ -17,28 +17,25 @@
 
 */
 
-#include "dyncall_macros.h"
-#if defined(DC__Arch_Intel_x86)
-#  include "dyncall_callvm_x86.c"
-#elif defined(DC__Arch_AMD64)
-#  include "dyncall_callvm_x64.c"
-#elif defined(DC__Arch_PowerPC)
-#  include "dyncall_callvm_ppc32.c"
-#elif defined(DC__Arch_PPC64)
-#  include "dyncall_callvm_ppc64.c"
-#elif defined(DC__Arch_MIPS64)
-#  include "dyncall_callvm_mips_n64.c"
-#elif defined(DC__Arch_MIPS)
-#if defined(_ABIO32)
-#  include "dyncall_callvm_mips_o32.c"
-#else
-#  include "dyncall_callvm_mips_eabi.c"
-#endif
-#elif defined(DC__Arch_ARM_ARM)
-#  include "dyncall_callvm_arm32_arm.c"
-#elif defined(DC__Arch_ARM_THUMB)
-#  include "dyncall_callvm_arm32_thumb.c"
-#else
-#  error unsupported platform
-#endif
+/*
+
+  dyncall MIPS call kernel C interface for all ABIs
+
+  REVISION
+  2010/06/03 initial
+
+*/
+
+
+#ifndef DYNCALL_CALL_MIPS_H
+#define DYNCALL_CALL_MIPS_H
+
+/* supported abi-specific call kernels: */
+
+#include "dyncall_call_mips_o32.h"
+#include "dyncall_call_mips_eabi.h"
+
+typedef void (*dcCall_mips_common) (DCpointer target, DCpointer regdata_abispecific, DCsize stacksize, DCpointer stackdata);
+
+#endif /* DYNCALL_CALL_MIPS_H */
 

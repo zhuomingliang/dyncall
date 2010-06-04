@@ -1,6 +1,6 @@
 /*
 
- Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
+ Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
 
  Permission to use, copy, modify, and distribute this software for any
@@ -17,46 +17,14 @@
 
 */
 
-/*
+#ifndef DYNCALL_CALLVM_MIPS_H
+#define DYNCALL_CALLVM_MIPS_H
 
-  dyncall 64bit MIPS family interface
+/* Suported ABIs: */
 
-  REVISION
-  2010/05/30 initial
+#include "dyncall_callvm_mips_o32.h"
+#include "dyncall_callvm_mips_eabi.h"
+#include "dyncall_callvm_mips_n64.h"
 
-*/
-
-
-#ifndef DYNCALL_CALL_MIPS64_H
-#define DYNCALL_CALL_MIPS64_H
-
-
-#include "dyncall_types.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-
-struct DCRegData_mips64
-{
-  DClonglong   mIntData[8];
-  DCdouble     mSingleData[8];
-};
-
-/* 
-** mips64 calling convention calls 
-**
-** - hybrid return-type call (bool ... pointer)
-**
-*/
-
-void dcCall_mips64(DCpointer target, struct DCRegData_mips64* mips64data, DCsize stksize, DCpointer stkdata);
-
-#ifdef __cplusplus
-}
-#endif
-
-
-#endif /* DYNCALL_CALL_MIPS64_H */
+#endif /* DYNCALL_CALLVM_MIPS_H */
 
