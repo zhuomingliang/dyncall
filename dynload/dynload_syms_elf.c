@@ -1,3 +1,4 @@
+#define _GNU_SOURCE
 /*
 
  Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>, 
