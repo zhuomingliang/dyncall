@@ -1,8 +1,8 @@
 /*
  Package: dyncall
  File: dyncall/dyncall_callvm_mips_o32.c
- Description: Call VM for mips "o32" abi implementation
-
+ Description: mips "o32" ABI callvm implementation
+ License:
 
  Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
@@ -33,7 +33,9 @@
   correctly.
 
   first two (if any) double/float arguments are mapped via a common structure --
-  code must take care to write the right float argument indices 
+  code must take care to write the right float argument indices which
+  differs on C and Assembly-side depending on endianness. (therefore
+  both sources have two variants 'mipseb' and 'mipsel'.)
   (only for the first two float/double arguments) see float/double handling
 
   although, the abi does not expect usage of floats if first argument is
@@ -148,28 +150,6 @@ static void dc_callvm_argFloat_mips_o32(DCCallVM* in_self, DCfloat x)
 #endif
   }
   self->mArgCount++;
-
-#if 0
-  switch(self->mArgCount) {
-#if defined(__mipsel__)
-    case 0:
-      self->mRegData.floats[0] = x;
-      break;
-    case 1:
-      self->mRegData.floats[2] = x;
-      break;
-#else
-    case 0:
-      self->mRegData.floats[1] = x;
-      break;
-    case 1:
-      self->mRegData.floats[3] = x;
-      break;
-#endif
-    default:
-      break;
-  }
-#endif
 }
 
 static void dc_callvm_argDouble_mips_o32(DCCallVM* in_self, DCdouble x)
@@ -179,7 +159,7 @@ static void dc_callvm_argDouble_mips_o32(DCCallVM* in_self, DCdouble x)
   dcVecSkip(&self->mVecHead, dcVecSize(&self->mVecHead) & 4);
   dcVecAppend(&self->mVecHead, &x, sizeof(DCdouble) );
   if (self->mArgCount < 2)
-    self->mRegData.values[self->mArgCount].d = x;
+    self->mRegData.doubles[self->mArgCount] = x;
   self->mArgCount++;
 }
 

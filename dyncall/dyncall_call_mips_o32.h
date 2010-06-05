@@ -49,7 +49,6 @@ typedef union DCRegData_mips_o32_
 {
   double doubles[2];
   float  floats [4];	 /* float 0 is at index 1 and float 1 is at index 3 */
-  union { float f; double d; } values[2];
 } DCRegData_mips_o32;
 
 

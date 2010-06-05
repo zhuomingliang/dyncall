@@ -1,4 +1,8 @@
 /*
+ Package: dyncall
+ File: dyncall/dyncall_callvm_mips_o32.h
+ Description: mips "o32" ABI callvm C interface.
+ License:
 
  Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>

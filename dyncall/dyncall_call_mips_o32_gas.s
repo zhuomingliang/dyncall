@@ -1,4 +1,9 @@
 /*
+ Package: dyncall
+ File: dyncall/dyncall_call_mips_o32_gas.s
+ Description: mips "o32" abi call kernel implementation in GNU Assembler
+	works with little (mipsel) and big endian(mips aka mipseb).
+ License:
 
  Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
@@ -17,14 +22,6 @@
 
 */
 
-/*//////////////////////////////////////////////////////////////////////
-
-	dyncall_call_mips_o32_gas.s
-
-	MIPS o32 call kernel
-	2010-06-03
-
-//////////////////////////////////////////////////////////////////////*/
 	.section .mdebug.abi32
 	.previous
 	.abicalls
@@ -83,8 +80,6 @@ dcCall_mips_o32:
 	/* load two double-precision floating-point argument registers ($f12, $f14) */
 
 #if defined(__MIPSEL__)
-	
-
 	lwc1	$f12, 0($5)		/* float arg 0 */
 	nop
 	lwc1	$f13, 4($5)
@@ -94,7 +89,6 @@ dcCall_mips_o32:
 	lwc1	$f15,12($5)
 	nop
 #else
-
 	lwc1	$f12,  4($5)		/* float arg 0 */
 	nop
 	lwc1	$f13,  0($5)
@@ -102,15 +96,6 @@ dcCall_mips_o32:
 	lwc1	$f14, 12($5)		/* float arg 1 */
 	nop
 	lwc1	$f15,  8($5)
-	nop
-#endif
-
-	/* load two single-precision floating-point argument register ($f12, $f14) */
-	
-#if 0
-	lwc1	$f12, 0($12)
-	nop
-	lwc1	$f14, 4($12)
 	nop
 #endif
 
@@ -133,68 +118,21 @@ dcCall_mips_o32:
 	lw	$7,12($12)
 	nop
 
-invoke:
-
 	/* call target function */
 
 	jalr	$25
 	nop
 
-	/* $2 = target function */
-	// lw	$2,40($fp)
-	// nop
-	/* store in local area */
-	// sw	$2,24($fp)
-	/* $25 = target function */
-	// lw	$25,24($fp)
-	// nop
-	/* jump and link */
-	// jalr	$25
-	// nop
-
-		/* restore global pointer after call */
-	lw	$28,16($fp)
-
-		/* restore stack pointer */
-	move	$sp,$fp
-		/* restore return address */
-	lw	$31,36($sp)
-		/* restore frame pointer */
-	lw	$fp,32($sp)
-		/* close stack frame */
-	addiu	$sp,$sp,40
-		/* return to caller */
-	j	$31
+	lw	$28,16($fp)	/* restore global pointer */
+	move	$sp,$fp 	/* restore stack pointer */
+	lw	$31,36($sp)	/* restore return address */
+	lw	$fp,32($sp)	/* restore frame pointer */
+	addiu	$sp,$sp,40	/* end stack frame */
+	j	$31		/* return */
 	nop
 
 	.set	macro
 	.set	reorder
 	.end	dcCall_mips_o32 
 	.ident 	"handwritten"
-
-	/* handle floating point arguments */
-
-#if 0	
-	/* $5  register info */
-	lw	$2, 0($5)
-	nop
-	beq	$2, $0, .a0_f
-.a0_d:
-	j	.a0_end
-.a0_f:
-
-.a0_end:
-
-	lw	$2, 4($5)
-	nop
-	beq	$2, $0, .a1_f
-	nop
-.a1_d:
-	j	.a1_end
-	nop
-.a1_f:
-	
-.a1_end:
-
-#endif
 
