@@ -1,6 +1,6 @@
 /*
 
- Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
+ Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
 
  Permission to use, copy, modify, and distribute this software for any
@@ -30,8 +30,8 @@
 */
 
 
-#ifndef DYNCALL_CALLVM_MIPS32_H
-#define DYNCALL_CALLVM_MIPS32_H
+#ifndef DYNCALL_CALLVM_MIPS_O32_H
+#define DYNCALL_CALLVM_MIPS_O32_H
 
 #include "dyncall_call_mips_o32.h"
 #include "dyncall_callvm.h"
@@ -47,5 +47,5 @@ typedef struct
 
 DCCallVM* dcNewCallVM_mips_o32(DCsize size);
 
-#endif /* DYNCALL_CALLVM_MIPS32_H */
+#endif /* DYNCALL_CALLVM_MIPS_O32_H */
 

@@ -115,21 +115,7 @@ static void dc_callvm_argLongLong_mips_o32(DCCallVM* in_self, DClonglong Lv)
   /* 64-bit values need to be aligned on 8 byte boundaries */
   dcVecSkip(&self->mVecHead, dcVecSize(&self->mVecHead) & 4);
   dcVecAppend(&self->mVecHead, &Lv, sizeof(DClonglong));
-  self->mArgCount += 2;
-#if 0
-  if (self->mIntRegs < 7) {
-    DCint* p = (DCint*) &Lv;
-    /* skip odd register (align 64 bit) */
-    self->mIntRegs += self->mIntRegs & 1;
-    self->mRegData.mIntData[self->mIntRegs++] = p[0];
-    self->mRegData.mIntData[self->mIntRegs++] = p[1];
-  } else {
-    self->mIntRegs = 8;
-    /* 64 bit values need to be aligned on 8 byte boundaries */
-    dcVecSkip(&self->mVecHead, dcVecSize(&self->mVecHead) & 4);
-    dcVecAppend(&self->mVecHead, &Lv, sizeof(DClonglong));
-  }
-#endif
+  self->mArgCount += 1;
 }
 
 static void dc_callvm_argFloat_mips_o32(DCCallVM* in_self, DCfloat x)
@@ -137,6 +123,10 @@ static void dc_callvm_argFloat_mips_o32(DCCallVM* in_self, DCfloat x)
   DCCallVM_mips_o32* self = (DCCallVM_mips_o32*)in_self;
 
   dcVecAppend(&self->mVecHead, &x, sizeof(DCfloat) );
+  if (self->mArgCount < 2) {
+    self->mRegData.values[self->mArgCount].f = x;
+  }
+  self->mArgCount++;
 
 /*
    call kernel:
@@ -149,18 +139,27 @@ static void dc_callvm_argFloat_mips_o32(DCCallVM* in_self, DCfloat x)
 	nop
 	lwc1	$f15, 8($5)
 */
-
+#if 0
   switch(self->mArgCount) {
+#if defined(__mipsel__)
+    case 0:
+      self->mRegData.floats[0] = x;
+      break;
+    case 1:
+      self->mRegData.floats[2] = x;
+      break;
+#else
     case 0:
       self->mRegData.floats[1] = x;
       break;
     case 1:
       self->mRegData.floats[3] = x;
       break;
+#endif
     default:
       break;
   }
-  self->mArgCount++;
+#endif
 }
 
 static void dc_callvm_argDouble_mips_o32(DCCallVM* in_self, DCdouble x)
@@ -169,16 +168,8 @@ static void dc_callvm_argDouble_mips_o32(DCCallVM* in_self, DCdouble x)
   /* 64-bit values need to be aligned on 8 byte boundaries */
   dcVecSkip(&self->mVecHead, dcVecSize(&self->mVecHead) & 4);
   dcVecAppend(&self->mVecHead, &x, sizeof(DCdouble) );
-  switch(self->mArgCount) {
-    case 0:
-      self->mRegData.doubles[0] = x;
-      break;
-    case 1:
-      self->mRegData.doubles[1] = x;
-      break;
-    default:
-      break;
-  }
+  if (self->mArgCount < 2)
+    self->mRegData.values[self->mArgCount].d = x;
   self->mArgCount++;
 }
 

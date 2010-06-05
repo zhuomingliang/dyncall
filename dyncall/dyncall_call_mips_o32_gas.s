@@ -1,6 +1,6 @@
-/*/////////////////////////////////////////////////////////////////////////////
+/*
 
- Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
+ Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
 
  Permission to use, copy, modify, and distribute this software for any
@@ -15,7 +15,7 @@
  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-/////////////////////////////////////////////////////////////////////////////*/
+*/
 
 /*//////////////////////////////////////////////////////////////////////
 
@@ -73,6 +73,7 @@ dcCall_mips_o32:
 	lw	$2, 0($12)
 	nop
 	sw	$2, 0($14)
+	nop
 	addiu	$12,$12, 4
 	addiu	$14,$14, 4
 	j	.next
@@ -81,14 +82,29 @@ dcCall_mips_o32:
 
 	/* load two double-precision floating-point argument registers ($f12, $f14) */
 
-	lwc1	$f12, 4($5)		/* might be float arg 0 */
-	nop
-	lwc1	$f13, 0($5)
-	nop
-	lwc1	$f14, 12($5)		/* might be float arg 1 */
-	nop
-	lwc1	$f15, 8($5)
+#if defined(__MIPSEL__)
 	
+
+	lwc1	$f12, 0($5)		/* float arg 0 */
+	nop
+	lwc1	$f13, 4($5)
+	nop
+	lwc1	$f14, 8($5)		/* float arg 1 */
+	nop
+	lwc1	$f15,12($5)
+	nop
+#else
+
+	lwc1	$f12,  4($5)		/* float arg 0 */
+	nop
+	lwc1	$f13,  0($5)
+	nop
+	lwc1	$f14, 12($5)		/* float arg 1 */
+	nop
+	lwc1	$f15,  8($5)
+	nop
+#endif
+
 	/* load two single-precision floating-point argument register ($f12, $f14) */
 	
 #if 0
