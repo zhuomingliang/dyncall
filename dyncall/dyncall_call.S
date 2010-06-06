@@ -46,7 +46,7 @@
 #  include "dyncall_call_arm32_arm_gas.s"
 # elif defined(DC__Arch_ARM_THUMB)
 #  include "dyncall_call_arm32_thumb_gas.s"
-# elif defined(DC__Arch_MIPS)
+# elif defined(DC__Arch_MIPS) || defined(DC__Arch_MIPS64)
 #  include "dyncall_call_mips_gas.S"
 # else
 #  error Unsupported Architecture.

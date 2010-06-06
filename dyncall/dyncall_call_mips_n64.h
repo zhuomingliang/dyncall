@@ -1,6 +1,10 @@
 /*
+ Package: dyncall
+ File: dyncall/dyncall_call_mips_n64.h
+ Description: mips "n64" ABI call-kernel C interface.
+ License:
 
- Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
+ Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
 
  Permission to use, copy, modify, and distribute this software for any
@@ -17,19 +21,8 @@
 
 */
 
-/*
-
-  dyncall 64bit MIPS family interface
-
-  REVISION
-  2010/05/30 initial
-
-*/
-
-
 #ifndef DYNCALL_CALL_MIPS_N64_H
 #define DYNCALL_CALL_MIPS_N64_H
-
 
 #include "dyncall_types.h"
 
@@ -41,7 +34,7 @@ extern "C" {
 struct DCRegData_mips_n64
 {
   DClonglong   mIntData[8];
-  DCdouble     mSingleData[8];
+  DCdouble     mFloatData[8];
 };
 
 void dcCall_mips_n64(DCpointer target, struct DCRegData_mips_n64* regdata, DCsize stksize, DCpointer stkdata);

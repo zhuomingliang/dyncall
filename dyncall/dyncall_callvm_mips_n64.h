@@ -1,4 +1,8 @@
 /*
+ Package: dyncall
+ File: dyncall/dyncall_callvm_mips_n64.h
+ Description: mips "n64" ABI callvm C interface.
+ License:
 
  Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
@@ -17,19 +21,6 @@
 
 */
 
-/*
-
-  dyncall callvm for 64bit MIPS family of processors
-
-  SUPPORTED CALLING CONVENTIONS
-  n64
-
-  REVISION
-  2010/05/30 initial
-
-*/
-
-
 #ifndef DYNCALL_CALLVM_MIPS_N64_H
 #define DYNCALL_CALLVM_MIPS_N64_H
 
@@ -37,18 +28,23 @@
 #include "dyncall_callvm.h"
 #include "dyncall_vector.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 typedef struct
 {
   DCCallVM  mInterface;
-  int mIntRegs;
-  int mSingleRegs;
+  int mRegCount;
   struct DCRegData_mips_n64 mRegData;
   DCVecHead mVecHead;
 } DCCallVM_mips_n64;
 
 DCCallVM* dcNewCallVM_mips_n64(DCsize size);
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* DYNCALL_CALLVM_MIPS_N64_H */
 

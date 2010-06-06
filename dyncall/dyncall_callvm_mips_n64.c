@@ -1,6 +1,10 @@
 /*
+ Package: dyncall
+ File: dyncall/dyncall_callvm_mips_n64.c
+ Description: mips "n64" ABI callvm implementation
+ License:
 
- Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
+ Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
 
  Permission to use, copy, modify, and distribute this software for any
@@ -27,25 +31,34 @@
   REVISION
   2010/05/30 initial
 
+  in contrast to o32, there is no space reserved for parameters
+  passed over registers.
+  more registers are used and registers are always used.
+
+  stack is always 16-byte aligned at entry (call to call-kernel automatically
+  aligns argument stack.
+
+  integer and float register-file is interleaved either taking one slot up
+  skipping the other.
+
+
 */
 
 
 #include "dyncall_callvm_mips_n64.h"
 #include "dyncall_alloc.h"
-
+#include "dyncall_utils.h"
 
 static void dc_callvm_reset_mips_n64(DCCallVM* in_self)
 {
   DCCallVM_mips_n64* self = (DCCallVM_mips_n64*)in_self;
   dcVecReset(&self->mVecHead);
-  self->mIntRegs = 0;
-  self->mSingleRegs = 0;
+  self->mRegCount = 0;
 }
 
 static DCCallVM* dc_callvm_new_mips_n64(DCCallVM_vt* vt, DCsize size)
 {
-  /* Store at least 16 bytes (4 words) for internal spill area. Assembly code depends on it. */
-  DCCallVM_mips_n64* self = (DCCallVM_mips_n64*)dcAllocMem(sizeof(DCCallVM_mips_n64)+size+16);
+  DCCallVM_mips_n64* self = (DCCallVM_mips_n64*)dcAllocMem(sizeof(DCCallVM_mips_n64)+size);
   self->mInterface.mVTpointer = vt;
   dcVecInit(&self->mVecHead, size);
   dc_callvm_reset_mips_n64( (DCCallVM*) self );
@@ -63,14 +76,20 @@ static void dc_callvm_mode_mips_n64(DCCallVM* in_self,DCint mode)
   /* do nothing */
 }
 
-/* arg int -- fillup integer register file OR push on stack */
+/* pass arguments :
+
+   - promote to 64-bit integer.
+   - fill up integers and float - left-to-right otherwise go over stack.
+ */
+
+/* arg int -- fillup 64-bit integer register file OR push on stack */
 
 static void dc_callvm_argLongLong_mips_n64(DCCallVM* in_self, DClonglong Lv)
 {
   DCCallVM_mips_n64* self = (DCCallVM_mips_n64*)in_self;
   /* fillup integer register file */
-  if (self->mIntRegs < 8)
-    self->mRegData.mIntData[self->mIntRegs++] = Lv;
+  if (self->mRegCount < 8)
+    self->mRegData.mIntData[self->mRegCount++] = Lv;
   else
     dcVecAppend(&self->mVecHead, &Lv, sizeof(DClonglong));
 }
@@ -108,8 +127,8 @@ static void dc_callvm_argLong_mips_n64(DCCallVM* in_self, DClong x)
 static void dc_callvm_argDouble_mips_n64(DCCallVM* in_self, DCdouble x)
 {
   DCCallVM_mips_n64* self = (DCCallVM_mips_n64*)in_self;
-  if (self->mSingleRegs < 8) {
-    self->mRegData.mSingleData[self->mSingleRegs++] = x;
+  if (self->mRegCount < 8) {
+    self->mRegData.mFloatData[self->mRegCount++] = x;
   } else {
     dcVecAppend(&self->mVecHead, &x, sizeof(DCdouble) );
   }
@@ -117,14 +136,25 @@ static void dc_callvm_argDouble_mips_n64(DCCallVM* in_self, DCdouble x)
 
 static void dc_callvm_argFloat_mips_n64(DCCallVM* in_self, DCfloat x)
 {
-  dc_callvm_argDouble_mips_n64(in_self, (DCdouble) x);
+  DCCallVM_mips_n64* self = (DCCallVM_mips_n64*)in_self;
+  if (self->mRegCount < 8) {
+    self->mRegData.mFloatData[self->mRegCount++] = (DCdouble) x;
+  } else {
+    dcVecAppend(&self->mVecHead, &x, sizeof(DCfloat) );
+    dcVecSkip(&self->mVecHead, sizeof(DCfloat) );
+  }
 }
 
 /* Call. */
 void dc_callvm_call_mips_n64(DCCallVM* in_self, DCpointer target)
 {
   DCCallVM_mips_n64* self = (DCCallVM_mips_n64*)in_self;
-  dcCall_mips_n64(target, &self->mRegData, dcVecSize(&self->mVecHead), dcVecData(&self->mVecHead));
+  /* at minimum provide 16-bytes
+     which hold the first four integer register as spill area 
+     and are automatically loaded to $4-$7
+   */
+  size_t size = DC_MAX(16, ( ( (unsigned) dcVecSize(&self->mVecHead) ) +7UL ) & (-8UL) );
+  dcCall_mips_n64(target, &self->mRegData, size, dcVecData(&self->mVecHead));
 }
 
 DCCallVM_vt gVT_mips_n64 =

@@ -21,19 +21,6 @@
 
 */
 
-/*
-
-  dyncall callvm for 32bit MIPS family of processors
-
-  SUPPORTED CALLING CONVENTIONS
-  eabi
-
-  REVISION
-  2008/01/03 initial
-
-*/
-
-
 #ifndef DYNCALL_CALLVM_MIPS_O32_H
 #define DYNCALL_CALLVM_MIPS_O32_H
 

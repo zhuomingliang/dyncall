@@ -38,6 +38,7 @@
 
 #include "dyncall_call_mips_o32.h"
 #include "dyncall_call_mips_eabi.h"
+#include "dyncall_call_mips_n64.h"
 
 typedef void (*dcCall_mips_common) (DCpointer target, DCpointer regdata_abispecific, DCsize stacksize, DCpointer stackdata);
 

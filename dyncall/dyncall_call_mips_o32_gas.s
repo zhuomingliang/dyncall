@@ -52,6 +52,8 @@ dcCall_mips_o32:
 	/* $6   stack size (min 16-byte aligned to 8-bytes already) */
 	/* $7   stack data */
 
+	/* increment stack */
+	
 	sub	$sp, $sp, $6
 
 	/* copy stack data */
