@@ -1,6 +1,6 @@
 #//////////////////////////////////////////////////////////////////////////////
 #
-# Copyright (c) 2007,2009 Daniel Adler <dadler@uni-goettingen.de>, 
+# Copyright (c) 2007,2010 Daniel Adler <dadler@uni-goettingen.de>, 
 #                         Tassilo Philipp <tphilipp@potion-studios.com>
 #
 # Permission to use, copy, modify, and distribute this software for any
@@ -38,12 +38,23 @@ LDFLAGS		=
 LIBS	=	"$(TOP)/dyncall/libdyncall_s.a"
 
 
-.PHONY: config 
-config: mkcase.py .SILENT
+.PHONY: config config-random config-stress1 config-ints
+
+config: config-stress1
+
+config-random: mkcase.py .SILENT
+	python rand.py >design.cfg
 	python mkcase.py >case.h 2>config.h
 
-mkcase.py: design.cfg
-design.cfg: rand.py
-	python rand.py >$(.TARGET)
+config-stress1:
+	cp stress1.cfg design.cfg
+	python mkcase.py >case.h 2>config.h
+
+config-ints:
+	cp ints.cfg design.cfg
+
+#mkcase.py: design.cfg
+#design.cfg: rand.py
+#	python rand.py >$(.TARGET)
 
 .include "$(TOP)/buildsys/bsdmake/epilog.bsdmake"

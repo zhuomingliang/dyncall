@@ -1,6 +1,10 @@
-#//////////////////////////////////////////////////////////////////////////////
 #
-# Copyright (c) 2007,2009 Daniel Adler <dadler@uni-goettingen.de>, 
+# Package: dyncall
+# File: dyncall/test/suite2/GNUmakefile
+# Description: Test suite 2 GNUmakefile
+# License:
+#
+# Copyright (c) 2007,2010 Daniel Adler <dadler@uni-goettingen.de>, 
 #                         Tassilo Philipp <tphilipp@potion-studios.com>
 #
 # Permission to use, copy, modify, and distribute this software for any
@@ -15,15 +19,6 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #
-#//////////////////////////////////////////////////////////////////////////////
-
-#///////////////////////////////////////////////////
-#
-#	gmake makefile
-#	GNUmakefile
-#
-#///////////////////////////////////////////////////
-
 
 TOP		= ../..
 
@@ -42,7 +37,7 @@ include $(TOP)/buildsys/gmake/epilog.gmake
 
 .PHONY: config config-random config-stress1 config-ints
 
-config: config-ints
+config: config-stress1
 
 config-random:
 	python rand.py >design.cfg
