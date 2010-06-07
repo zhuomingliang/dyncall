@@ -83,7 +83,9 @@ dcCall_mips_n64:
 
 	/* locals: */
 	/* $13 = register data */
+	/* $14 = useDouble flags */
 	move	$13, $5
+	ld	$14, 128($13)
 	
 	/* load integer parameter registers */
 
@@ -96,16 +98,74 @@ dcCall_mips_n64:
 	ld	$10,48($13)
 	ld	$11,56($13)
 
-	/* load single-precise floating pointer parameter registers */
-
+	/* load double-precise floating pointer parameter registers */
+.t0:
+	and     $15, $14, 1
+	bgtz	$15, .d0
+.f0:
+	l.s	$f12, 64($13)
+	j	.t1
+.d0:
 	l.d	$f12, 64($13)
+
+.t1:
+	and	$15, $14, 2
+	bgtz	$15, .d1
+.f1:
+	l.s	$f13, 72($13)
+	j	.t2
+.d1:
 	l.d	$f13, 72($13)
+.t2:	
+	and	$15, $14, 4
+	bgtz	$15, .d2
+.f2:
+	l.s	$f14, 80($13)
+	j	.t3
+.d2:	
 	l.d	$f14, 80($13)
+.t3:
+	and	$15, $14, 8
+	bgtz	$15, .d3
+.f3:
+	l.s	$f15, 88($13)
+	j	.t4
+.d3:
 	l.d	$f15, 88($13)
+.t4:
+	and	$15, $14, 16
+	bgtz	$15, .d4
+.f4:
+	l.s	$f16, 96($13)
+	j	.t5
+.d4:
 	l.d	$f16, 96($13)
+.t5:
+	and	$15, $14, 32
+	bgtz	$15, .d5
+.f5:
+	l.s	$f17,104($13)
+	j	.t6
+.d5:
 	l.d	$f17,104($13)
+.t6:
+	and	$15, $14, 64
+	bgtz	$15, .d6
+.f6:
+	l.s	$f18,112($13)
+	j	.t7
+.d6:
 	l.d	$f18,112($13)
-	l.d	$f19,120($13)	
+.t7:
+	and	$15, $14, 128
+	bgtz	$15, .d7
+.f7:
+	l.s	$f19,120($13)
+	j	.fregend
+.d7:
+	l.d	$f19,120($13)
+
+.fregend:
 
 	jal	$31, $25
 

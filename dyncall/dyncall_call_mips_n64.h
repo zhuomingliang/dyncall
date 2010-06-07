@@ -34,7 +34,8 @@ extern "C" {
 struct DCRegData_mips_n64
 {
   DClonglong   mIntData[8];
-  DCdouble     mFloatData[8];
+  union { DCfloat f; DCdouble d; } mFloatData[8];
+  DClonglong   mUseDouble;
 };
 
 void dcCall_mips_n64(DCpointer target, struct DCRegData_mips_n64* regdata, DCsize stksize, DCpointer stkdata);

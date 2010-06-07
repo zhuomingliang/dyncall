@@ -54,6 +54,7 @@ static void dc_callvm_reset_mips_n64(DCCallVM* in_self)
   DCCallVM_mips_n64* self = (DCCallVM_mips_n64*)in_self;
   dcVecReset(&self->mVecHead);
   self->mRegCount = 0;
+  self->mRegData.mUseDouble = 0LL;
 }
 
 static DCCallVM* dc_callvm_new_mips_n64(DCCallVM_vt* vt, DCsize size)
@@ -128,7 +129,8 @@ static void dc_callvm_argDouble_mips_n64(DCCallVM* in_self, DCdouble x)
 {
   DCCallVM_mips_n64* self = (DCCallVM_mips_n64*)in_self;
   if (self->mRegCount < 8) {
-    self->mRegData.mFloatData[self->mRegCount++] = x;
+    self->mRegData.mUseDouble |= 1<<( self->mRegCount );
+    self->mRegData.mFloatData[self->mRegCount++].d = x;
   } else {
     dcVecAppend(&self->mVecHead, &x, sizeof(DCdouble) );
   }
@@ -138,7 +140,8 @@ static void dc_callvm_argFloat_mips_n64(DCCallVM* in_self, DCfloat x)
 {
   DCCallVM_mips_n64* self = (DCCallVM_mips_n64*)in_self;
   if (self->mRegCount < 8) {
-    self->mRegData.mFloatData[self->mRegCount++] = (DCdouble) x;
+    // self->mRegData.mFloatData[self->mRegCount++].d = (DCdouble) x;
+    self->mRegData.mFloatData[self->mRegCount++].f = x;
   } else {
     dcVecAppend(&self->mVecHead, &x, sizeof(DCfloat) );
     dcVecSkip(&self->mVecHead, sizeof(DCfloat) );
