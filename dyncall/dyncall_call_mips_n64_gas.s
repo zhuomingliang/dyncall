@@ -98,7 +98,11 @@ dcCall_mips_n64:
 	ld	$10,48($13)
 	ld	$11,56($13)
 
-	/* load double-precise floating pointer parameter registers */
+	/* load float-or-double floating pointer parameter registers 
+           a 64-bit bitmask given at byte offset 128 of regdata indicates
+           if loading a float (bit cleared) or double (bit set), starting
+           at bit position 0 in bitmask.
+        */
 .t0:
 	and     $15, $14, 1
 	bgtz	$15, .d0
@@ -166,6 +170,8 @@ dcCall_mips_n64:
 	l.d	$f19,120($13)
 
 .fregend:
+
+	/* jump-and-link to register $25 */
 
 	jal	$31, $25
 
