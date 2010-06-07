@@ -1,6 +1,9 @@
 /*
+ Package: dyncall
+ File: test/ellipsis/main.c
+ Description: call (...) functions via dyncall library, targets are auto-generated
 
- Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
+ Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
 
  Permission to use, copy, modify, and distribute this software for any
@@ -76,6 +79,13 @@ bool test_ellipsis_case(int x)
   clearValues();
 
   DCCallVM* pCall = dcNewCallVM(4096);
+
+  assert( dcGetError(pCall) == DC_ERROR_NONE );
+ 
+  dcMode(pCall, DC_CALL_C_ELLIPSIS);
+  
+  assert( dcGetError(pCall) == DC_ERROR_NONE );
+ 
   int y = x;
   int selects[NARGS] = { 0 };
   int pos = 0;
