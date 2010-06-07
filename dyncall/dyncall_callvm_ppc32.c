@@ -347,16 +347,20 @@ void dc_callvm_mode_ppc32(DCCallVM* in_self, DCint mode)
   switch(mode) {
 
     case DC_CALL_C_PPC32_OSX:  
+
 #if defined(DC__ABI_Darwin)
     case DC_CALL_C_DEFAULT:
+    case DC_CALL_C_ELLIPSIS:
 #endif
 
       vt = &gVT_ppc32_darwin; 
       break;
 
     case DC_CALL_C_PPC32_SYSV: 
+
 #if defined(DC__ABI_SysV)
     case DC_CALL_C_DEFAULT:
+    case DC_CALL_C_ELLIPSIS:
 #endif
 
       vt = &gVT_ppc32_sysv;
@@ -367,7 +371,7 @@ void dc_callvm_mode_ppc32(DCCallVM* in_self, DCint mode)
       return;
   }
   
-  dc_callvm_base_init(self->mInterface, vt);
+  dc_callvm_base_init(&self->mInterface, vt);
 
   dcReset(in_self);
 }

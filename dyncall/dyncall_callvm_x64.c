@@ -29,7 +29,7 @@ static DCCallVM* dc_callvm_new_x64(DCCallVM_vt* vt, DCsize size)
 {
   DCCallVM_x64* self = (DCCallVM_x64*)dcAllocMem(sizeof(DCCallVM_x64)+size);
   
-  dc_callvm_base_init(self->mInterface, vt);
+  dc_callvm_base_init(&self->mInterface, vt);
 
   /* Since we store register parameters in DCCallVM_x64 directly, adjust the stack size. */
   size -= sizeof(DCRegData_x64);
@@ -57,7 +57,7 @@ static void dc_callvm_reset_x64(DCCallVM* in_self)
 }
 
 
-static void dc_callvm_mode_x64(DCCallVM* in_self, DCint mode)
+static void dc_callvm_mode_x64(DCCallVM* self, DCint mode)
 {
   switch(mode) {
     case DC_CALL_C_DEFAULT:

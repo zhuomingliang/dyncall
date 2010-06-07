@@ -72,11 +72,6 @@ static void dc_callvm_free_mips_n32(DCCallVM* in_self)
   dcFreeMem(in_self);
 }
 
-static void dc_callvm_mode_mips_n32(DCCallVM* in_self,DCint mode)
-{
-  /* do nothing */
-}
-
 /* pass arguments :
 
    - promote to 64-bit integer.
@@ -148,7 +143,25 @@ static void dc_callvm_argFloat_mips_n32(DCCallVM* in_self, DCfloat x)
   }
 }
 
+
+/* Ellipsis calls: 
+   - float is promoted to double (due to ANSI C).
+   - double is passed via integer register-file (due to MIPS ABI).
+*/
+
+static void dc_callvm_argDouble_mips_n32_ellipsis(DCCallVM* in_self, DCdouble x)
+{
+  dc_callvm_argLongLong_mips_n32(in_self, * ( (DClonglong*) &x ) );
+}
+
+static void dc_callvm_argFloat_mips_n32_ellipsis(DCCallVM* in_self, DCfloat x)
+{
+  dc_callvm_argDouble_mips_n32_ellipsis(in_self, (DCdouble) x );
+}
+
+
 /* Call. */
+
 void dc_callvm_call_mips_n32(DCCallVM* in_self, DCpointer target)
 {
   DCCallVM_mips_n32* self = (DCCallVM_mips_n32*)in_self;
@@ -159,6 +172,9 @@ void dc_callvm_call_mips_n32(DCCallVM* in_self, DCpointer target)
   size_t size = DC_MAX(16, ( ( (unsigned) dcVecSize(&self->mVecHead) ) +7UL ) & (-8UL) );
   dcCall_mips_n32(target, &self->mRegData, size, dcVecData(&self->mVecHead));
 }
+
+/* Forward Declaration. */
+static void dc_callvm_mode_mips_n32(DCCallVM* in_self,DCint mode);
 
 DCCallVM_vt gVT_mips_n32 =
 {
@@ -186,10 +202,57 @@ DCCallVM_vt gVT_mips_n32 =
 , (DCpointervmfunc*)    &dc_callvm_call_mips_n32
 };
 
+DCCallVM_vt gVT_mips_n32_ellipsis =
+{
+  &dc_callvm_free_mips_n32
+, &dc_callvm_reset_mips_n32
+, &dc_callvm_mode_mips_n32
+, &dc_callvm_argBool_mips_n32
+, &dc_callvm_argChar_mips_n32
+, &dc_callvm_argShort_mips_n32
+, &dc_callvm_argInt_mips_n32
+, &dc_callvm_argLong_mips_n32
+, &dc_callvm_argLongLong_mips_n32
+, &dc_callvm_argFloat_mips_n32_ellipsis
+, &dc_callvm_argDouble_mips_n32_ellipsis
+, &dc_callvm_argPointer_mips_n32
+, (DCvoidvmfunc*)       &dc_callvm_call_mips_n32
+, (DCboolvmfunc*)       &dc_callvm_call_mips_n32
+, (DCcharvmfunc*)       &dc_callvm_call_mips_n32
+, (DCshortvmfunc*)      &dc_callvm_call_mips_n32
+, (DCintvmfunc*)        &dc_callvm_call_mips_n32
+, (DClongvmfunc*)       &dc_callvm_call_mips_n32
+, (DClonglongvmfunc*)   &dc_callvm_call_mips_n32
+, (DCfloatvmfunc*)      &dc_callvm_call_mips_n32
+, (DCdoublevmfunc*)     &dc_callvm_call_mips_n32
+, (DCpointervmfunc*)    &dc_callvm_call_mips_n32
+};
+
+static void dc_callvm_mode_mips_n32(DCCallVM* self,DCint mode)
+{
+  switch(mode) {
+    case DC_CALL_C_DEFAULT:
+      self->mVTpointer = &gVT_mips_n32;
+      break;
+    case DC_CALL_C_ELLIPSIS:
+      self->mVTpointer = &gVT_mips_n32_ellipsis;
+      break;
+    default:
+      self->mError = DC_ERROR_UNSUPPORTED_MODE;
+      break;
+  }
+}
+
 DCCallVM* dcNewCallVM_mips_n32(DCsize size) 
 {
   return dc_callvm_new_mips_n32(&gVT_mips_n32, size);
 }
+
+DCCallVM* dcNewCallVM_mips_n32_ellipsis(DCsize size) 
+{
+  return dc_callvm_new_mips_n32(&gVT_mips_n32_ellipsis, size);
+}
+
 
 DCCallVM* dcNewCallVM(DCsize size)
 {

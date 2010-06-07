@@ -225,6 +225,7 @@ static void dc_callvm_mode_arm32_arm(DCCallVM* in_self,DCint mode)
   DCCallVM_vt*  vt;
   switch(mode) {
 /* Check OS if we need EABI as default. */
+    case DC_CALL_C_ELLIPSIS:
 #if defined(DC__ABI_ARM_EABI)
     case DC_CALL_C_DEFAULT:          vt = &gVT_arm32_arm_eabi; break;
 #else
