@@ -62,6 +62,7 @@ typedef struct DCCallVM_    DCCallVM;
 #define DC_CALL_C_ARM_ARM_EABI         10
 #define DC_CALL_C_ARM_THUMB_EABI       11
 #define DC_CALL_C_MIPS32_EABI          12
+#define DC_CALL_C_MIPS32_PSPSDK        DC_CALL_C_MIPS_EABI /* deprecated. */
 #define DC_CALL_C_PPC32_SYSV           13
 #define DC_CALL_C_PPC32_LINUX          13 /* alias for DC_CALL_C_PPC32_SYSV */
 #define DC_CALL_C_ARM_ARM              14
@@ -69,7 +70,7 @@ typedef struct DCCallVM_    DCCallVM;
 #define DC_CALL_C_MIPS32_O32           16
 #define DC_CALL_C_MIPS64_N32           17
 #define DC_CALL_C_MIPS64_N64           18
-#define DC_CALL_C_MIPS32_PSPSDK        DC_CALL_C_MIPS_EABI /* deprecated. */
+
 /* Error codes. */
 
 #define DC_ERROR_NONE 		     0

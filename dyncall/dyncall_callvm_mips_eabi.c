@@ -53,7 +53,7 @@ static void dc_callvm_mode_mips_eabi(DCCallVM* in_self,DCint mode)
   switch(mode) {
     case DC_CALL_C_DEFAULT:
     case DC_CALL_C_ELLIPSIS:
-    case DC_CALL_MIPS32_EABI:
+    case DC_CALL_C_MIPS32_EABI:
       break;
     default:
       in_self->mError = DC_ERROR_UNSUPPORTED_MODE; return;
