@@ -1,6 +1,9 @@
 /*
+ Package: dyncall
+ File: dyncall/dyncall_callvm.h
+ Description: Common call vm binary interface.
 
- Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
+ Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
 
  Permission to use, copy, modify, and distribute this software for any
@@ -29,6 +32,7 @@ typedef struct DCCallVM_vt_ DCCallVM_vt;
 struct DCCallVM_
 {
   DCCallVM_vt* mVTpointer;
+  DCint        mError;
 };
 
 struct DCCallVM_vt_
@@ -67,6 +71,10 @@ typedef DClonglong   (DClonglongvmfunc)  (DCCallVM* vm,DCpointer funcptr);
 typedef DCfloat      (DCfloatvmfunc)     (DCCallVM* vm,DCpointer funcptr);
 typedef DCdouble     (DCdoublevmfunc)    (DCCallVM* vm,DCpointer funcptr);
 typedef DCpointer    (DCpointervmfunc)   (DCCallVM* vm,DCpointer funcptr);
+
+/* Common base functions for CallVM implementations. */
+
+void dc_callvm_base_init(DCCallVM *pInstance, DCCallVM_vt* pVTable);
 
 #endif /* DYNCALL_CALLVM_H */
 

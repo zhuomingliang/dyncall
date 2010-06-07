@@ -263,7 +263,7 @@ void dc_callvm_call_ppc32(DCCallVM* in_self, DCpointer target)
  */
     target
    ,&self->mRegData
-   ,max( dcVecSize(&self->mVecHead) , 8*4 )
+   ,DC_MAX( dcVecSize(&self->mVecHead) , 8*4 )
    ,dcVecData(&self->mVecHead)
   );
 }
@@ -362,11 +362,12 @@ void dc_callvm_mode_ppc32(DCCallVM* in_self, DCint mode)
       vt = &gVT_ppc32_sysv;
       break;
 
-    default: /* @@@ set error code */
+    default: 
+      self->mInterface.mError = DC_ERROR_UNSUPPORTED_MODE; 
       return;
   }
   
-  self->mInterface.mVTpointer = vt;
+  dc_callvm_base_init(self->mInterface, vt);
 
   dcReset(in_self);
 }

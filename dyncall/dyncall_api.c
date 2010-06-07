@@ -36,7 +36,8 @@ void dcFree(DCCallVM* vm)
 
 void dcMode(DCCallVM* vm,DCint mode) 
 { 
-  vm->mVTpointer->mode(vm,mode); 
+  vm->mVTpointer->mode(vm,mode);
+  dcReset(vm);
 }
 
 void dcArgBool(DCCallVM* vm,DCbool x) 
@@ -132,5 +133,19 @@ DCdouble dcCallDouble(DCCallVM* vm, DCpointer funcptr)
 DCpointer dcCallPointer(DCCallVM* vm, DCpointer funcptr) 
 { 
   return vm->mVTpointer->callPointer(vm, funcptr); 
+}
+
+DCint dcGetError(DCCallVM *vm)
+{
+  return vm->mError;
+}
+
+const char* dcGetErrorString(int mode)
+{
+  switch(mode) {
+    case DC_ERROR_NONE: return "none";
+    case DC_ERROR_UNSUPPORTED_MODE: return "unsupported mode";
+    default: return "(unknown mode id)";
+  }
 }
 

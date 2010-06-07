@@ -2,8 +2,9 @@
  Package: dyncall
  File: dyncall/dyncall_callvm_x86.c
  Description: Call VM for x86 architecture implementation
+ License:
 
- Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
+ Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
 
  Permission to use, copy, modify, and distribute this software for any
@@ -30,7 +31,9 @@ void dc_callvm_mode_x86(DCCallVM* in_self, DCint mode);
 static DCCallVM* dc_callvm_new_x86(DCCallVM_vt* vt, DCsize size)
 {
   DCCallVM_x86* self = (DCCallVM_x86*) dcAllocMem( sizeof(DCCallVM_x86)+size );
-  self->mInterface.mVTpointer = vt;
+
+  dc_callvm_base_init(self->mInterface, vt);
+
   self->mIntRegs              = 0;
   dcVecInit(&self->mVecHead, size);
   return (DCCallVM*) self;
@@ -471,7 +474,7 @@ void dc_callvm_mode_x86(DCCallVM* in_self, DCint mode)
     case DC_CALL_C_X86_WIN32_THIS_MS:  vt = &gVT_x86_win32_this_ms;  break;
     case DC_CALL_C_X86_WIN32_FAST_GNU: vt = &gVT_x86_win32_fast_gnu; break;
     case DC_CALL_C_X86_WIN32_THIS_GNU: vt = &gVT_x86_cdecl;          break;
-    default: return;
+    default: self->mInterface.mError = DC_ERROR_UNSUPPORTED_MODE; return;
   }
   self->mInterface.mVTpointer = vt;
   dcReset(in_self);

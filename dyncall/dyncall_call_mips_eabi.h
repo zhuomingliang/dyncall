@@ -24,6 +24,8 @@
 #ifndef DYNCALL_CALL_MIPS_EABI_H
 #define DYNCALL_CALL_MIPS_EABI_H
 
+#include "dyncall_types.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif

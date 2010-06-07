@@ -1,7 +1,7 @@
 /*
  Package: dyncall
- File: dyncall/dyncall_call_mips_n64.h
- Description: mips "n64" ABI call-kernel C interface.
+ File: dyncall/dyncall_call_mips_n32.h
+ Description: mips "n32" ABI call-kernel C interface.
  License:
 
  Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>, 
@@ -21,8 +21,8 @@
 
 */
 
-#ifndef DYNCALL_CALL_MIPS_N64_H
-#define DYNCALL_CALL_MIPS_N64_H
+#ifndef DYNCALL_CALL_MIPS_N32_H
+#define DYNCALL_CALL_MIPS_N32_H
 
 #include "dyncall_types.h"
 
@@ -46,14 +46,14 @@ extern "C" {
   interpreted in the call-kernel.
 */
 
-struct DCRegData_mips_n64
+struct DCRegData_mips_n32
 {
   DClonglong   mIntData[8];
   union { DCfloat f; DCdouble d; } mFloatData[8];
   DClonglong   mUseDouble; /* bitmask: lower 8 bits specifies to use float or double from union array. */
 };
 
-void dcCall_mips_n64(DCpointer target, struct DCRegData_mips_n64* regdata, DCsize stksize, DCpointer stkdata);
+void dcCall_mips_n32(DCpointer target, struct DCRegData_mips_n32* regdata, DCsize stksize, DCpointer stkdata);
 
 #ifdef __cplusplus
 }

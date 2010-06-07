@@ -1,6 +1,10 @@
 /*
+ Package: dyncall
+ File: dyncall/dyncall_callvm.c
+ Description: auto-select default callvm (includes other C sources).
+ License:
 
- Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
+ Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
 
  Permission to use, copy, modify, and distribute this software for any
@@ -18,6 +22,7 @@
 */
 
 #include "dyncall_macros.h"
+
 #if defined(DC__Arch_Intel_x86)
 #  include "dyncall_callvm_x86.c"
 #elif defined(DC__Arch_AMD64)
@@ -26,14 +31,18 @@
 #  include "dyncall_callvm_ppc32.c"
 #elif defined(DC__Arch_PPC64)
 #  include "dyncall_callvm_ppc64.c"
-#elif defined(DC__Arch_MIPS64)
-#  include "dyncall_callvm_mips_n64.c"
-#elif defined(DC__Arch_MIPS)
-#if defined(_ABIO32)
-#  include "dyncall_callvm_mips_o32.c"
-#else
+#elif defined(DC__Arch_MIPS) || defined(DC__Arch_MIPS64)
+#if defined(DC__ABI_MIPS_EABI)
 #  include "dyncall_callvm_mips_eabi.c"
-#endif
+#elif defined(DC__ABI_MIPS_O32)
+#  include "dyncall_callvm_mips_o32.c"
+#elif defined(DC__ABI_MIPS_N64)
+#  include "dyncall_callvm_mips_n64.c"
+#elif defined(DC__ABI_MIPS_N32)
+#  include "dyncall_callvm_mips_n32.c"
+#else
+#  error Unknown MIPS ABI.
+#endif /* DC__Arch_MIPS || DC__Arch_MIPS64 */
 #elif defined(DC__Arch_ARM_ARM)
 #  include "dyncall_callvm_arm32_arm.c"
 #elif defined(DC__Arch_ARM_THUMB)

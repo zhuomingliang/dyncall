@@ -1,6 +1,10 @@
 /*
+ Package: dyncall
+ File: dyncall/dyncall_callvm_arm32_arm.c
+ Description: ARM 32-bit "arm" ABI callvm implementation
+ License:
 
- Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
+ Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
 
  Permission to use, copy, modify, and distribute this software for any
@@ -39,7 +43,7 @@ static DCCallVM* dc_callvm_new_arm32_arm(DCCallVM_vt* vt, DCsize size)
 {
   /* Store at least 16 bytes (4 words) for internal spill area. Assembly code depends on it. */
   DCCallVM_arm32_arm* self = (DCCallVM_arm32_arm*)dcAllocMem(sizeof(DCCallVM_arm32_arm)+size+16);
-  self->mInterface.mVTpointer = vt;
+  dyncall_callvm_base_init(&self.mInterface, vt);
   dcVecInit(&self->mVecHead, size);
   return (DCCallVM*)self;
 }

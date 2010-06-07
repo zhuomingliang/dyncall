@@ -172,21 +172,34 @@
 /* Rough OS classification. */
 
 #if defined(DC__OS_Win32) || defined(DC__OS_Win64)
-	#define DC_WINDOWS
+# define DC_WINDOWS
 #elif defined(DC__OS_NDS) || defined(DC__OS_PSP)
-	#define DC_OTHER
+# define DC_OTHER
 #else
-	#define DC_UNIX
+# define DC_UNIX
 #endif
 
 
 
 /* Misc machine-dependent quirks. */
 
-#if defined(__ARM_EABI__) || defined(DC__OS_NDS)
-# define DC__ABI_ARM_EABI
-#endif
+#if defined(DC__Arch_ARM_ARM) || defined(DC__Arch_ARM_THUMB)
+# if defined(__ARM_EABI__) || defined(DC__OS_NDS)
+#  define DC__ABI_ARM_EABI
+# endif
+#endif /* ARM */
 
+#if defined(DC__Arch_MIPS) || defined(DC__Arch_MIPS64)
+# if defined(_ABIO32)
+#  define DC__ABI_MIPS_O32
+# elif defined(_ABIN32)
+#  define DC__ABI_MIPS_N32
+# elif defined(_ABI64)
+#  define DC__ABI_MIPS_N64
+# else
+#  define DC__ABI_MIPS_EABI
+# endif
+#endif /* MIPS */
 
 #endif /* DYNCALL_MACROS_H */
 

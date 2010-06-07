@@ -59,7 +59,7 @@ static void dc_callvm_reset_mips_o32(DCCallVM* in_self)
 static DCCallVM* dc_callvm_new_mips_o32(DCCallVM_vt* vt, DCsize size)
 {
   DCCallVM_mips_o32* self = (DCCallVM_mips_o32*)dcAllocMem(sizeof(DCCallVM_mips_o32)+size);
-  self->mInterface.mVTpointer = vt;
+  dc_callvm_base_init(&self->mInterface, vt);
   dcVecInit(&self->mVecHead, size);
   dc_callvm_reset_mips_o32( (DCCallVM*) self );
   return (DCCallVM*)self;
@@ -71,9 +71,17 @@ static void dc_callvm_free_mips_o32(DCCallVM* in_self)
   dcFreeMem(in_self);
 }
 
-static void dc_callvm_mode_mips_o32(DCCallVM* in_self,DCint mode)
+static void dc_callvm_mode_mips_o32(DCCallVM* self, DCint mode)
 {
-  /* Do nothing. */
+  switch(mode) {
+    case DC_CALL_C_DEFAULT:
+    case DC_CALL_C_ELLIPSIS:
+    case DC_CALL_C_MIPS32_O32:
+      break;
+    default:
+      self->mError = DC_ERROR_UNSUPPORTED_MODE;
+      break;
+  }
 }
 
 /* arg int -- fillup integer register file OR push on stack */

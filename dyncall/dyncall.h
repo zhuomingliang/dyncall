@@ -4,7 +4,7 @@
  Description: main header file for dyncall
  License:
 
- Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
+ Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
 
  Permission to use, copy, modify, and distribute this software for any
@@ -48,6 +48,7 @@ typedef struct DCCallVM_    DCCallVM;
 /* Supported Calling Convention Modes */
 
 #define DC_CALL_C_DEFAULT               0
+#define DC_CALL_C_ELLIPSIS		100
 #define DC_CALL_C_X86_CDECL             1
 #define DC_CALL_C_X86_WIN32_STD         2
 #define DC_CALL_C_X86_WIN32_FAST_MS     3
@@ -61,14 +62,19 @@ typedef struct DCCallVM_    DCCallVM;
 #define DC_CALL_C_ARM_ARM_EABI         10
 #define DC_CALL_C_ARM_THUMB_EABI       11
 #define DC_CALL_C_MIPS32_EABI          12
-#define DC_CALL_C_MIPS32_PSPSDK        12 /* alias for DC_CALL_C_MIPS32_EABI */
 #define DC_CALL_C_PPC32_SYSV           13
 #define DC_CALL_C_PPC32_LINUX          13 /* alias for DC_CALL_C_PPC32_SYSV */
 #define DC_CALL_C_ARM_ARM              14
 #define DC_CALL_C_ARM_THUMB            15
-#define DC_CALL_C_MIPS_O32             16
-#define DC_CALL_C_MIPS_N32             17
-#define DC_CALL_C_MIPS_N64             18
+#define DC_CALL_C_MIPS32_O32           16
+#define DC_CALL_C_MIPS64_N32           17
+#define DC_CALL_C_MIPS64_N64           18
+#define DC_CALL_C_MIPS32_PSPSDK        DC_CALL_C_MIPS_EABI /* deprecated. */
+/* Error codes. */
+
+#define DC_ERROR_NONE 		     0
+#define DC_ERROR_UNSUPPORTED_MODE   -1
+
 
 DC_API DCCallVM*  dcNewCallVM     (DCsize size);
 DC_API void       dcFree          (DCCallVM* vm);
@@ -96,6 +102,8 @@ DC_API DClonglong dcCallLongLong  (DCCallVM* vm, DCpointer funcptr);
 DC_API DCfloat    dcCallFloat     (DCCallVM* vm, DCpointer funcptr);
 DC_API DCdouble   dcCallDouble    (DCCallVM* vm, DCpointer funcptr);
 DC_API DCpointer  dcCallPointer   (DCCallVM* vm, DCpointer funcptr);
+
+DC_API DCint      dcGetError      (DCCallVM* vm);
 
 #ifdef __cplusplus
 }
