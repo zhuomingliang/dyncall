@@ -1,6 +1,6 @@
 %//////////////////////////////////////////////////////////////////////////////
 %
-% Copyright (c) 2007,2009 Daniel Adler <dadler@uni-goettingen.de>, 
+% Copyright (c) 2007,2010 Daniel Adler <dadler@uni-goettingen.de>, 
 %                         Tassilo Philipp <tphilipp@potion-studios.com>
 %
 % Permission to use, copy, modify, and distribute this software for any
@@ -112,6 +112,33 @@ destroy the \emph{CallVM} object.
 % \capi{dcInitCallVM()}
 % \capi{dcShutdownCallVM()}
 
+\subsection{Error Reporting}
+
+\paragraph{Errors}
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular*}{0.75\textwidth}{ll}
+\hline
+Constant & Description\\
+\hline
+\lstinline@DC_ERROR_NONE@             & No error occured. \\
+\lstinline@DC_ERROR_UNSUPPORTED_MODE@ & Unsupported mode, caused by \lstinline@dcMode()@ \\
+\hline
+\end{tabular*}
+\caption{CallVM calling convention modes}
+\label{functioncalls}
+\end{center}
+\end{table}
+
+\paragraph{Function}
+
+\begin{lstlisting}[language=c]
+DCint dcGetError (DCCallVM* vm);
+\end{lstlisting}
+
+Returns either 
+
 \subsection{Configuration}
 
 \paragraph{Function}
@@ -133,6 +160,7 @@ platform).
 Constant & Description\\
 \hline
 \lstinline@DC_CALL_C_DEFAULT@            & C default function call for current platform\\
+\lstinline@DC_CALL_C_ELLIPSIS@           & C ellipsis function call (variable arguments) \\
 \lstinline@DC_CALL_C_X86_CDECL@          & C x86 platforms standard call\\
 \lstinline@DC_CALL_C_X86_WIN32_STD@      & C x86 Windows standard call\\
 \lstinline@DC_CALL_C_X86_WIN32_FAST_MS@  & C x86 Windows Microsoft fast call\\
@@ -149,6 +177,9 @@ Constant & Description\\
 \lstinline@DC_CALL_C_ARM_THUMB_EABI@     & C arm eabi call (thumb mode)\\
 \lstinline@DC_CALL_C_MIPS32_EABI@        & C mips32 eabi call\\
 \lstinline@DC_CALL_C_MIPS32_PSPSDK@      & C mips32 default PSP Homebrew SDK call (uses eabi)\\
+\lstinline@DC_CALL_C_MIPS32_O32@         & C mips32 o32 call\\
+\lstinline@DC_CALL_C_MIPS64_N64@         & C mips64 n64 call\\
+\lstinline@DC_CALL_C_MIPS64_N32@         & C mips64 n32 call\\
 \hline
 \end{tabular*}
 \caption{CallVM calling convention modes}
@@ -159,11 +190,12 @@ Constant & Description\\
 \paragraph{Details}
 
 \lstinline@DC_CALL_C_DEFAULT@ is the default standard C call on the target
-platform. It uses the standard C calling convention and will also be used for
-variable argument ellipsis calls. On most platforms, there is only one C
-calling convention. Only the X86 platform provides a rich family of different
-calling conventions.\\
-
+platform. It uses the standard C calling convention.
+\lstinline@DC_CALL_C_ELLIPSIS@ is used for C ellipsis calls which allow
+to build up a variable argument list.
+On many platforms, there is only one C calling convention. 
+The X86 platform provides a rich family of different calling conventions.
+\\
 
 \subsection{Machine state reset}
 
@@ -171,7 +203,7 @@ calling conventions.\\
 void dcReset(DCCallVM* vm);
 \end{lstlisting}
 
-Resets the internal stack of arguments. This function should be called prior 
+Resets the internal argument buffer. This function should be called prior 
 to binding new arguments to the CallVM, because arguments don't get flushed
 automatically after a foreign function call invocation.\\
 
@@ -235,8 +267,8 @@ void dcVCallF(DCCallVM* vm, DCValue* result, DCpointer funcptr,
 
 \paragraph{Details}
 
-These functions can be used to issue a printf-style function call, using a
-signature string encoding the argument types and return type. The return value
-will be stored in \lstinline{result}.
+These functions can be used to operate dyncall via a printf-style functional 
+interface, using a signature string encoding the argument types and 
+return type. The return value will be stored in \lstinline{result}.
 For more information about the signature format, refer to \ref{sigchar}.
 
