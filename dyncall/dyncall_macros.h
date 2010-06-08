@@ -2,8 +2,9 @@
  Package: dyncall
  File: dyncall/dyncall_macros.h
  Description: Platform detection macros
+ License:
 
- Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
+ Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
 
  Permission to use, copy, modify, and distribute this software for any
@@ -186,6 +187,8 @@
 #if defined(DC__Arch_ARM_ARM) || defined(DC__Arch_ARM_THUMB)
 # if defined(__ARM_EABI__) || defined(DC__OS_NDS)
 #  define DC__ABI_ARM_EABI
+# elif defined(__APCS_32__)
+#  define DC__ABI_ARM_APCS32
 # endif
 #endif /* ARM */
 

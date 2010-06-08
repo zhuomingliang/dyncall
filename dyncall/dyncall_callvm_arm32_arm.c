@@ -43,7 +43,7 @@ static DCCallVM* dc_callvm_new_arm32_arm(DCCallVM_vt* vt, DCsize size)
 {
   /* Store at least 16 bytes (4 words) for internal spill area. Assembly code depends on it. */
   DCCallVM_arm32_arm* self = (DCCallVM_arm32_arm*)dcAllocMem(sizeof(DCCallVM_arm32_arm)+size+16);
-  dyncall_callvm_base_init(&self.mInterface, vt);
+  dc_callvm_base_init(&self->mInterface, vt);
   dcVecInit(&self->mVecHead, size);
   return (DCCallVM*)self;
 }
