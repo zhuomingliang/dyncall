@@ -137,7 +137,7 @@ int main(int argc, char* argv[])
     success = run_range(0,ncalls);
   }
 
-  printf("result: suite: %s\n", success ? "1" : "0");
+  printf("result: suite_floats: %s\n", success ? "1" : "0");
 
   dcTest_deInitPlatform();
 
