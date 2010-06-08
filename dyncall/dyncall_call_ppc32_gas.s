@@ -1,6 +1,10 @@
-/*/////////////////////////////////////////////////////////////////////////////
+/*
+Package: dyncall
+File: dyncall/dyncall_call_ppc32_gas.s
+Description: PowerPC 32-bit Call-Kernels (sysv and darwin) written for ELF/GNU Assembler.
+License:
 
- Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
+ Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
 
  Permission to use, copy, modify, and distribute this software for any
@@ -15,19 +19,7 @@
  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-/////////////////////////////////////////////////////////////////////////////*/
-
-/*///////////////////////////////////////////////////////////////////////
-
-      dyncall_call_ppc32_gas.s
- 
-      powerpc 32 bit C call, GNU Assembler source.
-
-      January  9, 2009
-      Support for Darwin and System V ABI.
-
-//////////////////////////////////////////////////////////////////////*/
-	
+*/
 	.machine ppc
 	.text
 
@@ -275,6 +267,9 @@ sysv_done:
 	lfd  %f7 ,80(%r11)
 	lfd  %f8 ,88(%r11)
 
+	
+	/* ellipsis call */
+	creqv 6,6,6
 
 	/* branch with this call support */
 	
