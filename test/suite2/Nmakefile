@@ -62,11 +62,11 @@ $(TARGETS): $(OBJS)
 $(OBJS): $(AUTOS)
 
 case.h config.h: mkcase.py
-	mkcase.py >case.h 2>config.h
+	python mkcase.py >case.h 2>config.h
 
 mkcase.py: design.cfg
 design.cfg: rand.py
-	rand.py >$@
+	python rand.py >$@
 
 
 !INCLUDE $(TOP)\buildsys\nmake\epilog.nmake

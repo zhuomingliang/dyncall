@@ -60,7 +60,7 @@ $(TARGETS): $(OBJS)
 $(OBJS): $(AUTOS)
 
 $(AUTOS): mkcase.py
-	mkcase.py >case.h 2>config.h
+	python mkcase.py >case.h 2>config.h
 
 
 !INCLUDE $(TOP)\buildsys\nmake\epilog.nmake
