@@ -52,8 +52,17 @@
 	#define DC__OS_Win32
 
 /* All the OS' based on Darwin OS (MacOS X, OpenDarwin). Note that '__APPLE__' may be defined for classic MacOS, too. */
-#elif defined(__MACOSX__) || defined(__APPLE__)
-	#define DC__OS_Darwin
+// #elif defined(__MACOSX__) || defined(__APPLE__)
+//	#define DC__OS_Darwin
+
+#elif defined(__APPLE__)
+#  if defined(__ENVIRONMENT_IPHONE_OS_VERSION_MIN_REQUIRED__)
+#    define DC__OS_IPhone
+#  elif defined(__MACOSX__)
+#    define DC__OS_Darwin
+#  else /* @@@ Add test for Mac OS Classic @@@ */
+#    define DC__OS_MacOSClassic
+#endif
 
 /* The most popular open source Unix-like OS - Linux. */
 #elif defined(__linux__) || defined(__linux) || defined(__gnu_linux__)

@@ -253,6 +253,11 @@ args()
       --target-windows)
         CONFIG_OS=windows
         ;;
+      --target-iphone)
+        CONFIG_OS=iphone
+        CONFIG_ARCH=arm32_arm
+        CONFIG_TOOL=gcc
+        ;;
       --tool-gcc)
         CONFIG_TOOL=gcc
         CONFIG_ASM=gcc

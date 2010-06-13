@@ -24,13 +24,15 @@
 
 #include "dyncall_macros.h"
 
-#if defined(DC__OS_Darwin)
+#if defined(DC__OS_Darwin) || defined(DC__OS_IPhone)
 #  if defined(DC__Arch_Intel_x86)
 #    include "dyncall_callback_x86_apple.s"
 #  elif defined(DC__Arch_AMD64)
 #    include "dyncall_callback_x64_apple.s"
 #  elif defined(DC__Arch_PowerPC)
 #    include "dyncall_callback_ppc32_apple.s"
+#  elif defined(DC__Arch_ARM_ARM)
+#    include "dyncall_callback_arm32_arm_apple.s"
 #  endif
 #else
 #  if defined(DC__Arch_Intel_x86)

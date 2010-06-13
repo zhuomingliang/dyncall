@@ -22,7 +22,7 @@
 #if defined(DC_WINDOWS)
 #  include "dynload_syms_pe.c"
 #elif defined(DC_UNIX)
-#  if defined (DC__OS_Darwin)
+#  if defined (DC__OS_Darwin) || defined(DC__OS_IPhone)
 #    include "dynload_syms_mach-o.c"
 #  else
 #    include "dynload_syms_elf.c"

@@ -21,7 +21,7 @@
 */
 
 #include "dyncall_macros.h"
-#if defined(DC__OS_Darwin)
+#if defined(DC__OS_Darwin) || defined(DC__OS_IPhone)
 # if defined(DC__Arch_Intel_x86)
 #  include "dyncall_call_x86_apple.s"
 # elif defined(DC__Arch_AMD64)
@@ -30,6 +30,8 @@
 #  include "dyncall_call_ppc32_apple.s"
 # elif defined(DC__Arch_PPC64)
 #  include "dyncall_call_ppc64_apple.s"
+# elif defined(DC__Arch_ARM_ARM)
+#  include "dyncall_call_arm32_arm_apple.s"
 # else
 #  error Unsupported Architecture on Darwin.
 # endif
