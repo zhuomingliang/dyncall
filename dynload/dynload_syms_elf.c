@@ -1,4 +1,3 @@
-#define _GNU_SOURCE
 /*
 
  Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>, 
@@ -18,6 +17,10 @@
  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 */
+
+#if defined(DC__OS_Linux) && !defined(_GNU_SOURCE)
+#define _GNU_SOURCE
+#endif
 
 /*
  
