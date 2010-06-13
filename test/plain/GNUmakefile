@@ -1,6 +1,9 @@
-#//////////////////////////////////////////////////////////////////////////////
+# Package: dyncall
+# File: dyncall/test/plain/GNUmakefile
+# Description: GNUmakefile for plain test suite
+# License:
 #
-# Copyright (c) 2007,2009 Daniel Adler <dadler@uni-goettingen.de>, 
+# Copyright (c) 2007,2010 Daniel Adler <dadler@uni-goettingen.de>, 
 #                         Tassilo Philipp <tphilipp@potion-studios.com>
 #
 # Permission to use, copy, modify, and distribute this software for any
@@ -15,15 +18,6 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #
-#//////////////////////////////////////////////////////////////////////////////
-
-#///////////////////////////////////////////////////
-#
-#	gmake makefile
-#	GNUmakefile
-#
-#///////////////////////////////////////////////////
-
 
 TOP		= ../..
 
@@ -31,7 +25,7 @@ include $(TOP)/buildsys/gmake/prolog.gmake
 
 TARGET_APP	= plain
 UNITS		= test_main
-CPPFLAGS	= -I$(TOP)/dyncall
+CPPFLAGS	+= -I$(TOP)/dyncall
 LINK_DIRS	= $(TOP)/dyncall/$(BUILD_DIR)
 LINK_LIBS       = dyncall_s
 ifndef BUILD_OS_psp

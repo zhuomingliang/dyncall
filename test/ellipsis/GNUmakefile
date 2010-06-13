@@ -1,6 +1,8 @@
-#//////////////////////////////////////////////////////////////////////////////
 #
-# Copyright (c) 2007,2009 Daniel Adler <dadler@uni-goettingen.de>, 
+# Package: dyncall
+# File: test/ellipsis/GNUmakefile
+# Description: Test ellipsis (...) calls
+# Copyright (c) 2007,2010 Daniel Adler <dadler@uni-goettingen.de>, 
 #                         Tassilo Philipp <tphilipp@potion-studios.com>
 #
 # Permission to use, copy, modify, and distribute this software for any
@@ -15,15 +17,6 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #
-#//////////////////////////////////////////////////////////////////////////////
-
-#///////////////////////////////////////////////////
-#
-#	gmake makefile
-#	GNUmakefile
-#
-#///////////////////////////////////////////////////
-
 
 TOP		= ../..
 
@@ -31,7 +24,7 @@ include $(TOP)/buildsys/gmake/prolog.gmake
 
 TARGET_APP	= ellipsis
 UNITS		= ellipsis main
-CPPFLAGS	= -I$(TOP)/dyncall
+CPPFLAGS       += -I$(TOP)/dyncall
 CXX_EXCEPTIONS	= 0
 CXX_RTTI	= 0
 LINK_DIRS	= $(TOP)/dyncall/$(BUILD_DIR)

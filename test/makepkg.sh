@@ -4,7 +4,7 @@
 TOP=..
 . $TOP/ConfigVars
 
-TESTS="suite suite2 suite3 callback_suite"
+TESTS="suite suite2 suite3 suite_floats callback_suite"
 # addition test:
 #
 # callback_plain callback_suite callf
