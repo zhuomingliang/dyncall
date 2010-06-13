@@ -1,6 +1,10 @@
 /*
+ Package: dyncall
+ File: dyncall/dyncall_call_x86_gas.S
+ Description: All x86 abi call kernel implementations in GNU Assembler using C Preprocessor
+ License:
 
- Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>,
+ Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>,
                          Tassilo Philipp <tphilipp@potion-studios.com>
 
  Permission to use, copy, modify, and distribute this software for any
@@ -16,16 +20,6 @@
  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 */
-
-/* ///////////////////////////////////////////////////////////////////////////
-
-	dyncall_call_x86_gas.S
-
-	x86 calls written in GNU Assembler
-	November 28, 2007
-
- ////////////////////////////////////////////////////////////////////////// */
-
 
 .file "dyncall_call_x86_gas.S"
 .intel_syntax

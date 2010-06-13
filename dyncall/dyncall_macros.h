@@ -55,11 +55,12 @@
 /* __MACOSX__ is not defined in gcc assembler mode (switch: -S) */
 /* @@@ TODO: Check for Classic OS */
 
-#elif defined(__APPLE__)
+#elif defined(__APPLE__) || defined(__Darwin__)
+#  define DC__OS_Darwin
 #  if defined(__ENVIRONMENT_IPHONE_OS_VERSION_MIN_REQUIRED__)
 #    define DC__OS_IPhone
-#  else
-#    define DC__OS_Darwin
+#  else /* defined(__ENVIRONMENT_MAC_OS_X_VERSION_MIN_REQUIRED__) */
+#    define DC__OS_MacOSX
 #  endif
 
 /* The most popular open source Unix-like OS - Linux. */

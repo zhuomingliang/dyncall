@@ -7,7 +7,6 @@ dynload / abstraction to run-time shared library services:
 
 
 Todo:
-- Mach-O format
 - a.out format
 - support for different kind of symbols
   (exports,imports,sections,constants...)
@@ -21,9 +20,6 @@ Implementation:
 1. Access to internals
    The handle returned by LoadLibrary() is a pointer to the PE header 
    (which is a DOS header).
-
-
-64-bit: ???
 
 
 Notes on elf:

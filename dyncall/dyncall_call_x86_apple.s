@@ -1,6 +1,10 @@
 /*
+ Package: dyncall
+ File: dyncall/dyncall_call_x86_apple.s
+ Description: All x86 abi call kernel implementations in Apple's Assembler
+ License:
 
- Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>,
+ Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>,
                          Tassilo Philipp <tphilipp@potion-studios.com>
 
  Permission to use, copy, modify, and distribute this software for any
@@ -17,29 +21,19 @@
 
 */
 
-/* ///////////////////////////////////////////////////////////////////////////
-
-	dyncall_call_x86_apple.s
-
-	x86 calls written in Apple Assembler
-	November 28, 2007
-
- ////////////////////////////////////////////////////////////////////////// */
-
-
 .text
-.file "dyncall_x86_apple.s"
+.file "dyncall_call_x86_apple.s"
 .intel_syntax
 
-# -----------------------------------------------------------------------------
-# Calling Convention IA32 standard C
-# - stack is 16 byte aligned
-# - all arguments are on the stack
-# - caller cleans up stack
-#
-# C proto
-#   dcCallC(DCptr funptr, DCptr args, DCsize size)
-# -----------------------------------------------------------------------------
+/*
+Calling Convention IA32 standard C
+- stack is 16 byte aligned
+- all arguments are on the stack
+- caller cleans up stack
+
+C proto
+  dcCallC(DCptr funptr, DCptr args, DCsize size)
+*/
 
 .globl _dcCall_x86_cdecl
 _dcCall_x86_cdecl:
@@ -84,14 +78,14 @@ _dcCall_x86_cdecl:
 
 	ret
 
-# -----------------------------------------------------------------------------
-# Calling Convention IA32 microsoft thiscall
-# - thispointer is in ECX, rest is on the stack
-# - callee cleans up stack
-#
-# C proto
-#   dcCallThisMS(DCptr funptr, DCptr args, DCsize size)
-# -----------------------------------------------------------------------------
+/*
+Calling Convention IA32 microsoft thiscall
+- thispointer is in ECX, rest is on the stack
+- callee cleans up stack
+
+C proto
+  dcCallThisMS(DCptr funptr, DCptr args, DCsize size)
+*/
 
 .globl _dcCall_x86_win32_msthis
 _dcCall_x86_win32_msthis:
@@ -99,11 +93,12 @@ _dcCall_x86_win32_msthis:
     push %esp               /* prolog */
     mov  %ebp, %esp
 
-    # arguments:
-    #
-    # funptr  ebp+8
-    # args    ebp+12
-    # size    ebp+16
+    /* arguments:
+    
+     funptr  ebp+8
+     args    ebp+12
+     size    ebp+16
+    */
 
     push %esi               /* save esi, edi */
     push %edi
@@ -111,114 +106,116 @@ _dcCall_x86_win32_msthis:
     mov  %esi, [%ebp+12]    /* esi = pointer on args */
     mov  %ecx, [%ebp+16]    /* ecx = size */
 
-    mov  %eax, [%esi]       # eax = this pointer
-    add  %esi, 4            # increment args pointer by thisptr
-    sub  %ecx, 4            # decrement size by sizeof(thisptr)
+    mov  %eax, [%esi]       /* eax = this pointer */
+    add  %esi, 4            /* increment args pointer by thisptr */
+    sub  %ecx, 4            /* decrement size by sizeof(thisptr) */
 
-    sub  %esp, %ecx         # allocate argument-block on stack
-    mov  %edi, %esp         # edi = stack args
+    sub  %esp, %ecx         /* allocate argument-block on stack */
+    mov  %edi, %esp         /* edi = stack args */
 
-    rep movsb               # copy arguments
+    rep movsb               /* copy arguments */
 
-    mov  %ecx, %eax         # ecx = this pointer
+    mov  %ecx, %eax         /* ecx = this pointer */
 
-    call [%ebp+8]           # call function (thiscall: cleanup by callee)
+    call [%ebp+8]           /* call function (thiscall: cleanup by callee) */
 
-    pop  %edi               # restore edi, esi
+    pop  %edi               /* restore edi, esi */
     pop  %esi
 
-    mov  %esp, %ebp         # epilog
+    mov  %esp, %ebp         /* epilog */
     pop  %ebp
 
     ret
 
-# -----------------------------------------------------------------------------
-# Calling Convention IA32 win32 stdcall
-# - all arguments are passed by stack
-# - callee cleans up stack
-#
-# C proto
-#   dcCallStd(DCptr funptr, DCptr args, DCsize size)
-# -----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
+Calling Convention IA32 win32 stdcall
+- all arguments are passed by stack
+- callee cleans up stack
+
+C proto
+  dcCallStd(DCptr funptr, DCptr args, DCsize size)
+*/
 
 .globl _dcCall_x86_win32_std
 _dcCall_x86_win32_std:
 
-    push %ebp               # prolog
+    push %ebp               /* prolog */
     mov  %ebp, %esp
 
-    # arguments:
-    #
-    # funptr  ebp+8
-    # args    ebp+12
-    # size    ebp+16
+    /* arguments:
+    
+      funptr  ebp+8
+      args    ebp+12
+      size    ebp+16
+    */
 
-    push %esi               # save esi, edi
+    push %esi               /* save esi, edi */
     push %edi
 
-    mov  %esi, [%ebp+12]    # esi = pointer on args
-    mov  %ecx, [%ebp+16]    # ecx = size
+    mov  %esi, [%ebp+12]    /* esi = pointer on args */
+    mov  %ecx, [%ebp+16]    /* ecx = size */
 
-    sub  %esp, %ecx         # stdcall: allocate 'size'-8 bytes on stack
-    mov  %edi, %esp         # edi = stack args
+    sub  %esp, %ecx         /* stdcall: allocate 'size'-8 bytes on stack */
+    mov  %edi, %esp         /* edi = stack args */
 
-    rep movsb               # copy arguments
+    rep movsb               /* copy arguments */
 
-    call [%ebp+8]           # call function (stdcall: cleanup by callee)
+    call [%ebp+8]           /* call function (stdcall: cleanup by callee) */
 
-    pop  %edi               # restore edi, esi
+    pop  %edi               /* restore edi, esi */
     pop  %esi
 
-    mov  %esp, %ebp         # epilog
+    mov  %esp, %ebp         /* epilog */
     pop  %ebp
 
     ret
 
-# -----------------------------------------------------------------------------
-# Calling Convention IA32 win32 fastcall
-# - first two integer (up to 32bits) are passed in ECX and EDX
-# - others are passed on the stack
-# - callee cleans up stack
-#
-# C proto
-#   dcCallFast(DCptr funptr, DCptr args, DCsize size)
-# -----------------------------------------------------------------------------
+/*
+Calling Convention IA32 win32 fastcall
+- first two integer (up to 32bits) are passed in ECX and EDX
+- others are passed on the stack
+- callee cleans up stack
+
+C proto
+  dcCallFast(DCptr funptr, DCptr args, DCsize size)
+*/
 
 .globl _dcCall_x86_win32_fast
 _dcCall_x86_win32_fast:
 
-    push %ebp               # prolog
+    push %ebp               /* prolog */
     mov  %ebp, %esp
 
-    # arguments:
-    #
-    # funptr  ebp+8
-    # args    ebp+12
-    # size    ebp+16
+    /* arguments:
+    
+      funptr  ebp+8
+      args    ebp+12
+      size    ebp+16
+    */
 
-    push %esi               # save esi, edi
+    push %esi               /* save esi, edi */
     push %edi
 
-    mov  %esi, [%ebp+12]    # esi = pointer on args
-    mov  %ecx, [%ebp+16]    # ecx = size
-    mov  %eax, [%esi]       # eax = first argument
-    mov  %edx, [%esi+4]     # edx = second argument
-    add  %esi, 8            # increment source pointer
-    sub  %ecx, 8            # decrement size by 8
+    mov  %esi, [%ebp+12]    /* esi = pointer on args */
+    mov  %ecx, [%ebp+16]    /* ecx = size */
+    mov  %eax, [%esi]       /* eax = first argument */
+    mov  %edx, [%esi+4]     /* edx = second argument */
+    add  %esi, 8            /* increment source pointer */
+    sub  %ecx, 8            /* decrement size by 8 */
 
-    sub  %esp, %ecx         # fastcall: allocate 'size'-8 bytes on stack
-    mov  %edi, %esp         # edi = stack args
+    sub  %esp, %ecx         /* fastcall: allocate 'size'-8 bytes on stack */
+    mov  %edi, %esp         /* edi = stack args */
 
-    rep movsb               # copy arguments
+    rep movsb               /* copy arguments */
 
-    mov  %ecx, %eax         # ecx = first argument
+    mov  %ecx, %eax         /* ecx = first argument */
 
-    call [%ebp+8]           # call function (fastcall: cleanup by callee)
+    call [%ebp+8]           /* call function (fastcall: cleanup by callee) */
 
-    pop  %edi               # restore edi, esi
+    pop  %edi               /* restore edi, esi */
     pop  %esi
 
-    mov  %esp, %ebp         # epilog
+    mov  %esp, %ebp         /* epilog */
     pop  %ebp
 
     ret

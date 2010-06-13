@@ -21,7 +21,7 @@
 */
 
 #include "dyncall_macros.h"
-#if defined(DC__OS_Darwin) || defined(DC__OS_IPhone)
+#if defined(DC__OS_Darwin)
 # if defined(DC__Arch_Intel_x86)
 #  include "dyncall_call_x86_apple.s"
 # elif defined(DC__Arch_AMD64)
