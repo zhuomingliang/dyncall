@@ -7,7 +7,7 @@ export CXX=${PREFIX}-g++-${VERSION}
 SDK=${PLATFORM}/SDKs/iPhoneOS3.0.sdk
 export LDFLAGS=-L${SDK}/usr/lib
 GCCINCLUDE=${PLATFORM}/usr/lib/gcc/${PREFIX}/${VERSION}/include
-export CPPFLAGS="-I${GCCINCLUDE} -I${SDK}/usr/include -I${SDK}/usr/include/c++/${VERSION}"
+export CPPFLAGS="-I${GCCINCLUDE} -I${SDK}/usr/include -I${SDK}/usr/include/c++/${VERSION} -I${SDK}/usr/include/c++/${VERSION}/armv7-apple-darwin9"
 ./configure --target-iphone
 
 

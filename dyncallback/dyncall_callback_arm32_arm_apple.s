@@ -25,7 +25,7 @@
 .text
 .code 32	/* ARM mode */
 
-.globl dcCallbackThunkEntry
+.globl _dcCallbackThunkEntry
 
 /* sizes */
 .set DCThunk_size   ,   8
@@ -40,7 +40,7 @@
 
 
 /* Called by thunk - thunk stores pointer to DCCallback in r12 */
-dcCallbackThunkEntry:
+_dcCallbackThunkEntry:
 
 	/* Prolog. This function never needs to spill inside its prolog, so just store the permanent registers. */
 	stmdb	r13, {r4-r11, r13, r14}	/* Permanent registers and stack pointer, etc... -> save area on stack (except counter). */
