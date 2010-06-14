@@ -1,6 +1,10 @@
-/*/////////////////////////////////////////////////////////////////////////////
+/*
+ Package: dyncall
+ File: dyncall/dyncall_call_arm32_thumb_gas.s
+ Description: ARM Thumb call kernel implementation for GNU assembler.
+ License:
 
- Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
+ Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
 
  Permission to use, copy, modify, and distribute this software for any
@@ -15,16 +19,7 @@
  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-/////////////////////////////////////////////////////////////////////////////*/
-
-/*//////////////////////////////////////////////////////////////////////
-
-	dyncall_call_arm32_thumb_gas.s
-
-	ARM32 family of processors (THUMB mode).
-	2008-08-12
-
-//////////////////////////////////////////////////////////////////////*/
+*/
 
 .text
 .code 16	/* THUMB mode */

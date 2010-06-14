@@ -32,6 +32,8 @@
 #  include "dyncall_call_ppc64_apple.s"
 # elif defined(DC__Arch_ARM_ARM)
 #  include "dyncall_call_arm32_arm_apple.s"
+# elif defined(DC__Arch_ARM_THUMB)
+#  include "dyncall_call_arm32_thumb_apple.s"
 # else
 #  error Unsupported Architecture on Darwin.
 # endif
