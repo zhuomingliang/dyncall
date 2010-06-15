@@ -1,0 +1,51 @@
+# based on Xcode 3.2.2 and iPhone SDK 3.2
+#
+# on 10.6: HOST_KERNEL=darwin10 and GCC_VERSION=4.2.1
+# on 10.5: HOST_KERNEL=darwin9  and GCC_VERSION=4.0.1
+#
+# gcc version 4.0.1: gcc include version 4.0.0 then arch name is arm
+# gcc version 4.2.1: gcc include version 4.2.1 then arch name is either armv5,armv6 or armv7
+# 
+
+# export GCC_VERSION=4.2.1
+# export GCC_INCLUDE_VERSION=4.2.1
+# export HOST_KERNEL=darwin10
+# export ARCH_NAME=armv7
+
+export GCC_VERSION=4.0.1
+export GCC_INCLUDE_VERSION=4.0.0
+export HOST_KERNEL=darwin9
+export ARCH_NAME=arm
+
+# TARGET_VERSION: 3.0 - 3.1
+#  TARGET_KERNEL = darwin9
+
+# TARGET_VERSION: 3.0   
+#   ARCH_NAME:    armv6 or armv7
+# TARGET_VERSION: 3.1   
+#   ARCH_NAME:    armv5, armv6, armv7
+# TARGET_VERSION: 3.2
+#   
+
+# TARGET_VERSION: 3.2
+#  if GCC_VERSION == 4.0 -> TARGET_KERNEL = darwin9
+#  else -> TARGET_KERNEL = darwin10
+
+export TARGET_KERNEL=darwin9
+export SDK_VERSION=3.0
+PLATFORM=/Developer/Platforms/iPhoneOS.platform/Developer
+export PATH=${PLATFORM}/usr/bin:${PATH}
+
+export PREFIX=arm-apple-${HOST_KERNEL}
+export CC=${PREFIX}-gcc-${GCC_VERSION}
+export CXX=${PREFIX}-g++-${GCC_VERSION}
+SDK=${PLATFORM}/SDKs/iPhoneOS${SDK_VERSION}.sdk
+export LDFLAGS=-L${SDK}/usr/lib
+GCCINCLUDE=${PLATFORM}/usr/lib/gcc/${PREFIX}/${GCC_VERSION}/include
+export CPPFLAGS="-I${GCCINCLUDE} -I${SDK}/usr/include -I${SDK}/usr/include/c++/${GCC_INCLUDE_VERSION} -I${SDK}/usr/include/c++/${GCC_INCLUDE_VERSION}/${ARCH_NAME}-apple-${TARGET_KERNEL}"
+# TODO: explicit set CPU type and fix source: __thumb__ is always defined when arch=armv7 (set by cortex-a8)
+# export TARGET_ARCH="-mcpu=cortex-a8"
+./configure --target-iphone
+# TODO: --target-arm-thumb
+
+

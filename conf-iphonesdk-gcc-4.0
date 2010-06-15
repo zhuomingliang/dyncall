@@ -1,0 +1,21 @@
+export KERNEL_NAME=darwin9
+export ARCH_NAME=arm
+export GCC_VERSION=4.0.1
+export GCC_INCLUDE_VERSION=4.0.0
+export SDK_VERSION=3.0
+PLATFORM=/Developer/Platforms/iPhoneOS.platform/Developer
+export PATH=${PLATFORM}/usr/bin:${PATH}
+
+export PREFIX=arm-apple-${KERNEL_NAME}
+export CC=${PREFIX}-gcc-${GCC_VERSION}
+export CXX=${PREFIX}-g++-${GCC_VERSION}
+SDK=${PLATFORM}/SDKs/iPhoneOS${SDK_VERSION}.sdk
+export LDFLAGS=-L${SDK}/usr/lib
+GCCINCLUDE=${PLATFORM}/usr/lib/gcc/${PREFIX}/${GCC_VERSION}/include
+export CPPFLAGS="-I${GCCINCLUDE} -I${SDK}/usr/include -I${SDK}/usr/include/c++/${GCC_INCLUDE_VERSION} -I${SDK}/usr/include/c++/${GCC_INCLUDE_VERSION}/${ARCH_NAME}-apple-${KERNEL_NAME}"
+# TODO: explicit set CPU type and fix source: __thumb__ is always defined when arch=armv7 (set by cortex-a8)
+# export TARGET_ARCH="-mcpu=cortex-a8"
+./configure --target-iphone
+# TODO: --target-arm-thumb
+
+
