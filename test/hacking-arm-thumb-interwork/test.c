@@ -1,5 +1,5 @@
 #include <stddef.h>
-
+#include <stdio.h>
 void arm();
 void thumb();
 
