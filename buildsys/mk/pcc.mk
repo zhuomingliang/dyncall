@@ -44,9 +44,16 @@ CFLAGS   = $CFLAGS -D__Plan9__ -D__${objtype}__ -I$TOP/dyncall -I$TOP/dyncallbac
 		s/([A-Z]+)[	 ]*E(..)[,	 ]*E(..)/\1L \3, \2/
 		s/([A-Z]+)[	 ]*E(..)[,	 ]*([0-9]+)/\1L \3, \2/
 		s/([A-Z]+)[	 ]*E(..)[,	 ]*\[E(..)\+([0-9]+)\]/\1L \4(\3), \2/
-		s/([A-Z]+)[	 ]*E(..)$/\1L \2/
+		s/([A-Z]+)[	 ]*E(..)[,	 ]*\[E(..)\]/\1L 0(\3), \2/
+		s/(CALL)[	 ]*E(..)[	 ]*$/\1 \2/
+		s/(CALL)[	 ]*\[E(..)\+([0-9]+)\]/\1 \3(\2)/
+		s/([A-Z]+)[	 ]*E(..)[	 ]*$/\1L \2/
 		s/([A-Z]+)[	 ]*\[E(..)\+([0-9]+)\]/\1L \3(\2)/
+		s/([A-Z]+)[	 ]*\[E(..)\]/\1L 0(\2)/
+		s/(REP)[	 ]*(MOV)SB[	 ]*$/\1; \2B SI, DI/
+		s/(REP)[	 ]*(MOV)SD[	 ]*$/\1; \2L SI, DI/
 	}' > $stem.s # replace with cpp? pcc requires .c suffix
 	rm $prereq.c
 	$AS $AFLAGS $stem.s
+	rm $stem.s
 

@@ -22,8 +22,7 @@ TOP		= ..
 <$TOP/buildsys/mk/prolog.mk
 
 
-LIBRARY		= dyncall
-UNITS = $UNITS dyncall_vector dyncall_api dyncall_callf dyncall_call dyncall_callvm dyncall_callvm_base
+DIRS = suite suite2 suite3 suite_floats ellipsis callf plain thunk malloc_wx callback_plain callback_suite
 
 
 <$TOP/buildsys/mk/epilog.mk

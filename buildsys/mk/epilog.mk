@@ -18,8 +18,10 @@
 #//////////////////////////////////////////////////////////////////////////////
 
 
-# If we have a library to build, include lib.mk and default lib buildi rules.
-<|if(! ~ x$LIBRARY x) { cat $TOP/buildsys/mk/lib.mk /sys/src/cmd/mklib }; echo
+# If we have a library to build, include lib.mk, if it is an application,
+# include app.mk, etc..
+<|if(! ~ x$LIBRARY x)     { cat $TOP/buildsys/mk/lib.mk /sys/src/cmd/mklib }; echo
+<|if(! ~ x$APPLICATION x) { cat $TOP/buildsys/mk/app.mk /sys/src/cmd/mkone }; echo
 
 # Overrides.
 <$TOP/buildsys/mk/pcc.mk

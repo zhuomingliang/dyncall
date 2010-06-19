@@ -18,12 +18,6 @@
 #//////////////////////////////////////////////////////////////////////////////
 
 
-TOP		= ..
-<$TOP/buildsys/mk/prolog.mk
-
-
-LIBRARY		= dyncall
-UNITS = $UNITS dyncall_vector dyncall_api dyncall_callf dyncall_call dyncall_callvm dyncall_callvm_base
-
-
-<$TOP/buildsys/mk/epilog.mk
+# Set Plan9's mk variables.
+TARG = ${APPLICATION}
+OFILES = `{echo $UNITS | sed 's/ |$/.$O /g'}
