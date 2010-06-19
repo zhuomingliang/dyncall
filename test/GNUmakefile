@@ -25,7 +25,7 @@
 
 
 TOP	=  ..
-DIRS	+= suite ellipsis suite2 callf plain suite3 callback_suite
+DIRS	+= suite ellipsis suite2 callf plain suite3 suite_floats callback_suite
 
 include $(TOP)/MakeProlog
 
