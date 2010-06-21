@@ -1,2 +1,2 @@
-include Makefile.linux
+include Makefile.darwin
 
