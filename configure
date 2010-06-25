@@ -77,6 +77,9 @@ usage()
   echo "  --tool-msvc        use Microsoft Visual C++"
   echo "  --tool-pspsdk      use PSP SDK tool-chain"
   echo 
+  echo "  --with-iphonesdk=<version>"
+  echo "                     with iPhone SDK version (2.0-4.0)"
+  echo 
   echo "  --asm-as           use GNU Assembler"
   echo "  --asm-nasm         use NASM Assembler"
   echo "  --asm-ml           use Microsoft Macro Assembler"
@@ -214,6 +217,9 @@ args()
       --prefix-bd=*)
         CONFIG_BUILDPREFIX=`echo $OPT | cut -c 13-` 
         ;;
+      --with-iphonesdk=*)
+        CONFIG_IPHONESDK_VERSION=`echo $OPT | cut -c 18-`
+        ;;
       --target-universal)
         CONFIG_ARCH=universal
         ;;
@@ -253,9 +259,13 @@ args()
       --target-windows)
         CONFIG_OS=windows
         ;;
-      --target-iphone)
-        CONFIG_OS=iphone
+      --target-iphoneos)
+        CONFIG_OS=iphoneos
         CONFIG_ARCH=arm32_arm
+        CONFIG_TOOL=gcc
+        ;;
+      --target-macosx)
+        CONFIG_OS=macosx
         CONFIG_TOOL=gcc
         ;;
       --tool-gcc)
@@ -370,6 +380,9 @@ output()
   echo "CONFIG_PREFIX=$CONFIG_PREFIX" >>$1
   if [ $CONFIG_BUILDPREFIX ]; then
     echo "CONFIG_BUILDPREFIX=$CONFIG_BUILDPREFIX" >>$1
+  fi
+  if [ $CONFIG_IPHONESDK_VERSION ]; then
+    echo "CONFIG_IPHONESDK_VERSION=$CONFIG_IPHONESDK_VERSION" >>$1
   fi
   echo "" >>$1
 }
