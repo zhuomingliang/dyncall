@@ -47,6 +47,10 @@ ifdef BUILD_TOOL_gcc
 UNITS += dyncall_call dyncall_callvm dyncall_callvm_base dyncall_callf
 endif
 
+ifdef BUILD_TOOL_llvm_gcc
+UNITS += dyncall_call dyncall_callvm dyncall_callvm_base dyncall_callf
+endif
+
 ifdef BUILD_TOOL_msvc
 UNITS += dyncall_callf
 ifdef BUILD_ARCH_x86

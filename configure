@@ -76,6 +76,7 @@ usage()
   echo "  --tool-pcc         use Portable C Compiler"
   echo "  --tool-msvc        use Microsoft Visual C++"
   echo "  --tool-pspsdk      use PSP SDK tool-chain"
+  echo "  --tool-llvm-gcc    use LLVM-GCC C/C++ compilers"
   echo 
   echo "  --with-iphonesdk=<version>"
   echo "                     with iPhone SDK version (2.0-4.0)"
@@ -192,7 +193,7 @@ guess_tool()
 CONFIG_ASM=""
 guess_asm()
 {
-  if [ "$CONFIG_TOOL" = "gcc" ]; then
+  if [ "$CONFIG_TOOL" = "gcc" ] || [ "$CONFIG_TOOL" = "llvm_gcc" ]; then
     CONFIG_ASM="as"
   elif [ "$CONFIG_TOOL" = "msvc" ]; then
     CONFIG_ASM="ml"
@@ -263,6 +264,7 @@ args()
         CONFIG_OS=iphoneos
         CONFIG_ARCH=arm32_arm
         CONFIG_TOOL=gcc
+        #llvm-gcc
         ;;
       --target-macosx)
         CONFIG_OS=macosx
@@ -287,6 +289,9 @@ args()
         CONFIG_TOOL=pspsdk
         CONFIG_ASM=as
         CONFIG_PREFIX=`psp-config -P`
+        ;;
+      --tool-llvm-gcc)
+        CONFIG_TOOL=llvm_gcc
         ;;
       --asm-as)
         CONFIG_ASM=as
