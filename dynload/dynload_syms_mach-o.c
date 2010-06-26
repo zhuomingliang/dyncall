@@ -24,6 +24,8 @@
 
 #include "dynload.h"
 #include "dynload_macros.h"
+#include "dyncall_macros.h"
+#include "dyncall_alloc.h"
 
 #include <mach-o/dyld.h>
 #include <mach-o/nlist.h>
@@ -65,7 +67,7 @@ DLSyms* dlSymsInit(DLLib* pLib)
 		const char* name = _dyld_get_image_name(iImage);
 		if (name && !strcmp(name, pLib->libPath))
 		{
-			const struct MACH_HEADER_TYPE* pHeader = _dyld_get_image_header(iImage);
+			const struct mach_header* pHeader = _dyld_get_image_header(iImage);
 			const char* pBase = (const char*)pHeader;
 			if (pHeader)
 			{
@@ -79,7 +81,7 @@ DLSyms* dlSymsInit(DLLib* pLib)
 						int iSymTab = 0;
 						const struct symtab_command* scmd = (const struct symtab_command*)cmd;
 					
-						pSyms = (DLSyms*)dcAllocMem(sizeof(DLSyms));
+						pSyms = (DLSyms*)( dcAllocMem(sizeof(DLSyms)) );
 						pSyms->symbolCount = scmd->nsyms;
 						pSyms->pStringTable = pBase + scmd->stroff;
 						pSyms->pSymbolTable = (struct NLIST_TYPE*)(pBase + scmd->symoff);

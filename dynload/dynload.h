@@ -1,6 +1,10 @@
 /*
+ Package: dynload
+ File: include/dynload.h
+ Description: main header file for dynload
+ License:
 
- Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
+ Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
 
  Permission to use, copy, modify, and distribute this software for any
@@ -17,24 +21,8 @@
 
 */
 
-/*
-
-  dynload library API
-
-  Abstraction to module loading.
-  Work is in progress to allow for enumeration of symbols.
-
-  REVISION
-  2007/12/11 initial
-
-*/
-
-
 #ifndef DYNLOAD_H
 #define DYNLOAD_H
-
-#include "dyncall_alloc.h"
-#include "dyncall_macros.h"
 
 #include <stddef.h>
 #include <stdlib.h>
