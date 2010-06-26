@@ -1,0 +1,41 @@
+DynCall for apple's iPhoneOS platforms (iPod touch, iPhone, iPad)
+
+
+Configuration
+
+  useful switches:
+
+  --target-iphoneos
+  
+  --with-iphoensdk=<version> (tested with 2.0 up to 4.0)
+
+  --tool-gcc (default)
+  --tool-llvm-gcc
+
+  --target-arm32-arm
+  --target-arm32-thumb
+  --target-universal
+
+  Example:
+
+  ./configure --target-iphoneos --with-iphonesdk=3.2
+
+Building
+
+  make (GNU make support currently only)
+
+
+Supported Tool-chains
+
+  gcc and llvm-gcc
+
+
+Supported SDKs
+
+  SDKs starting with 2.0 up to 4.0 have been tested.
+
+
+Bugs
+
+  No armv7 support.
+

@@ -1,6 +1,5 @@
-#//////////////////////////////////////////////////////////////////////////////
 #
-# Copyright (c) 2007,2009 Daniel Adler <dadler@uni-goettingen.de>, 
+# Copyright (c) 2007,2010 Daniel Adler <dadler@uni-goettingen.de>, 
 #                         Tassilo Philipp <tphilipp@potion-studios.com>
 #
 # Permission to use, copy, modify, and distribute this software for any
@@ -15,7 +14,6 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #
-#//////////////////////////////////////////////////////////////////////////////
 
 ifdef BUILD_ARCH_universal
 TARGET_ARCH?=-arch i386 -arch ppc -arch x86_64
@@ -31,6 +29,21 @@ endif
 
 ifdef BUILD_ARCH_x64
 TARGET_ARCH?=-arch x86_64
+endif
+
+ifdef CONFIG_MACOSXSDK_VERSION
+MACOSXSDK_VERSION ?= ${CONFIG_MACOSXSDK_VERSION}
+endif
+
+ifdef MACOSXSDK_VERSION
+
+ifeq ("${MACOSXSDK_VERSION}","10.4u")
+CC		 = gcc-4.0
+CXX		 = g++-4.0
+endif
+
+TARGET_ARCH+= -isysroot /Developer/SDKs/MacOSX${MACOSXSDK_VERSION}.sdk
+
 endif
 
 include $(GMAKE_TOP)/os/darwin.gmake

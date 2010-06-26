@@ -1,4 +1,3 @@
-#//////////////////////////////////////////////////////////////////////////////
 #
 # Copyright (c) 2007,2010 Daniel Adler <dadler@uni-goettingen.de>, 
 #                         Tassilo Philipp <tphilipp@potion-studios.com>
@@ -15,7 +14,6 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #
-#//////////////////////////////////////////////////////////////////////////////
 
 # IPHONE SDK 3 supports 2.0, 3.0, 3.1 and 3.2
 # IPHONE SDK 4 supports 3.2 and 4.0
@@ -33,8 +31,9 @@ IPHONESDK_ARCHS  += -arch armv6
 endif
 
 ifeq ("$(IPHONESDK_VERSION_MAJOR)","3")
+# IPHONESDK_ARCHS	 += -arch armv6
+IPHONESDK_ARCHS		 += -arch armv6 -mthumb
 # IPHONESDK_ARCHS	 += -arch armv7
-IPHONESDK_ARCHS	 += -arch armv6
 # IPHONESDK_ARCHS  += -arch armv7 -mno-thumb
 endif
 

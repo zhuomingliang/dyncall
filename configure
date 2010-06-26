@@ -70,6 +70,8 @@ usage()
   echo "  --target-nds-thumb build for Nintendo DS platform (devkitPro, THUMB mode)"
   echo "  --target-cygwin    build for Cygwin platform"
   echo "  --target-windows   build for Windows platform (useful for Cygwin)"
+  echo "  --target-macosx    build for Mac OS X platform"
+  echo "  --target-iphoneos  build for iPhone OS platform"
   echo "  --target-universal build universal binaries (for Mac OS X/Darwin)"
   echo
   echo "  --tool-gcc         use GNU Compiler Collection"
@@ -80,6 +82,8 @@ usage()
   echo 
   echo "  --with-iphonesdk=<version>"
   echo "                     with iPhone SDK version (2.0-4.0)"
+  echo "  --with-macosxsdk=<version>"
+  echo "                     with Mac OS X SDK version (10.4u, 10.5, 10.6)"
   echo 
   echo "  --asm-as           use GNU Assembler"
   echo "  --asm-nasm         use NASM Assembler"
@@ -221,6 +225,9 @@ args()
       --with-iphonesdk=*)
         CONFIG_IPHONESDK_VERSION=`echo $OPT | cut -c 18-`
         ;;
+      --with-macosxsdk=*)
+        CONFIG_MACOSXSDK_VERSION=`echo $OPT | cut -c 18-`
+        ;;
       --target-universal)
         CONFIG_ARCH=universal
         ;;
@@ -264,7 +271,6 @@ args()
         CONFIG_OS=iphoneos
         CONFIG_ARCH=arm32_arm
         CONFIG_TOOL=gcc
-        #llvm-gcc
         ;;
       --target-macosx)
         CONFIG_OS=macosx
@@ -388,6 +394,9 @@ output()
   fi
   if [ $CONFIG_IPHONESDK_VERSION ]; then
     echo "CONFIG_IPHONESDK_VERSION=$CONFIG_IPHONESDK_VERSION" >>$1
+  fi
+  if [ $CONFIG_MACOSXSDK_VERSION ]; then
+    echo "CONFIG_MACOSXSDK_VERSION=$CONFIG_MACOSXSDK_VERSION" >>$1
   fi
   echo "" >>$1
 }
