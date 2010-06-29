@@ -1,6 +1,5 @@
-%//////////////////////////////////////////////////////////////////////////////
 %
-% Copyright (c) 2007,2009 Daniel Adler <dadler@uni-goettingen.de>, 
+% Copyright (c) 2007,2010 Daniel Adler <dadler@uni-goettingen.de>, 
 %                         Tassilo Philipp <tphilipp@potion-studios.com>
 %
 % Permission to use, copy, modify, and distribute this software for any
@@ -15,7 +14,6 @@
 % ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 % OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 %
-%//////////////////////////////////////////////////////////////////////////////
 
 % ==================================================
 % ARM32
@@ -45,8 +43,6 @@ For more details, take a look at the ARM-THUMB Procedure Call Standard (ATPCS) \
 Currently, the \product{dyncall} library supports the ARM and THUMB mode of the ARM32 family (ATPCS \cite{ATPCS} and EABI \cite{armeabi}), excluding manually triggered ARM-THUMB interworking calls. Although it's quite possible that the current implementation runs on other ARM processor families as well, please note that only the ARMv4t family has been thoroughly tested at the time of writing. Please report if the code runs on other ARM families, too.\\
 It is important to note, that dyncall supports the ARM architecture calling convention variant {\bf with floating point hardware disabled} (meaning that the FPA and the VFP (scalar mode) procedure call standards are not supported).
 This processor family features some instruction sets accelerating DSP and multimedia application like the ARM Jazelle Technology (direct Java bytecode execution, providing acceleration for some bytecodes while calling software code for others), etc. that are not supported by the dyncall library.\\
-
-
 
 
 \subsubsection{ATPCS ARM mode}
@@ -245,4 +241,74 @@ for parameters passed via the stack. Refer to the Debian ARM EABI port wiki for 
 \item Ellipse calls do not work.
 \item C++ this calls do not work.
 \end{itemize}
+
+\newpage
+
+\subsubsection{ARM on Apple's Darwin iPhoneOS Platform}
+
+
+The iPhoneOS runs on ARMv6 (iPhone OS 2.0) and ARMv7 (iPhone OS 3.0) architectures.
+Typically code is compiled in Thumb mode.
+
+\paragraph{Register usage}
+
+\begin{table}[h]
+\begin{tabular}{3 B}
+\hline
+Name         & Brief description\\
+\hline
+{\bf R0}     & parameter 0, scratch, return value\\
+{\bf R1}     & parameter 1, scratch, return value\\
+{\bf R2-R3}  & parameters 2 and 3, scratch\\
+{\bf R4-R6}  & permanent\\
+{\bf R7}     & frame pointer, permanent\\
+{\bf R8}     & permanent\\
+{\bf R9}     & permanent(iPhone OS 2.0) and scratch (since iPhone OS 3.0)\\
+{\bf R10-R11}& permanent\\
+{\bf R12}    & scratch, intra-procedure scratch register (IP) used by dynamic linker\\
+{\bf R13}    & stack pointer, permanent\\
+{\bf R14}    & link register, permanent\\
+{\bf R15}    & program counter (note: due to pipeline, r15 points to 2 instructions ahead)\\
+{\bf CPSR}   & Program status register\\
+{\bf D0-D7}  & scratch. aliases S0-S15, on ARMv7 alsa as Q0-Q3. Not accessible from Thumb mode on ARMv6.\\
+{\bf D8-D15} & permanent, aliases S16-S31, on ARMv7 alsa as Q4-A7. Not accesible from Thumb mode on ARMv6.\\
+{\bf D16-D31}& Only available in ARMv7, aliases Q8-Q15.\\
+{\bf FPSCR}  & VFP status register.\\
+\hline
+\end{tabular}
+\caption{Register usage on ARM Apple Darwin iPhone OS}
+\end{table}
+
+The ABI is based on the AAPCS but with some important differences listed below:
+
+\begin{itemize}
+\item R7 instead of R11 is used as frame pointer
+\item R9 is scratch since iPhone OS 3.0, was preserved before.
+\end{itemize}
+
+\subsubsection{Architectures}
+
+The ARM Processor Family has various architecture standards which specify
+the instruction set and extensions available. The following table summaries
+important properties of the various architecture standards.
+
+\begin{table}[h]
+\begin{tabular}{lll}
+Arch   & Platforms & Details \\
+\hline
+ARMv4  & & \\
+\hline
+ARMv4T & Neo FreeRunner (OpenMoko) & \\
+\hline
+ARMv5  & & BLX instruction available \\
+\hline
+ARMv6  & & No vector registers available in thumb \\
+\hline
+ARMv7  & iPod touch, iPhone 3GS/4 & \\ 
+\hline
+\end{tabular}
+\caption{Overview of ARM Architecture, Platforms and Details}
+\end{table}
+
+\newpage
 
