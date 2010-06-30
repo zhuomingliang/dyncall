@@ -22,7 +22,9 @@
 
 \paragraph{Overview}
 
-The ARM32 family of processors is based on the ARM processor architecture (32 bit RISC). The word size is 32 bits (and the programming model is LLP64).\\
+The ARM32 family of processors is based on 
+the Advanced RISC Machines (ARM) processor architecture (32 bit RISC). 
+The word size is 32 bits (and the programming model is LLP64).\\
 Basically, this family of microprocessors can be run in 2 major modes:\\
 \\
 \begin{tabular}{2 B}
@@ -288,9 +290,15 @@ The ABI is based on the AAPCS but with some important differences listed below:
 
 \subsubsection{Architectures}
 
-The ARM Processor Family has various architecture standards which specify
-the instruction set and extensions available. The following table summaries
-important properties of the various architecture standards.
+The ARM architecture family contains several revisions with capabilities and
+extensions (such as thumb-interworking and more vector registers) 
+The following table summaries important properties of the various 
+architecture standards.
+
+% iPhone 3GS : ARM Cortex-A8
+% Nintendo DS: ARM 7 and ARM 9
+% ARM 7: ARMv4T
+% ARM 9: ARMv4T, HTC Wizard
 
 \begin{table}[h]
 \begin{tabular}{lll}
@@ -298,7 +306,7 @@ Arch   & Platforms & Details \\
 \hline
 ARMv4  & & \\
 \hline
-ARMv4T & Neo FreeRunner (OpenMoko) & \\
+ARMv4T & ARM 7, ARM 9, Neo FreeRunner (OpenMoko) & \\
 \hline
 ARMv5  & & BLX instruction available \\
 \hline
