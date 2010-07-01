@@ -24,6 +24,7 @@ urgent issues:
 - check why the iyonix, etc. platforms have been taken out of 'configure'
 - rename configure to configure.sh (so we would have .sh, .rc and .bat in the future)
 - not sure, but configure(.sh) --tool-xxx might overwrite --asm-xxx, in some cases
+- ARM-THUMB interwork tests would be great
 
 nice to have:
 -------------
