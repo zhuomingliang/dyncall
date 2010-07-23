@@ -1,6 +1,7 @@
 /*
 
  Copyright (c) 2007-2010 Olivier Chafik <olivier.chafik@gmail.com>
+ Minor bug-fix modifications by Daniel Adler. 
 
  Permission to use, copy, modify, and distribute this software for any
  purpose with or without fee is hereby granted, provided that the above
@@ -26,7 +27,7 @@
 
 
 #include "dynload.h"
-
+#include "dyncall_alloc.h"
 #include <dlfcn.h>
 #include <string.h>
 
@@ -46,14 +47,20 @@ DLLib* dlLoadLibrary(const char* libPath)
 	handle = dlopen(libPath, RTLD_LAZY);
 	if (!handle)
 		return NULL;
-	
-	len = strlen(libPath);
-	lib = (DLLib*)dcAllocMem(sizeof(DLLib));
-	lib->libPath = (char*)dcAllocMem(len + 1);
-	strcpy(lib->libPath, libPath);
-	lib->libPath[len] = '\0';
-	lib->handle = handle;
-	return lib;
+
+      
+        lib = (DLLib*)dcAllocMem(sizeof(DLLib));
+        lib->handle = handle;
+        /* libPath might be null (self reference on image) [Daniel] */
+        if (libPath != NULL) {
+                len = strlen(libPath);
+                lib->libPath = (char*)dcAllocMem(len + 1);
+                strcpy(lib->libPath, libPath);
+                lib->libPath[len] = '\0';
+        } else {
+                lib->libPath = NULL;
+        }
+        return lib;
 }
 
 
@@ -69,7 +76,8 @@ void  dlFreeLibrary(DLLib* libHandle)
 		return;
 	
 	dlclose(libHandle->handle);
-	dcFreeMem(libHandle->libPath);
+        if (libHandle->libPath)
+	        dcFreeMem(libHandle->libPath);
 	dcFreeMem(libHandle);
 }
 
