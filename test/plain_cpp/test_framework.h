@@ -1,6 +1,6 @@
 /*
 
- Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>, 
+ Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
 
  Permission to use, copy, modify, and distribute this software for any
@@ -17,6 +17,7 @@
 
 */
 
+// 2007-10-11
 
 #ifndef TRUE
 #define TRUE (1)
