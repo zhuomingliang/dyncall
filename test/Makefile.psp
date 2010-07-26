@@ -17,7 +17,7 @@
 #
 #//////////////////////////////////////////////////////////////////////////////
 
-DIRS = suite ellipsis suite2 callf plain
+DIRS = suite ellipsis suite2 callf plain plain_c++
 
 .PHONY: all clean tests install $(DIRS) 
 

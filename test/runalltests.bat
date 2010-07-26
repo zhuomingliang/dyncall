@@ -7,6 +7,8 @@ malloc_wx\malloc_wx.exe
 pause
 plain\plain.exe
 pause
+plain_c++\plain_c++.exe
+pause
 suite\suite.exe
 pause
 suite_x86win32std\suite.exe

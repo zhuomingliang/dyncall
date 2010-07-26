@@ -32,7 +32,7 @@ TOP = ..\..
 
 !IF "$(BUILD_OS)" == "windows"
 
-TARGETS = plain_cpp.exe
+TARGETS = plain_c++.exe
 OBJS = test_main.obj
 
 $(TARGETS): $(OBJS)
@@ -42,7 +42,7 @@ $(TARGETS): $(OBJS)
 
 !ELSE IF "$(BUILD_OS)" == "nds"
 
-TARGETS = plain_cpp.nds
+TARGETS = plain_c++.nds
 OBJS = test_main.o
 
 $(TARGETS): $(OBJS)

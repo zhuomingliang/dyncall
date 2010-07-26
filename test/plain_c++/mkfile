@@ -23,7 +23,7 @@ TOP		= ../..
 
 
 UNITS       =       test_main
-APPLICATION =       plain
+APPLICATION =       plain_c++
 
 
 <$TOP/buildsys/mk/epilog.mk

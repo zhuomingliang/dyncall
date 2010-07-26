@@ -1,6 +1,6 @@
 # Package: dyncall
-# File: dyncall/test/plain_cpp/GNUmakefile
-# Description: GNUmakefile for plain_cpp test suite
+# File: dyncall/test/plain_c++/GNUmakefile
+# Description: GNUmakefile for plain_c++ test suite
 # License:
 #
 # Copyright (c) 2007,2010 Daniel Adler <dadler@uni-goettingen.de>, 
@@ -23,7 +23,7 @@ TOP		= ../..
 
 include $(TOP)/buildsys/gmake/prolog.gmake
 
-TARGET_APP	= plain_cpp
+TARGET_APP	= plain_c++
 UNITS		= test_main
 CPPFLAGS	+= -I$(TOP)/dyncall
 LINK_DIRS	= $(TOP)/dyncall/$(BUILD_DIR)
