@@ -29,7 +29,14 @@ CPPFLAGS	 += -I$(TOP)/dyncall
 
 # component: thunks
 
-INSTALL_HEADERS	+= dyncall_thunk.h dyncall_thunk_x86.h dyncall_thunk_ppc32.h dyncall_thunk_x64.h
+INSTALL_HEADERS	+= \
+	dyncall_thunk.h \
+	dyncall_thunk_x86.h \
+	dyncall_thunk_ppc32.h \
+	dyncall_thunk_x64.h \
+	dyncall_thunk_arm32_arm.h \
+	dyncall_thunk_arm32_thumb.h
+
 UNITS += dyncall_thunk 
 
 # component: write-and-executable memory allocation
