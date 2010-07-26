@@ -59,6 +59,7 @@ missing implementations (descending priority):
 - hppa
 - vax
 - propeller
+- amd29k
 
 available hardware for outstanding ports:
 -----------------------------------------
