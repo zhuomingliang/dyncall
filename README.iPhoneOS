@@ -1,9 +1,24 @@
 DynCall for apple's iPhoneOS platforms (iPod touch, iPhone, iPad)
 
 
-Configuration
+Environment Setup for Cross-Compilation using iPhone SDK:
 
-  useful switches:
+  $ source buildsys/scripts/iphonesdk-env.sh
+  
+
+Package Configuration
+
+  $ ./configure --target-iphoneos --with-iphonesdk=3.2
+
+
+Building
+
+  $ make 
+  
+
+Details:
+
+Useful configure switches:
 
   --target-iphoneos
   
@@ -15,14 +30,6 @@ Configuration
   --target-arm32-arm
   --target-arm32-thumb
   --target-universal
-
-  Example:
-
-  ./configure --target-iphoneos --with-iphonesdk=3.2
-
-Building
-
-  make (GNU make support currently only)
 
 
 Supported Tool-chains
