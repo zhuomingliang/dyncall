@@ -31,14 +31,16 @@ IPHONESDK_ARCHS  += -arch armv6
 endif
 
 ifeq ("$(IPHONESDK_VERSION_MAJOR)","3")
-# IPHONESDK_ARCHS	 += -arch armv6
-IPHONESDK_ARCHS		 += -arch armv6 -mthumb
-# IPHONESDK_ARCHS	 += -arch armv7
+IPHONESDK_ARCHS	   += -arch armv6
+# @@@ TODO:
+# IPHONESDK_ARCHS  += -arch armv6 -mthumb
+# IPHONESDK_ARCHS  += -arch armv7
 # IPHONESDK_ARCHS  += -arch armv7 -mno-thumb
 endif
 
 ifeq ("$(IPHONESDK_VERSION_MAJOR)","4")
 IPHONESDK_ARCHS  += -arch armv6 
+# @@@ TODO:
 # IPHONESDK_ARCHS	 += -arch armv7 -mno-thumb
 endif
 
