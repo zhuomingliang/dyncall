@@ -1,0 +1,12 @@
+find_path(DYNLOAD_INCLUDE_DIR NAMES dynload.h)
+find_library(DYNLOAD_LIBRARY dynload_s)
+include(FindPackageHandleStandardArgs)
+find_package_handle_standard_args(DYNLOAD DEFAULT_MSG DYNLOAD_LIBRARY DYNLOAD_INCLUDE_DIR)
+if(DYNLOAD_FOUND)
+  set(DYNLOAD_LIBRARIES ${DYNLOAD_LIBRARY})
+  set(DYNLOAD_INCLUDE_DIRS ${DYNLOAD_INCLUDE_DIR})
+endif(DYNLOAD_FOUND)
+mark_as_advanced(DYNLOAD_INCLUDE_DIR DYNLOAD_LIBRARY)
+
+
+

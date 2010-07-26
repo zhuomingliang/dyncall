@@ -1,0 +1,12 @@
+find_path(DYNCALL_INCLUDE_DIR NAMES dyncall.h)
+find_library(DYNCALL_LIBRARY dyncall_s)
+include(FindPackageHandleStandardArgs)
+find_package_handle_standard_args(DYNCALL DEFAULT_MSG DYNCALL_LIBRARY DYNCALL_INCLUDE_DIR)
+if(DYNCALL_FOUND)
+  set(DYNCALL_LIBRARIES ${DYNCALL_LIBRARY})
+  set(DYNCALL_INCLUDE_DIRS ${DYNCALL_INCLUDE_DIR})
+endif(DYNCALL_FOUND)
+mark_as_advanced(DYNCALL_INCLUDE_DIR DYNCALL_LIBRARY)
+
+
+

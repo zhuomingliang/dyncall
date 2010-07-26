@@ -1,0 +1,9 @@
+add_subdirectory(suite)
+add_subdirectory(ellipsis)
+add_subdirectory(suite2)
+add_subdirectory(callf)
+add_subdirectory(plain)
+add_subdirectory(suite3)
+add_subdirectory(suite_floats)
+add_subdirectory(callback_suite)
+

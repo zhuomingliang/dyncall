@@ -38,6 +38,7 @@ another toolchain.
 \item BSD make, GNU make, or Microsoft nmake as automated build tools
 \item Python (optional - for generation of some test cases)
 \item Lua (optional - for generation of some test cases)
+\item CMake (optional support)
 \end{itemize}
 
 
@@ -57,7 +58,7 @@ one, please let us know.\\
 {\bf{\large x86}}             &                                                      \\
 \hline\hline
 {\bf Windows}                 & nmake, GNU make (via Cygwin, MSYS, unixutils)        \\
-{\bf Darwin}                  & GNU make, BSD make                                   \\
+{\bf Darwin}                  & GNU make, BSD make, CMake                              \\
 {\bf Linux}                   & GNU make                                             \\
 {\bf Solaris}                 & GNU make (Sun's make tool isn't supported)           \\
 {\bf FreeBSD}                 & BSD make                                             \\
@@ -195,4 +196,15 @@ Problem: On windows using mingw and msys/unixutils 'Make', the make uses
 'cc' for C compilation, which does not exist in mingw.
 
 Solution: Set and export the 'CC' environment variable explicitly to 'gcc'. 
+
+\subsection{Build with CMake}
+
+\begin{lstlisting}
+cmake -DCMAKE_INSTALL_PREFIX=<location>
+make -f Makefile
+\end{lstlisting}
+
+The \verb@-f Makefile@ is required. Otherwise buildsys/gmake GNUmakefile's 
+would be used per default.
+
 
