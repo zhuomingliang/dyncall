@@ -1,7 +1,7 @@
 /*
  Package: dyncall
  File: dyncall/dyncall_call.S
- Description: assembly call kernel, auto-selected by gcc 
+ Description: assembly call kernel, auto-selected by gcc / Plan9 build system
  License:
  Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
@@ -21,39 +21,53 @@
 */
 
 #include "dyncall_macros.h"
+
+
+/* Darwin */
 #if defined(DC__OS_Darwin)
-# if defined(DC__Arch_Intel_x86)
-#  include "dyncall_call_x86_apple.s"
-# elif defined(DC__Arch_AMD64)
-#  include "dyncall_call_x64_apple.s"
-# elif defined(DC__Arch_PowerPC)
-#  include "dyncall_call_ppc32_apple.s"
-# elif defined(DC__Arch_PPC64)
-#  include "dyncall_call_ppc64_apple.s"
-# elif defined(DC__Arch_ARM_ARM)
-#  include "dyncall_call_arm32_arm_apple.s"
-# elif defined(DC__Arch_ARM_THUMB)
-#  include "dyncall_call_arm32_thumb_apple.s"
-# else
-#  error Unsupported Architecture on Darwin.
-# endif
+#  if defined(DC__Arch_Intel_x86)
+#    include "dyncall_call_x86_apple.s"
+#  elif defined(DC__Arch_AMD64)
+#    include "dyncall_call_x64_apple.s"
+#  elif defined(DC__Arch_PowerPC)
+#    include "dyncall_call_ppc32_apple.s"
+#  elif defined(DC__Arch_PPC64)
+#    include "dyncall_call_ppc64_apple.s"
+#  elif defined(DC__Arch_ARM_ARM)
+#    include "dyncall_call_arm32_arm_apple.s"
+#  elif defined(DC__Arch_ARM_THUMB)
+#    include "dyncall_call_arm32_thumb_apple.s"
+#  else
+#    error Unsupported Architecture on Darwin.
+#  endif
+
+/* Plan9 */
+#elif defined(DC__OS_Plan9)
+#  if defined(DC__Arch_Intel_x86)
+#    include "dyncall_call_x86_8a.s"
+#  else
+#    error Unsupported Architecture on Plan9.
+#  endif
+
+/* Other (GNU as) */
 #else
-# if defined(DC__Arch_Intel_x86)
-#  include "dyncall_call_x86_gas.S"
-# elif defined(DC__Arch_AMD64)
-#  include "dyncall_call_x64_gas.s"
-# elif defined(DC__Arch_PowerPC)
-#  include "dyncall_call_ppc32_gas.s"
-# elif defined(DC__Arch_PPC64)
-#  include "dyncall_call_ppc64_gas.s"
-# elif defined(DC__Arch_ARM_ARM)
-#  include "dyncall_call_arm32_arm_gas.s"
-# elif defined(DC__Arch_ARM_THUMB)
-#  include "dyncall_call_arm32_thumb_gas.s"
-# elif defined(DC__Arch_MIPS) || defined(DC__Arch_MIPS64)
-#  include "dyncall_call_mips_gas.S"
-# else
-#  error Unsupported Architecture.
-# endif
+#  if defined(DC__Arch_Intel_x86)
+#    include "dyncall_call_x86_gas.S"
+#  elif defined(DC__Arch_AMD64)
+#    include "dyncall_call_x64_gas.s"
+#  elif defined(DC__Arch_PowerPC)
+#    include "dyncall_call_ppc32_gas.s"
+#  elif defined(DC__Arch_PPC64)
+#    include "dyncall_call_ppc64_gas.s"
+#  elif defined(DC__Arch_ARM_ARM)
+#    include "dyncall_call_arm32_arm_gas.s"
+#  elif defined(DC__Arch_ARM_THUMB)
+#    include "dyncall_call_arm32_thumb_gas.s"
+#  elif defined(DC__Arch_MIPS) || defined(DC__Arch_MIPS64)
+#    include "dyncall_call_mips_gas.S"
+#  else
+#    error Unsupported Architecture.
+#  endif
+
 #endif
 
