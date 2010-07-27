@@ -12,12 +12,13 @@ dynload:
 
 urgent issues:
 --------------
-- get rid of # in .S files, Plan9 cpp (and possibly other cpps) get confused
+- get rid of # in .S/.s files, Plan9 cpp (and possibly other cpps) get confused
 - sed stuff in pcc.mk produces asm that assembles, however, it doesn't work on Plan9
   * move the sed script to 'maintainer' or so, and introduce real Plan9 assembly files (e.g. .8)
   * lookup Plan9 calling convention, or find what is different to SysV's calling convention
   * make it work
 - introduce way to specify external libraries in .mkfiles (e.g. to link libdyncall_s.8 in tests)
+- IDEA: add defines to dyncall_macros which 'contain' the platform arch (e.g. #define DC__Arch Intel_x86), this makes it probably easier in some cases to do platform specific stuff, instead of #if'ing and #elif'ing all the time - maibe even introduce #define DC__Arch_short x86, etc. to pick files in e.g. dyncall_call.S
 - update: microsoft visual c++ build files - integrate all test suites in solution file
 - test arm32/ATPCS/THUMB (and then change Status in doc Appendix)
 - look over code and fix TODO or @@@ marks
