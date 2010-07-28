@@ -24,6 +24,6 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/buildsys/cmake/Modules)
 add_subdirectory(dynload)
 add_subdirectory(dyncall)
 add_subdirectory(dyncallback)
-add_subdirectory(doc EXCLUDE_FROM_ALL)
+# add_subdirectory(doc EXCLUDE_FROM_ALL)
 add_subdirectory(test EXCLUDE_FROM_ALL)
 
