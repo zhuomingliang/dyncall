@@ -18,6 +18,7 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #
 
+include_directories(${PROJECT_SOURCE_DIR}/dyncall)
 add_library(dynload_s STATIC dynload.c dynload_syms.c)
 install(TARGETS dynload_s ARCHIVE DESTINATION lib)
 install(FILES dynload.h dynload_macros.h DESTINATION include)
