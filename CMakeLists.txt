@@ -21,6 +21,11 @@
 cmake_minimum_required (VERSION 2.6)
 project(dyncall)
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/buildsys/cmake/Modules)
+# fix for AMD64: force -fPIC (even for static libs).
+# only linux?
+if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "x86_64")
+add_definitions("-fPIC")
+endif()
 add_subdirectory(dynload)
 add_subdirectory(dyncall)
 add_subdirectory(dyncallback)
