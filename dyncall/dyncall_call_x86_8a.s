@@ -21,33 +21,33 @@
 
 */
 
-TEXT dcCall_x86_cdecl(SB), 8
+TEXT dcCall_x86_cdecl(SB), $0
 
-	PUSHL EBP           /* PROLOG */
- 	MOVL  ESP, EBP
+	PUSHL BP           /* PROLOG */
+ 	MOVL  SP, BP
 
 	/* ARGUMENTS:
-	   FUNPTR   8(EBP)
-	   ARGS    12(EBP)
-	   SIZE    16(EBP)
-	   RESULT  20(EBP)
+	   FUNPTR   8(BP)
+	   ARGS    12(BP)
+	   SIZE    16(BP)
+	   RESULT  20(BP)
 	 */
 
-	MOVL  12(EBP), ESI  /* ESI = POINTER ON ARGS */
-	MOVL  16(EBP), ECX  /* ECX = SIZE */
+	MOVL  12(BP), SI  /* SI = POINTER ON ARGS */
+	MOVL  16(BP), CX  /* CX = SIZE */
 
-	SUBL  ECX, ESP      /* CDECL CALL: ALLOCATE 'SIZE' BYTES ON STACK */
-	MOVL  ESP, EDI      /* EDI = STACK ARGS */
+	SUBL  CX, SP      /* CDECL CALL: ALLOCATE 'SIZE' BYTES ON STACK */
+	MOVL  SP, DI      /* DI = STACK ARGS */
 
-	SHRL  $2, ECX       /* ECX = NUMBER OF DWORDs to copy */
+	SHRL  $2, CX       /* CX = NUMBER OF DWORDs to copy */
 	REP; MOVL SI, DI    /* COPY DWORDs */
 
-	CALL  8(EBP)        /* CALL FUNCTION */
+	CALL  8(BP)        /* CALL FUNCTION */
 
-	ADDL  16(EBP), ESP  /* CDECL CALL: CLEANUP STACK */
+	ADDL  16(BP), SP  /* CDECL CALL: CLEANUP STACK */
 
-	MOVL  EBP, ESP      /* EPILOG */
-	POPL  EBP
+	MOVL  BP, SP      /* EPILOG */
+	POPL  BP
 
 	RET
 
