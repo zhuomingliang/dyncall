@@ -20,7 +20,8 @@
 
 cmake_minimum_required (VERSION 2.6)
 project(DynCall)
-set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/buildsys/cmake/Modules" "${CMAKE_MODULE_PATH}")
+# currently we have no use for this, but maybe later..
+#set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/buildsys/cmake/Modules" "${CMAKE_MODULE_PATH}")
 
 # enable compilation via gcc
 

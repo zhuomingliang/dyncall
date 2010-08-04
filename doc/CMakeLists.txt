@@ -7,7 +7,6 @@ if(PDFLATEX_COMPILER)
     DEPENDS manual.tex
   )
   file(GLOB CLEAN_FILES *.aux *.log *.lof *.lol *.lot *.out *.toc)
-  message(STATUS "CLEAN FILES ARE ${CLEAN_FILES}")
   set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES "${CLEAN_FILES}")
 endif()
 add_custom_target(manual ALL echo DEPENDS manual.pdf)
