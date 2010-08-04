@@ -128,9 +128,9 @@ def call_as_sqrt(funptr,x):
 \paragraph{R example}
 
 \begin{lstlisting}[language=R,caption=Dyncall R bindings example]
-library(rdc)
+library(rdyncall)
 call.as.sqrt <- function(funptr,x)
-  rdc.call(funptr,"d)d", x)
+  .dyncall(funptr,"d)d", x)
 \end{lstlisting}
 
 
