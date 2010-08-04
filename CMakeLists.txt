@@ -20,11 +20,12 @@
 
 cmake_minimum_required (VERSION 2.6)
 project(DynCall)
+
+# add cmake modules shipped with the package to cmake's module path.
 # currently we have no use for this, but maybe later..
 #set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/buildsys/cmake/Modules" "${CMAKE_MODULE_PATH}")
 
-# enable compilation via gcc
-
+# enable gcc as front-end to assembler for .S files
 if(CMAKE_COMPILER_IS_GNUCC)
   enable_language(ASM)
   set(CMAKE_ASM_COMPILER "${CMAKE_C_COMPILER}")
