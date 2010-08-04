@@ -18,12 +18,6 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #
 
-if(CMAKE_COMPILER_IS_GNUCC)
-  enable_language(ASM)
-  set(CMAKE_ASM_COMPILER "${CMAKE_C_COMPILER}")
-  set(CMAKE_ASM_COMPILER_ARG1 "-c")
-endif(CMAKE_COMPILER_IS_GNUCC)
-
 add_library(dyncall_s STATIC 
   dyncall_vector.c 
   dyncall_api.c 
@@ -32,7 +26,9 @@ add_library(dyncall_s STATIC
   dyncall_callvm_base.c
   dyncall_callf.c
 )
+
 install(TARGETS dyncall_s ARCHIVE DESTINATION lib )
+
 install(FILES 
   dyncall_macros.h 
   dyncall_config.h 

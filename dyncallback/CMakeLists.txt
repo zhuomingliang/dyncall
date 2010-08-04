@@ -19,11 +19,6 @@
 #
 
 include_directories(${PROJECT_SOURCE_DIR}/dyncall)
-if(CMAKE_COMPILER_IS_GNUCC)
-  enable_language(ASM)
-  set(CMAKE_ASM_COMPILER "${CMAKE_C_COMPILER}")
-  set(CMAKE_ASM_COMPILER_ARG1 "-c")
-endif(CMAKE_COMPILER_IS_GNUCC)
 
 add_library(dyncallback_s STATIC
   dyncall_thunk.c

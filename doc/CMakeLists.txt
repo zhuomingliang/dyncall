@@ -1,16 +1,14 @@
 find_package(LATEX)
 if(PDFLATEX_COMPILER)
-  ADD_CUSTOM_COMMAND(
+  add_custom_command(
     OUTPUT  manual.pdf
     COMMAND ${PDFLATEX_COMPILER}
     ARGS manual.tex
     DEPENDS manual.tex
   )
+  file(GLOB CLEAN_FILES *.aux *.log *.lof *.lol *.lot *.out *.toc)
+  message(STATUS "CLEAN FILES ARE ${CLEAN_FILES}")
+  set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES "${CLEAN_FILES}")
 endif()
-
-ADD_CUSTOM_TARGET(manual-pdf ALL echo DEPENDS manual.pdf)
-
-# INCLUDE("${PROJECT_SOURCE_DIR}/buildsys/cmake/Modules/UseLATEX.cmake")
-# set(LATEX_OUTPUT_PATH tmp)
-# add_latex_document(manual.tex DEFAULT_PDF)
+add_custom_target(manual ALL echo DEPENDS manual.pdf)
 

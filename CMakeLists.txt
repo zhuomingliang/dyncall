@@ -19,17 +19,26 @@
 #
 
 cmake_minimum_required (VERSION 2.6)
-project(dyncall)
-set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/buildsys/cmake/Modules)
-# fix for AMD64: force -fPIC (even for static libs).
-# only linux?
-if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "x86_64")
-add_definitions("-fPIC")
+project(DynCall)
+set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/buildsys/cmake/Modules" "${CMAKE_MODULE_PATH}")
+
+# enable compilation via gcc
+
+if(CMAKE_COMPILER_IS_GNUCC)
+  enable_language(ASM)
+  set(CMAKE_ASM_COMPILER "${CMAKE_C_COMPILER}")
+  set(CMAKE_ASM_COMPILER_ARG1 "-c")
 endif()
+
+# fix for AMD64: force -fPIC (even for static libs).
+if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "x86_64")
+  add_definitions("-fPIC")
+endif()
+
 add_subdirectory(dynload)
 add_subdirectory(dyncall)
 add_subdirectory(dyncallback)
-# add_subdirectory(doc EXCLUDE_FROM_ALL)
+add_subdirectory(doc EXCLUDE_FROM_ALL)
 add_subdirectory(test EXCLUDE_FROM_ALL)
 
 # install cmake Find scripts (disabled per default)
