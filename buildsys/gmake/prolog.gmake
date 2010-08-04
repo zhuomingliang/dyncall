@@ -28,7 +28,8 @@ default: build
 
 # config settings
 
--include $(TOP)/ConfigVars
+$(if $(wildcard "${TOP}/ConfigVars"),$(error hmm),$(error File 'ConfigVars' not found at top directory. Run 'configure' - or, if you use CMake, run 'make -f Makefile' please.))
+include $(TOP)/ConfigVars
 
 
 # project settings 
