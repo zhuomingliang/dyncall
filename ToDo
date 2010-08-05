@@ -14,11 +14,9 @@ urgent issues:
 --------------
 - sed stuff in pcc.mk produces asm that assembles, however, it doesn't work on Plan9
   * move the sed script to 'maintainer' or so, and introduce real Plan9 assembly files (e.g. .8)
-  * lookup Plan9 calling convention, or find what is different to SysV's calling convention
   * make it work
 - introduce way to specify external libraries in .mkfiles (e.g. to link libdyncall_s.8 in tests)
 - IDEA: add defines to dyncall_macros which 'contain' the platform arch (e.g. #define DC__Arch Intel_x86), this makes it probably easier in some cases to do platform specific stuff, instead of #if'ing and #elif'ing all the time - maibe even introduce #define DC__Arch_short x86, etc. to pick files in e.g. dyncall_call.S
-- update: microsoft visual c++ build files - integrate all test suites in solution file
 - test arm32/ATPCS/THUMB (and then change Status in doc Appendix)
 - look over code and fix TODO or @@@ marks
 - add MIPS callbacks
@@ -29,10 +27,10 @@ urgent issues:
 - check why the iyonix, etc. platforms have been taken out of 'configure'
 - rename configure to configure.sh (so we would have .sh, .rc and .bat in the future)
 - not sure, but configure(.sh) --tool-xxx might overwrite --asm-xxx, in some cases
-- ARM-THUMB interwork tests would be great
 
 nice to have:
 -------------
+- update: microsoft visual c++ build files - integrate all test suites in solution file
 - rename iPhoneOS to iOS
 - maybe rename DC__Arch_PowerPC to ...PPC32 for coherency reasons (...PPC64)?
 - consistency: on x64 platforms: make both ABIs available ('win64','sysv') for all x64 OS ports
@@ -58,8 +56,11 @@ missing implementations (descending priority):
 - z80
 - hppa
 - vax
+- atmel avr
 - propeller
 - amd29k
+- arc
+- seaforth
 
 available hardware for outstanding ports:
 -----------------------------------------
