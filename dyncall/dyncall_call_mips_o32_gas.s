@@ -31,7 +31,7 @@
 	.ent	dcCall_mips_o32
 	.type	dcCall_mips_o32, @function
 dcCall_mips_o32:
-	.frame	$fp,40,$31		# vars= 8, regs= 2/0, args= 16, gp= 8
+	.frame	$fp,40,$31		/* vars=8, regs=2/0, args=16, gp=8 */
 	.mask	0xc0000000,-4
 	.fmask	0x00000000,0
 	.set	noreorder

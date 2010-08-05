@@ -31,7 +31,7 @@ dcCall_mips_n64:
 
 	/* Stack-frame prolog */
 
-	.frame	$fp,64,$31		# vars= 16, regs= 3/0, args= 0, extra= 16
+	.frame	$fp,64,$31		/* vars=16, regs=3/0, args=0, extra=16 */
 	.mask	0xd0000000,-8
 	.fmask	0x00000000,0
 	dsubu	$sp,$sp,64

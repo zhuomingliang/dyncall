@@ -12,7 +12,6 @@ dynload:
 
 urgent issues:
 --------------
-- get rid of # in .S/.s files, Plan9 cpp (and possibly other cpps) get confused
 - sed stuff in pcc.mk produces asm that assembles, however, it doesn't work on Plan9
   * move the sed script to 'maintainer' or so, and introduce real Plan9 assembly files (e.g. .8)
   * lookup Plan9 calling convention, or find what is different to SysV's calling convention
