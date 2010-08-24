@@ -19,5 +19,6 @@
 
 
 # Set Plan9's mk variables.
-TARG = ${APPLICATION}
+TARG   = ${APPLICATION}
 OFILES = `{echo $UNITS | sed 's/ |$/.$O /g'}
+LIB    = $LIBS

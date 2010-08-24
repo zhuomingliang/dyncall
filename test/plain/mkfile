@@ -22,8 +22,8 @@ TOP		= ../..
 <$TOP/buildsys/mk/prolog.mk
 
 
-UNITS       =       test_main
-APPLICATION =       plain
-
+UNITS       =   test_main
+APPLICATION =   plain
+LIBS        =   $TOP/dyncall/libdyncall_s.a$O
 
 <$TOP/buildsys/mk/epilog.mk

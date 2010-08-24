@@ -167,6 +167,10 @@ DCCallVM* dcNewCallVM_x86_cdecl(DCsize size)
   return dc_callvm_new_x86( &gVT_x86_cdecl, size );
 }
 
+
+/* We don't support native windows calls on Plan9. */
+#if !defined(DC__OS_Plan9)
+
 /* --- stdcall -------------------------------------------------------------- */
 
 /* call win32/std */
@@ -460,6 +464,9 @@ DCCallVM* dcNewCallVM_x86_win32_this_ms(DCsize size)
   return dc_callvm_new_x86( &gVT_x86_win32_this_ms, size );
 }
 
+#endif
+
+
 /* mode */
 
 void dc_callvm_mode_x86(DCCallVM* in_self, DCint mode)
@@ -470,11 +477,13 @@ void dc_callvm_mode_x86(DCCallVM* in_self, DCint mode)
     case DC_CALL_C_ELLIPSIS:
     case DC_CALL_C_DEFAULT:            vt = &gVT_x86_cdecl;          break;
     case DC_CALL_C_X86_CDECL:          vt = &gVT_x86_cdecl;          break;
+#if !defined(DC__OS_Plan9)	/* No Plan9 support for native Windows calls. */
     case DC_CALL_C_X86_WIN32_STD:      vt = &gVT_x86_win32_std;      break;
     case DC_CALL_C_X86_WIN32_FAST_MS:  vt = &gVT_x86_win32_fast_ms;  break;
     case DC_CALL_C_X86_WIN32_THIS_MS:  vt = &gVT_x86_win32_this_ms;  break;
     case DC_CALL_C_X86_WIN32_FAST_GNU: vt = &gVT_x86_win32_fast_gnu; break;
     case DC_CALL_C_X86_WIN32_THIS_GNU: vt = &gVT_x86_cdecl;          break;
+#endif
     default: self->mInterface.mError = DC_ERROR_UNSUPPORTED_MODE; return;
   }
   self->mInterface.mVTpointer = vt;

@@ -39,10 +39,10 @@ TEXT dcCall_x86_cdecl(SB), $0
 	SUBL  CX, SP      /* CDECL CALL: ALLOCATE 'SIZE' BYTES ON STACK */
 	MOVL  SP, DI      /* DI = STACK ARGS */
 
-	SHRL  $2, CX       /* CX = NUMBER OF DWORDs to copy */
-	REP; MOVL SI, DI    /* COPY DWORDs */
+	SHRL  $2, CX      /* CX = NUMBER OF DWORDs to copy */
+	REP; MOVL SI, DI  /* COPY DWORDs */
 
-	CALL  8(BP)        /* CALL FUNCTION */
+	CALL  8(BP)       /* CALL FUNCTION */
 
 	ADDL  16(BP), SP  /* CDECL CALL: CLEANUP STACK */
 
