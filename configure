@@ -140,9 +140,7 @@ guess_arch()
       CONFIG_ARCH="x86"
     fi
   elif [ "$OS" = "Darwin" ]; then
-
     # Mac OS X and iPhone OS config:
-
     PROCESSOR=`uname -p`
     if [ "$PROCESSOR" = "arm" ]; then
       # iPhone OS
@@ -155,13 +153,11 @@ guess_arch()
       OS_VERSION_MAJOR=`echo $OS_VERSION | sed 's/^\([0-9]*\).*/\1/'`
       if [ "$OS_VERSION_MAJOR" = "10" ]; then
         CONFIG_ARCH="x64"
-      elif [ "$ARCH" = "Power Macintosh" ] || [ "$ARCH" = "ppc" ] || [ "$ARCH" = "macppc" ] || [ "$ARCH" = "powerpc" ]; then
-        CONFIG_ARCH="ppc32"
-      elif [ "$ARCH" = "x86" ] || [ "$ARCH" = "i386" ] || [ "$ARCH" = "i486" ] || [ "$ARCH" = "i586" ] || [ "$ARCH" = "i686" ] || [ "$ARCH" = "i86pc" ]; then
+      else
         CONFIG_ARCH="x86"
-      elif [ "$ARCH" = "amd64" ] || [ "$ARCH" = "x86_64" ] || [ "$ARCH" = "x64" ]; then
-        CONFIG_ARCH="x64"
       fi
+    elif [ "$PROCESSOR" = "powerpc" ]; then
+      CONFIG_ARCH="ppc32"
     fi
   elif [ "$ARCH" = "Power Macintosh" ] || [ "$ARCH" = "ppc" ] || [ "$ARCH" = "macppc" ] || [ "$ARCH" = "powerpc" ]; then
       CONFIG_ARCH="ppc32"

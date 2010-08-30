@@ -159,6 +159,6 @@ $(BUILD_DIR)/%$(APP_SUFFIX):
 
 # --- Dependencies ------------------------------------------------------------
 
--include $(OBJS:.o=.d)
+# -include $(OBJS:.o=.d)
 
 
