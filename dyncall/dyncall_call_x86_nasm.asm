@@ -60,38 +60,38 @@ _%1:
 
 EXPORT_C dcCall_x86_cdecl
 
-    push ebp              ; prolog 
-    mov  ebp, esp         
+	push ebp              ; prolog 
+	mov  ebp, esp         
 
-    ; arguments:
-    ;
-    ; funptr  ebp+8
-    ; args    ebp+12
-    ; size    ebp+16
-    ; result  ebp+20
-  
-    push esi              ; save esi, edi
-    push edi
+	; arguments:
+	;
+	; funptr  ebp+8
+	; args    ebp+12
+	; size    ebp+16
+	; result  ebp+20
 
-    mov  esi, [ebp+12]    ; esi = pointer on args
-    mov  ecx, [ebp+16]    ; ecx = size
+	push esi              ; save esi, edi
+	push edi
 
-    sub  esp, ecx         ; cdecl call: allocate 'size' bytes on stack
-    mov  edi, esp         ; edi = stack args
-    
-    rep movsb             ; copy arguments
+	mov  esi, [ebp+12]    ; esi = pointer on args
+	mov  ecx, [ebp+16]    ; ecx = size
 
-    call [ebp+8]          ; call function
+	sub  esp, ecx         ; cdecl call: allocate 'size' bytes on stack
+	mov  edi, esp         ; edi = stack args
 
-    add  esp, [ebp+16]    ; cdecl call: cleanup stack
+	rep movsb             ; copy arguments
 
-    pop  edi              ; restore edi, esi
-    pop  esi
+	call [ebp+8]          ; call function
 
-    mov  esp, ebp         ; epilog
-    pop  ebp
+	add  esp, [ebp+16]    ; cdecl call: cleanup stack
 
-    ret
+	pop  edi              ; restore edi, esi
+	pop  esi
+
+	mov  esp, ebp         ; epilog
+	pop  ebp
+
+	ret
 
 ; -----------------------------------------------------------------------------
 ; Calling Convention x86 microsoft thiscall
@@ -103,42 +103,42 @@ EXPORT_C dcCall_x86_cdecl
 ; -----------------------------------------------------------------------------
 EXPORT_C dcCall_x86_win32_msthis
     
-    push ebp              ; prolog 
-    mov  ebp, esp         
+	push ebp              ; prolog 
+	mov  ebp, esp         
 
-    ; arguments:
-    ;
-    ; funptr  ebp+8
-    ; args    ebp+12
-    ; size    ebp+16
-  
-    push esi              ; save esi, edi
-    push edi
+	; arguments:
+	;
+	; funptr  ebp+8
+	; args    ebp+12
+	; size    ebp+16
 
-    mov  esi, [ebp+12]    ; esi = pointer on args
-    mov  ecx, [ebp+16]    ; ecx = size
+	push esi              ; save esi, edi
+	push edi
 
-    mov  eax, [esi]       ; eax = this pointer
-    add  esi, 4           ; increment args pointer by thisptr
-    sub  ecx, 4           ; decrement size by sizeof(thisptr)
+	mov  esi, [ebp+12]    ; esi = pointer on args
+	mov  ecx, [ebp+16]    ; ecx = size
 
-    sub  esp, ecx         ; allocate argument-block on stack
-    mov  edi, esp         ; edi = stack args
-    
-    rep movsb             ; copy arguments
+	mov  eax, [esi]       ; eax = this pointer
+	add  esi, 4           ; increment args pointer by thisptr
+	sub  ecx, 4           ; decrement size by sizeof(thisptr)
 
-    mov  ecx, eax         ; ecx = this pointer
+	sub  esp, ecx         ; allocate argument-block on stack
+	mov  edi, esp         ; edi = stack args
 
-    call [ebp+8]          ; call function (thiscall: cleanup by callee)
+	rep movsb             ; copy arguments
 
-    pop  edi              ; restore edi, esi
-    pop  esi
+	mov  ecx, eax         ; ecx = this pointer
 
-    mov  esp, ebp         ; epilog
-    pop  ebp
+	call [ebp+8]          ; call function (thiscall: cleanup by callee)
 
-    ret    
-    
+	pop  edi              ; restore edi, esi
+	pop  esi
+
+	mov  esp, ebp         ; epilog
+	pop  ebp
+
+	ret    
+
 ; -----------------------------------------------------------------------------
 ; Calling Convention x86 win32 stdcall
 ; - all arguments are passed by stack
@@ -149,35 +149,35 @@ EXPORT_C dcCall_x86_win32_msthis
 ; -----------------------------------------------------------------------------
 EXPORT_C dcCall_x86_win32_std
 
-    push ebp              ; prolog 
-    mov  ebp, esp         
+	push ebp              ; prolog 
+	mov  ebp, esp         
 
-    ; arguments:
-    ;
-    ; funptr  ebp+8
-    ; args    ebp+12
-    ; size    ebp+16
-  
-    push esi              ; save esi, edi
-    push edi
+	; arguments:
+	;
+	; funptr  ebp+8
+	; args    ebp+12
+	; size    ebp+16
 
-    mov  esi, [ebp+12]    ; esi = pointer on args
-    mov  ecx, [ebp+16]    ; ecx = size
+	push esi              ; save esi, edi
+	push edi
 
-    sub  esp, ecx         ; stdcall: allocate 'size'-8 bytes on stack
-    mov  edi, esp         ; edi = stack args
-    
-    rep movsb             ; copy arguments
+	mov  esi, [ebp+12]    ; esi = pointer on args
+	mov  ecx, [ebp+16]    ; ecx = size
 
-    call [ebp+8]          ; call function (stdcall: cleanup by callee)
+	sub  esp, ecx         ; stdcall: allocate 'size'-8 bytes on stack
+	mov  edi, esp         ; edi = stack args
 
-    pop  edi              ; restore edi, esi
-    pop  esi
+	rep movsb             ; copy arguments
 
-    mov  esp, ebp         ; epilog
-    pop  ebp
+	call [ebp+8]          ; call function (stdcall: cleanup by callee)
 
-    ret
+	pop  edi              ; restore edi, esi
+	pop  esi
+
+	mov  esp, ebp         ; epilog
+	pop  ebp
+
+	ret
 
 ; -----------------------------------------------------------------------------
 ; Calling Convention x86 win32 fastcall
@@ -190,41 +190,41 @@ EXPORT_C dcCall_x86_win32_std
 ; -----------------------------------------------------------------------------
 EXPORT_C dcCall_x86_win32_fast
 
-    push ebp              ; prolog 
-    mov  ebp, esp
+	push ebp              ; prolog 
+	mov  ebp, esp
 
-    ; arguments:
-    ;
-    ; funptr  ebp+8
-    ; args    ebp+12
-    ; size    ebp+16
-  
-    push esi              ; save esi, edi
-    push edi
+	; arguments:
+	;
+	; funptr  ebp+8
+	; args    ebp+12
+	; size    ebp+16
 
-    mov  esi, [ebp+12]    ; esi = pointer on args
-    mov  ecx, [ebp+16]    ; ecx = size
-    mov  eax, [esi]       ; eax = first argument
-    mov  edx, [esi+4]     ; edx = second argument
-    add  esi, 8           ; increment source pointer
-    sub  ecx, 8           ; decrement size by 8
+	push esi              ; save esi, edi
+	push edi
 
-    sub  esp, ecx         ; fastcall: allocate 'size'-8 bytes on stack
-    mov  edi, esp         ; edi = stack args
-    
-    rep movsb             ; copy arguments
+	mov  esi, [ebp+12]    ; esi = pointer on args
+	mov  ecx, [ebp+16]    ; ecx = size
+	mov  eax, [esi]       ; eax = first argument
+	mov  edx, [esi+4]     ; edx = second argument
+	add  esi, 8           ; increment source pointer
+	sub  ecx, 8           ; decrement size by 8
 
-    mov  ecx, eax         ; ecx = first argument
+	sub  esp, ecx         ; fastcall: allocate 'size'-8 bytes on stack
+	mov  edi, esp         ; edi = stack args
 
-    call [ebp+8]          ; call function (fastcall: cleanup by callee)
+	rep movsb             ; copy arguments
 
-    pop  edi              ; restore edi, esi
-    pop  esi
+	mov  ecx, eax         ; ecx = first argument
 
-    mov  esp, ebp         ; epilog
-    pop  ebp
+	call [ebp+8]          ; call function (fastcall: cleanup by callee)
 
-    ret    
+	pop  edi              ; restore edi, esi
+	pop  esi
+
+	mov  esp, ebp         ; epilog
+	pop  ebp
+
+	ret    
 
 ; Stack markings for ELF/GNU to specify no executable stack */
 
