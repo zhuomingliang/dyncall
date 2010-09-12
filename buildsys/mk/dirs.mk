@@ -17,15 +17,11 @@
 #
 #//////////////////////////////////////////////////////////////////////////////
 
+all: dirs
 
-# If we have subdirectories, handle them.
-<|if(! ~ x$DIRS x)        { cat $TOP/buildsys/mk/dirs.mk }; echo
+dirs:VQ: $DIRS
+	for (i in $DIRS) @{
+		 echo Handling sub-directory $i...
+		 cd $i && rfork && rm /env/DIRS && $MK -f mkfile $MKFLAGS
+	 }
 
-# If we have a library to build, include lib.mk, if it is an application,
-# include app.mk, etc..
-<|if(! ~ x$LIBRARY x)     { cat $TOP/buildsys/mk/lib.mk /sys/src/cmd/mklib }; echo
-<|if(! ~ x$APPLICATION x) { cat $TOP/buildsys/mk/app.mk /sys/src/cmd/mkone }; echo
-
-# Overrides.
-<$TOP/buildsys/mk/pcc.mk
-<$TOP/buildsys/mk/common.mk

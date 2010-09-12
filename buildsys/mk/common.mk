@@ -17,9 +17,3 @@
 #
 #//////////////////////////////////////////////////////////////////////////////
 
-dirs:VQ: $DIRS
-       for (i in $DIRS) @{
-               echo Handling sub-directory $i...
-               cd $i && $MK -f mkfile $MKFLAGS $MKARGS
-       }
-
