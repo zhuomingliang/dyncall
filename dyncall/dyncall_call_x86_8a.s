@@ -21,33 +21,56 @@
 
 */
 
+
 TEXT dcCall_x86_cdecl(SB), $0
 
-	PUSHL BP           /* PROLOG */
- 	MOVL  SP, BP
+    /* Since all registers except SP are scratch, and we have a variable
+       argument size depending on the function to call, we have to find
+       a way to store and restore SP.
+       The idea is to replace the return address with a custom one on the
+       stack, and to put some logic there, jumping back to the real
+       return address. This allows us, to put the SP somewhere next to
+       the fake return address on the stack, so that we can get it back
+       with a fixed offset. */
 
-	/* ARGUMENTS:
-	   FUNPTR   8(BP)
-	   ARGS    12(BP)
-	   SIZE    16(BP)
-	   RESULT  20(BP)
-	 */
+    /* On the stack at this point:
+       RETADDR  0(SP)
+       FUNPTR   4(SP)
+       ARGS     8(SP)
+       SIZE    12(SP)
+    */
 
-	MOVL  12(BP), SI  /* SI = POINTER ON ARGS */
-	MOVL  16(BP), CX  /* CX = SIZE */
+    MOVL  SP, BP
+    PUSHL SP          /* save stack pointer */
 
-	SUBL  CX, SP      /* CDECL CALL: ALLOCATE 'SIZE' BYTES ON STACK */
-	MOVL  SP, DI      /* DI = STACK ARGS */
+    MOVL   0(BP), AX  /* Copy real return address to AX */
+    MOVL   8(BP), SI  /* SI = pointer on args */
+    MOVL  12(BP), CX  /* CX = size of args */
 
-	SHRL  $2, CX      /* CX = NUMBER OF DWORDs to copy */
-	REP; MOVL SI, DI  /* COPY DWORDs */
+	SUBL  $16, SP     /* Make some room for our SP-refetch logic */
+	MOVL   SP, BX     /* Copy address to executable stack space to BX */
 
-	CALL  8(BP)       /* CALL FUNCTION */
+    /* This part fills our executable stack space with instructions. We
+       need to get the program counter, first, with a little hack. */
+    MOVL  $0x000003e8, 0(SP) /* Copy 'call (cur ip+8)' */
+    MOVL  $0x00000000, 4(SP) /* '00' for call address, rest is garbage */
+    MOVL  $0x5a909090, 8(SP) /* 'nop,nop,nop,pop edx' to get eip+5 in edx */
+    MOVL  $0xc30b628b,12(SP) /* Restore stack ptr and return: 'mov [edx+11] to esp, ret' */
 
-	ADDL  16(BP), SP  /* CDECL CALL: CLEANUP STACK */
+    SUBL  CX, SP      /* cdecl call - allocate 'size' bytes on stack */
+    MOVL  SP, DI      /* DI = stack args */
 
-	MOVL  BP, SP      /* EPILOG */
-	POPL  BP
+MOVL CX, 0(DI)/* dummy for now @@@ loop over the args is missing - copy 1 dword*/
+/*    SHRL  $2, CX      /* CX = NUMBER OF DWORDs to copy */
+/*    REP; MOVL 0(SI), 0(DI)  /* COPY DWORDs */
 
-	RET
 
+    /* Now we try to fake a call, meaning copy our fake return address, and
+       then modifying the program counter manually. This should call the
+       function, but jump back into our stack space we reserved above. */
+    PUSHL BX
+    MOVL  4(BP), BX
+    JMP   BX
+
+    /* Note that there is no return here, b/c the return is in the asm code
+       above, that has been generated on the fly. */
