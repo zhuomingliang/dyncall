@@ -31,7 +31,11 @@ TEXT dcCall_x86_cdecl(SB), $0
        stack, and to put some logic there, jumping back to the real
        return address. This allows us, to put the SP somewhere next to
        the fake return address on the stack, so that we can get it back
-       with a fixed offset. */
+       with a fixed offset (relative to the program counter, in our case).
+
+       The only real issue with this approach would be a non-executable
+       stack. However, Plan9 doesn't support w^x at the time of writing.
+    */
 
     /* On the stack at this point:
        RETADDR  0(SP)
@@ -40,7 +44,7 @@ TEXT dcCall_x86_cdecl(SB), $0
        SIZE    12(SP)
     */
 
-    MOVL  SP, BP
+    MOVL  SP, BP      /* base pointer for convenience */
     PUSHL SP          /* save stack pointer */
 
     MOVL   0(BP), AX  /* Copy real return address to AX */
@@ -48,26 +52,26 @@ TEXT dcCall_x86_cdecl(SB), $0
     MOVL  12(BP), CX  /* CX = size of args */
 
 	SUBL  $16, SP     /* Make some room for our SP-refetch logic */
-	MOVL   SP, BX     /* Copy address to executable stack space to BX */
+	MOVL   SP, BX     /* Copy address to new, executable stack space to BX */
 
     /* This part fills our executable stack space with instructions. We
        need to get the program counter, first, with a little hack. */
     MOVL  $0x000003e8, 0(SP) /* Copy 'call (cur ip+8)' */
     MOVL  $0x00000000, 4(SP) /* '00' for call address, rest is garbage */
-    MOVL  $0x5a909090, 8(SP) /* 'nop,nop,nop,pop edx' to get eip+5 in edx */
+    MOVL  $0x5a909090, 8(SP) /* 'nop, nop, nop, pop edx' to get eip+5 in edx */
     MOVL  $0xc30b628b,12(SP) /* Restore stack ptr and return: 'mov [edx+11] to esp, ret' */
 
-    SUBL  CX, SP      /* cdecl call - allocate 'size' bytes on stack */
+    SUBL  CX, SP      /* cdecl call - allocate 'size' bytes on stack for args */
     MOVL  SP, DI      /* DI = stack args */
 
-MOVL CX, 0(DI)/* dummy for now @@@ loop over the args is missing - copy 1 dword*/
+/* @@@ loop to copy args is still missing */
 /*    SHRL  $2, CX      /* CX = NUMBER OF DWORDs to copy */
 /*    REP; MOVL 0(SI), 0(DI)  /* COPY DWORDs */
 
 
-    /* Now we try to fake a call, meaning copy our fake return address, and
-       then modifying the program counter manually. This should call the
-       function, but jump back into our stack space we reserved above. */
+    /* Now we try to fake a call, meaning setting up our fake return address,
+       and then jumping to the FFI call. This should call the function, but
+       the return will jump into our stack space we reserved above. */
     PUSHL BX
     MOVL  4(BP), BX
     JMP   BX
