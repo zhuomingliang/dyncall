@@ -140,6 +140,12 @@ void dc_callvm_call_x86_plan9(DCCallVM* in_self, DCpointer target)
   dcCall_x86_plan9( target, dcVecData(&self->mVecHead), dcVecSize(&self->mVecHead) );
 }
 
+void dc_callvm_call_x86_plan9_ll(DCCallVM* in_self, DCpointer target)
+{
+  DCCallVM_x86* self = (DCCallVM_x86*) in_self;
+  dcCall_x86_plan9_ll( target, dcVecData(&self->mVecHead), dcVecSize(&self->mVecHead) );
+}
+
 DCCallVM_vt gVT_x86_plan9 =
 {
   &dc_callvm_free_x86
@@ -160,9 +166,9 @@ DCCallVM_vt gVT_x86_plan9 =
 , (DCshortvmfunc*)      &dc_callvm_call_x86_plan9
 , (DCintvmfunc*)        &dc_callvm_call_x86_plan9
 , (DClongvmfunc*)       &dc_callvm_call_x86_plan9
-, (DClonglongvmfunc*)   &dc_callvm_call_x86_plan9
+, (DClonglongvmfunc*)   &dc_callvm_call_x86_plan9_ll
 , (DCfloatvmfunc*)      &dc_callvm_call_x86_plan9
-, (DCdoublevmfunc*)     &dc_callvm_call_x86_plan9
+, (DCdoublevmfunc*)     &dc_callvm_call_x86_plan9_ll
 , (DCpointervmfunc*)    &dc_callvm_call_x86_plan9
 };
 
