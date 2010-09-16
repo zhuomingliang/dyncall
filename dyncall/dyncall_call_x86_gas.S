@@ -55,8 +55,8 @@
 .globl CSYM(dcCall_x86_cdecl)
 CSYM(dcCall_x86_cdecl):
 
-	push	%ebp        	/* prolog */
- 	mov 	%ebp, %esp
+	push %ebp               /* prolog */
+ 	mov  %ebp, %esp
 
 	/* arguments :
 
@@ -65,7 +65,7 @@ CSYM(dcCall_x86_cdecl):
 	   size    ebp+16
 	   result  ebp+20
 
-	 */
+	*/
 
 	push %esi               /* save esi, edi */
 	push %edi
@@ -76,7 +76,7 @@ CSYM(dcCall_x86_cdecl):
 	sub  %esp, %ecx         /* cdecl call: allocate 'size' bytes on stack */
 	mov  %edi, %esp         /* edi = stack args */
 
-	shr  %ecx, 2		/* ecx = number of DWORDs */
+	shr  %ecx, 2            /* ecx = number of DWORDs */
 	rep movsd               /* copy DWORDs */
 
 	call [%ebp+8]           /* call function */

@@ -22,7 +22,7 @@
 */
 
 
-TEXT dcCall_x86_cdecl(SB), $0
+TEXT dcCall_x86_plan9(SB), $0
 
     /* Since all registers except SP are scratch, and we have a variable
        argument size depending on the function to call, we have to find
@@ -47,7 +47,6 @@ TEXT dcCall_x86_cdecl(SB), $0
     MOVL  SP, BP      /* base pointer for convenience */
     PUSHL SP          /* save stack pointer */
 
-    MOVL   0(BP), AX  /* Copy real return address to AX */
     MOVL   8(BP), SI  /* SI = pointer on args */
     MOVL  12(BP), CX  /* CX = size of args */
 
@@ -61,13 +60,20 @@ TEXT dcCall_x86_cdecl(SB), $0
     MOVL  $0x5a909090, 8(SP) /* 'nop, nop, nop, pop edx' to get eip+5 in edx */
     MOVL  $0xc30b628b,12(SP) /* Restore stack ptr and return: 'mov [edx+11] to esp, ret' */
 
-    SUBL  CX, SP      /* cdecl call - allocate 'size' bytes on stack for args */
+    SUBL  CX, SP      /* allocate 'size' bytes on stack for args */
     MOVL  SP, DI      /* DI = stack args */
 
-/* @@@ loop to copy args is still missing */
-/*    SHRL  $2, CX      /* CX = NUMBER OF DWORDs to copy */
-/*    REP; MOVL 0(SI), 0(DI)  /* COPY DWORDs */
+    SHRL $2, SP       /* Align stack. */
+    SHLL $2, SP       /*   "     "    */
 
+    JMP  copy_loop_cmp
+copy_loop:
+    MOVL 0(SI), AX     /* Copy args. */
+    MOVL AX, 0(DI)
+    SUBL $4, CX
+copy_loop_cmp:
+    CMPL CX, $0
+    JGT  copy_loop
 
     /* Now we try to fake a call, meaning setting up our fake return address,
        and then jumping to the FFI call. This should call the function, but

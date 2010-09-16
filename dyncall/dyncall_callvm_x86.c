@@ -128,6 +128,53 @@ static void dc_callvm_argPointer_x86(DCCallVM* in_self, DCpointer x)
   dcVecAppend(&self->mVecHead, &x, sizeof(DCpointer) );
 }
 
+
+/* Plan9 specific calling convention. */
+#if defined(DC__OS_Plan9)
+
+/* call 'plan9' */
+
+void dc_callvm_call_x86_plan9(DCCallVM* in_self, DCpointer target)
+{
+  DCCallVM_x86* self = (DCCallVM_x86*) in_self;
+  dcCall_x86_plan9( target, dcVecData(&self->mVecHead), dcVecSize(&self->mVecHead) );
+}
+
+DCCallVM_vt gVT_x86_plan9 =
+{
+  &dc_callvm_free_x86
+, &dc_callvm_reset_x86
+, &dc_callvm_mode_x86
+, &dc_callvm_argBool_x86
+, &dc_callvm_argChar_x86
+, &dc_callvm_argShort_x86 
+, &dc_callvm_argInt_x86
+, &dc_callvm_argLong_x86
+, &dc_callvm_argLongLong_x86
+, &dc_callvm_argFloat_x86
+, &dc_callvm_argDouble_x86
+, &dc_callvm_argPointer_x86
+, (DCvoidvmfunc*)       &dc_callvm_call_x86_plan9
+, (DCboolvmfunc*)       &dc_callvm_call_x86_plan9
+, (DCcharvmfunc*)       &dc_callvm_call_x86_plan9
+, (DCshortvmfunc*)      &dc_callvm_call_x86_plan9
+, (DCintvmfunc*)        &dc_callvm_call_x86_plan9
+, (DClongvmfunc*)       &dc_callvm_call_x86_plan9
+, (DClonglongvmfunc*)   &dc_callvm_call_x86_plan9
+, (DCfloatvmfunc*)      &dc_callvm_call_x86_plan9
+, (DCdoublevmfunc*)     &dc_callvm_call_x86_plan9
+, (DCpointervmfunc*)    &dc_callvm_call_x86_plan9
+};
+
+DCCallVM* dcNewCallVM_x86_plan9(DCsize size) 
+{ 
+  return dc_callvm_new_x86( &gVT_x86_plan9, size );
+}
+
+
+#else
+
+
 /* call 'cdecl' */
 
 void dc_callvm_call_x86_cdecl(DCCallVM* in_self, DCpointer target)
@@ -168,8 +215,6 @@ DCCallVM* dcNewCallVM_x86_cdecl(DCsize size)
 }
 
 
-/* We don't support native windows calls on Plan9. */
-#if !defined(DC__OS_Plan9)
 
 /* --- stdcall -------------------------------------------------------------- */
 
@@ -475,9 +520,11 @@ void dc_callvm_mode_x86(DCCallVM* in_self, DCint mode)
   DCCallVM_vt*  vt;
   switch(mode) {
     case DC_CALL_C_ELLIPSIS:
-    case DC_CALL_C_DEFAULT:            vt = &gVT_x86_cdecl;          break;
+    case DC_CALL_C_DEFAULT:
+#if defined(DC__OS_Plan9) /* Plan9 has its own calling convention (and no support for foreign ones). */
+    case DC_CALL_C_X86_PLAN9:          vt = &gVT_x86_plan9;          break;
+#else
     case DC_CALL_C_X86_CDECL:          vt = &gVT_x86_cdecl;          break;
-#if !defined(DC__OS_Plan9)	/* No Plan9 support for native Windows calls. */
     case DC_CALL_C_X86_WIN32_STD:      vt = &gVT_x86_win32_std;      break;
     case DC_CALL_C_X86_WIN32_FAST_MS:  vt = &gVT_x86_win32_fast_ms;  break;
     case DC_CALL_C_X86_WIN32_THIS_MS:  vt = &gVT_x86_win32_this_ms;  break;
@@ -494,6 +541,10 @@ void dc_callvm_mode_x86(DCCallVM* in_self, DCint mode)
 
 DCCallVM* dcNewCallVM(DCsize size)
 {
-  return dcNewCallVM_x86_cdecl(size);
+#if defined(DC__OS_Plan9)
+  return dcNewCallVM_x86_plan9(size);
+#else
+  return dcNewCallVM_x86_cdecl(size);/* @@@ this doesn't look correct */
+#endif
 }
 
