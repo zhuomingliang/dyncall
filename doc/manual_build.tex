@@ -58,13 +58,14 @@ one, please let us know.\\
 {\bf{\large x86}}             &                                                      \\
 \hline\hline
 {\bf Windows}                 & nmake, GNU make (via Cygwin, MSYS, unixutils)        \\
-{\bf Darwin}                  & GNU make, BSD make, CMake                              \\
+{\bf Darwin}                  & GNU make, BSD make, CMake                            \\
 {\bf Linux}                   & GNU make                                             \\
 {\bf Solaris}                 & GNU make (Sun's make tool isn't supported)           \\
 {\bf FreeBSD}                 & BSD make                                             \\
 {\bf NetBSD}                  & BSD make                                             \\
 {\bf OpenBSD}                 & BSD make                                             \\
 {\bf DragonFlyBSD}            & BSD make                                             \\
+{\bf Plan9}                   & mk                                                   \\
 {\bf Haiku/BeOS}              & GNU make                                             \\
 \hline
                               &                                                      \\
@@ -100,7 +101,7 @@ one, please let us know.\\
 {\bf NetBSD}                  & BSD make                                             \\
 {\bf Linux}                   & GNU make                                             \\
 {\bf Nintendo DS}             & nmake (and devkitPro\cite{devkitPro} tools)          \\
-{\bf iPhone OS}               & GNU make and iPhone SDK on Mac OS X                  \\
+{\bf iOS/iPhone}              & GNU make (and iPhone SDK on Mac OS X)                \\
 \hline
                               &                                                      \\
                               &                                                      \\
@@ -131,7 +132,14 @@ one, please let us know.\\
 .\configure [/option ...]
 \end{lstlisting}
 
-Available options:
+\paragraph{plan9 flavour}
+
+\begin{lstlisting}
+./configure.rc [--option ...]
+\end{lstlisting}
+
+
+Available options (not on Plan9, though):
 
 \begin{tabular}{ll}	
 {\tt help}                 & display help \\
@@ -169,6 +177,7 @@ make                     # when using {GNU,BSD} Make
 bsdmake                  # when using BSD Make on Darwin
 make -f BSDmakefile      # when using BSD Make on NetBSD
 nmake /f Nmakefile       # when using NMake on Windows
+mk                       # when mk on Plan9
 \end{lstlisting}
 \item Install libraries and includes (supported for GNU make based builds, only)
 \begin{lstlisting}
@@ -180,14 +189,16 @@ make test                # when using {GNU,BSD} Make
 bsdmake test             # when using BSD Make on Darwin
 make -f BSDmakefile test # when using BSD Make on NetBSD
 nmake /f Nmakefile test  # when using NMake on Windows
-\end{lstlisting}
+mk test                  # when using mk on Plan9 (n/a atm)
+\end{lstlisting}% @@@ check Plan9, should work already
 \item Optionally, build the manual (LaTeX required)
 \begin{lstlisting}
 make doc                 # when using {GNU,BSD} Make
 bsdmake doc              # when using BSD Make on Darwin
 make -f BSDmakefile doc  # when using BSD Make on NetBSD
 nmake /f Nmakefile doc   # when using NMake on Windows
-\end{lstlisting}
+mk doc                   # when using mk on Plan9 (n/a atm)
+\end{lstlisting}% @@@ check Plan9 - add code
 \end{enumerate}
 
 \subsection{Build-tool specific notes}

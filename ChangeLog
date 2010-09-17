@@ -6,6 +6,11 @@ o dynload Mach-O support (thanks Olivier)
 o dynload Win64 support (thanks Olivier)
 o numerous convenience changes to dynload interface (thanks Olivier)
 o unexported functions in MASM files, b/c export not needed (thanks Olivier)
+o Plan9 x86 support (mk buildsys, dyncall support, doc, "plain" and "callf" test)
+o comprehensive documentation update
+o split "plain" test up in C and C++ part
+o new "resolve-self" dynload test
+o added CMake build support
 
 Version 0.5
 o renamed arm9 stuff to arm32

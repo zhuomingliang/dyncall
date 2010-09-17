@@ -44,8 +44,11 @@ test/         -- test suites
 \begin{description}
 
 \item [plain] 
-Identity function calls for all supported return types and calling conventions,
-plus this C++ calls (GNU and MS).
+Simple, identity, unary function calls for all supported return types and
+calling conventions.
+
+\item [plain\_c++] 
+Similar to plain, but for C++ thiscalls (GNU and MS calling convention).
 
 \item [suite] 
 All combinations of parameter types and counts are tested on void function
@@ -67,30 +70,25 @@ A script written in Python ({\tt mkcase.py}) generates the tests up to
 an upper MAXARG limit. This is a x86/Windows only test.
 
 \item [ellipsis]
-
 All combinations of parameter types and counts are tested on void ellipsis 
 function calls. A script written in Python ({\tt mkcase.py}) generates the 
 tests up to an upper MAXARG limit.
 
 \item [suite2]
-
 Designed mass test suite for void function calls.
 Tests individual void functions with a varying count of arguments and type.
 
 \item [suite2\_win32std]
-
 Designed mass test suite for {\tt \_\_stdcall} void function calls.
 Tests individual void functions with a varying count of arguments and type.
 This is a x86/Windows only test.
 
 \item [suite2\_win32fast]
-
 Designed mass test suite for {\tt \_\_fastcall} (MS or GNU, depending on the build tool) void function calls.
 Tests individual void functions with a varying count of arguments and type.
 This is a x86/Windows only test.
 
 \item [suite3]
-
 All combinations of parameter types integer, long long, float and double and
 counts are tested on void function calls.
 A script written in Python ({\tt mkcase.py}) generates the tests up to
@@ -98,23 +96,26 @@ an upper MAXARG limit.
 This is a modified version of suite.
 
 \item [callf]
-
 Tests the \emph{formatted call} \product{dyncall} C API.
 
 \item [malloc\_wx]
-
-Tests \emph{writable and executable memory allocation} used by the \product{dyncallback} C API.
+Tests \emph{writable and executable memory allocation} used by the
+\product{dyncallback} C API.
 
 \item [thunk]
-
 Tests \emph{callbacks} for the \product{dyncallback} C API.
 
 \item [callback\_plain]
 Simple callback function test (useful for easy debugging of new ports).
 
 \item [callback\_suite]
-Mass test suite for callback function testing. Uses random function argument number and type.
-A script written in Lua generates the tests up to a given number of calls and type combinations.
+Mass test suite for callback function testing. Uses random function argument
+number and type.
+A script written in Lua generates the tests up to a given number of calls and
+type combinations.
+
+\item [resolv\_self]
+Test for dynload library to resolve symbols from application image itself.
 
 \end{description}
 
