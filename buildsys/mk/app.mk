@@ -22,3 +22,9 @@
 TARG   = ${APPLICATION}
 OFILES = `{echo $UNITS | sed 's/ |$/.$O /g'}
 LIB    = $LIBS
+
+# Add some targets to create a local copy of the bin, named as desired.
+all:V: $TARG
+
+$TARG: $O.out
+	cp $O.out $TARG
