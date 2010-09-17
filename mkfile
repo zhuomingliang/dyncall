@@ -27,9 +27,9 @@ DIRS  = dyncall dyncallback dynload
 AUTOS = ConfigVars
 
 #.PHONY: test doc
-test:
+test:V:
 	cd $target; $MK
-doc:
+doc:V:
 	cd $target; $MK
 
 <$TOP/buildsys/mk/epilog.mk
