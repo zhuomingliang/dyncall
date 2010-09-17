@@ -22,11 +22,9 @@ TOP		= ../..
 <$TOP/buildsys/mk/prolog.mk
 
 
-UNITS       =       case main
-APPLICATION =       suite
-
-#LIBS        =       "$(TOP)/dyncall/libdyncall_s.a"
-
+UNITS       = case main
+APPLICATION = suite
+LIBS        = $TOP/dyncall/libdyncall_s.a$O
 
 #.PHONY: config 
 #config: mkcase.py
