@@ -55,56 +55,57 @@ DC_DEFINE_TEST_FUNC_BEGIN(testCallC)
   dcCallVoid(pc, (DCpointer) &fun_c_v);
   /* bool */
   {
-    DCbool r; 
+    DCbool r, val=DC_TRUE; 
     dcReset(pc);
-    dcArgBool(pc, DC_TRUE);
+    dcArgBool(pc, val);
     r = dcCallBool(pc, (DCpointer) &fun_c_b);
-    DC_TEST(r == DC_TRUE);
+    DC_TEST(r == val);
 
+	val=DC_FALSE;
     dcReset(pc);
-    dcArgBool(pc, DC_FALSE);
+    dcArgBool(pc, val);
     r = dcCallBool(pc, (DCpointer) &fun_c_b);
-    DC_TEST(r == DC_FALSE);
+    DC_TEST(r == val);
   }
   /* int */
   {
-    DCint r;
+    DCint r, val=1234;
     dcReset(pc);
-    dcArgInt(pc, 1234);
+    dcArgInt(pc, val);
     r = dcCallInt(pc, (DCpointer) &fun_c_i);
-    DC_TEST(r == 1234);
+    DC_TEST(r == val);
   }
   /* long */
   {
-    DClong r;
+    DClong r, val=0xCAFEBABEUL;
     dcReset(pc);
-    dcArgLong(pc, 0xCAFEBABEUL);
+    dcArgLong(pc, val);
     r = dcCallLong(pc, (DCpointer) &fun_c_j);
-    DC_TEST(r == (DClong)0xCAFEBABEUL);
+    DC_TEST(r == val);
   }
   /* long long */
   {
-    DClonglong r;
+    DClonglong r, val=0xCAFEBABEDEADC0DEULL;
     dcReset(pc);
-    dcArgLongLong(pc, 0xCAFEBABEDEADC0DEULL);
+    dcArgLongLong(pc, val);
     r = dcCallLongLong(pc, (DCpointer) &fun_c_l);
-    DC_TEST(r == (DClonglong)0xCAFEBABEDEADC0DEULL);
+    DC_TEST(r == (DClonglong)val);
   }
   /* float */
   {
-    DCfloat r;
+    DCfloat r, val=1.234567f;
     dcReset(pc);
-    dcArgFloat(pc, 1.234567f);
+    dcArgFloat(pc, val);
     r = dcCallFloat(pc, (DCpointer) &fun_c_f);
-    DC_TEST(r == 1.234567f);
+    DC_TEST(r == val);
   }
   /* double */
   {
-    DCdouble r;
+    DCdouble r, val=1.23456789;
     dcReset(pc);
-    dcArgDouble(pc, 1.23456789);
+    dcArgDouble(pc, val);
     r = dcCallDouble(pc, (DCpointer) &fun_c_d);
-    DC_TEST(r == 1.23456789);
+    DC_TEST(r == val);
   }
   /* ptr */
   {
@@ -133,56 +134,57 @@ DC_DEFINE_TEST_FUNC_BEGIN(testCallStd)
   dcCallVoid(pc, (DCpointer) &fun_std_v);
   /* bool */
   {
-    DCbool r; 
+    DCbool r, val=DC_TRUE;
     dcReset(pc);
-    dcArgBool(pc, DC_TRUE);
+    dcArgBool(pc, val);
     r = dcCallBool(pc, (DCpointer) &fun_std_b);
-    DC_TEST(r == DC_TRUE);
+    DC_TEST(r == val);
 
+	val=DC_FALSE;
     dcReset(pc);
-    dcArgBool(pc, DC_FALSE);
+    dcArgBool(pc, val);
     r = dcCallBool(pc, (DCpointer) &fun_std_b);
-    DC_TEST(r == DC_FALSE);
+    DC_TEST(r == val);
   }
   /* int */
   {
-    DCint r;
+    DCint r, val=1234;
     dcReset(pc);
-    dcArgInt(pc, 1234);
+    dcArgInt(pc, val);
     r = dcCallInt(pc, (DCpointer) &fun_std_i);
-    DC_TEST(r == 1234);
+    DC_TEST(r == val);
   }
   /* long */
   {
-    DClong r;
+    DClong r, val=0xCAFEBABEUL;
     dcReset(pc);
-    dcArgLong(pc, 0xCAFEBABEUL);
+    dcArgLong(pc, val);
     r = dcCallLong(pc, (DCpointer) &fun_std_j);
-    DC_TEST(r == 0xCAFEBABEUL);
+    DC_TEST(r == val);
   }
   /* long long */
   {
-    DClonglong r;
+    DClonglong r, val=0xCAFEBABEDEADC0DEULL;
     dcReset(pc);
-    dcArgLongLong(pc, 0xCAFEBABEDEADC0DEULL);
+    dcArgLongLong(pc, val);
     r = dcCallLongLong(pc, (DCpointer) &fun_std_l);
-    DC_TEST(r == 0xCAFEBABEDEADC0DEULL);
+    DC_TEST(r == val);
   }
   /* float */
   {
-    DCfloat r;
+    DCfloat r, val=1.234567f;
     dcReset(pc);
-    dcArgFloat(pc, 1.234567f);
+    dcArgFloat(pc, val);
     r = dcCallFloat(pc, (DCpointer) &fun_std_f);
-    DC_TEST(r == 1.234567f);
+    DC_TEST(r == val);
   }
   /* double */
   {
-    DCdouble r;
+    DCdouble r, val=1.23456789;
     dcReset(pc);
-    dcArgDouble(pc, 1.23456789);
+    dcArgDouble(pc, val);
     r = dcCallDouble(pc, (DCpointer) &fun_std_d);
-    DC_TEST(r == 1.23456789);
+    DC_TEST(r == val);
   }
   /* ptr */
   {
@@ -217,56 +219,57 @@ DC_DEFINE_TEST_FUNC_BEGIN(testCallFast)
   dcCallVoid(pc, (DCpointer) &fun_fast_v);
   /* bool */
   {
-    DCbool r; 
+    DCbool r, val=DC_TRUE;
     dcReset(pc);
-    dcArgBool(pc, DC_TRUE);
+    dcArgBool(pc, val);
     r = dcCallBool(pc, (DCpointer) &fun_fast_b);
-    DC_TEST(r == DC_TRUE);
+    DC_TEST(r == val);
 
+	val=DC_FALSE;
     dcReset(pc);
-    dcArgBool(pc, DC_FALSE);
+    dcArgBool(pc, val);
     r = dcCallBool(pc, (DCpointer) &fun_fast_b);
-    DC_TEST(r == DC_FALSE);
+    DC_TEST(r == val);
   }
   /* int */
   {
-    DCint r;
+    DCint r, val=1234;
     dcReset(pc);
-    dcArgInt(pc, 1234);
+    dcArgInt(pc, val);
     r = dcCallInt(pc, (DCpointer) &fun_fast_i);
-    DC_TEST(r == 1234);
+    DC_TEST(r == val);
   }
   /* long */
   {
-    DClong r;
+    DClong r, val=0xCAFEBABEUL;
     dcReset(pc);
-    dcArgLong(pc, 0xCAFEBABEUL);
+    dcArgLong(pc, val);
     r = dcCallLong(pc, (DCpointer) &fun_fast_j);
-    DC_TEST(r == 0xCAFEBABEUL);
+    DC_TEST(r == val);
   }
   /* long long */
   {
-    DClonglong r;
+    DClonglong r, val=0xCAFEBABEDEADC0DEULL;
     dcReset(pc);
-    dcArgLongLong(pc, 0xCAFEBABEDEADC0DEULL);
+    dcArgLongLong(pc, val);
     r = dcCallLongLong(pc, (DCpointer) &fun_fast_l);
-    DC_TEST(r == 0xCAFEBABEDEADC0DEULL);
+    DC_TEST(r == val);
   }
   /* float */
   {
-    DCfloat r;
+    DCfloat r, val=1.234567f;
     dcReset(pc);
-    dcArgFloat(pc, 1.234567f);
+    dcArgFloat(pc, val);
     r = dcCallFloat(pc, (DCpointer) &fun_fast_f);
-    DC_TEST(r == 1.234567f);
+    DC_TEST(r == val);
   }
   /* double */
   {
-    DCdouble r;
+    DCdouble r, val=1.23456789;
     dcReset(pc);
-    dcArgDouble(pc, 1.23456789);
+    dcArgDouble(pc, val);
     r = dcCallDouble(pc, (DCpointer) &fun_fast_d);
-    DC_TEST(r == 1.23456789);
+    DC_TEST(r == val);
   }
   /* ptr */
   {
