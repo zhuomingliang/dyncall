@@ -287,9 +287,8 @@ DC_DEFINE_TEST_FUNC_END
 
 int main(int argc, char* argv[])
 {
-  dcTest_initPlatform();
-
   int b = TRUE;
+  dcTest_initPlatform();
   
   b = b && testCallC();
   printf("C:%d\n",b);
