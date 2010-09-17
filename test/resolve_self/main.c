@@ -1,4 +1,4 @@
-#include "dynload.h"
+#include "../../dynload/dynload.h"
 #include <assert.h>
 
 double add_dd_d(double x, double y) 
