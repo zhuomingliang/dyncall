@@ -28,4 +28,3 @@
 
 # Overrides.
 <$TOP/buildsys/mk/pcc.mk
-<$TOP/buildsys/mk/common.mk
