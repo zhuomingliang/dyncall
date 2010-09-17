@@ -20,8 +20,8 @@
 
 */
 
-#ifndef DC_VEC_HEAD_H
-#define DC_VEC_HEAD_H
+#ifndef DC_VECTOR_H
+#define DC_VECTOR_H
 
 #include "dyncall_types.h"
 
@@ -43,10 +43,10 @@ typedef struct
 
 /*
 #include <string.h>
- #define dcVecAppend(p,s,n) memcpy( dcVecData(p)+p->mSize, s, n );mSize+=n
+ #define dcVecAppend(p,s,n) memcpy( dcVecData(p)+p->mSize, s, n );p->mSize+=n
 */
 
 void dcVecAppend(DCVecHead* pHead, const void* source, size_t length);
 
-#endif /* DC_VEC_HEAD_H */
+#endif /* DC_VECTOR_H */
 

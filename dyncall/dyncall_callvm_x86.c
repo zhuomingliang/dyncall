@@ -136,14 +136,21 @@ static void dc_callvm_argPointer_x86(DCCallVM* in_self, DCpointer x)
 
 void dc_callvm_call_x86_plan9(DCCallVM* in_self, DCpointer target)
 {
+  /* Calls with 32-bit return values have it returned via EAX, so we don't */
+  /* need to do anything special here.                                     */
   DCCallVM_x86* self = (DCCallVM_x86*) in_self;
-  dcCall_x86_plan9( target, dcVecData(&self->mVecHead), dcVecSize(&self->mVecHead) );
+  dcCall_x86_plan9(target, dcVecData(&self->mVecHead), dcVecSize(&self->mVecHead));
 }
 
-void dc_callvm_call_x86_plan9_ll(DCCallVM* in_self, DCpointer target)
+DClonglong dc_callvm_call_x86_plan9_ll(DCCallVM* in_self, DCpointer target)
 {
+  /* Call for 64 bit integer return values is a bit different, call a    */
+  /* different assembler stub that stores the return value in a variable */
+  /* for us, and return the latter.                                      */
+  DClonglong ret;
   DCCallVM_x86* self = (DCCallVM_x86*) in_self;
-  dcCall_x86_plan9_ll( target, dcVecData(&self->mVecHead), dcVecSize(&self->mVecHead) );
+  dcCall_x86_plan9_ll(target, dcVecData(&self->mVecHead), dcVecSize(&self->mVecHead), &ret );
+  return ret;
 }
 
 DCCallVM_vt gVT_x86_plan9 =
@@ -168,7 +175,7 @@ DCCallVM_vt gVT_x86_plan9 =
 , (DClongvmfunc*)       &dc_callvm_call_x86_plan9
 , (DClonglongvmfunc*)   &dc_callvm_call_x86_plan9_ll
 , (DCfloatvmfunc*)      &dc_callvm_call_x86_plan9
-, (DCdoublevmfunc*)     &dc_callvm_call_x86_plan9_ll
+, (DCdoublevmfunc*)     &dc_callvm_call_x86_plan9
 , (DCpointervmfunc*)    &dc_callvm_call_x86_plan9
 };
 
@@ -550,7 +557,7 @@ DCCallVM* dcNewCallVM(DCsize size)
 #if defined(DC__OS_Plan9)
   return dcNewCallVM_x86_plan9(size);
 #else
-  return dcNewCallVM_x86_cdecl(size);/* @@@ this doesn't look correct */
+  return dcNewCallVM_x86_cdecl(size);
 #endif
 }
 

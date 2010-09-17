@@ -52,11 +52,21 @@ struct DCCallVM_x86_
   DCVecHead mVecHead;
 };
 
+/* Plan9 has no support for OS foreign calling conventions at
+   the time, and vice-versa. */
+#if defined(DC__OS_Plan9)
+
+DCCallVM* dcNewCallVM_x86_plan9(DCsize size);
+
+#else
+
 DCCallVM* dcNewCallVM_x86_cdecl(DCsize size);
 DCCallVM* dcNewCallVM_x86_win32_std(DCsize size);
 DCCallVM* dcNewCallVM_x86_win32_fast_ms(DCsize size);
 DCCallVM* dcNewCallVM_x86_win32_fast_gnu(DCsize size);
 DCCallVM* dcNewCallVM_x86_win32_this_ms(DCsize size);
+
+#endif
 
 #endif /* DYNCALL_CALLVM_X86_H */
 
