@@ -24,9 +24,9 @@
 #include <math.h>
 
 
-int   getId();
+int       getId();
 DCpointer getFunc(int x);
-DCValue* getArg(int pos);
+DCValue*  getArg(int pos);
 
 
 typedef double precise;
@@ -42,7 +42,7 @@ DCpointer  valuePointer [NARGS];
 DCfloat    valueFloat   [NARGS];
 
 
-bool equals(int select, int pos, void* data)
+DCbool equals(int select, int pos, void* data)
 {
   switch(select)
   {
@@ -53,7 +53,7 @@ bool equals(int select, int pos, void* data)
     case 4: return ( getArg(pos)->p == valuePointer [pos] ); break;
     case 5: return ( getArg(pos)->f == valueFloat   [pos] ); break;
   }
-  return false;
+  return DC_FALSE;
 }
 
 
@@ -62,14 +62,15 @@ void clearValues();
 
 void init()
 {
-  for (int i = 0 ; i < NARGS ; ++i ) {
-
-    valueBool[i]     = DCbool( (i % 1) ? DC_TRUE : DC_FALSE );
-    valueInt[i]      = DCint(i);
-    valueLongLong[i] = DClonglong(i);
-    valueDouble[i]   = DCdouble(i);
-    valuePointer[i]  = DCpointer(i);
-    valueFloat[i]    = DCfloat(i);
+  int i;
+  for(i=0; i<NARGS; ++i)
+  {
+    valueBool[i]     = (DCbool)((i % 1) ? DC_TRUE : DC_FALSE);
+    valueInt[i]      = (DCint)     (i);
+    valueLongLong[i] = (DClonglong)(i);
+    valueDouble[i]   = (DCdouble)  (i);
+    valuePointer[i]  = (DCpointer) (i);
+    valueFloat[i]    = (DCfloat)   (i);
   } 
 }
 
@@ -88,18 +89,19 @@ void push(DCCallVM* pCall, int select, int pos)
 }
 
 
-#define assert(x) if (!(x)) return false
+#define assert(x) if (!(x)) return DC_FALSE
 
 
-bool test(int x)
+DCbool test(int x)
 {
-  clearValues();
-
   DCCallVM* pCall = dcNewCallVM(4096);
   int y = x;
   int selects[NARGS] = { 0, };
-  int pos = 0;
-  for(pos = 0;y>0;++pos) 
+  int pos, i;
+
+  clearValues();
+
+  for(pos = 0; y>0; ++pos) 
   {
     int select = (y-1) % NTYPES; 
     selects[pos] = select;
@@ -110,43 +112,44 @@ bool test(int x)
   
   assert( getId() == x );
   
-  for(int i = 0;i<pos;++i) {
+  for(i = 0;i<pos;++i) {
     assert( equals( selects[i], i, getArg(i) ) );      
   }
   
   dcFree(pCall);
-  return true;
+  return DC_TRUE;
 }
 
 
 int powerfact(int x, int n)
 {
-  if (n==0) return 0;
-  return static_cast<int>( pow((double)x,n)+powerfact(x,n-1) );
+  if(n==0) return 0;
+  return (int)(pow((double)x,n)+powerfact(x,n-1));
 }
 
 #include <stdio.h>
 #include <stdlib.h>
 
-bool run_range(int from, int to)
+DCbool run_range(int from, int to)
 {
-  bool tr = true;
-  for (int i = from ; i < to ; ++i ) {
+  DCbool tr = DC_TRUE, r;
+  int i;
+  for(i=from; i<to; ++i) {
     printf("%d:",i);
-    bool r = test(i);
+    r = test(i);
     printf("%d\n", r);
     tr &= r;
   }
   return tr;
 }
 
-extern "C" {
 
 int main(int argc, char* argv[])
 {
+  DCbool success = DC_FALSE;
+
   dcTest_initPlatform();
 
-  bool success = false;
   init();
   if (argc == 2) {
     int index = atoi(argv[1]);
@@ -166,6 +169,3 @@ int main(int argc, char* argv[])
 
   return (success) ? 0 : -1;
 }
-
-}  // extern "C"
-
