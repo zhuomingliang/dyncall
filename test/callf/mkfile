@@ -18,12 +18,12 @@
 #//////////////////////////////////////////////////////////////////////////////
 
 
-TOP		= ..
+TOP		= ../..
 <$TOP/buildsys/mk/prolog.mk
 
-# only C-stuff for now...
-DIRS = callf plain
-#DIRS = suite suite2 suite3 suite_floats ellipsis callf plain thunk malloc_wx callback_plain callback_suite
-# plain_c++ is not included, b/c C++ on Plan9 is rather inexistant
+
+UNITS       =   main
+APPLICATION =   callf
+LIBS        =   $TOP/dyncall/libdyncall_s.a$O
 
 <$TOP/buildsys/mk/epilog.mk
