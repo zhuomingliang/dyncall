@@ -1,16 +1,26 @@
 This file lists big/noteworthy changes, only...
 
 Version 0.6 (upcoming)
-o added build tool support for Portable C Compiler using GNU make system
-o dynload Mach-O support (thanks Olivier)
-o dynload Win64 support (thanks Olivier)
-o numerous convenience changes to dynload interface (thanks Olivier)
-o unexported functions in MASM files, b/c export not needed (thanks Olivier)
-o Plan9 x86 support (mk buildsys, dyncall support, doc, "plain" and "callf" test)
-o comprehensive documentation update
-o split "plain" test up in C and C++ part
-o new "resolve-self" dynload test
-o added CMake build support
+building:
+  o new build systems: CMake and Plan9's mk
+  o buildsys/gmake tool chain update: pcc and iphone sdk
+  o x64 bugfix: added "-fPIC" even for static libs
+dynload updates: 
+  o enum symbols update: Mach-O and Win64 (thanks Oliver)
+  o numerous convenience changes to dynload interface (thanks Olivier)
+  o added support for resolving application images itself
+dyncall updates:
+  o new platform support: arm/iphone (armv6), x86/Plan9
+  o new mips calling conventions: oabi, n64 (both endian models)
+  o cleanup: unexported functions in MASM files, b/c export not needed (thanks Olivier)
+  o interface update: added error reporting facility 'dcGetError'
+  o bugfix for ppc32/sysv: ellipsis calls was broken
+  o interface update: added new abstract mode for ellipsis calls (DC_CALL_C_ELLIPSIS) 
+docs:
+  o comprehensive update
+tests:
+  o plain: split "plain" test up in C and C++ part
+  o callbacksuite: added multiple configuration support for callback_suite
 
 Version 0.5
 o renamed arm9 stuff to arm32
