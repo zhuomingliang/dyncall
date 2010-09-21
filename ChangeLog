@@ -6,7 +6,7 @@ building:
   o buildsys/gmake tool chain update: pcc and iphone sdk
   o x64 bugfix: added "-fPIC" even for static libs
 dynload updates: 
-  o enum symbols update: Mach-O and Win64 (thanks Oliver)
+  o enum symbols update: Mach-O and Win64 (thanks Olivier)
   o numerous convenience changes to dynload interface (thanks Olivier)
   o added support for resolving application images itself
 dyncall updates:
@@ -14,7 +14,7 @@ dyncall updates:
   o new mips calling conventions: oabi, n64 (both endian models)
   o cleanup: unexported functions in MASM files, b/c export not needed (thanks Olivier)
   o interface update: added error reporting facility 'dcGetError'
-  o bugfix for ppc32/sysv: ellipsis calls was broken
+  o bugfix for ppc32/sysv: ellipsis calls were broken
   o interface update: added new abstract mode for ellipsis calls (DC_CALL_C_ELLIPSIS) 
 docs:
   o comprehensive update
@@ -55,6 +55,7 @@ o added Linux PPC32 support
 o added ARM THUMB mode support
 o cosmetic changes, documentation updated
 o bugfix: on cygwin exported C symbols in GNU as are prefixed with '_' now.
+o removed scons build support
 
 Version 0.2
 o added scons build support
