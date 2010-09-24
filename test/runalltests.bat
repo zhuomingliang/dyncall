@@ -23,6 +23,8 @@ suite2_x86win32fast\suite2.exe
 pause
 suite3\suite3.exe
 pause
+suite_floats\suite_floats.exe
+pause
 thunk\thunk.exe
 pause
 callback_plain\callback_plain.exe
