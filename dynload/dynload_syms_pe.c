@@ -19,6 +19,9 @@
 */
 
 #include "dynload.h"
+#include "dynload_macros.h"
+#include "dyncall_macros.h"
+#include "dyncall_alloc.h"
 
 #include <windows.h>
 #include <Dbghelp.h>
