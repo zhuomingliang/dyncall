@@ -12,7 +12,11 @@ dynload:
 
 urgent issues:
 --------------
-- Solaris/gmake build don't build dynload and tests anymore (maybe not even dyncallback)
+- dyncall_thunk.h is the only header that will be exposed to clients, that includes
+  platform specific headers - would be nice to be able to only ship non-platform
+  specific headers
+- Solaris/gmake build doesn't build dynload and tests anymore (maybe not even dyncallback)
+- Haiku/gmake build doesn't build dynload and tests anymore (maybe not even dyncallback)
 - test arm32/ATPCS/THUMB (and then change Status in doc Appendix)
 - look over code and fix TODO or @@@ marks
 - add MIPS callbacks
