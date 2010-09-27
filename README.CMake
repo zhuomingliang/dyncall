@@ -28,3 +28,8 @@ Using from other CMake-based projects
 Under buildsys/cmake/Modules you find some Find*() scripts
 which you might find useful.
 
+
+Make Universal Binary
+---------------------
+cmake -DCMAKE_OSX_ARCHITECTURES="i386;x86_64;ppc"
+

@@ -21,6 +21,16 @@
 cmake_minimum_required (VERSION 2.6)
 project(DynCall)
 
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "dyncall enables dynamic invocation of machine-level function calls")
+set(CPACK_PACKAGE_VENDOR "dyncall project")
+set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/Description.txt")
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/License.txt")
+if(APPLE)
+set(CPACK_RESOURCE_FILE_README "${CMAKE_CURRENT_SOURCE_DIR}/Description.txt")
+endif(APPLE)
+set(CPACK_PACKAGE_NAME "dyncall")
+include(CPack)
+
 # add cmake modules shipped with the package to cmake's module path.
 # currently we have no use for this, but maybe later..
 #set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/buildsys/cmake/Modules" "${CMAKE_MODULE_PATH}")
