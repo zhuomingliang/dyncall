@@ -3,7 +3,7 @@ DynCall for apple's iPhoneOS platforms (iPod touch, iPhone, iPad)
 
 Environment Setup for Cross-Compilation using iPhone SDK:
 
-  $ source buildsys/scripts/iphonesdk-env.sh
+  $ source buildsys/scripts/iphonesdk-setenv.sh
   
 
 Package Configuration
