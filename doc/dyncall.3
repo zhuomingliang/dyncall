@@ -26,7 +26,7 @@ semantics
 .Ft DCCallVM *
 .Fn dcNewCallVM "DCsize size"
 .Ft void
-.Fn dcFreeCallVM "DCCallVM * vm"
+.Fn dcFree "DCCallVM * vm"
 .Ft void
 .Fn dcMode "DCCallVM * vm" "DCint mode"
 .Ft void
@@ -100,7 +100,7 @@ creates a new CallVM object, where
 .Ar size
 specifies the size of the internal stack that will be allocated and used to
 bind the arguments to. Use
-.Fn dcFreeCallVM
+.Fn dcFree
 to destroy the CallVM object.
 .Pp
 .Fn dcMode

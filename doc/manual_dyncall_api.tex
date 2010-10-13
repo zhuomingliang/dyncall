@@ -99,12 +99,12 @@ the processor.
 
 \begin{lstlisting}[language=c]
 DCCallVM* dcNewCallVM (DCsize size);
-void      dcFreeCallVM(DCCallVM* vm);
+void      dcFree(DCCallVM* vm);
 \end{lstlisting}
 
 \lstinline{dcNewCallVM} creates a new \emph{CallVM} object, where
 \lstinline{size} specifies the size of the internal stack that will be
-allocated and used to bind the arguments to. Use \lstinline{dcFreeCallVM} to
+allocated and used to bind the arguments to. Use \lstinline{dcFree} to
 destroy the \emph{CallVM} object.
 
 % \paragraph{Explicit allocation}
