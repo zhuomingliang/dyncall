@@ -1,6 +1,9 @@
 This file lists big/noteworthy changes, only...
 
-Version 0.6 (upcoming)
+Version 0.7 (upcoming)
+  o documentation update and fixes
+
+Version 0.6
 building:
   o new build systems: CMake and Plan9's mk
   o buildsys/gmake tool chain update: pcc and iphone sdk
