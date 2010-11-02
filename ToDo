@@ -33,6 +33,7 @@ urgent issues:
 
 nice to have:
 -------------
+- enhance manual with a couple of examples (e.g. calling MessageBoxA on windows, etc.)
 - update: microsoft visual c++ build files - integrate all test suites in solution file
 - rename iPhoneOS to iOS
 - maybe rename DC__Arch_PowerPC to ...PPC32 for coherency reasons (...PPC64)?
