@@ -1,6 +1,6 @@
 #//////////////////////////////////////////////////////////////////////////////
 #
-# Copyright (c) 2007,2009 Daniel Adler <dadler@uni-goettingen.de>, 
+# Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>, 
 #                         Tassilo Philipp <tphilipp@potion-studios.com>
 #
 # Permission to use, copy, modify, and distribute this software for any
@@ -29,7 +29,7 @@ TOP = ..
 
 .include "$(TOP)/buildsys/bsdmake/prolog.bsdmake"
 
-DIRS = suite suite2 suite3 suite_floats ellipsis callf plain plain_c++ thunk malloc_wx callback_plain callback_suite
+DIRS = suite suite2 suite3 suite_floats ellipsis callf plain plain_c++ thunk malloc_wx callback_plain callback_suite nm resolve_self
 
 .include "$(TOP)/buildsys/bsdmake/epilog.bsdmake"
 

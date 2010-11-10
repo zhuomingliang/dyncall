@@ -25,15 +25,31 @@
 #///////////////////////////////////////////////////
 
 
-TOP = ..  
+TOP = ..\..
 
 !INCLUDE $(TOP)\buildsys\nmake\prolog.nmake
 
 
-DIRS = suite suite2 suite3 suite_floats callf ellipsis plain plain_c++ nm resolve_self thunk malloc_wx callback_plain callback_suite
-!IF "$(BUILD_ARCH)" == "x86"
-DIRS = $(DIRS) suite_x86win32fast suite_x86win32std suite2_x86win32fast suite2_x86win32std
+!IF "$(BUILD_OS)" == "windows"
+
+TARGETS = resolve_self.exe
+OBJS = main.obj
+
+$(TARGETS): $(OBJS)
+	echo Linking $@ ...
+	$(LD) /OUT:"$@" $(LDFLAGS) $(OBJS) $(TOP)\dynload\libdynload_s.lib $(TOP)\dyncall\libdyncall_s.lib
+
+
+!ELSE IF "$(BUILD_OS)" == "nds"
+
+TARGETS = resolve_self.nds
+OBJS = main.o
+
+$(TARGETS):# $(OBJS)
+	echo Not building dynload: There is no dynload support on this platform.
+
 !ENDIF
 
 
 !INCLUDE $(TOP)\buildsys\nmake\epilog.nmake
+

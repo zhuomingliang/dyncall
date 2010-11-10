@@ -1,14 +1,9 @@
 dynload:
 --------
 - bug: test/nm crashes on qemu mips linux o32 debian etch
-- do we need Dbghelp on windows?
-  * if so, update gmake, etc... to link Dbghelp.lib
-  * if not, get rid of the DbgHelp.lib link in test/nm
+- test/resolve_self crashes/asserts on windows and bsds
 - rename SymsInit to InitSyms and similar for cleanup function to reflect naming
   in dyncall
-- get rid of Dl_info and friends (_GNU_SOURCE) in dynload/dynload_syms_elf.c
-  for implementation of dlSymsNameFromValue(..)
-
 
 urgent issues:
 --------------

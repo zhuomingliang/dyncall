@@ -1,6 +1,6 @@
 #//////////////////////////////////////////////////////////////////////////////
 #
-# Copyright (c) 2007,2009 Daniel Adler <dadler@uni-goettingen.de>, 
+# Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>, 
 #                         Tassilo Philipp <tphilipp@potion-studios.com>
 #
 # Permission to use, copy, modify, and distribute this software for any
@@ -25,12 +25,11 @@
 
 
 TOP	=  ..
-DIRS	+= suite ellipsis suite2 callf plain plain_c++ suite3 suite_floats callback_suite
+DIRS	+= plain plain_c++ suite suite2 suite3 suite_floats callback_plain callback_suite ellipsis callf nm resolve_self
 
 include $(TOP)/MakeProlog
 
 ifdef BUILD_ARCH_x86
-DIRS	+= callback_suite
 DIRS	+= suite_x86win32fast
 DIRS	+= suite_x86win32std
 DIRS	+= suite2_x86win32fast
@@ -38,17 +37,6 @@ DIRS	+= suite2_x86win32std
 ifdef BUILD_TOOL_gcc
 DIRS	+= thunk
 DIRS	+= malloc_wx
-DIRS	+= callback_plain
-endif
-endif
-
-ifdef BUILD_ARCH_x64
-DIRS	+= callback_suite
-endif
-
-ifdef BUILD_ARCH_ppc32
-ifdef BUILD_OS_darwin
-DIRS	+= callback_suite
 endif
 endif
 

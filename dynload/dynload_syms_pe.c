@@ -20,11 +20,9 @@
 
 #include "dynload.h"
 #include "dynload_macros.h"
-#include "dyncall_macros.h"
 #include "dyncall_alloc.h"
 
 #include <windows.h>
-#include <Dbghelp.h>
 
 struct DLLib_
 {
@@ -45,65 +43,57 @@ struct DLSyms_
 
 DLSyms* dlSymsInit(DLLib* pLib)
 {
-  DLSyms* pResolver = (DLSyms*)dcAllocMem(sizeof(DLSyms));
+  DLSyms* pSyms = (DLSyms*)dcAllocMem(sizeof(DLSyms));
   const char* base = (const char*) pLib;
   IMAGE_DOS_HEADER*       pDOSHeader      = (IMAGE_DOS_HEADER*) base;  
   IMAGE_NT_HEADERS*       pNTHeader       = (IMAGE_NT_HEADERS*) ( base + pDOSHeader->e_lfanew );  
   IMAGE_DATA_DIRECTORY*   pExportsDataDir = &pNTHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT];
   IMAGE_EXPORT_DIRECTORY* pExports        = (IMAGE_EXPORT_DIRECTORY*) (base + pExportsDataDir->VirtualAddress);  
 
-  pResolver->pBase  = base;
-  pResolver->pNames = (DWORD*)(base + pExports->AddressOfNames);
-  pResolver->pFuncs = (DWORD*)(base + pExports->AddressOfFunctions);
-  pResolver->pOrds  = (unsigned short*)(base + pExports->AddressOfNameOrdinals);
-  pResolver->count  = (size_t)pExports->NumberOfNames;
-  pResolver->pLib   = pLib;
-  SymSetOptions(SYMOPT_DEFERRED_LOADS);
-  SymInitialize(GetCurrentProcess(), NULL, TRUE);
+  pSyms->pBase  = base;
+  pSyms->pNames = (DWORD*)(base + pExports->AddressOfNames);
+  pSyms->pFuncs = (DWORD*)(base + pExports->AddressOfFunctions);
+  pSyms->pOrds  = (unsigned short*)(base + pExports->AddressOfNameOrdinals);
+  pSyms->count  = (size_t)pExports->NumberOfNames;
+  pSyms->pLib   = pLib;
 
-  return pResolver;
+  return pSyms;
 }
 
 
-void dlSymsCleanup(DLSyms* pResolver)
+void dlSymsCleanup(DLSyms* pSyms)
 {
-  SymCleanup(GetCurrentProcess());
+  /* do nothing. */
 }
 
 
-int dlSymsCount(DLSyms* pResolver)
+int dlSymsCount(DLSyms* pSyms)
 {
-  return (int)pResolver->count;
+  return (int)pSyms->count;
 }
 
 
-const char* dlSymsName(DLSyms* pResolver, int index)
+const char* dlSymsName(DLSyms* pSyms, int index)
 {
-  return (const char*)((BYTE*)pResolver->pBase + pResolver->pNames[index]);
+  return (const char*)((const char*)pSyms->pBase + pSyms->pNames[index]);
 }
 
 
-void* dlSymsValue(DLSyms* pResolver, int index)
+void* dlSymsValue(DLSyms* pSyms, int index)
 {
-  return (void*)((void**)pResolver->pBase + pResolver->pFuncs[pResolver->pOrds[index]]);
+  return (void*)(pSyms->pBase + pSyms->pFuncs[pSyms->pOrds[index]]);
 }
 
 
-const char* dlSymsNameFromValue(DLSyms* pResolver, void* value) 
+const char* dlSymsNameFromValue(DLSyms* pSyms, void* value) 
 {
-  DWORD64  dwAddress = (DWORD64)value;
-  DWORD64  dwDisplacement = 0;
-  ULONG64 buffer[(
-    sizeof(SYMBOL_INFO) +
-    MAX_SYM_NAME * sizeof(TCHAR) +
-    sizeof(ULONG64) - 1) /
-    sizeof(ULONG64)
-  ];
-  PSYMBOL_INFO pSymbol = (PSYMBOL_INFO) buffer;
-  pSymbol->SizeOfStruct = sizeof(SYMBOL_INFO);
-  pSymbol->MaxNameLen = MAX_SYM_NAME;
+  int i, c=dlSymsCount(pSyms);
+  for(i=0; i<c; ++i)
+  {
+    if(dlSymsValue(pSyms, i) == value)
+      return dlSymsName(pSyms, i);
+  }
 
-  return (SymFromAddr(GetCurrentProcess(), dwAddress, &dwDisplacement, pSymbol) && !dwDisplacement)
-    ? pSymbol->Name
-    : NULL;
+  /* Not found. */
+  return NULL;
 }
