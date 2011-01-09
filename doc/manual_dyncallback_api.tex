@@ -1,0 +1,61 @@
+%//////////////////////////////////////////////////////////////////////////////
+%
+% Copyright (c) 2007,2010 Daniel Adler <dadler@uni-goettingen.de>, 
+%                         Tassilo Philipp <tphilipp@potion-studios.com>
+%
+% Permission to use, copy, modify, and distribute this software for any
+% purpose with or without fee is hereby granted, provided that the above
+% copyright notice and this permission notice appear in all copies.
+%
+% THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+% WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+% MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+% ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+% WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+% ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+% OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+%
+%//////////////////////////////////////////////////////////////////////////////
+
+\newpage
+\section{\emph{Dyncallback} C library API}
+
+This library extends \product{dyncall} with function callback support, allowing
+the user to dynamically create a callback object that can be called directly,
+or passed to functions expecting a function-pointer as argument.
+Once again, the flexibility is constrained by the set of supported types.
+
+For style conventions and supported types, see \product{dyncall} API section.
+In order to use \product{dyncallback}, include {\tt "dyncall\_callback.h"}.
+
+\subsection{Callback Object}
+
+The \emph{Callback Object} is the core component to this library.
+
+\paragraph{Types}
+
+\begin{lstlisting}[language=c]
+typedef struct DCCallback DCCallback;
+\end{lstlisting}
+
+\paragraph{Details}
+The \emph{Callback Object} is an object that mimics a fully typed function
+call to another function (a generic callback handler, in this case). The
+object itself can be created dynamically.
+
+\subsection{Allocation}
+
+\paragraph{Functions}
+
+\begin{lstlisting}[language=c]
+DCCallback* dcbNewCallback(const char* signature, DCCallbackHandler* funcptr, void* userdata);
+void        dcbFreeCallback(DCCallback* pcb);
+\end{lstlisting}
+
+\lstinline{dcbNewCallback} creates and initializes a new \emph{Callback} object,
+where \lstinline{signature} is the needed function signature (format is the
+one outlined in the language bindings-section of this manual) of the function
+to mimic, \lstinline{funcptr} is a pointer to a callback handler, and
+\lstinline{userdata} a pointer to custom data that might be useful in the handler.
+Use \lstinline{dcbFreeCallback} to destroy the \emph{Callback} object.
+

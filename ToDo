@@ -7,6 +7,7 @@ dynload:
 
 urgent issues:
 --------------
+- finish dyncallback doc, finish dynload doc, add both to troff doc
 - Haiku/gmake build doesn't build dynload due to the fact, that elf.h is not found
   * does Haiku use ELF?
   * implement Haiku/dynload if not
