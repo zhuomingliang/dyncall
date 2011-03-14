@@ -35,6 +35,7 @@
 #else
 #	include <elf.h>
 #endif
+#include "dyncall_alloc.h"
 #include <assert.h>
 #include <dlfcn.h>
 #include <stdio.h>
