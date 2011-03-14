@@ -27,6 +27,7 @@ TARGET_APP	= resolve_self
 UNITS		= main
 CPPFLAGS	= -I$(TOP)/dynload
 LINK_DIRS	= $(TOP)/dynload/$(BUILD_DIR)
+LDFLAGS		= -Wl,-E
 #$(TOP)/dyncall/$(BUILD_DIR)
 LINK_LIBS	= dynload_s 
 #dyncall_s
