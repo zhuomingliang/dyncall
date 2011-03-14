@@ -34,7 +34,7 @@ MODS	=	main
 APP	=	resolve_self
 
 CPPFLAGS	=
-LDFLAGS		=
+LDFLAGS		= -Wl,-E
 LIBS	=	"$(TOP)/dyncall/libdyncall_s.a" "$(TOP)/dynload/libdynload_s.a"
 
 .include "$(TOP)/buildsys/bsdmake/epilog.bsdmake"
