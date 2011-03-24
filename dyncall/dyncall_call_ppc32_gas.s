@@ -58,7 +58,7 @@ License:
 	.align 2
 	.p2align 4,,15
 	.globl dcCall_ppc32_darwin
-	.type dcCall_ppc32_darwin, @function
+	//.type dcCall_ppc32_darwin, @function
 dcCall_ppc32_darwin:
 
 	mflr %r0			/* r0 = return address */

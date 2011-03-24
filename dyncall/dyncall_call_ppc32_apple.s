@@ -1,4 +1,8 @@
-/*/////////////////////////////////////////////////////////////////////////////
+/*
+Package: dyncall
+File: dyncall/dyncall_call_ppc32_apple.s
+Description: PowerPC 32-bit Call_kernels (sysv and darwin written for GNU-based Assembler on apple
+License:
 
  Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
@@ -15,7 +19,7 @@
  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-/////////////////////////////////////////////////////////////////////////////*/
+*/
 
 /*///////////////////////////////////////////////////////////////////////
 
@@ -32,7 +36,8 @@
 //////////////////////////////////////////////////////////////////////*/
 
 	.machine ppc
-	.text
+	.text 
+
 /* -------------------------------------------------------------------------
       PPC 32bit calling convention for Mac OS X / Darwin
    -------------------------------------------------------------------------
