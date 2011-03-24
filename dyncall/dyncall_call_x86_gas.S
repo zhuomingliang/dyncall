@@ -23,11 +23,11 @@
 
 .file "dyncall_call_x86_gas.S"
 .intel_syntax
-.section .text
+.text
 
 #include "dyncall_macros.h"
 
-#if defined(DC__OS_Win32) || defined(DC__OS_Cygwin) || defined(DC__OS_MinGW)
+#if defined(DC__OS_Win32) || defined(DC__OS_Cygwin) || defined(DC__OS_MinGW) || defined(DC__OS_Darwin)
 #define CSYM(X) _##X
 #else
 #define CSYM(X) X
@@ -219,6 +219,148 @@ CSYM(dcCall_x86_win32_fast):
 	mov  %ecx, %eax         /* ecx = first argument */
 
 	call [%ebp+8]           /* call function (fastcall: cleanup by callee) */
+
+	pop  %edi               /* restore edi, esi */
+	pop  %esi
+
+	mov  %esp, %ebp         /* epilog */
+	pop  %ebp
+
+	ret
+
+
+
+.globl CSYM(dcCall_x86_sys_int80_linux)
+CSYM(dcCall_x86_sys_int80_linux):
+
+	push	%ebp        	/* prolog */
+ 	mov 	%ebp, %esp
+
+	/* arguments :
+
+	   syscallid ebp+8
+	   args      ebp+12
+	   size      ebp+16
+	   result    ebp+20
+
+	 */
+
+	push %ebx		/* save ebx, esi, edi */
+	push %esi               
+	push %edi
+	
+	mov  %eax, [%ebp+12]	/* eax = argument buffer */
+				/* move first five arguments */
+	mov  %ebx, [%eax+0]
+	mov  %ecx, [%eax+4]
+	mov  %edx, [%eax+8]
+	mov  %esi, [%eax+12]
+	mov  %edi, [%eax+16]
+
+	mov  %eax, [%ebp+8]	/* put syscall id into eax */	
+	int  0x80
+
+	pop  %edi               /* restore edi, esi, ebx */
+	pop  %esi
+	pop  %ebx
+
+	mov  %esp, %ebp         /* epilog */
+	pop  %ebp
+
+	ret
+# -----------------------------------------------------------------------------
+# Linux Syscall Calling Convention for X86 
+# - all arguments are on the stack
+# - caller cleans up stack
+#
+# C proto
+#   dcCallC(DCint syscallid, DCptr args, DCsize size)
+# -----------------------------------------------------------------------------
+
+.globl CSYM(dcCall_x86_sys_int80h_linux)
+CSYM(dcCall_x86_sys_int80h_linux):
+
+	push	%ebp        	/* prolog */
+ 	mov 	%ebp, %esp
+
+	/* arguments :
+
+	   syscallid ebp+8
+	   args      ebp+12
+	   size      ebp+16
+	   result    ebp+20
+
+	 */
+
+	push %ebx		/* save ebx, esi, edi */
+	push %esi               
+	push %edi
+	
+	mov  %eax, [%ebp+12]	/* eax = argument buffer */
+				/* move first five arguments */
+	mov  %ebx, [%eax+0]
+	mov  %ecx, [%eax+4]
+	mov  %edx, [%eax+8]
+	mov  %esi, [%eax+12]
+	mov  %edi, [%eax+16]
+
+	mov  %eax, [%ebp+8]	/* put syscall id into eax */	
+	int  0x80
+
+	pop  %edi               /* restore edi, esi, ebx */
+	pop  %esi
+	pop  %ebx
+
+	mov  %esp, %ebp         /* epilog */
+	pop  %ebp
+
+	ret
+
+
+# -----------------------------------------------------------------------------
+# *BSD Syscall Calling Convention for X86 
+# - all arguments are on the stack
+# - caller cleans up stack
+#
+# C proto
+#   dcCallC(DCint syscallid, DCptr args, DCsize size)
+# -----------------------------------------------------------------------------
+	
+_do_int:
+	int 80
+	ret
+
+.globl CSYM(dcCall_x86_sys_int80h_bsd)
+CSYM(dcCall_x86_sys_int80h_bsd):
+
+	push %ebp               /* prolog */
+ 	mov  %ebp, %esp
+
+	/* arguments :
+
+	   funptr  ebp+8
+	   args    ebp+12
+	   size    ebp+16
+	   result  ebp+20
+
+	*/
+
+	push %esi               /* save esi, edi */
+	push %edi
+
+	mov  %esi, [%ebp+12]    /* esi = pointer on args */
+	mov  %ecx, [%ebp+16]    /* ecx = size */
+
+	sub  %esp, %ecx         /* cdecl call: allocate 'size' bytes on stack */
+	mov  %edi, %esp         /* edi = stack args */
+
+	shr  %ecx, 2            /* ecx = number of DWORDs */
+	rep movsd               /* copy DWORDs */
+
+	mov  %eax, [%ebp+8]	/* load system call id */
+	call [_do_int]
+
+				/* system call cleans up */
 
 	pop  %edi               /* restore edi, esi */
 	pop  %esi
