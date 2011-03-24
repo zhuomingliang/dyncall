@@ -15,6 +15,31 @@
 #  else
 #    define CSYM(X) X
 #  endif
+#  define rax %rax
+#  define rbx %rbx
+#  define rcx %rcx
+#  define rdx %rdx
+#  define rsi %rsi
+#  define rdi %rdi
+#  define rbp %rbp
+#  define rsp %rsp
+#  define r8   %r8
+#  define r9   %r9
+#  define r10  %r10
+#  define r11  %r11
+#  define r12  %r12
+#  define r13  %r13
+#  define r14  %r14
+#  define r15  %r15
+#  define xmm0 %xmm0
+#  define xmm1 %xmm1
+#  define xmm2 %xmm2
+#  define xmm3 %xmm3
+#  define xmm4 %xmm4
+#  define xmm5 %xmm5
+#  define xmm6 %xmm6
+#  define xmm7 %xmm7
+#  define al   %al
 #  define GLOBAL(X) .globl CSYM(X)
 #  define BEGIN_PROC(X)  CSYM(X):
 #  define END_PROC(X)
