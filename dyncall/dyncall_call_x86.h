@@ -55,6 +55,8 @@ void dcCall_x86_cdecl        (DCpointer target, DCpointer stackdata, DCsize size
 void dcCall_x86_win32_std    (DCpointer target, DCpointer stackdata, DCsize size);
 void dcCall_x86_win32_fast   (DCpointer target, DCpointer stackdata, DCsize size);
 void dcCall_x86_win32_msthis (DCpointer target, DCpointer stackdata, DCsize size);
+void dcCall_x86_sys_int80h_linux (DCpointer target, DCpointer stackdata, DCsize size);
+void dcCall_x86_sys_int80h_bsd   (DCpointer target, DCpointer stackdata, DCsize size);
 #endif
 
 #ifdef __cplusplus
