@@ -1,7 +1,20 @@
 This file lists big/noteworthy changes, only...
 
 Version 0.7 (upcoming)
+dyncall updates:
+  o inital support for syscalls and for x86
+  o generic assembly files support for x86 and x64 (supports gas and ml)
   o documentation update and fixes
+buildsys/gmake:
+  o added support for msvc/x64 tool-chain
+  o default settings for build-dir changed to '.'
+buildsys/cmake:
+  o updated find module scripts
+  o added support for using dyncall as sub-project (via *Config.cmake files)
+    see details in README.CMake
+  o fixes for msvc and ml
+tests:
+  o added syscall test
 
 Version 0.6
 building:
