@@ -71,7 +71,9 @@ typedef struct DCCallVM_    DCCallVM;
 #define DC_CALL_C_MIPS32_O32           16
 #define DC_CALL_C_MIPS64_N32           17
 #define DC_CALL_C_MIPS64_N64           18
-
+#define DC_CALL_SYS_DEFAULT           200
+#define DC_CALL_SYS_X86_INT80H_LINUX  201
+#define DC_CALL_SYS_X86_INT80H_BSD    202
 /* Error codes. */
 
 #define DC_ERROR_NONE 		     0
