@@ -32,7 +32,11 @@
 
 DLLib* dlLoadLibrary(const char* libPath)
 {
-  return (DLLib*) LoadLibraryA(libPath);
+  if (libPath != NULL) {
+    return (DLLib*) LoadLibraryA(libPath);
+  } else {
+    return (DLLib*) GetModuleHandle(NULL);
+  }
 }
 
 void* dlFindSymbol(DLLib* libHandle, const char* symbol)

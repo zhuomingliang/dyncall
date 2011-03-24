@@ -1,3 +1,8 @@
+include_directories(
+  ${PROJECT_SOURCE_DIR}/dynload
+  ${PROJECT_SOURCE_DIR}/dyncall
+  ${PROJECT_SOURCE_DIR}/dyncallback
+)
 add_subdirectory(suite)
 add_subdirectory(ellipsis)
 add_subdirectory(suite2)

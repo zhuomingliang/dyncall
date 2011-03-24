@@ -5,6 +5,8 @@ dyncall updates:
   o inital support for syscalls and for x86
   o generic assembly files support for x86 and x64 (supports gas and ml)
   o documentation update and fixes
+dynload updates:
+  o fixes for self-resolving symbols on windows
 buildsys/gmake:
   o added support for msvc/x64 tool-chain
   o default settings for build-dir changed to '.'
@@ -15,6 +17,7 @@ buildsys/cmake:
   o fixes for msvc and ml
 tests:
   o added syscall test
+  o updates to resolve-self test (adding additional link flags to export symbols)
 
 Version 0.6
 building:

@@ -73,6 +73,8 @@ nice to have:
 - consistency: on x64 platforms: make both ABIs available ('win64','sysv') for all x64 OS ports
 - microsoft build enhancement: autodetect assembly via C preprocessor (like with .S gcc files)
 - enhancement: state-machine error reporting (stack overflow and invalid mode)? (e.g. dcError() )
+- test/thunk: some platforms do not allow for allocation of executable code on heap and stack -- 
+  currently this test will crash, maybe we should collect information which platforms allow and which not.
 
 bugs:
 -----
