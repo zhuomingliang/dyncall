@@ -35,17 +35,28 @@ include(CPack)
 # currently we have no use for this, but maybe later..
 #set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/buildsys/cmake/Modules" "${CMAKE_MODULE_PATH}")
 
-# enable gcc as front-end to assembler for .S files
-if(CMAKE_COMPILER_IS_GNUCC)
-  enable_language(ASM)
+
+if(MSVC)
+  enable_language(ASM_MASM)
+  #if(CMAKE_SIZEOF_VOID_P MATCHES 8)
+  #  set(CMAKE_ASM_COMPILER "ml64")
+  #else()
+  #  set(CMAKE_ASM_COMPILER "ml")
+  #endif()
+  #set(CMAKE_ASM_COMPILER_ARG1 "/c")
+  #set(CMAKE_ASM_MASM_SOURCE_FILE_EXTENSIONS asm)
+  #set(CMAKE_ASM_MASM_COMPILE_OBJECT "<CMAKE_ASM_MASM_COMPILER> <FLAGS> /c /Fo <OBJECT> <SOURCE>")
+elseif(CMAKE_COMPILER_IS_GNUCC)
+  # enable gcc as front-end to assembler for .S files
   set(CMAKE_ASM_COMPILER "${CMAKE_C_COMPILER}")
   set(CMAKE_ASM_COMPILER_ARG1 "-c")
+  # fix for AMD64: force -fPIC (even for static libs).
+  if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "x86_64")
+    add_definitions("-fPIC")
+  endif()
+  enable_language(ASM)
 endif()
 
-# fix for AMD64: force -fPIC (even for static libs).
-if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "x86_64")
-  add_definitions("-fPIC")
-endif()
 
 add_subdirectory(dynload)
 add_subdirectory(dyncall)
