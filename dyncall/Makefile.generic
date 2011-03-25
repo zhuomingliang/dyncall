@@ -11,11 +11,12 @@ all: ${LIB}
 
 RM      ?= rm -f
 AR      ?= ar
+MKLIB	?= ${AR} rcs
 MKDIR	?= mkdir
 INSTALL	?= install -p
 
 ${LIB}: ${OBJS}
-	${AR} rcs ${LIB} ${OBJS}
+	${MKLIB} ${LIB} ${OBJS}
 
 clean:
 	${RM} ${OBJS} ${LIB}

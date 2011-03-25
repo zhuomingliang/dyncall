@@ -17,3 +17,6 @@ install:
 	cd dynload ; ${M} install
 	cd dyncallback ; ${M} install
 
+osx-universal:
+	${M} CPPFLAGS="-arch i386 -arch ppc -arch x86_64" MKLIB="libtool -static -o"
+
