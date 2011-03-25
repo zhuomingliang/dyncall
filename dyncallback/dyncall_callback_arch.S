@@ -22,7 +22,7 @@
 */
 
 
-#include "dyncall_macros.h"
+#include "../dyncall/dyncall_macros.h"
 
 #if defined(DC__OS_Darwin)
 #  if defined(DC__Arch_Intel_x86)
