@@ -52,6 +52,7 @@ BEGIN_ASM
 
 GLOBAL(dcCall_x64_sysv)
 BEGIN_PROC(dcCall_x64_sysv)
+
 	// rdi : size of arguments to be passed via stack 
 	// rsi : pointer to arguments to be passed via the stack 
 	// rdx : pointer to arguments of integral/pointer type to be passed via registers 
@@ -109,6 +110,12 @@ END_PROC(dcCall_x64_sysv)
 
 GLOBAL(dcCall_x64_win64)
 BEGIN_PROC(dcCall_x64_win64)
+
+	// rcx : size of arguments to be passed via stack 
+	// rdx : pointer to arguments to be passed via the stack 
+	// r8  : pointer to arguments of integral/pointer type to be passed via registers 
+	// r9  : target function pointer 
+
 	push	rbp			// Pseudo-prolog - preserve rbp.
 	push	rsi			// Preserve rsi and rdi.
 	push	rdi
@@ -151,6 +158,7 @@ BEGIN_PROC(dcCall_x64_win64)
 	pop	rbp			// Pseudo-epilog.
 
 	ret
+
 END_PROC(dcCall_x64_win64)
 
 END_ASM
