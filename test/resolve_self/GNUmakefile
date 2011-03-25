@@ -27,7 +27,12 @@ TARGET_APP	= resolve_self
 UNITS		= main
 CPPFLAGS	= -I$(TOP)/dynload
 LINK_DIRS	= $(TOP)/dynload/$(BUILD_DIR)
+
+ifdef BUILD_OS_darwin
+LDFLAGS		=
+else
 LDFLAGS		= -Wl,-E
+endif
 #$(TOP)/dyncall/$(BUILD_DIR)
 LINK_LIBS	= dynload_s 
 #dyncall_s
