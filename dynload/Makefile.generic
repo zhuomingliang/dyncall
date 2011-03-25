@@ -4,7 +4,7 @@ OBJS = dynload.o dynload_syms.o
 HEADERS = dynload.h 
 CFLAGS = -I../dyncall
 
-LIB = lib${LIBNAME}.a
+LIB = lib${LIBNAME}_s.a
 
 all: ${LIB}
 
@@ -27,7 +27,7 @@ INSTALL_LIB ?= ${INSTALL_TOP}/lib
 
 install:
 	${MKDIR} -p ${INSTALL_INC}
-	${INSTALL} ${HEADERS}   ${INSTALL_INC} 
+	${INSTALL} ${HEADERS} ${INSTALL_INC} 
 	${MKDIR} -p ${INSTALL_LIB}
 	${INSTALL} ${LIB} ${INSTALL_LIB}
 
