@@ -49,7 +49,8 @@ if(MSVC)
 elseif(CMAKE_COMPILER_IS_GNUCC)
   # enable gcc as front-end to assembler for .S files
   set(CMAKE_ASM_COMPILER "${CMAKE_C_COMPILER}")
-  set(CMAKE_ASM_COMPILER_ARG1 "-c")
+  # string(REGEX REPLACE "(.*);?" "-arch \\1 " GCC_ARCH_FLAGS "${OSX_ARCHITECTURES}")
+  set(CMAKE_ASM_COMPILER_ARG1 "${CPPFLAGS} -c")
   # fix for AMD64: force -fPIC (even for static libs).
   if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "x86_64")
     add_definitions("-fPIC")
