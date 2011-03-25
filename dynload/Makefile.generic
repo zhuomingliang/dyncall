@@ -2,6 +2,7 @@
 LIBNAME = dynload
 OBJS = dynload.o dynload_syms.o
 HEADERS = dynload.h 
+CFLAGS = -I../dyncall
 
 LIB = lib${LIBNAME}.a
 
