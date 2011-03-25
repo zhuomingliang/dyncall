@@ -2,7 +2,7 @@ This file lists big/noteworthy changes, only...
 
 Version 0.7 (upcoming)
 dyncall updates:
-  o inital support for syscalls and for x86
+  o inital support for syscalls on x86
   o generic assembly files support for x86 and x64 (supports gas and ml)
   o documentation update and fixes
 dynload updates:

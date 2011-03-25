@@ -3,7 +3,7 @@
  File: dyncall/dyncall_call.S
  Description: assembly call kernel, auto-selected by gcc / Plan9 build system
  License:
- Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>, 
+ Copyright (c) 2007-2011 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
 
  Permission to use, copy, modify, and distribute this software for any
