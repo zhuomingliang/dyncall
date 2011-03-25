@@ -1,0 +1,19 @@
+M = ${MAKE} -f Makefile.generic
+
+.PHONY: all clean install
+
+all:
+	cd dyncall ; ${M}
+	cd dynload ; ${M}
+	cd dyncallback ; ${M}
+
+clean:
+	cd dyncall ; ${M} clean
+	cd dynload ; ${M} clean
+	cd dyncallback ; ${M} clean
+
+install:
+	cd dyncall ; ${M} install
+	cd dynload ; ${M} install
+	cd dyncallback ; ${M} install
+
