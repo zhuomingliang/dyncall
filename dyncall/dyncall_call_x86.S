@@ -61,6 +61,7 @@
 //
 // NOTES:
 //  - epilog restore esp serves callee cleanup 
+//  - 16 byte alignment (to be compatible with darwin).
 
 // --- default / cdecl --------------------------------------------------------
 //  - caller clean-up
@@ -73,6 +74,11 @@ BEGIN_PROC(dcCall_x86_cdecl)
 	push edi
 	mov  esi, dword ptr[ebp+12] 	// esi = copy source args
 	mov  ecx, dword ptr[ebp+16] 	// ecx = size
+	
+	add  ecx, 15			// align size to 16 byte
+	and  ecx, 0xFFFFFFF0
+	mov  dword ptr [ebp+16], ecx
+	
 	sub  esp, ecx         	    	// alloc stack size
 	mov  edi, esp		    	// edi = copy target stack
 	shr  ecx, 2			// ecx = count DWORDs
