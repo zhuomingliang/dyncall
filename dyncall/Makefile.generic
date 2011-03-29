@@ -2,6 +2,7 @@
 LIBNAME = dyncall
 OBJS = dyncall_vector.o dyncall_api.o dyncall_callvm.o dyncall_callvm_base.o dyncall_call.o dyncall_callf.o
 HEADERS = dyncall_macros.h dyncall_config.h dyncall_types.h dyncall.h dyncall_signature.h dyncall_value.h dyncall_callf.h dyncall_alloc.h
+CFLAGS += -fPIC
 
 LIB = lib${LIBNAME}_s.a
 
