@@ -10,6 +10,7 @@ dynload updates:
 buildsys/gmake:
   o added support for msvc/x64 tool-chain
   o default settings for build-dir changed to '.'
+  o cleanup: removed top-level Make{Prolog,Epilog,Rules} files and updated all sub-projects and tests
 buildsys/cmake:
   o updated find module scripts
   o added support for using dyncall as sub-project (via *Config.cmake files)
