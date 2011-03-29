@@ -1,9 +1,9 @@
 # Package: dyncall
-# File: dyncall/test/plain/GNUmakefile
+# File: test/plain/GNUmakefile
 # Description: GNUmakefile for plain test suite
 # License:
 #
-# Copyright (c) 2007,2010 Daniel Adler <dadler@uni-goettingen.de>, 
+# Copyright (c) 2007,2011 Daniel Adler <dadler@uni-goettingen.de>, 
 #                         Tassilo Philipp <tphilipp@potion-studios.com>
 #
 # Permission to use, copy, modify, and distribute this software for any
@@ -20,8 +20,8 @@
 #
 
 TOP		= ../..
-
-include $(TOP)/buildsys/gmake/prolog.gmake
+GMAKE_TOP	= $(TOP)/buildsys/gmake
+include $(GMAKE_TOP)/prolog.gmake
 
 TARGET_APP	= plain
 UNITS		= test_main
@@ -32,5 +32,5 @@ ifndef BUILD_OS_psp
 LINK		= c++
 endif
 
-include $(TOP)/buildsys/gmake/epilog.gmake
+include $(GMAKE_TOP)/epilog.gmake
 

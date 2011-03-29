@@ -1,6 +1,6 @@
 # Package: dyncall
 # File: dyncall/GNUmakefile
-# Description: dyncall library GNUmakefile
+# Description: dyncall library buildsys/gmake GNUmakefile
 # License:
 #
 # Copyright (c) 2007,2011 Daniel Adler <dadler@uni-goettingen.de>, 
@@ -19,8 +19,9 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #
 
-TOP = ..
-include $(TOP)/MakeProlog
+TOP ?= ..
+GMAKE_TOP ?= $(TOP)/buildsys/gmake
+include $(GMAKE_TOP)/prolog.gmake
 
 TARGET_LIB = dyncall
 
@@ -71,8 +72,5 @@ endif
 
 endif
 
-# -----------------------------------------------------------------------------
-
-include $(TOP)/MakeEpilog
-
+include $(GMAKE_TOP)/epilog.gmake
 

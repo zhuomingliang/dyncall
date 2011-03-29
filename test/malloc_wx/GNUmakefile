@@ -1,6 +1,10 @@
 #//////////////////////////////////////////////////////////////////////////////
+# Package: dyncall
+# File: test/plain/GNUmakefile
+# Description: GNUmakefile for malloc write-exectuable test
+# License:
 #
-# Copyright (c) 2007,2009 Daniel Adler <dadler@uni-goettingen.de>, 
+# Copyright (c) 2007,2011 Daniel Adler <dadler@uni-goettingen.de>, 
 #                         Tassilo Philipp <tphilipp@potion-studios.com>
 #
 # Permission to use, copy, modify, and distribute this software for any
@@ -15,10 +19,10 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #
-#//////////////////////////////////////////////////////////////////////////////
 
-TOP = ../..
-include $(TOP)/MakeProlog
+TOP		= ../..
+GMAKE_TOP	= $(TOP)/buildsys/gmake
+include $(GMAKE_TOP)/prolog.gmake
 
 TARGET_APP	= malloc_wx
 UNITS		= test_wx
@@ -26,4 +30,5 @@ CPPFLAGS  	+= -I$(TOP)/dyncall -I$(TOP)/dyncallback
 LINK_DIRS	+= $(TOP)/dyncallback/$(BUILD_DIR)
 LINK_LIBS 	+= dyncallback_s
 
-include $(TOP)/MakeEpilog
+include $(GMAKE_TOP)/epilog.gmake
+

@@ -1,5 +1,5 @@
 # Package: dyncall
-# File: dyncall/test/plain_c++/GNUmakefile
+# File: test/plain_c++/GNUmakefile
 # Description: GNUmakefile for plain_c++ test suite
 # License:
 #
@@ -20,8 +20,8 @@
 #
 
 TOP		= ../..
-
-include $(TOP)/buildsys/gmake/prolog.gmake
+GMAKE_TOP	= $(TOP)/buildsys/gmake
+include $(GMAKE_TOP)/prolog.gmake
 
 TARGET_APP	= plain_c++
 UNITS		= test_main
@@ -32,5 +32,5 @@ ifndef BUILD_OS_psp
 LINK		= c++
 endif
 
-include $(TOP)/buildsys/gmake/epilog.gmake
+include $(GMAKE_TOP)/epilog.gmake
 

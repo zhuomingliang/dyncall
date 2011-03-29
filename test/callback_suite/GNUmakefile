@@ -1,6 +1,9 @@
-#//////////////////////////////////////////////////////////////////////////////
+# Package: dyncall
+# File: test/callback_suite/GNUmakefile
+# Description: GNUmakefile for callback test suite
+# License:
 #
-# Copyright (c) 2007,2009 Daniel Adler <dadler@uni-goettingen.de>, 
+# Copyright (c) 2007,2011 Daniel Adler <dadler@uni-goettingen.de>, 
 #                         Tassilo Philipp <tphilipp@potion-studios.com>
 #
 # Permission to use, copy, modify, and distribute this software for any
@@ -15,13 +18,12 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #
-#//////////////////////////////////////////////////////////////////////////////
 
-TOP = ../..
-include $(TOP)/MakeProlog
+TOP		= ../..
+GMAKE_TOP	= $(TOP)/buildsys/gmake
+include $(GMAKE_TOP)/prolog.gmake
 
 RESULT_FLAGS	 = -v
-
 
 # On my Windows, lua is only available as lua5.1 from make
 ifdef BUILD_OS_windows
@@ -37,7 +39,7 @@ CPPFLAGS  	+= -I$(TOP)/dyncallback -I$(TOP)/dyncall
 LINK_DIRS	+= $(TOP)/dyncallback/$(BUILD_DIR)
 LINK_LIBS 	+= dyncallback_s
 
-include $(TOP)/MakeEpilog
+include $(GMAKE_TOP)/epilog.gmake
 
 CONFIG_FILES	= _auto_config.h _auto_sigstrings.h _auto_invokers.h \
 		   _auto_invoke_macros.h _auto_invoke_table.h 

@@ -1,6 +1,9 @@
-#//////////////////////////////////////////////////////////////////////////////
+# Package: dyncall
+# File: test/thunk/GNUmakefile
+# Description: GNUmakefile for thunk tests
+# License:
 #
-# Copyright (c) 2007,2009 Daniel Adler <dadler@uni-goettingen.de>, 
+# Copyright (c) 2007,2011 Daniel Adler <dadler@uni-goettingen.de>, 
 #                         Tassilo Philipp <tphilipp@potion-studios.com>
 #
 # Permission to use, copy, modify, and distribute this software for any
@@ -15,10 +18,10 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #
-#//////////////////////////////////////////////////////////////////////////////
 
-TOP = ../..
-include $(TOP)/MakeProlog
+TOP		= ../..
+GMAKE_TOP	= $(TOP)/buildsys/gmake
+include $(GMAKE_TOP)/prolog.gmake
 
 TARGET_APP	 = thunk
 UNITS		 = test_thunk
@@ -26,5 +29,6 @@ CPPFLAGS  	+= -I$(TOP)/dyncallback -I$(TOP)/dyncall
 LINK_DIRS	+= $(TOP)/dyncallback/$(BUILD_DIR)
 LINK_LIBS 	+= dyncallback_s
 
-include $(TOP)/MakeEpilog
+include $(GMAKE_TOP)/epilog.gmake
+
 

@@ -1,6 +1,9 @@
-#//////////////////////////////////////////////////////////////////////////////
+# Package: dyncall
+# File: test/suite_x86win32std/GNUmakefile
+# Description: Test suite for x86 win32 stdcall, GNUmakefile
+# License:
 #
-# Copyright (c) 2007,2009 Daniel Adler <dadler@uni-goettingen.de>, 
+# Copyright (c) 2007,2011 Daniel Adler <dadler@uni-goettingen.de>, 
 #                         Tassilo Philipp <tphilipp@potion-studios.com>
 #
 # Permission to use, copy, modify, and distribute this software for any
@@ -15,19 +18,10 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #
-#//////////////////////////////////////////////////////////////////////////////
-
-#///////////////////////////////////////////////////
-#
-#	gmake makefile
-#	GNUmakefile
-#
-#///////////////////////////////////////////////////
-
 
 TOP		= ../..
-
-include $(TOP)/buildsys/gmake/prolog.gmake
+GMAKE_TOP	= $(TOP)/buildsys/gmake
+include $(GMAKE_TOP)/prolog.gmake
 
 TARGET_APP	= suite_x86win32std
 UNITS		= case main
@@ -41,7 +35,7 @@ ifdef BUILD_OS_linux
 LINK_LIBS	+= m
 endif
 
-include $(TOP)/buildsys/gmake/epilog.gmake
+include $(GMAKE_TOP)/epilog.gmake
 
 .PHONY: config 
 config: 

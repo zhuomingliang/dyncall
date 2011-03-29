@@ -1,10 +1,9 @@
-#
 # Package: dyncall
 # File: dyncall/test/suite2/GNUmakefile
 # Description: Test suite 2 GNUmakefile
 # License:
 #
-# Copyright (c) 2007,2010 Daniel Adler <dadler@uni-goettingen.de>, 
+# Copyright (c) 2007,2011 Daniel Adler <dadler@uni-goettingen.de>, 
 #                         Tassilo Philipp <tphilipp@potion-studios.com>
 #
 # Permission to use, copy, modify, and distribute this software for any
@@ -21,8 +20,8 @@
 #
 
 TOP		= ../..
-
-include $(TOP)/buildsys/gmake/prolog.gmake
+GMAKE_TOP	= $(TOP)/buildsys/gmake
+include $(GMAKE_TOP)/prolog.gmake
 
 TARGET_APP	= suite2
 UNITS		= case main
@@ -33,7 +32,7 @@ LINK_DIRS	= $(TOP)/dyncall/$(BUILD_DIR)
 LINK_LIBS       = dyncall_s 
 LINKER		= c
 
-include $(TOP)/buildsys/gmake/epilog.gmake
+include $(GMAKE_TOP)/epilog.gmake
 
 .PHONY: config config-random config-stress1 config-ints
 

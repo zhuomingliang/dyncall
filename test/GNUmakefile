@@ -1,6 +1,9 @@
-#//////////////////////////////////////////////////////////////////////////////
+# Package: dyncall
+# File: test/GNUmakefile
+# Description: Tests for dyn{load,call,callback} library, buildsys/gmake GNUmakefile
+# License:
 #
-# Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>, 
+# Copyright (c) 2007,2011 Daniel Adler <dadler@uni-goettingen.de>, 
 #                         Tassilo Philipp <tphilipp@potion-studios.com>
 #
 # Permission to use, copy, modify, and distribute this software for any
@@ -15,19 +18,12 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #
-#//////////////////////////////////////////////////////////////////////////////
 
-#///////////////////////////////////////////////////
-#
-#	tests GNUmakefile
-#
-#///////////////////////////////////////////////////
+TOP ?= ..
+GMAKE_TOP ?= $(TOP)/buildsys/gmake
+include $(GMAKE_TOP)/prolog.gmake
 
-
-TOP	=  ..
 DIRS	+= plain plain_c++ suite suite2 suite3 suite_floats callback_plain callback_suite ellipsis callf nm resolve_self
-
-include $(TOP)/MakeProlog
 
 ifdef BUILD_ARCH_x86
 DIRS	+= suite_x86win32fast
@@ -40,5 +36,5 @@ DIRS	+= malloc_wx
 endif
 endif
 
-include $(TOP)/MakeEpilog
+include $(GMAKE_TOP)/epilog.gmake
 
