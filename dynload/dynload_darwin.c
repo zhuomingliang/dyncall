@@ -27,7 +27,7 @@
 
 
 #include "dynload.h"
-#include "dyncall_alloc.h"
+#include "../dyncall/dyncall_alloc.h"
 #include <dlfcn.h>
 #include <string.h>
 

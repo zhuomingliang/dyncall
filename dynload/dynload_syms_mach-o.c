@@ -24,8 +24,8 @@
 
 #include "dynload.h"
 #include "dynload_macros.h"
-#include "dyncall_macros.h"
-#include "dyncall_alloc.h"
+#include "../dyncall/dyncall_macros.h"
+#include "../dyncall/dyncall_alloc.h"
 
 #include <mach-o/dyld.h>
 #include <mach-o/nlist.h>

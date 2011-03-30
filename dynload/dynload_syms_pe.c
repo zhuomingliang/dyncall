@@ -20,7 +20,7 @@
 
 #include "dynload.h"
 #include "dynload_macros.h"
-#include "dyncall_alloc.h"
+#include "../dyncall/dyncall_alloc.h"
 
 #include <windows.h>
 

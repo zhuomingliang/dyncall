@@ -18,7 +18,7 @@
 */
 
 #include "dynload.h"
-#include "dyncall_macros.h"
+#include "../dyncall/dyncall_macros.h"
 #if defined(DC_WINDOWS)
 #  include "dynload_windows.c"
 #elif defined(DC_UNIX)
