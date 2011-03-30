@@ -1,134 +1,135 @@
 
-
-
 .386
 .MODEL FLAT
 .CODE
 
 _dcCall_x86_cdecl PROC
 OPTION PROLOGUE:NONE, EPILOGUE:NONE
- push ebp
-  mov ebp, esp
- push esi
- push edi
- mov esi, dword ptr[ebp+12]
- mov ecx, dword ptr[ebp+16]
- sub esp, ecx
- mov edi, esp
- shr ecx, 2
+ push EBP
+  mov EBP, ESP
+ push ESI
+ push EDI
+ mov ESI, dword ptr[EBP+12]
+ mov ECX, dword ptr[EBP+16]
+ add ECX, 15
+ and ECX, -16
+ mov dword ptr [EBP+16], ECX
+ sub ESP, ECX
+ mov EDI, ESP
+ shr ECX, 2
  rep movsd
- call dword ptr[ebp+8]
- add esp, dword ptr[ebp+16]
- pop edi
- pop esi
- mov esp, ebp
- pop ebp
+ call dword ptr[EBP+8]
+ add ESP, dword ptr[EBP+16]
+ pop EDI
+ pop ESI
+ mov ESP, EBP
+ pop EBP
  ret
 _dcCall_x86_cdecl ENDP
 _dcCall_x86_win32_msthis PROC
 OPTION PROLOGUE:NONE, EPILOGUE:NONE
- push ebp
- mov ebp, esp
- push esi
- push edi
- mov esi, dword ptr [ebp+12]
- mov ecx, dword ptr [ebp+16]
- mov eax, dword ptr [esi+0]
- add esi, 4
- sub ecx, 4
- sub esp, ecx
- mov edi, esp
+ push EBP
+ mov EBP, ESP
+ push ESI
+ push EDI
+ mov ESI, dword ptr [EBP+12]
+ mov ECX, dword ptr [EBP+16]
+ mov EAX, dword ptr [ESI+0]
+ add ESI, 4
+ sub ECX, 4
+ sub ESP, ECX
+ mov EDI, ESP
  rep movsb
- mov ecx, eax
- call dword ptr[ebp+8]
- pop edi
- pop esi
- mov esp, ebp
- pop ebp
+ mov ECX, EAX
+ call dword ptr[EBP+8]
+ pop EDI
+ pop ESI
+ mov ESP, EBP
+ pop EBP
  ret
 _dcCall_x86_win32_msthis ENDP
 _dcCall_x86_win32_std PROC
 OPTION PROLOGUE:NONE, EPILOGUE:NONE
- push ebp
- mov ebp, esp
- push esi
- push edi
- mov esi, dword ptr[ebp+12]
- mov ecx, dword ptr[ebp+16]
- sub esp, ecx
- mov edi, esp
+ push EBP
+ mov EBP, ESP
+ push ESI
+ push EDI
+ mov ESI, dword ptr[EBP+12]
+ mov ECX, dword ptr[EBP+16]
+ sub ESP, ECX
+ mov EDI, ESP
  rep movsb
- call dword ptr[ebp+8]
- pop edi
- pop esi
- mov esp, ebp
- pop ebp
+ call dword ptr[EBP+8]
+ pop EDI
+ pop ESI
+ mov ESP, EBP
+ pop EBP
  ret
 _dcCall_x86_win32_std ENDP
 _dcCall_x86_win32_fast PROC
 OPTION PROLOGUE:NONE, EPILOGUE:NONE
- push ebp
- mov ebp, esp
- push esi
- push edi
- mov esi, dword ptr[ebp+12]
- mov ecx, dword ptr[ebp+16]
- mov eax, dword ptr[esi+0]
- mov edx, dword ptr[esi+4]
- add esi, 8
- sub ecx, 8
- mov dword ptr [ebp+16], ecx
- sub esp, ecx
- mov edi, esp
+ push EBP
+ mov EBP, ESP
+ push ESI
+ push EDI
+ mov ESI, dword ptr[EBP+12]
+ mov ECX, dword ptr[EBP+16]
+ mov EAX, dword ptr[ESI+0]
+ mov EDX, dword ptr[ESI+4]
+ add ESI, 8
+ sub ECX, 8
+ mov dword ptr [EBP+16], ECX
+ sub ESP, ECX
+ mov EDI, ESP
  rep movsb
- mov ecx, eax
- call dword ptr[ebp+8]
- pop edi
- pop esi
- mov esp, ebp
- pop ebp
+ mov ECX, EAX
+ call dword ptr[EBP+8]
+ pop EDI
+ pop ESI
+ mov ESP, EBP
+ pop EBP
  ret
 _dcCall_x86_win32_fast ENDP
 _dcCall_x86_sys_int80h_linux PROC
 OPTION PROLOGUE:NONE, EPILOGUE:NONE
- push ebp
-  mov ebp, esp
- push ebx
- push esi
- push edi
- mov eax, dword ptr[ebp+12]
- mov ebx, dword ptr[eax+0]
- mov ecx, dword ptr[eax+4]
- mov edx, dword ptr[eax+8]
- mov esi, dword ptr[eax+12]
- mov edi, dword ptr[eax+16]
- mov eax, dword ptr[ebp+8]
+ push EBP
+  mov EBP, ESP
+ push EBX
+ push ESI
+ push EDI
+ mov EAX, dword ptr[EBP+12]
+ mov EBX, dword ptr[EAX+0]
+ mov ECX, dword ptr[EAX+4]
+ mov EDX, dword ptr[EAX+8]
+ mov ESI, dword ptr[EAX+12]
+ mov EDI, dword ptr[EAX+16]
+ mov EAX, dword ptr[EBP+8]
  int 80h
- pop edi
- pop esi
- pop ebx
- mov esp, ebp
- pop ebp
+ pop EDI
+ pop ESI
+ pop EBX
+ mov ESP, EBP
+ pop EBP
  ret
 _dcCall_x86_sys_int80h_linux ENDP
 _dcCall_x86_sys_int80h_bsd PROC
 OPTION PROLOGUE:NONE, EPILOGUE:NONE
- push ebp
-  mov ebp, esp
- push esi
- push edi
- mov esi, dword ptr[ebp+12]
- mov ecx, dword ptr[ebp+16]
- sub esp, ecx
- mov edi, esp
- shr ecx, 2
+ push EBP
+  mov EBP, ESP
+ push ESI
+ push EDI
+ mov ESI, dword ptr[EBP+12]
+ mov ECX, dword ptr[EBP+16]
+ sub ESP, ECX
+ mov EDI, ESP
+ shr ECX, 2
  rep movsd
- mov eax, dword ptr[ebp+8]
+ mov EAX, dword ptr[EBP+8]
  call _do_int
- pop edi
- pop esi
- mov esp, ebp
- pop ebp
+ pop EDI
+ pop ESI
+ mov ESP, EBP
+ pop EBP
  ret
 _do_int:
  int 80h
