@@ -119,15 +119,13 @@ BEGIN_PROC(dcCall_x64_win64)
 	push	rbp			// Pseudo-prolog - preserve rbp.
 	push	rsi			// Preserve rsi and rdi.
 	push	rdi
-
+	
+	// and  	rsp, -16		// Align frame to 16 bytes.
 	mov	rbp, rsp		// Store stack pointer in rbp.
 
+	add	rcx, 15			// Align stack size to 16 bytes.
+	and	rcx, -16
 	sub	rsp, rcx		// Setup stack frame by subtracting the size of the arguments.
-
-	mov	rax, rcx		// Align stack.
-	add	rax, 8
-	and	rax, 15
-	sub	rsp, rax
 
 	mov	rsi, rdx		// Let rsi point to the arguments.
 	mov	rdi, rsp		// Store pointer to beginning of stack arguments in rdi (for rep movsb).
