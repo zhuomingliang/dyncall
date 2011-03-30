@@ -86,7 +86,7 @@ BEGIN_PROC(dcCall_x86_cdecl)
 	mov  ECX, dword ptr[EBP+16] 	// ECX = size
 	
 	add  ECX, 15			// align size to 16 byte
-	and  ECX, 0xFFFFFFF0
+	and  ECX, -16
 	mov  dword ptr [EBP+16], ECX
 	
 	sub  ESP, ECX         	    	// alloc stack size
