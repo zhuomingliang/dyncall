@@ -20,14 +20,14 @@
 #    define CSYM(X) X
 #  endif
 // MinGW: without '%' prefix
-#  define EAX eax
-#  define EBX ebx
-#  define ECX ecx
-#  define EDX edx
-#  define ESI esi
-#  define EDI edi
-#  define EBP ebp
-#  define ESP esp
+#  define EAX %eax
+#  define EBX %ebx
+#  define ECX %ecx
+#  define EDX %edx
+#  define ESI %esi
+#  define EDI %edi
+#  define EBP %ebp
+#  define ESP %esp
 #  define GLOBAL(X) .globl CSYM(X)
 #  define BEGIN_PROC(X)  CSYM(X):
 #  define END_PROC(X)
