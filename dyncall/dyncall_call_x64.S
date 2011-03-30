@@ -1,17 +1,3 @@
-/* 
-This is a evaluation file for a version that works when --traditional-cpp is set on cc,
-which was the case in NetBSD 5.1 
-
-The problem in tradional-cpp mode is:
-
-we define reg -> %reg ... which is recursive in traditional-cpp.
-
-Currently this is fixed via overload the make rule '%.S -> %.o' 
-which uses 'cc -c' without --traditional-cpp.
-
-This file should be tested for gen_masm and eventually needs macros for masm to map capitalized regs to lower-cases.
-*/
-
 #if defined(GEN_MASM)
 .CODE
 #  define BEGIN_ASM
@@ -61,17 +47,21 @@ This file should be tested for gen_masm and eventually needs macros for masm to 
 
 BEGIN_ASM
 
-// ---------------------------------------------------------------------------
-// Call Kernel for x64 System V
+/*---------------------------------------------------------------------------
+  
+  Call Kernel for x64 System V
+  
+  Input:
+    RDI : size of arguments to be passed via stack 
+    RSI : pointer to arguments to be passed via the stack 
+    RDX : pointer to arguments of integrAL/pointer type to be passed via registers 
+    RCX : pointer to arguments of floating point type to be passed via registers 
+    R8  : target function pointer 
+
+*/
 
 GLOBAL(dcCall_x64_sysv)
 BEGIN_PROC(dcCall_x64_sysv)
-
-	/* RDI : size of arguments to be passed via stack */
-	/* RSI : pointer to arguments to be passed via the stack */ 
-	/* RDX : pointer to arguments of integrAL/pointer type to be passed via registers */
-	/* RCX : pointer to arguments of floating point type to be passed via registers */
-	/* R8  : target function pointer */
 
 	push	RBP			/* Pseudo-prolog - preserve RBP. */
 	push	RBX			/* Preserve RBX and store pointer to function in it. */
@@ -119,27 +109,31 @@ BEGIN_PROC(dcCall_x64_sysv)
 	ret
 END_PROC(dcCALl_x64_sysv)
 
-// ---------------------------------------------------------------------------
-// CALl Kernel for x64 Win64
+/*---------------------------------------------------------------------------
+
+  Call Kernel for x64 Win64
+	
+  Input:
+    RCX : size of arguments to be passed via stack 
+    RDX : pointer to arguments to be passed via the stack 
+    R8  : pointer to arguments of integral/pointer type to be passed via registers 
+    R9  : target function pointer
+
+*/
 
 GLOBAL(dcCall_x64_win64)
 BEGIN_PROC(dcCall_x64_win64)
-
-	/* RCX : size of arguments to be passed via stack */
-	/* RDX : pointer to arguments to be passed via the stack */ 
-	/* R8  : pointer to arguments of integrAL/pointer type to be passed via registers */
-	/* R9  : target function pointer */
 
 	push	RBP			/* Pseudo-prolog - preserve RBP. */
 	push	RSI			/* Preserve RSI and RDI. */
 	push	RDI
 	
-	// and  RSP, -16		// Align frame to 16 bytes.
+	/* and  RSP, -16		/* Align frame to 16 bytes.    */
 	mov	RBP, RSP		/* Store stack pointer in RBP. */
 
-	add	RCX, 15			// Align stack size to 16 bytes.
+	add	RCX, 15			/* Align stack size to 16 bytes. */
 	and	RCX, -16
-	sub	RSP, RCX		// Setup stack frame by subtracting the size of the arguments.
+	sub	RSP, RCX		/* Setup stack frame by subtracting the size of the arguments. */
 
 	mov	RSI, RDX		/* Let RSI point to the arguments. */
 	mov	RDI, RSP		/* Store pointer to beginning of stack arguments in RDI (for rep movsb). */
