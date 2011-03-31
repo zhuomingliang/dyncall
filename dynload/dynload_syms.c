@@ -19,7 +19,7 @@
 
 #include "../dyncall/dyncall_macros.h"
 
-#if defined(DC_WINDOWS)
+#if defined(DC__OS_Win32) || defined(DC__OS_Win64) || defined(DC__OS_Cygwin)
 #  include "dynload_syms_pe.c"
 #elif defined(DC_UNIX)
 #  if defined (DC__OS_Darwin) 
