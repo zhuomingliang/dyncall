@@ -16,7 +16,7 @@ MKDIR	?= mkdir
 INSTALL	?= install -p
 
 ${APP}: ${OBJS} 
-	${LINK} ${LDFLAGS} ${OBJS} -o ${APP}
+	${LINK} ${OBJS} ${LDFLAGS} -o ${APP}
 
 clean:
 	${RM} ${APP} ${OBJS}
