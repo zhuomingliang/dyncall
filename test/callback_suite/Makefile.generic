@@ -1,0 +1,23 @@
+APP = callback_suite
+OBJS = env.o handler.o sigstrings.o invokers.o do_test.o main.o print.o signature_utils.o
+
+TOP = ../..
+CFLAGS = -I${TOP}/dyncall -I${TOP}/dyncallback
+LDFLAGS = -L${TOP}/dyncall -ldyncall_s -L${TOP}/dyncallback -ldyncallback_s
+LINK = ${CC}
+
+all: ${APP}
+
+.PHONY: all clean install
+
+RM      ?= rm -f
+AR      ?= ar
+MKDIR	?= mkdir
+INSTALL	?= install -p
+
+${APP}: ${OBJS} 
+	${LINK} ${LDFLAGS} ${OBJS} -o ${APP}
+
+clean:
+	${RM} ${APP} ${OBJS}
+

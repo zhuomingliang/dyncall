@@ -1,0 +1,36 @@
+M = ${MAKE} -f Makefile.generic
+
+.PHONY: all clean install
+
+all:
+	cd plain ; ${M}
+	cd plain_c++ ; ${M}
+	cd suite ; ${M}
+	cd suite2 ; ${M}
+	cd suite3 ; ${M}
+	cd suite_floats ; ${M}
+	cd callback_suite ; ${M}
+	cd ellipsis ; ${M}
+	cd callf ; ${M}
+	cd nm ; ${M}
+	cd resolve_self ; ${M}
+	cd thunk ; ${M}
+	cd malloc_wx ; ${M}
+
+clean:
+	cd plain ; ${M} clean
+	cd plain_c++ ; ${M} clean
+	cd suite ; ${M} clean
+	cd suite2 ; ${M} clean
+	cd suite3 ; ${M} clean
+	cd suite_floats ; ${M} clean
+	cd callback_suite ; ${M} clean
+	cd ellipsis ; ${M} clean
+	cd callf ; ${M} clean
+	cd nm ; ${M} clean
+	cd resolve_self ; ${M} clean
+	cd thunk ; ${M} clean
+	cd malloc_wx ; ${M} clean
+
+install:
+

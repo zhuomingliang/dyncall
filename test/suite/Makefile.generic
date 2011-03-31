@@ -1,0 +1,23 @@
+APP = suite
+OBJS = case.o main.o
+
+TOP = ../..
+CFLAGS = -I${TOP}/dyncall
+LDFLAGS = -L${TOP}/dyncall -ldyncall_s
+LINK = ${CC}
+
+all: ${APP}
+
+.PHONY: all clean install
+
+RM      ?= rm -f
+AR      ?= ar
+MKDIR	?= mkdir
+INSTALL	?= install -p
+
+${APP}: ${OBJS} 
+	${LINK} ${LDFLAGS} ${OBJS} -o ${APP}
+
+clean:
+	${RM} ${APP} ${OBJS}
+

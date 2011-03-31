@@ -31,7 +31,7 @@ void list_syms(DLLib* pLib)
   for (; i < n; ++i) {
     const char* name = dlSymsName(pSyms,i);
     void* addr = dlSymsValue(pSyms,i);
-    printf("%s %lx\n", name, addr);
+    printf("%s %lx\n", name, (ptrdiff_t) addr);
   }
   dlSymsCleanup(pSyms);
   free(pSyms);

@@ -15,8 +15,7 @@
 
 void my_entry(const char* text)
 {
-  printf(text);
-  printf(": 1\n");
+  printf("%s: 1\n", text);
 }
 
 typedef void (printfun)(const char*);
