@@ -35,11 +35,16 @@
 #  elif defined(DC__Arch_AMD64)
 #    include "dyncall_call_x64.S"
 #  elif defined(DC__Arch_ARM_ARM)
+#    include "dyncall_call_arm32_arm_generic.S"
+
+#if 0
 #    if defined(DC__OS_Darwin)
 #      include "dyncall_call_arm32_arm_apple.s"
 #    else
 #      include "dyncall_call_arm32_arm_gas.s"
 #    endif
+#endif
+
 #  elif defined(DC__Arch_ARM_THUMB)
 #    if defined(DC__OS_Darwin)
 #      include "dyncall_call_arm32_thumb_apple.s"

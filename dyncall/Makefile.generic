@@ -26,9 +26,6 @@ INSTALL_TOP ?= /usr/local
 INSTALL_INC ?= ${INSTALL_TOP}/include
 INSTALL_LIB ?= ${INSTALL_TOP}/lib
 
-# dyncall_call.o: dyncall_call.S
-#	${CC} -c $< -o $@
-
 install:
 	${MKDIR} -p ${INSTALL_INC}
 	${INSTALL} ${HEADERS}   ${INSTALL_INC} 
