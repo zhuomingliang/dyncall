@@ -1,9 +1,9 @@
-APP = nm
-OBJS = nm.o
+APP = callback_plain
+OBJS = callback_plain.o
 
 TOP = ../..
-CFLAGS = -I${TOP}/dynload
-LDFLAGS = -L${TOP}/dynload -ldynload_s -ldl
+CFLAGS = -I${TOP}/dyncall
+LDFLAGS = -L${TOP}/dyncallback -ldyncallback_s
 LINK = ${CC}
 
 all: ${APP}

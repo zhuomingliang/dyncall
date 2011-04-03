@@ -1,4 +1,4 @@
-APP = test_wx
+APP = malloc_wx
 OBJS = test_wx.o
 
 TOP = ../..

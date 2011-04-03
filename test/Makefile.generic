@@ -9,6 +9,7 @@ all:
 	cd suite2 ; ${M}
 	cd suite3 ; ${M}
 	cd suite_floats ; ${M}
+	cd callback_plain ; ${M}
 	cd callback_suite ; ${M}
 	cd ellipsis ; ${M}
 	cd callf ; ${M}
@@ -24,6 +25,7 @@ clean:
 	cd suite2 ; ${M} clean
 	cd suite3 ; ${M} clean
 	cd suite_floats ; ${M} clean
+	cd callback_plain ; ${M} clean
 	cd callback_suite ; ${M} clean
 	cd ellipsis ; ${M} clean
 	cd callf ; ${M} clean

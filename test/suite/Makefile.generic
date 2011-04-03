@@ -3,7 +3,7 @@ OBJS = case.o main.o
 
 TOP = ../..
 CFLAGS = -I${TOP}/dyncall
-LDFLAGS = -L${TOP}/dyncall -ldyncall_s
+LDFLAGS = -L${TOP}/dyncall -ldyncall_s -lm
 LINK = ${CC}
 
 all: ${APP}
