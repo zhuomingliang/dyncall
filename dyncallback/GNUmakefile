@@ -44,7 +44,7 @@ UNITS += dyncall_thunk
 
 # component: write-and-executable memory allocation
 
-INSTALL_HEADERS	+= dyncall_alloc_wx.h
+# INSTALL_HEADERS	+= dyncall_alloc_wx.h
 UNITS += dyncall_alloc_wx
 
 # component: unmarshall arguments at callee-site

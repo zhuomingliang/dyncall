@@ -20,7 +20,7 @@
  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 */
-#include "dyncall_macros.h"
+#include "../dyncall/dyncall_macros.h"
 
 #if defined(DC_WINDOWS)
 #include "dyncall_alloc_wx_win32.c"
