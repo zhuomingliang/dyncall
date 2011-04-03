@@ -4,8 +4,6 @@ OBJS = test_main.o
 TOP = ../..
 CFLAGS = -I${TOP}/dyncall
 LDFLAGS = -L${TOP}/dyncall -ldyncall_s
-#${TOP}/dyncall/libdyncall_s.a
-# -L${TOP}/dyncall -ldyncall_s
 LINK = ${CC}
 
 all: ${APP}
@@ -18,7 +16,7 @@ MKDIR	?= mkdir
 INSTALL	?= install -p
 
 ${APP}: ${OBJS} 
-	${LINK} ${OBJS} ${LDFLAGS} -o ${APP}
+	${LINK} ${OBJS} ${LDFLAGS} -o ${APP} ${TARGET_ARCH}
 
 clean:
 	${RM} ${APP} ${OBJS}

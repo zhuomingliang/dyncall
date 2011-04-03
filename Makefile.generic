@@ -1,6 +1,6 @@
 M = ${MAKE} -f Makefile.generic
 
-.PHONY: all clean install
+.PHONY: all clean install test
 
 all:
 	cd dyncall ; ${M}
@@ -16,6 +16,9 @@ install:
 	cd dyncall ; ${M} install
 	cd dynload ; ${M} install
 	cd dyncallback ; ${M} install
+
+test:
+	cd test ; ${M}
 
 osx-universal:
 	${M} CPPFLAGS="-arch i386 -arch ppc -arch x86_64" MKLIB="libtool -static -o"
