@@ -1,5 +1,6 @@
 build-system:
 -------------
+- CPPFLAGS ?
 - out-of-source building  
 - cmake bites with buildsys/bsdmake and buildsys/gmake
 

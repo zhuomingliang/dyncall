@@ -9,13 +9,15 @@ Usage:
 
 Plaform Notes:
 
-Minix: No dynload support. No '-fPIC' is allowed.
-- dynload: skip. over to dyncall and dyncallback.
-- dyncall{back}: no '-fPIC'
-
+Minix: 
+  Status: No dynload support. No '-fPIC' is allowed.
+  ( cd dyncall ; CFLAGS= make -f Makefile.generic dyncall dyncallback )
+  see buildsys/scripts/batch-build-minix.sh
 
 
 Linux: 
-- tests: need 'm' and 'dl' libs. 
+  Status: all builds, test needs 'm' and 'dl' libs. 
+  make -f Makefile.generic all
   ( cd tests ; LDFLAGS="-lm -ldl" make -f Makefile.generic )
+  see buildsys/scripts/batch-build-linux.sh
 
