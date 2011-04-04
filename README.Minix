@@ -1,12 +1,14 @@
-DynCall on Minix
-================
+DynCall on Minix 3
+==================
 
 
 Status:
 -------
-Compiles under GNU tool-chain on Minix 3.1.8
-Dyncall ok, bugs on dyncallback, dynload unsupported due to missing dynamic linker.
-Integration of ACK tool-chain is in progress..
+- Compiles under GNU tool-chain on Minix 3.1.8 using script for Makefile.generic.
+- dyncall: tests run ok.
+- dyncallback: minor bugs on dyncallback (some cases fail)
+- dynload: unsupported due to missing dynamic linker.
+- Integration of ACK tool-chain is in progress..
 
 
 Build script for gcc (using Makefile.generic):

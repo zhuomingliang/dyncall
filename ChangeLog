@@ -1,15 +1,19 @@
 This file lists big/noteworthy changes, only...
 
 Version 0.7 (upcoming)
-package:
+architecture:
   o added 'portasm' sub-project folder 
 dyncall updates:
   o inital support for syscalls on x86
   o documentation update and fixes
   o portable generic assembly files (portasm) for x86,x64,ppc32,arm32_arm
+  o added Minix port (stable).
+dyncallback updates:
+  o added Minix port (unstable).
 dynload updates:
   o fixes for self-resolving symbols on windows
 buildsys/gmake:
+  o added simple generic make build-system (Makefile.generic files).
   o added support for msvc/x64 tool-chain
   o default settings for build-dir changed to '.'
   o cleanup: removed top-level Make{Prolog,Epilog,Rules} files and updated all sub-projects and tests
