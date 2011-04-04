@@ -43,6 +43,8 @@
 #  define GLOBAL(X) .globl CSYM(X)
 #  define BEGIN_PROC(X)  CSYM(X):
 #  define END_PROC(X)
+#  define qword
+#  define ptr
 #endif
 
 BEGIN_ASM
