@@ -1,10 +1,25 @@
-Porting dyncall to Minix
-========================
+DynCall on Minix
+================
 
 
 Status:
 -------
-work in progress...
+Compiles under GNU tool-chain on Minix 3.1.8
+Dyncall ok, bugs on dyncallback, dynload unsupported due to missing dynamic linker.
+Integration of ACK tool-chain is in progress..
+
+
+Build script for gcc (using Makefile.generic):
+----------------------------------------------
+$ sh buildsys/scripts/batch-build-minix.sh
+
+
+Compiling via Makefile.generic and gcc:
+---------------------------------------
+
+cd dyncall ; CC=gcc CXX=g++ make -f Makefile.generic CFLAGS=
+cd dyncallback ; CC=gcc CXX=g++ make -f Makefile.generic CFLAGS=
+cd test ; CC=gcc CXX=g++ make -f Makefile.generic all-no-dynload CFLAGS=
 
 
 Minix facts:
@@ -15,6 +30,7 @@ Minix facts:
 - ACK Assembler:
    if very first character is '#' - C preprocessor is run..
 
-- Minix 32-bit: long long is not supported
+- Minix 32-bit: 
+- ACK 32-bit compiler: long long is not supported
 - Minix 16-bit: not yet reviewed...
 
