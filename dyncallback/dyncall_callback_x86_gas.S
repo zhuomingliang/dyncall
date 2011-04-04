@@ -26,7 +26,7 @@
 
 #include "../dyncall/dyncall_macros.h"
 
-#if defined(DC__OS_Win32) || defined(DC__OS_Cygwin) || defined(DC__OS_MinGW)
+#if defined(DC__OS_Win32) || defined(DC__OS_Cygwin) || defined(DC__OS_MinGW) || defined(DC__OS_Minix)
 #define CSYM(X) _##X
 #else
 #define CSYM(X) X
