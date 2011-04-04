@@ -38,6 +38,8 @@
 #  define OS_Plan9
 #elif defined(__vms)
 #  define OS_VMS
+#elif defined(__minix)
+#  define OS_Minix
 #else
 #  define OS_Unknown
 #endif
