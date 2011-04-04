@@ -1,36 +1,28 @@
 M = ${MAKE} -f Makefile.generic
 
-.PHONY: all clean install
+.PHONY: all all-dyncall all-dyncallback all-dynload clean install
 
-all:
+all: all-dyncall all-dyncallback all-dynload
+
+all-dyncall:
 	cd plain ; ${M}
 	cd plain_c++ ; ${M}
 	cd suite ; ${M}
 	cd suite2 ; ${M}
 	cd suite3 ; ${M}
 	cd suite_floats ; ${M}
-	cd callback_plain ; ${M}
-	cd callback_suite ; ${M}
 	cd ellipsis ; ${M}
 	cd callf ; ${M}
+
+all-dynload:
 	cd nm ; ${M}
 	cd resolve_self ; ${M}
+
+all-dyncallback:
 	cd thunk ; ${M}
 	cd malloc_wx ; ${M}
-
-all-no-dynload:
-	cd plain ; ${M}
-	cd plain_c++ ; ${M}
-	cd suite ; ${M}
-	cd suite2 ; ${M}
-	cd suite3 ; ${M}
-	cd suite_floats ; ${M}
 	cd callback_plain ; ${M}
 	cd callback_suite ; ${M}
-	cd ellipsis ; ${M}
-	cd callf ; ${M}
-	cd thunk ; ${M}
-	cd malloc_wx ; ${M}
 
 clean:
 	cd plain ; ${M} clean
