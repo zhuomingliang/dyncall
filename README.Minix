@@ -1,0 +1,20 @@
+Porting dyncall to Minix
+========================
+
+
+Status:
+-------
+work in progress...
+
+
+Minix facts:
+------------
+- posix make
+- ACK (Amsterdam Compiler Kit) compiler for C, Modula-2 and Pascal
+  using own Assembly format
+- ACK Assembler:
+   if very first character is '#' - C preprocessor is run..
+
+- Minix 32-bit: long long is not supported
+- Minix 16-bit: not yet reviewed...
+
