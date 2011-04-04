@@ -9,18 +9,20 @@ Usage:
 
 Plaform Notes:
 
-Minix: 
-  Status: No dynload support. No '-fPIC' is allowed.
-  ( cd dyncall ; CFLAGS= make -f Makefile.generic dyncall dyncallback )
-  see buildsys/scripts/batch-build-minix.sh
-
-
 Linux: 
   Status: all builds, test needs 'm' and 'dl' libs. 
   make -f Makefile.generic all
   ( cd tests ; LDFLAGS="-lm -ldl" make -f Makefile.generic )
   see buildsys/scripts/batch-build-linux.sh
 
+NetBSD/FreeBSD:
+  make -f Makefile.generic all
+  ( cd tests ; LDFLAGS="-lm" make -f Makefile.generic )
+
+Minix: 
+  Status: No dynload support. No '-fPIC' is allowed.
+  ( cd dyncall ; CFLAGS= make -f Makefile.generic dyncall dyncallback )
+  see buildsys/scripts/batch-build-minix.sh
 
 Haiku:
   Status: No dynload support - elf.h not found. Rest compiles.
