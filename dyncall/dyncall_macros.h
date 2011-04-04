@@ -115,6 +115,9 @@
 #elif defined(__vms)
 	#define DC__OS_VMS
 
+#elif defined(__minix)
+        #define DC__OS_Minix
+
 #else
 	#error Unsupported OS.
 #endif
@@ -154,7 +157,7 @@
 /* Architecture. */
 
 /* Check architecture. */
-#if defined(_M_IX86) || defined(__i386__) || defined(__i486__) || defined(__i586__) || defined(__i686__) || defined(__386__)
+#if defined(_M_IX86) || defined(__i386__) || defined(__i486__) || defined(__i586__) || defined(__i686__) || defined(__386__) || defined(__i386)
 # define DC__Arch_Intel_x86
 #elif defined(_M_X64_) || defined(_M_AMD64) || defined(__amd64__) || defined(__amd64) || defined(__x86_64__) || defined(__x86_64) 
 # define DC__Arch_AMD64
