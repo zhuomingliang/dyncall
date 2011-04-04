@@ -1,12 +1,12 @@
 This file lists big/noteworthy changes, only...
 
 Version 0.7 (upcoming)
+package:
+  o added 'portasm' sub-project folder 
 dyncall updates:
   o inital support for syscalls on x86
-  o generic assembly files support for x86 and x64 (supports gas, Apple's as and ml)
   o documentation update and fixes
-  o generic assembly for arm (supports gas and Apple's as)
-  o generic assembly for ppc32 (supports gas and Apple's as)
+  o portable generic assembly files (portasm) for x86,x64,ppc32,arm32_arm
 dynload updates:
   o fixes for self-resolving symbols on windows
 buildsys/gmake:
@@ -18,6 +18,8 @@ buildsys/cmake:
   o added support for using dyncall as sub-project (via *Config.cmake files)
     see details in README.CMake
   o fixes for msvc and ml
+buildsys updates:
+  o new simplified makefile system: Makefile.generic (works on GNU- and BSDmake)
 tests:
   o added syscall test
   o updates to resolve-self test (adding additional link flags to export symbols)
