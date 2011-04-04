@@ -21,8 +21,6 @@ build-system:
 
 dyncall:
 --------
-- generic assembly for arm
-- generic assembly for ppc32
 - check if dcMode can be implemented in dcCallVM_XXX.c files directly..
 - port x64: split callvm into a sysv and a win64, both available at run-time
 - port ppc64

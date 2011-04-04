@@ -17,16 +17,10 @@
 
 */
 
+#include "../portasm/portasm-arm.S"
+
 .text
 .code 32	/* ARM mode */
-
-#if defined(__APPLE__)
-#define GLOBAL_C(X) .globl _##X
-#define ENTRY_C(X) _##X:
-#else
-#define GLOBAL_C(X) .globl X
-#define ENTRY_C(X) X:
-#endif
 
 GLOBAL_C(dcCall_arm32_arm)
 ENTRY_C(dcCall_arm32_arm)

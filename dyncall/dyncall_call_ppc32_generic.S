@@ -17,6 +17,8 @@
 
 */
 
+#include "../portasm/portasm-ppc.S"
+
 /*
 
       dyncall_call_ppc32_apple.s
@@ -33,8 +35,6 @@
 
 	.machine ppc
 	.text
-
-#include "dynasm_ppc_generic.h"
 
 /* -------------------------------------------------------------------------
       PPC 32bit calling convention for Mac OS X / Darwin
