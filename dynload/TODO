@@ -1,4 +1,6 @@
-Failed On Open Solaris 11:
+- remove dependencies dyncall_{alloc,macros}.h
+- RTLD_LAZY in darwin, why not in unix?
+- Failed On Open Solaris 11:
   
 In file included from dynload_syms.c:28:
 dynload_syms_elf.c:56: error: syntax error before "Elf_Dyn"
@@ -13,3 +15,4 @@ dynload_syms_elf.c:163: error: `DT_STRTAB' undeclared (first use in this functio
 dynload_syms_elf.c:164: error: `DT_SYMTAB' undeclared (first use in this function)
 dynload_syms_elf.c:165: error: `DT_HASH' undeclared (first use in this function)
 make: *** [dynload_syms.o] Error 1
+
