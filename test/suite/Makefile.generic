@@ -2,8 +2,8 @@ APP = suite
 OBJS = case.o main.o
 
 TOP = ../..
-CFLAGS = -I${TOP}/dyncall
-LDFLAGS = -L${TOP}/dyncall -ldyncall_s -lm
+CFLAGS += -I${TOP}/dyncall
+LDFLAGS += -L${TOP}/dyncall -ldyncall_s 
 LINK = ${CC}
 
 all: ${APP}
