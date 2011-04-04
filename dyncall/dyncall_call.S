@@ -52,11 +52,16 @@
 #      include "dyncall_call_arm32_thumb_gas.s"
 #    endif
 #  elif defined(DC__Arch_PowerPC)
+#    include "dyncall_call_ppc32_generic.S"
+
+#if 0
 #    if defined(DC__OS_Darwin)
 #      include "dyncall_call_ppc32_apple.s"
 #    else
 #      include "dyncall_call_ppc32_gas.s"
 #    endif
+#endif
+
 #  elif defined(DC__Arch_MIPS) || defined(DC__Arch_MIPS64)
 #    include "dyncall_call_mips_gas.S"
 #  else
