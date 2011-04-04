@@ -35,16 +35,7 @@
 #  elif defined(DC__Arch_AMD64)
 #    include "dyncall_call_x64.S"
 #  elif defined(DC__Arch_ARM_ARM)
-#    include "dyncall_call_arm32_arm_generic.S"
-
-#if 0
-#    if defined(DC__OS_Darwin)
-#      include "dyncall_call_arm32_arm_apple.s"
-#    else
-#      include "dyncall_call_arm32_arm_gas.s"
-#    endif
-#endif
-
+#    include "dyncall_call_arm32_arm.S"
 #  elif defined(DC__Arch_ARM_THUMB)
 #    if defined(DC__OS_Darwin)
 #      include "dyncall_call_arm32_thumb_apple.s"
@@ -52,16 +43,7 @@
 #      include "dyncall_call_arm32_thumb_gas.s"
 #    endif
 #  elif defined(DC__Arch_PowerPC)
-#    include "dyncall_call_ppc32_generic.S"
-
-#if 0
-#    if defined(DC__OS_Darwin)
-#      include "dyncall_call_ppc32_apple.s"
-#    else
-#      include "dyncall_call_ppc32_gas.s"
-#    endif
-#endif
-
+#    include "dyncall_call_ppc32.S"
 #  elif defined(DC__Arch_MIPS) || defined(DC__Arch_MIPS64)
 #    include "dyncall_call_mips_gas.S"
 #  else
