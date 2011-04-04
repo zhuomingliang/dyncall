@@ -22,17 +22,17 @@
 
 #include "../portasm/portasm-x86.S"
 
+BEGIN_ASM
+
 /* ============================================================================
    DynCall Call Kernels for X86 Architecture
    ----------------------------------------------------------------------------
    C Interface:
       dcCall_x86_XXX(void* target, void* args, size_t size);
+      ddCall_x86_sys_XXX(int_ptr target, void* args, size_t size);
  
    Where XXX is one of calling-conventions,
 	cdecl, win32_msthis, win32_std, win32_fastcall.
-
-   The system call kernels:
-      ddCall_x86_sys_XXX(int_ptr target, void* args, size_t size);
 
    Parameter Stack layout:
       size    :=  EBP + 16
@@ -52,7 +52,6 @@
 
 */
 
-BEGIN_ASM
 GLOBAL(dcCall_x86_cdecl)
 BEGIN_PROC(dcCall_x86_cdecl)
 	push EBP			/* prolog. */
@@ -229,5 +228,6 @@ _do_int:
 	int  HEX(80)
 	ret
 END_PROC(dcCall_x86_sys_int80h_bsd)
+
 END_ASM
 

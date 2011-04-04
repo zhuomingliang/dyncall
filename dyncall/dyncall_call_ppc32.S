@@ -1,6 +1,10 @@
 /*
+ Package: dyncall
+ File: dyncall/dyncall_call_ppc32.S
+ Description: Call Kernel for PowerPC 32-bit Architecture
+ License:
 
- Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>, 
+ Copyright (c) 2007-2011 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
 
  Permission to use, copy, modify, and distribute this software for any
@@ -20,54 +24,53 @@
 #include "../portasm/portasm-ppc.S"
 
 /*
-
-      dyncall_call_ppc32_apple.s
- 
-      powerpc 32 bit C call, Darwin Assembler source.
-      
-      November  28, 2007
-      Initial Support for Darwin.
-
-      January   09, 2009
-      Added Sypport for System V ABI.
+  Call Kernel Implementations for PowerPC.
+  Supported Calling Conventions: sysv, darwin
 
 */
 
 	.machine ppc
 	.text
 
-/* -------------------------------------------------------------------------
-      PPC 32bit calling convention for Mac OS X / Darwin
+/* ============================================================================
+   DynCall Call Kernels for PPC32 Architecture
    -------------------------------------------------------------------------
+   C Interface:
+     struct DCRegData { int i[8]; double d[13]; };
+     dcCall_ppc32_XXX(DCpointer target, struct DCRegData* pRegData, DCsize stacksize, DCptr stackdata);
    
-   - Stack frames are always aligned on 16 byte
+   Where XXX is one of the following Calling Conventions:
+	darwin, sysv
   
-   - The GPR3 .. GPR10 are loaded
-   - The FPR1 .. FPR13 are loaded
-   
-   No support for Vector Parameters so far. 
+  ChangeLog:
+  2011-04-03: Using portasm.
+  2009-01-09: Added Support for System V ABI.
+  2007-11-28: Initial Support for Darwin.
 
-   Parameter Area (min. 32 Bytes)
-   Linkage Area (24 Bytes)
-  
 */
 
-/*
-   dcCall_ppc32(DCpointer target, struct DCRegData* pRegData, DCsize stacksize, DCptr stackdata);
-   struct DCRegData { int i[8]; double d[13]; };
- */
+/*---------------------------------------------------------------------------
+  
+  Call Kernel for ppc32 Darwin
+
+  Input:	
+    r3 : target address ptr 
+    r4 : register data ptr (8 x GPR 32 bytes, 13 x FPR 64 bytes)
+    r5 : stack data size  
+    r6 : stack data ptr
+
+  Details:
+  - Stack frames are always aligned on 16 byte
+  - The GPR3 .. GPR10 are loaded
+  - The FPR1 .. FPR13 are loaded
+  - No support for Vector Parameters so far. 
+  - Parameter Area (min. 32 Bytes)
+  - Linkage Area (24 Bytes)
+*/
+
 	.align 2
 GLOBAL_C(dcCall_ppc32_darwin)
 ENTRY_C(dcCall_ppc32_darwin)
-
-/*
-	arguments 
-     
-	r3 = func ptr
-	r4 = register data ptr (8xGPR 32 bytes, 13xFPR 104 bytes)
-	r5 = stack data size 
-	r6 = stack data ptr
- */
 
 	mflr r0			/* r0 = return address */
 	stw  r0,8(r1)		/* store return address in caller link-area */
@@ -145,8 +148,16 @@ ENTRY_C(dcCall_ppc32_darwin)
 	blr			/* store */
 
 /* ----------------------------------------------------------------------------
-   System V PPC 32-bit ABI:
 
+  Call Kernel for ppc32 System 
+
+  Input:	
+    r3 : target address ptr 
+    r4 : register data ptr (8 x GPR 32 bytes, 8 x FPR 64 bytes)
+    r5 : stack data size  
+    r6 : stack data ptr
+
+  Details:
    - Stack frames are always aligned on 16 byte
    - Reserve GPR2 (System register)  
    - The GPR3 .. GPR10 are loaded
@@ -171,14 +182,6 @@ ENTRY_C(dcCall_ppc32_darwin)
      0:      parent stack frame (back-chain)
 */
 
-/*
-	arguments 
-     
-	r3 = func ptr
-	r4 = register data ptr (8 x GPR 32 bytes, 8 x FPR 64 bytes)
-	r5 = stack data size 
-	r6 = stack data ptr
- */
 	.align 2
 GLOBAL_C(dcCall_ppc32_sysv)
 ENTRY_C(dcCall_ppc32_sysv)
