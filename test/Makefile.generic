@@ -18,6 +18,20 @@ all:
 	cd thunk ; ${M}
 	cd malloc_wx ; ${M}
 
+all-no-dynload:
+	cd plain ; ${M}
+	cd plain_c++ ; ${M}
+	cd suite ; ${M}
+	cd suite2 ; ${M}
+	cd suite3 ; ${M}
+	cd suite_floats ; ${M}
+	cd callback_plain ; ${M}
+	cd callback_suite ; ${M}
+	cd ellipsis ; ${M}
+	cd callf ; ${M}
+	cd thunk ; ${M}
+	cd malloc_wx ; ${M}
+
 clean:
 	cd plain ; ${M} clean
 	cd plain_c++ ; ${M} clean
