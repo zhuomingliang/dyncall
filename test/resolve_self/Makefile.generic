@@ -3,7 +3,7 @@ OBJS = main.o
 
 TOP = ../..
 CFLAGS = -I${TOP}/dynload
-LDFLAGS = -L${TOP}/dynload -ldynload_s -ldl
+LDFLAGS = -L${TOP}/dynload -ldynload_s
 LINK = ${CC}
 
 all: ${APP}
