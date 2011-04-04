@@ -1,0 +1,8 @@
+Generic Makefile.
+
+Makefile.generic can be used with GNU and BSD make.
+
+Usage:
+  
+  {g|bsd}make [all|clean|install] [INSTALL_TOP=<path>]
+
