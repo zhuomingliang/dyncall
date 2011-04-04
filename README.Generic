@@ -21,3 +21,9 @@ Linux:
   ( cd tests ; LDFLAGS="-lm -ldl" make -f Makefile.generic )
   see buildsys/scripts/batch-build-linux.sh
 
+
+Haiku:
+  Status: No dynload support - elf.h not found. Rest compiles.
+  make -f Makefile.generic dyncall dyncallback
+  ( cd test ; make - Makefile.generic all-dyncall all-dyncallback )
+
