@@ -1,7 +1,7 @@
 /*
  Package: portasm
- File: portasm-x86.S
- Description: Portable Assembler Macros for x86
+ File: portasm-x64.S
+ Description: Portable Assembler Macros for X64
  License:
  Copyright (c) 2011      Daniel Adler <dadler@uni-goettingen.de>
 
@@ -18,38 +18,52 @@
  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 */
 #if defined(GEN_MASM)
-.386
-.MODEL FLAT
 .CODE
 #  define BEGIN_ASM
 #  define END_ASM END
-#  define GLOBAL(X) _##X PROC
+#  define GLOBAL(X) X PROC
 #  define BEGIN_PROC(X) 	OPTION PROLOGUE:NONE, EPILOGUE:NONE
-#  define END_PROC(X)   _##X ENDP
-#  define HEX(X) X##h
+#  define END_PROC(X)   X ENDP
 #else
 	.intel_syntax
 	.text
 #  define BEGIN_ASM
-#  define END_ASM 
+#  define END_ASM
 #  include "autovar_OS.h"
-#  if defined(OS_Win32) || defined(OS_Cygwin) || defined(OS_MinGW) || defined(OS_Darwin)
+#  if defined (OS_Darwin)
 #    define CSYM(X) _##X
 #  else
 #    define CSYM(X) X
 #  endif
-/* Systems that work without '%' prefix: MinGW,Apple */
-#  define EAX %eax
-#  define EBX %ebx
-#  define ECX %ecx
-#  define EDX %edx
-#  define ESI %esi
-#  define EDI %edi
-#  define EBP %ebp
-#  define ESP %esp
+#  define RAX %rax
+#  define RBX %rbx
+#  define RCX %rcx
+#  define RDX %rdx
+#  define RSI %rsi
+#  define RDI %rdi
+#  define RBP %rbp
+#  define RSP %rsp
+#  define R8   %r8
+#  define R9   %r9
+#  define R10  %r10
+#  define R11  %r11
+#  define R12  %r12
+#  define R13  %r13
+#  define R14  %r14
+#  define R15  %r15
+#  define XMM0 %xmm0
+#  define XMM1 %xmm1
+#  define XMM2 %xmm2
+#  define XMM3 %xmm3
+#  define XMM4 %xmm4
+#  define XMM5 %xmm5
+#  define XMM6 %xmm6
+#  define XMM7 %xmm7
+#  define AL   %al
 #  define GLOBAL(X) .globl CSYM(X)
 #  define BEGIN_PROC(X)  CSYM(X):
 #  define END_PROC(X)
-#  define HEX(X) 0x##X
+#  define qword
+#  define ptr
 #endif
 

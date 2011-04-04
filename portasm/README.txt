@@ -1,26 +1,42 @@
-portasm - a toolkit for writing portable generic sources in assembler
+portasm - a toolkit for writing portable generic assembler sources 
+------------------------------------------------------------------
+
+Copyright (C) 2011 Daniel Adler <dadler@uni-goettingen.de>.
+Licensed under BSD two-clause license.
+
+
+Requirements
+------------
+- C Preprocessor
+
 
 Supported Architectures and Tool-chains:
+----------------------------------------
 
-x86
-  gas, apple's as, masm
-x64
-  gas, apple's as, masm
-ppc
-  gas, apple's as
-arm
-  gas, apple's as
+- x86: gas, apple as, masm
+- x64: gas, apple as, masm
+- ppc: gas, apple as
+- arm: gas, apple as
 
 
 Usage:
+------
 
-include portasm-ARCH.S and then use macros for implementation of
-procedures:
+Implement assembler sources in *.S files which use C preprocessor.
+#include portasm-<ARCH>.S at front
 
-Macros:
+In order to generate MASM files for X86 and X64, run 
+  'gen-masm.sh <name>' script which reads <name>.S and outputs <name>.masm file.
 
-BEGIN_ASM and END_ASM
-BEGIN_PROC and END_PROC
-GLOBAL
+
+Common Macros:
+--------------
+
+BEGIN_ASM
+END_ASM
+BEGIN_PROC(name)
+END_PROC(name)
+GLOBAL(name)
+HEX(value)
 
 
