@@ -92,7 +92,7 @@ addVar()
   shift 1
   VALUE=$*
 
-  append_makefile "$NAME?=$*"
+  append_makefile "$NAME+=$*"
 #  vars="$NAME='$*' $var"
 
 }
@@ -160,6 +160,7 @@ MakeBuildTree()
     make_dir "$BLDDIR"
     new_makefile $BLDDIR/Makefile
     append_makefile "SRCTOP = $SRCTOP"
+    append_makefile "BLDTOP = $BLDTOP"
     append_makefile "VPATH = $SRCDIR"
     append_makefile "include $BLDTOP/Makefile.config"
     append_makefile "include $SRCDIR/Makefile.generic"

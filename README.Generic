@@ -1,6 +1,16 @@
 Generic Makefile.
 
 Makefile.generic can be used with GNU and BSD make.
+The libraries should compile fine - with minor exception for platforms such as Minix.
+
+  $ make -f Makefile.generic
+
+The tests need sometimes special attention to additional 'usual' libraries such as math and dynamic linker run-time libs.
+
+  $ LDFLAGS="-lm -ldl" make -f Makefile.generic
+
+
+A batch build 
 
 Usage:
   

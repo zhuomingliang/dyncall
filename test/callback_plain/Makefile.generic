@@ -1,9 +1,10 @@
 APP = callback_plain
 OBJS = callback_plain.o
 
-TOP = ../..
-CFLAGS = -I${TOP}/dyncall
-LDFLAGS = -L${TOP}/dyncallback -ldyncallback_s
+SRCTOP ?= ../..
+BLDTOP ?= ${SRCTOP}
+CFLAGS = -I${SRCTOP}/dyncall
+LDFLAGS = -L${BLDTOP}/dyncallback -ldyncallback_s
 LINK = ${CC}
 
 all: ${APP}

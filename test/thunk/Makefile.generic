@@ -1,9 +1,10 @@
 APP = test_thunk
 OBJS = test_thunk.o
 
-TOP = ../..
-CFLAGS = -I${TOP}/dyncallback -I${TOP}/dyncall
-LDFLAGS = -L${TOP}/dyncallback -ldyncallback_s
+SRCTOP ?= ../..
+BLDTOP ?= ../..
+CFLAGS = -I${SRCTOP}/dyncallback -I${SRCTOP}/dyncall
+LDFLAGS = -L${BLDTOP}/dyncallback -ldyncallback_s
 LINK = ${CC}
 
 all: ${APP}

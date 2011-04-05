@@ -43,3 +43,9 @@ clean:
 
 install:
 
+
+linux:
+	LDFLAGS="-lm -ldl" ${M} all
+bsd:
+	LDFLAGS="-lm" ${M} all
+
