@@ -18,4 +18,8 @@ NetBSD:
       ../configure2 
       make
            
-
+OpenBSD:
+  Embedded
+    Default OpenBSD make:
+      make -f Makefile.generic
+      (cd test ; LDFLAGS=-lm make -f Makefile.generic all-c)
