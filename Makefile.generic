@@ -12,7 +12,6 @@ clean:
 	cd dyncall ; ${MAKE_CMD} clean
 	cd dynload ; ${MAKE_CMD} clean
 	cd dyncallback ; ${MAKE_CMD} clean
-	cd test ; ${MAKE_CMD} clean
 
 install:
 	cd dyncall ; ${MAKE_CMD} install
