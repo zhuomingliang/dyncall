@@ -1,6 +1,6 @@
 Some experiences with configure2 and Makefile.generic
 
-NetBSD:
+NetBSD/FreeBSD:
   
   Embedded
     Default NetBSD make:
@@ -23,3 +23,4 @@ OpenBSD:
     Default OpenBSD make:
       make -f Makefile.generic
       (cd test ; LDFLAGS=-lm make -f Makefile.generic all-c)
+  
