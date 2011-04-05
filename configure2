@@ -161,6 +161,8 @@ MakeBuildTree()
     new_makefile $BLDDIR/Makefile
     append_makefile "SRCTOP = $SRCTOP"
     append_makefile "BLDTOP = $BLDTOP"
+    append_makefile "SRCDIR = $SRCDIR"
+    append_makefile "BLDDIR = $BLDDIR"
     append_makefile "VPATH = $SRCDIR"
     append_makefile "include $BLDTOP/Makefile.config"
     append_makefile "include $SRCDIR/Makefile.generic"

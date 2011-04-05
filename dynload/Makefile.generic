@@ -1,4 +1,6 @@
 SRCTOP ?= ..
+SRCDIR ?= .
+BLDDIR ?= ${SRCDIR}
 LIBNAME = dynload
 OBJS = dynload.o dynload_syms.o
 HEADERS = dynload.h 
@@ -29,7 +31,7 @@ INSTALL_LIB ?= ${INSTALL_TOP}/lib
 
 install:
 	${MKDIR} -p ${INSTALL_INC}
-	${INSTALL} ${HEADERS} ${INSTALL_INC} 
+	cd ${SRCDIR} ; ${INSTALL} ${HEADERS} ${INSTALL_INC} 
 	${MKDIR} -p ${INSTALL_LIB}
-	${INSTALL} ${LIB} ${INSTALL_LIB}
+	cd ${BLDDIR} ; ${INSTALL} ${LIB} ${INSTALL_LIB}
 

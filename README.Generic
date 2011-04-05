@@ -57,6 +57,13 @@ NetBSD/FreeBSD:
 - tests: need math lib:
   ( cd tests ; LDFLAGS="-lm" make -f Makefile.generic )
 
+OpenBSD:
+- all: ok.
+  make -f Makefile.generic all
+- tests: *.cpp implicit rule not set, therefore only c tests work:
+  ( cd tests ; LDFLAGS="-lm" make -f Makefile.generic all-c )
+- install: ok.
+
 Haiku Alpha 2:
 - dynlaod: unsupport, no elf.h header found.
 - dyn{call,callback}: ok.
