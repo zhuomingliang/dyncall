@@ -7,25 +7,56 @@ Usage:
   {g|bsd}make [all|clean|install] [INSTALL_TOP=<path>]
 
 
+The makefile has two modes:
+
+  Embedded-mode 
+
+    GNU/BSDmake compatibility
+      $ MAKEFILE=Makefile.generic make -f Makefile.generic  
+    Under BSDmake it is sufficient to run:
+      $ make -f Makefile.generic
+
+  Configure-mode
+
+    In-source
+      $ ./configure2 ; make
+
+    Out-Of-Source
+      $ cd build ; ../configure2 ;make
+
 Plaform Notes:
 
 Linux: 
-  Status: all builds, test needs 'm' and 'dl' libs. 
+- all: ok.
   make -f Makefile.generic all
+- tests: need 'm' and 'dl' libs. 
   ( cd tests ; LDFLAGS="-lm -ldl" make -f Makefile.generic )
-  see buildsys/scripts/batch-build-linux.sh
+- see batch script: buildsys/scripts/batch-build-linux.sh
+
+Minix: No dynload support. No '-fPIC' is allowed.
+- dynload: unsupport, no dynamic linker present in Minix 3.
+- dyn{call,callback}: ok, without '-fPIC'!
+  ( cd dyncall ; CFLAGS= make -f Makefile.generic dyncall dyncallback )
+- tests: ok
+  ( cd test ; make -f Makefile.generic all-dyncall all-dyncallback )
+- see batch script: buildsys/scripts/batch-build-minix.sh
 
 NetBSD/FreeBSD:
+- all: ok.
   make -f Makefile.generic all
+- tests: need math lib:
   ( cd tests ; LDFLAGS="-lm" make -f Makefile.generic )
 
-Minix: 
-  Status: No dynload support. No '-fPIC' is allowed.
-  ( cd dyncall ; CFLAGS= make -f Makefile.generic dyncall dyncallback )
-  see buildsys/scripts/batch-build-minix.sh
-
-Haiku:
-  Status: No dynload support - elf.h not found. Rest compiles.
+Haiku Alpha 2:
+- dynlaod: unsupport, no elf.h header found.
+- dyn{call,callback}: ok.
   make -f Makefile.generic dyncall dyncallback
-  ( cd test ; make - Makefile.generic all-dyncall all-dyncallback )
+- tests: ok
+  ( cd test ; make -f Makefile.generic all-dyncall all-dyncallback )
+
+
+Feature:
+
+configure --prefix=<prefix> -> Makefile DESTDIR=variable
+make -f Makefile.generic DESTDIR=<prefix>
 
