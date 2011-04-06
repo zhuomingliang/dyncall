@@ -1,41 +1,89 @@
-Generic Makefile.
+Building with generic makefiles
+===============================
 
-Makefile.generic can be used with GNU and BSD make.
-The libraries should compile fine - with minor exception for platforms such as Minix.
+Description
+-----------
+Hybrid 'makefiles', compatible with {BSD,GNU}make.
+Supports two operating modes: Embedded and Configure.
+Project files are specified in Makefile.generic.
 
-  $ make -f Makefile.generic
 
-The tests need sometimes special attention to additional 'usual' libraries such as math and dynamic linker run-time libs.
+Generic Usage
+-------------
 
+{g|bsd}make [-f Makefile.generic] [all|clean|install] [INSTALL_TOP=<path>]
+
+
+Embeeded Mode
+-------------
+Makefile.generic makefiles are taken as-is directly
+without extra configuration.
+
+<VAR1>=<VALUE1> ... bsdmake -f Makefile.generic
+MAKEFILE=Makefile.generic <VAR1>=<VALUE1> ... gmake -f Makefile.generic
+
+Example:
+  dyncall libraries should compile fine on most platforms:
+  
+  BSDmake:
+  $ bsdmake -f Makefile.generic
+
+  GNUmake:
+  $ MAKEFILE=Makefile.generic make -f Makefile.generic
+
+  The tests need sometimes special attention to additional 'usual' libraries such as math and dynamic linker run-time libs.
   $ LDFLAGS="-lm -ldl" make -f Makefile.generic
 
 
-A batch build 
+Configure Mode
+--------------
 
 Usage:
-  
-  {g|bsd}make [all|clean|install] [INSTALL_TOP=<path>]
+
+  ./configure2 [--prefix=<path>]
+  make
+  make install [DESTDIR=<path>]
+
+The configure script 'configure2' writes 'Makefile' files that 
+include 'Makefile.generic' and setup variables such as 
+VPATH, {SRC,BLD}{TOP,DIR}.
+
+Two build types are supported: In-source and out-of-Sosurce.
+
+In 'out-of-source' build type, the configure script is executed from
+a different directory - the build directory.
+The source directory tree is duplicated into that directory.
 
 
-The makefile has two modes:
+Useful Variables
+----------------
 
-  Embedded-mode 
+MAKE_CMD - The make tool (including -f flag) to run sub-directories.
+SRCTOP   - Source top-level directory (defaults to relative top).
+BLDTOP   - Build  top-level directory (defaults to SRCTOP).
+SRCDIR   - Source directory (defaults to '.').
+BLDDIR   - Build  directory (defaults to SRCDIR).
 
-    GNU/BSDmake compatibility
-      $ MAKEFILE=Makefile.generic make -f Makefile.generic  
-    Under BSDmake it is sufficient to run:
-      $ make -f Makefile.generic
+e.g. Makefile.generic in source-tree:
 
-  Configure-mode
+SRCTOP ?= ../../../ # relative path to source-top
+BLDTOP ?= ${SRCTOP} # defaults for in-source builds
+SRCDIR ?= .         # relative path to current directory
+BLDDIR ?= ${BLDDIR} # relative path to current directory
 
-    In-source
-      $ ./configure2 ; make
 
-    Out-Of-Source
-      $ cd build ; ../configure2 ;make
+Include Directories
+-------------------
+Use -I${SRCTOP}/... to refer to other include directories.
+
+
+Link Directories
+----------------
+Use -L${BLDTOP}/... to refer to other build directories.
+
 
 Plaform Notes:
-
+--------------
 Linux: 
 - all: ok.
   make -f Makefile.generic all

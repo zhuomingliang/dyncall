@@ -4,7 +4,7 @@ BLDDIR ?= ${SRCDIR}
 LIBNAME = dynload
 OBJS = dynload.o dynload_syms.o
 HEADERS = dynload.h 
-CFLAGS += -I${SRCTOP}/dyncall -fPIC
+CFLAGS += -I${SRCTOP}/dyncall 
 
 LIB = lib${LIBNAME}_s.a
 
