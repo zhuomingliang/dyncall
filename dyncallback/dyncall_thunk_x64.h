@@ -27,7 +27,7 @@
 struct DCThunk_
 {
   unsigned long long code[2];
-  unsigned long long entry;
+  void (*entry)();
 };
 
 #define DCTHUNK_X64_SIZE	24

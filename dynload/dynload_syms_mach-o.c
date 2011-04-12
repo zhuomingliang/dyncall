@@ -30,6 +30,7 @@
 #include <mach-o/dyld.h>
 #include <mach-o/nlist.h>
 #include <dlfcn.h>
+#include <string.h>
 
 #if defined(DC__Arch_AMD64)
 #define MACH_HEADER_TYPE mach_header_64
@@ -78,7 +79,6 @@ DLSyms* dlSymsInit(DLLib* pLib)
 				{
 					if (cmd->cmd == LC_SYMTAB) 
 					{
-						int iSymTab = 0;
 						const struct symtab_command* scmd = (const struct symtab_command*)cmd;
 					
 						pSyms = (DLSyms*)( dcAllocMem(sizeof(DLSyms)) );

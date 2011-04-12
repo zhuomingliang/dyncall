@@ -23,7 +23,7 @@
 */
 #include "dyncall_thunk.h"
 
-void dcbInitThunk(DCThunk* p, void* entry)
+void dcbInitThunk(DCThunk* p, void (*entry) () )
 {
   /*
     # ARM32 (ARM mode) thunk code:
@@ -39,5 +39,5 @@ void dcbInitThunk(DCThunk* p, void* entry)
   /* latest update of arm-eabi tools.                                      */
   p->code[0]  = 0xe24fc008UL;  /* sub %r12, %r15, #8 */
   p->code[1]  = 0xe51ff004UL;  /* ldr %r15, [%r15, #-4] */
-  p->entry = (unsigned int)entry/*+8*/;
+  p->entry = entry/*+8*/;
 }

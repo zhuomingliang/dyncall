@@ -29,7 +29,7 @@ struct DCThunk_
   unsigned int code_load;
   void*        addr_self;
   unsigned int code_jump;
-  void*        addr_entry;
+  void        (*addr_entry)();
 };
 
 #define DCTHUNK_X86_SIZE	16

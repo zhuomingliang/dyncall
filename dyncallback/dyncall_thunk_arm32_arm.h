@@ -28,7 +28,7 @@
 struct DCThunk_
 {
   unsigned int code[2];
-  unsigned int entry;
+  void       (*entry)();
 };
 
 #define DCTHUNK_ARM32_ARM_SIZE 12

@@ -23,7 +23,7 @@
 */
 #include "dyncall_thunk.h"
 
-void dcbInitThunk(DCThunk* p, void* entry)
+void dcbInitThunk(DCThunk* p, void (*entry)() )
 {
   /*
     # x64 thunk code:
@@ -41,6 +41,6 @@ void dcbInitThunk(DCThunk* p, void* entry)
 
   p->code[0] = 0xfffffffff9058d48ULL;
   p->code[1] = 0x9090900000000325ULL;
-  p->entry   = (unsigned long long) entry;
+  p->entry   = entry;
 }
 
