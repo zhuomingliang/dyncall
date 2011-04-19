@@ -39,6 +39,8 @@
 #   include "dyncall_callback_x86_gas.S"
 #  elif defined(DC__Arch_AMD64)
 #   include "dyncall_callback_x64_gas.s"
+#  elif defined(DC__Arch_PowerPC)
+#    include "dyncall_callback_ppc32.S"
 #  elif defined(DC__Arch_ARM_ARM)
 #   include "dyncall_callback_arm32_arm_gas.s"
 #  elif defined(DC__Arch_ARM_THUMB)
