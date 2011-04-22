@@ -21,15 +21,23 @@
 */
 
 #include "dyncall_vector.h"
-#include <string.h>
+
 
 void dcVecAppend(DCVecHead* pHead, const void* pData, size_t size)
 {
-  if (pHead->mSize+size <= pHead->mTotal) 
+  size_t newSize = pHead->mSize + size;
+  if(newSize <= pHead->mTotal) 
   {
-    void* dst = (char*)dcVecData(pHead) + pHead->mSize;
-    memcpy(dst, pData, size); /* @@@ heavy for small types. */
-    pHead->mSize += size;
-  } 
+  	void* dst = (DCchar*)dcVecData(pHead) + pHead->mSize;
+  	switch (size) {
+  	  case 1: *(DCchar    *)dst = *(const DCchar    *)pData; break;
+  	  case 2: *(DCshort   *)dst = *(const DCshort   *)pData; break;
+  	  case 4: *(DCint     *)dst = *(const DCint     *)pData; break;
+  	  case 8: *(DClonglong*)dst = *(const DClonglong*)pData; break;
+  	  default: memcpy(dst, pData, size); /* for all the rest. */
+  	}
+    pHead->mSize = newSize;
+  }
+  // else @@@ warning? error?
 }
 
