@@ -17,12 +17,12 @@
 
 */
 
-#include "../dyncall/dyncall_macros.h"
+#include "dynload.h"
 
 #if defined(DC__OS_Win32) || defined(DC__OS_Win64) || defined(DC__OS_Cygwin)
 #  include "dynload_syms_pe.c"
 #elif defined(DC_UNIX)
-#  if defined (DC__OS_Darwin) 
+#  if defined(DC__OS_Darwin)
 #    include "dynload_syms_mach-o.c"
 #  else
 #    include "dynload_syms_elf.c"
