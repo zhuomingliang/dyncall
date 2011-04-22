@@ -33,9 +33,6 @@
 
 #include "dyncall.h"
 
-#ifndef DC_API
-#define DC_API
-#endif
 
 #ifdef __cplusplus
 extern "C" {
