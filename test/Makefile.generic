@@ -56,7 +56,7 @@ install:
 
 
 linux:
-	LDFLAGS="-lm -ldl" ${M} all
+	LDFLAGS="-lm -ldl" ${MAKE_CMD} all
 bsd:
-	LDFLAGS="-lm" ${M} all
+	LDFLAGS="-lm" ${MAKE_CMD} all
 

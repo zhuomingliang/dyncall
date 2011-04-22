@@ -1,4 +1,3 @@
-
 .386
 .MODEL FLAT
 .CODE
