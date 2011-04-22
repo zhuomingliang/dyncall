@@ -36,7 +36,6 @@ typedef struct
 
 extern DCArgsVT dcArgsVT_default;
 extern DCArgsVT dcArgsVT_this_ms;
-extern DCArgsVT dcArgsVT_this_ms;
 extern DCArgsVT dcArgsVT_fast_ms;
 extern DCArgsVT dcArgsVT_fast_gnu;
 
