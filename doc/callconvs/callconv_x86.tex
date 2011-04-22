@@ -41,6 +41,80 @@ plan9call are supported.\\
 \\
 
 
+\subsubsection{cdecl}
+
+\paragraph{Registers and register usage}
+
+\begin{table}[h]
+\begin{tabular}{3 B}
+\hline
+Name          & Brief description\\
+\hline
+{\bf eax}     & scratch, return value\\
+{\bf ebx}     & permanent\\
+{\bf ecx}     & scratch\\
+{\bf edx}     & scratch, return value\\
+{\bf esi}     & permanent\\
+{\bf edi}     & permanent\\
+{\bf ebp}     & permanent\\
+{\bf esp}     & stack pointer\\
+{\bf st0}     & scratch, floating point return value\\
+{\bf st1-st7} & scratch\\
+\hline
+\end{tabular}
+\caption{Register usage on x86 cdecl calling convention}
+\end{table}
+
+
+\pagebreak
+
+\paragraph{Parameter passing}
+
+\begin{itemize}
+\item stack parameter order: right-to-left
+\item caller cleans up the stack
+\item all arguments are pushed onto the stack
+\end{itemize}
+
+\paragraph{Return values}
+
+\begin{itemize}
+\item return values of pointer or integral type (\textless=\ 32 bits) are returned via the eax register
+\item integers \textgreater\ 32 bits are returned via the eax and edx registers
+\item floating point types are returned via the st0 register
+\end{itemize}
+
+
+\paragraph{Stack layout}
+
+Stack directly after function prolog:\\
+
+\begin{figure}[h]
+\begin{tabular}{5|3|1 1}
+\hhline{~-~~}
+                                  & \vdots                     &                                &                              \\
+\hhline{~=~~}
+local data                        &                            &                                & \mrrbrace{5}{caller's frame} \\
+\hhline{~-~~}
+\mrlbrace{3}{parameter area}      & \ldots                     & \mrrbrace{3}{stack parameters} &                              \\
+                                  & \ldots                     &                                &                              \\
+                                  & \ldots                     &                                &                              \\
+\hhline{~-~~}
+                                  & return address             &                                &                              \\
+\hhline{~=~~}
+local data                        &                            &                                & \mrrbrace{3}{current frame}  \\
+\hhline{~-~~}
+parameter area                    &                            &                                &                              \\
+\hhline{~-~~}
+                                  & \vdots                     &                                &                              \\
+\hhline{~-~~}
+\end{tabular}
+\caption{Stack layout on x86 cdecl calling convention}
+\end{figure}
+
+
+\pagebreak
+
 \subsubsection{MS fastcall}
 
 \paragraph{Registers and register usage}
