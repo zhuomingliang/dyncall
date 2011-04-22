@@ -35,6 +35,8 @@ typedef struct
 } DCArgsVT;
 
 extern DCArgsVT dcArgsVT_default;
+extern DCArgsVT dcArgsVT_this_ms;
+extern DCArgsVT dcArgsVT_this_ms;
 extern DCArgsVT dcArgsVT_fast_ms;
 extern DCArgsVT dcArgsVT_fast_gnu;
 
@@ -46,7 +48,7 @@ struct DCArgs
 	/* state */
 	int* stack_ptr;
 
-	/* fast data */
+	/* fast data / 'this-ptr' info */
 	int  fast_data[2];
 	int  fast_count;
 };
