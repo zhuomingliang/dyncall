@@ -18,11 +18,11 @@
 */
 
 #include "dynload.h"
-#include "../dyncall/dyncall_macros.h"
+
 #if defined(DC_WINDOWS)
 #  include "dynload_windows.c"
 #elif defined(DC_UNIX)
-#  if defined (DC__OS_Darwin)
+#  if defined(DC__OS_Darwin)
 #    include "dynload_darwin.c"
 #  else
 #    include "dynload_unix.c"
