@@ -24,6 +24,10 @@
 #ifndef DYNLOAD_H
 #define DYNLOAD_H
 
+
+#include "../dyncall/dyncall_alloc.h"
+#include "../dyncall/dyncall_macros.h"
+#include "dynload_macros.h"
 #include <stddef.h>
 #include <stdlib.h>
 
@@ -31,15 +35,16 @@
 extern "C" {
 #endif
 
+
 /* --- public api ---------------------------------------------------------- */
 
 /* shared library loading and explicit symbol resolving */
 
 typedef struct DLLib_ DLLib;
 
-DLLib* dlLoadLibrary(const char* libpath);
-void   dlFreeLibrary(DLLib* pLib);
-void*  dlFindSymbol(DLLib* pLib, const char* pSymbolName);
+DC_API DLLib* dlLoadLibrary(const char* libpath);
+DC_API void   dlFreeLibrary(DLLib* pLib);
+DC_API void*  dlFindSymbol(DLLib* pLib, const char* pSymbolName);
 
 /* symbol table enumeration */
 
