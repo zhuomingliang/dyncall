@@ -55,17 +55,14 @@ struct DLSyms_
 };
 
 
-DLSyms* dlSymsInit(DLLib* pLib)
+DLSyms* dlSymsInit(const char* libPath) 
 {
 	DLSyms* pSyms = NULL;
 	uint32_t iImage, nImages;
-	if (!pLib || !pLib->libPath)
-		return NULL;
-	
 	for (iImage = 0, nImages = _dyld_image_count(); iImage < nImages; iImage++)
 	{
 		const char* name = _dyld_get_image_name(iImage);
-		if (name && !strcmp(name, pLib->libPath))
+		if (name && !strcmp(name, libPath))
 		{
 			const struct MACH_HEADER_TYPE* pHeader = _dyld_get_image_header(iImage);
 			const char* pBase = ((const char*)pHeader);
