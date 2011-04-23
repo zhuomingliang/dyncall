@@ -34,6 +34,7 @@ DLLib* dlLoadLibrary(const char* libPath)
 {
   if (libPath != NULL) {
     return (DLLib*) LoadLibraryA(libPath);
+    /*return (DLLib*) LoadLibraryA(libPath, NULL, LOAD_WITH_ALTERED_SEARCH_PATH);*/
   } else {
     return (DLLib*) GetModuleHandle(NULL);
   }
