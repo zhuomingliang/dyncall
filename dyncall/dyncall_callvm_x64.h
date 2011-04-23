@@ -41,7 +41,7 @@
 
 #if defined(DC_WINDOWS)
 
-typedef long long int64;	// llp64
+typedef long long int64;	/* llp64 */
 
 #define numIntRegs   4
 #define numFloatRegs 4
@@ -50,7 +50,7 @@ typedef long long int64;	// llp64
 
 #elif defined(DC_UNIX)
 
-typedef long int64;		// lp64
+typedef long int64;		/* lp64 */
 
 #define numIntRegs   6
 #define numFloatRegs 8
