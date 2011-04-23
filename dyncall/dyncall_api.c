@@ -57,33 +57,39 @@ void dcArgShort(DCCallVM* vm,DCshort x)
 
 void dcArgInt(DCCallVM* vm,DCint x) 
 { 
-  vm->mVTpointer->argInt(vm,x); 
+  vm->mVTpointer->argInt(vm, x); 
 }
 
 void dcArgLong(DCCallVM* vm,DClong x) 
 { 
-  vm->mVTpointer->argLong(vm,x); 
+  vm->mVTpointer->argLong(vm, x); 
 }
 
 void dcArgLongLong(DCCallVM* vm, DClonglong x) 
 { 
-  vm->mVTpointer->argLongLong(vm,x); 
+  vm->mVTpointer->argLongLong(vm, x); 
 }
 
 void dcArgFloat(DCCallVM* vm, DCfloat x) 
 { 
-  vm->mVTpointer->argFloat(vm,x); 
+  vm->mVTpointer->argFloat(vm, x); 
 }
 
 void dcArgDouble(DCCallVM* vm, DCdouble x) 
 { 
-  vm->mVTpointer->argDouble(vm,x); 
+  vm->mVTpointer->argDouble(vm, x); 
 }
 
 void dcArgPointer(DCCallVM* vm, DCpointer x) 
 { 
-  vm->mVTpointer->argPointer(vm,x); 
+  vm->mVTpointer->argPointer(vm, x); 
 }
+
+void dcArgStruct(DCCallVM* vm, DCstruct* s, DCpointer x) 
+{ 
+  vm->mVTpointer->argStruct(vm, s, x); 
+}
+
 
 void dcCallVoid(DCCallVM* vm, DCpointer funcptr) 
 {        
@@ -133,6 +139,11 @@ DCdouble dcCallDouble(DCCallVM* vm, DCpointer funcptr)
 DCpointer dcCallPointer(DCCallVM* vm, DCpointer funcptr) 
 { 
   return vm->mVTpointer->callPointer(vm, funcptr); 
+}
+
+void dcCallStruct(DCCallVM* vm, DCpointer funcptr, DCstruct* s, DCpointer x) 
+{ 
+  vm->mVTpointer->callStruct(vm, funcptr, s, x); 
 }
 
 DCint dcGetError(DCCallVM *vm)

@@ -152,6 +152,7 @@ DCCallVM_vt gVT_mips_eabi =
 , &dc_callvm_argFloat_mips_eabi
 , &dc_callvm_argDouble_mips_eabi
 , &dc_callvm_argPointer_mips_eabi
+, NULL /* argStruct */
 , (DCvoidvmfunc*)       &dc_callvm_call_mips_eabi
 , (DCboolvmfunc*)       &dc_callvm_call_mips_eabi
 , (DCcharvmfunc*)       &dc_callvm_call_mips_eabi
@@ -162,6 +163,7 @@ DCCallVM_vt gVT_mips_eabi =
 , (DCfloatvmfunc*)      &dc_callvm_call_mips_eabi
 , (DCdoublevmfunc*)     &dc_callvm_call_mips_eabi
 , (DCpointervmfunc*)    &dc_callvm_call_mips_eabi
+, NULL /* callStruct */
 };
 
 DCCallVM* dcNewCallVM_mips_eabi(DCsize size) 

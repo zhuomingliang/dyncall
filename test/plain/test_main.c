@@ -284,6 +284,7 @@ DC_DEFINE_TEST_FUNC_BEGIN(testCallFast)
 DC_DEFINE_TEST_FUNC_END
 #endif
 
+int testCallStructs();
 
 int main(int argc, char* argv[])
 {
@@ -292,6 +293,12 @@ int main(int argc, char* argv[])
   
   b = b && testCallC();
   printf("C:%d\n",b);
+
+  b = b && testStructSizes();
+  printf("Struct Sizes:%d\n",b);
+
+  /*b = b && testCallStructs();
+  printf("Call Structs:%d\n",b);*/
 
 #if defined(DC__OS_Win32)
   

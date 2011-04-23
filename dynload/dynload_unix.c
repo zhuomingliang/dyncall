@@ -30,18 +30,21 @@
 
 #include <dlfcn.h>
 
+
 DLLib* dlLoadLibrary(const char* libPath)
 {
-  return (DLLib*) dlopen(libPath,RTLD_NOW);
+  return (DLLib*)dlopen(libPath,RTLD_NOW);
 }
+
 
 void* dlFindSymbol(DLLib* libHandle, const char* symbol)
 {
-  return dlsym( (void*) libHandle, symbol);
+  return dlsym((void*)libHandle, symbol);
 }
 
-void  dlFreeLibrary(DLLib* libHandle)
+
+void dlFreeLibrary(DLLib* libHandle)
 {
-  dlclose( (void*) libHandle);
+  dlclose((void*)libHandle);
 }
 

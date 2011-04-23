@@ -24,7 +24,7 @@ GMAKE_TOP	= $(TOP)/buildsys/gmake
 include $(GMAKE_TOP)/prolog.gmake
 
 TARGET_APP	= plain
-UNITS		= test_main
+UNITS		= test_main test_structs
 CPPFLAGS	+= -I$(TOP)/dyncall
 LINK_DIRS	= $(TOP)/dyncall/$(BUILD_DIR)
 LINK_LIBS       = dyncall_s

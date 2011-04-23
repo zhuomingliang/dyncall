@@ -27,7 +27,7 @@
 
 
 #include "dynload.h"
-#include "../dyncall/dyncall_alloc.h"
+
 #include <dlfcn.h>
 #include <string.h>
 
@@ -62,7 +62,6 @@ DLLib* dlLoadLibrary(const char* libPath)
         }
         return lib;
 }
-
 
 void* dlFindSymbol(DLLib* libHandle, const char* symbol)
 {

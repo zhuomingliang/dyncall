@@ -23,9 +23,6 @@
 */
 
 #include "dynload.h"
-#include "dynload_macros.h"
-#include "../dyncall/dyncall_macros.h"
-#include "../dyncall/dyncall_alloc.h"
 
 #include <mach-o/dyld.h>
 #include <mach-o/nlist.h>
@@ -34,9 +31,11 @@
 
 #if defined(DC__Arch_AMD64)
 #define MACH_HEADER_TYPE mach_header_64
+#define SEGMENT_COMMAND segment_command_64
 #define NLIST_TYPE nlist_64
 #else
 #define MACH_HEADER_TYPE mach_header
+#define SEGMENT_COMMAND segment_command
 #define NLIST_TYPE nlist
 #endif
 
@@ -68,8 +67,13 @@ DLSyms* dlSymsInit(DLLib* pLib)
 		const char* name = _dyld_get_image_name(iImage);
 		if (name && !strcmp(name, pLib->libPath))
 		{
-			const struct mach_header* pHeader = _dyld_get_image_header(iImage);
-			const char* pBase = (const char*)pHeader;
+			const struct MACH_HEADER_TYPE* pHeader = _dyld_get_image_header(iImage);
+			const char* pBase = ((const char*)pHeader);
+			if (pHeader->filetype != MH_DYLIB)
+				return NULL;
+			if (pHeader->flags & MH_SPLIT_SEGS)
+				return NULL;
+
 			if (pHeader)
 			{
 				uint32_t iCmd, nCmds = pHeader->ncmds;
@@ -106,14 +110,12 @@ void dlSymsCleanup(DLSyms* pSyms)
 	dcFreeMem(pSyms);
 }
 
-
 int dlSymsCount(DLSyms* pSyms)
 {
 	if (!pSyms)
 		return 0;
 	return pSyms->symbolCount;
 }
-
 
 static const struct NLIST_TYPE* get_nlist(DLSyms* pSyms, int index)
 {

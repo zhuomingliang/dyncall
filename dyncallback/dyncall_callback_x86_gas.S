@@ -56,10 +56,10 @@ CSYM(dcCallbackThunkEntry):
 	push %ebp
 	mov  %ebp, %esp
 
-	// local variable frame_CTX
+	# local variable frame_CTX
 	push %eax			# EAX = CTX*
 
-	// initialize DCArgs
+	# initialize DCArgs
 	push 0				# fast_count
 	push %edx			# fast_data[1]
 	push %ecx			# fast_data[0]
@@ -69,20 +69,20 @@ CSYM(dcCallbackThunkEntry):
 
 	mov  %ecx, %esp			# ECX = DCArgs*
 
-	// initialze DCValue
+	# initialze DCValue
 	push 0
 	push 0
 
 	mov  %edx, %esp			# EDX = DCValue*
 
-	// call handler (context
+	# call handler (context)
 	push [%eax+CTX_userdata]	# userdata
 	push %edx			# DCValue*
 	push %ecx			# DCArgs*
 	push %eax			# DCCallback*
 	call [%eax+CTX_phandler]
 
-	// cleanup stack
+	# cleanup stack
 
 	mov  %esp, %ebp		# reset esp to frame
 	pop  %ecx		# skip parent frame
@@ -93,23 +93,27 @@ CSYM(dcCallbackThunkEntry):
 	lea  %edx, [%ebp+frame_DCValue]
 	mov  %ebp, [%ebp]	# EBP = parent frame
 
-	// handle return value
+	# handle return value
 
+	cmp %al, 'v'
+	je .return_void
 	cmp %al, 'd'
 	je .return_f64
 	cmp %al, 'f'
 	je .return_f32
 	cmp %al, 'l'
 	je .return_i64
-	cmp %al, 'i'
-	je .return_i32
-	ret
+	cmp %al, 'L'
+	je .return_i64_
+	
+	# All int cases <= 32 bits (+ pointer & string cases) fall in the 32 bits int case)
 
 .return_i32:
 	mov  %eax, [%edx]
 	ret
 
 .return_i64:
+.return_i64_:
 	mov  %eax, [%edx]
 	mov  %edx, [%edx+4]
 	ret
@@ -121,3 +125,6 @@ CSYM(dcCallbackThunkEntry):
 .return_f64:
 	fld qword ptr [%edx]
 	ret
+
+.return_void:
+  	ret

@@ -23,7 +23,7 @@
 
 #include "dyncall_callvm_x64.h"
 #include "dyncall_alloc.h"
-
+#include "dyncall_struct.h"
 
 static DCCallVM* dc_callvm_new_x64(DCCallVM_vt* vt, DCsize size)
 {
@@ -148,6 +148,17 @@ static void dc_callvm_argPointer_x64(DCCallVM* in_self, DCpointer x)
     dcVecAppend(&self->mVecHead, &x, sizeof(DCpointer));
 }
 
+static void dc_callvm_argStruct_x64(DCCallVM* in_self, DCstruct* s, DCpointer x)
+{
+  DCCallVM_x64* self = (DCCallVM_x64*)in_self;
+  dcVecAppend(&self->mVecHead, x, s->size);
+  /*printf("dc_callvm_argStruct_x64 size = %d\n", (int)s->size);@@@*/
+  if (s->size <= 64)
+  	  dcArgStructUnroll(in_self, s, x);
+  /*else@@@*/
+  /*	  dcVecAppend(&self->mVecHead, &x, sizeof(DCpointer));@@@*/
+}
+
 
 /* Call. */
 void dc_callvm_call_x64(DCCallVM* in_self, DCpointer target)
@@ -183,6 +194,7 @@ DCCallVM_vt gVT_x64 =
 , &dc_callvm_argFloat_x64
 , &dc_callvm_argDouble_x64
 , &dc_callvm_argPointer_x64
+, &dc_callvm_argStruct_x64
 , (DCvoidvmfunc*)       &dc_callvm_call_x64
 , (DCboolvmfunc*)       &dc_callvm_call_x64
 , (DCcharvmfunc*)       &dc_callvm_call_x64
@@ -193,6 +205,7 @@ DCCallVM_vt gVT_x64 =
 , (DCfloatvmfunc*)      &dc_callvm_call_x64
 , (DCdoublevmfunc*)     &dc_callvm_call_x64
 , (DCpointervmfunc*)    &dc_callvm_call_x64
+, NULL /* callStruct */
 };
 
 

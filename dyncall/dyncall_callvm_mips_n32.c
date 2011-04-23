@@ -135,7 +135,7 @@ static void dc_callvm_argFloat_mips_n32(DCCallVM* in_self, DCfloat x)
 {
   DCCallVM_mips_n32* self = (DCCallVM_mips_n32*)in_self;
   if (self->mRegCount < 8) {
-    // self->mRegData.mFloatData[self->mRegCount++].d = (DCdouble) x;
+    /*self->mRegData.mFloatData[self->mRegCount++].d = (DCdouble) x;*/
     self->mRegData.mFloatData[self->mRegCount++].f = x;
   } else {
     dcVecAppend(&self->mVecHead, &x, sizeof(DCfloat) );
@@ -190,6 +190,7 @@ DCCallVM_vt gVT_mips_n32 =
 , &dc_callvm_argFloat_mips_n32
 , &dc_callvm_argDouble_mips_n32
 , &dc_callvm_argPointer_mips_n32
+, NULL /* argStruct */
 , (DCvoidvmfunc*)       &dc_callvm_call_mips_n32
 , (DCboolvmfunc*)       &dc_callvm_call_mips_n32
 , (DCcharvmfunc*)       &dc_callvm_call_mips_n32
@@ -200,6 +201,7 @@ DCCallVM_vt gVT_mips_n32 =
 , (DCfloatvmfunc*)      &dc_callvm_call_mips_n32
 , (DCdoublevmfunc*)     &dc_callvm_call_mips_n32
 , (DCpointervmfunc*)    &dc_callvm_call_mips_n32
+, NULL /* callStruct */
 };
 
 DCCallVM_vt gVT_mips_n32_ellipsis =
@@ -216,6 +218,7 @@ DCCallVM_vt gVT_mips_n32_ellipsis =
 , &dc_callvm_argFloat_mips_n32_ellipsis
 , &dc_callvm_argDouble_mips_n32_ellipsis
 , &dc_callvm_argPointer_mips_n32
+, NULL /* argStruct */
 , (DCvoidvmfunc*)       &dc_callvm_call_mips_n32
 , (DCboolvmfunc*)       &dc_callvm_call_mips_n32
 , (DCcharvmfunc*)       &dc_callvm_call_mips_n32
@@ -226,6 +229,7 @@ DCCallVM_vt gVT_mips_n32_ellipsis =
 , (DCfloatvmfunc*)      &dc_callvm_call_mips_n32
 , (DCdoublevmfunc*)     &dc_callvm_call_mips_n32
 , (DCpointervmfunc*)    &dc_callvm_call_mips_n32
+, NULL /* callStruct */
 };
 
 static void dc_callvm_mode_mips_n32(DCCallVM* self,DCint mode)

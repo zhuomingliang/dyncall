@@ -39,11 +39,8 @@
 extern "C" {
 #endif 
 
-#ifndef DC_API
-#define DC_API
-#endif
-
 typedef struct DCCallVM_    DCCallVM;
+typedef struct DCstruct_    DCstruct;
 
 /* Supported Calling Convention Modes */
 
@@ -95,6 +92,7 @@ DC_API void       dcArgLongLong   (DCCallVM* vm, DClonglong value);
 DC_API void       dcArgFloat      (DCCallVM* vm, DCfloat    value);
 DC_API void       dcArgDouble     (DCCallVM* vm, DCdouble   value);
 DC_API void       dcArgPointer    (DCCallVM* vm, DCpointer  value);
+DC_API void       dcArgStruct     (DCCallVM* vm, DCstruct* s, DCpointer value);
 
 DC_API void       dcCallVoid      (DCCallVM* vm, DCpointer funcptr);
 DC_API DCbool     dcCallBool      (DCCallVM* vm, DCpointer funcptr);
@@ -106,8 +104,22 @@ DC_API DClonglong dcCallLongLong  (DCCallVM* vm, DCpointer funcptr);
 DC_API DCfloat    dcCallFloat     (DCCallVM* vm, DCpointer funcptr);
 DC_API DCdouble   dcCallDouble    (DCCallVM* vm, DCpointer funcptr);
 DC_API DCpointer  dcCallPointer   (DCCallVM* vm, DCpointer funcptr);
+DC_API void       dcCallStruct    (DCCallVM* vm, DCpointer funcptr, DCstruct* s, DCpointer returnValue);
 
 DC_API DCint      dcGetError      (DCCallVM* vm);
+
+#define DEFAULT_ALIGNMENT 0
+DC_API DCstruct*  dcNewStruct      (DCsize fieldCount, DCint alignment);
+DC_API void       dcStructField    (DCstruct* s, DCint type, DCint alignment, DCsize arrayLength);
+DC_API void       dcSubStruct      (DCstruct* s, DCsize fieldCount, DCint alignment, DCsize arrayLength);  	
+/* Each dcNewStruct or dcSubStruct call must be paired with a dcCloseStruct. */
+DC_API void       dcCloseStruct    (DCstruct* s);  	
+DC_API DCsize     dcStructSize     (DCstruct* s);  	
+DC_API DCsize     dcStructAlignment(DCstruct* s);  	
+DC_API void       dcFreeStruct     (DCstruct* s);
+
+DC_API DCstruct*  dcDefineStruct  (const char* signature);
+
 
 #ifdef __cplusplus
 }

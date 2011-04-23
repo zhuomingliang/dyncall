@@ -51,7 +51,8 @@ typedef char DCsigchar;
 #define DC_SIGCHAR_DOUBLE       'd'
 #define DC_SIGCHAR_POINTER      'p'
 #define DC_SIGCHAR_STRING       'Z'
-#define DC_SIGCHAR_ENDARG       ')'
+#define DC_SIGCHAR_STRUCT       'T'
+#define DC_SIGCHAR_ENDARG       ')' /* also works for end struct */
 
 /* callback signatures */
 
@@ -59,6 +60,7 @@ typedef char DCsigchar;
 #define DC_SIGCHAR_CC_STDCALL       's'
 #define DC_SIGCHAR_CC_FASTCALL_GNU  'f'
 #define DC_SIGCHAR_CC_FASTCALL_MS   'F'
+#define DC_SIGCHAR_CC_THISCALL_MS   '+'
 
 #endif /* DYNCALL_SIGNATURE_H */
 

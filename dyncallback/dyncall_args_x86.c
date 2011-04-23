@@ -22,17 +22,17 @@
 */
 #include "dyncall_args_x86.h"
 
-// ----------------------------------------------------------------------------
-// C API implementation:
+/* ---------------------------------------------------------------------------- */
+/* C API implementation: */
 
-// base operations:
+/* base operations */
 
 DCint      dcbArgInt     (DCArgs* p) { return p->vt->i32(p); }
 DClonglong dcbArgLongLong(DCArgs* p) { return p->vt->i64(p); }
 DCfloat    dcbArgFloat   (DCArgs* p) { return p->vt->f32(p); }
 DCdouble   dcbArgDouble  (DCArgs* p) { return p->vt->f64(p); }
 
-// promote to integer: bool, char, short, long and pointer
+/* promote to integer: bool, char, short, long and pointer */
 
 DCbool     dcbArgBool    (DCArgs* p) { return ( dcbArgInt(p) == 0 ) ? 0 : 1; }
 DCchar     dcbArgChar    (DCArgs* p) { return (char)      dcbArgInt(p); }
@@ -40,7 +40,7 @@ DCshort    dcbArgShort   (DCArgs* p) { return (short)     dcbArgInt(p); }
 DClong     dcbArgLong    (DCArgs* p) { return (long)      dcbArgInt(p); }
 DCpointer  dcbArgPointer (DCArgs* p) { return (DCpointer) dcbArgInt(p); }
 
-// unsigned types
+/* unsigned types */
 
 DCuint      dcbArgUInt     (DCArgs* p) { return (DCuint)      dcbArgInt(p); }
 DCuchar     dcbArgUChar    (DCArgs* p) { return (DCuchar)     dcbArgChar(p); }
@@ -48,10 +48,10 @@ DCushort    dcbArgUShort   (DCArgs* p) { return (DCushort)    dcbArgShort(p); }
 DCulong     dcbArgULong    (DCArgs* p) { return (DCulong)     dcbArgLong(p); }
 DCulonglong dcbArgULongLong(DCArgs* p) { return (DCulonglong) dcbArgLongLong(p); }
 
-// ----------------------------------------------------------------------------
-// virtual tables:
+/* ---------------------------------------------------------------------------- */
+/* virtual tables: */
 
-// cdecl calling convention
+/* cdecl calling convention */
 
 static int default_i32(DCArgs* args)
 {
@@ -81,11 +81,25 @@ static double default_f64(DCArgs* args)
 
 DCArgsVT dcArgsVT_default   = { default_i32, default_i64, default_f32, default_f64 };
 
-// fastcall (microsoft) calling convention:
+/* thiscall (microsoft) calling convention */
+
+static int this_i32(DCArgs* args)
+{
+	if(args->fast_data[0]) { /* ecx register = this pointer */
+		int thisArg = args->fast_data[0];
+		args->fast_data[0] = 0;
+		return thisArg;
+	}
+	return *args->stack_ptr++;
+}
+
+DCArgsVT dcArgsVT_this_ms = { this_i32, default_i64, default_f32, default_f64 };
+
+/* fastcall (microsoft) calling convention */
 
 static int fast_i32(DCArgs* args)
 {
-	if (args->fast_count < 2)
+	if(args->fast_count < 2)
 		return args->fast_data[args->fast_count++];
 	else
 		return default_i32(args);
@@ -93,11 +107,11 @@ static int fast_i32(DCArgs* args)
 
 DCArgsVT dcArgsVT_fast_ms = { fast_i32, default_i64, default_f32, default_f64 };
 
-// fastcall (gnu) calling convention
+/* fastcall (gnu) calling convention */
 
 static long long fast_gnu_i64(DCArgs* args)
 {
-	args->fast_count = 2;
+	args->fast_count += 2;
 	return default_i64(args);
 }
 

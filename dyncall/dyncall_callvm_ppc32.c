@@ -176,10 +176,8 @@ static void dc_callvm_argFloat_ppc32_sysv(DCCallVM* in_self, DCfloat f)
 static void dc_callvm_argLongLong_ppc32_darwin(DCCallVM* in_self, DClonglong L)
 {
   DCint* p = (DCint*) &L;
-  dcArgInt(in_self, p[0] );
-  dcArgInt(in_self, p[1] );
-//  dc_callvm_argInt_ppc32( in_self, p[0] ); 
-//  dc_callvm_argInt_ppc32( in_self, p[1] ); 
+  dcArgInt(in_self, p[0]);
+  dcArgInt(in_self, p[1]);
 }
 
 static void dc_callvm_argLongLong_ppc32_sysv(DCCallVM* in_self, DClonglong L)
@@ -213,7 +211,6 @@ static void dc_callvm_argBool_ppc32(DCCallVM* in_self, DCbool x)
 {
   /* promote to integer */
   dcArgInt(in_self, (x == 0) ? DC_FALSE : DC_TRUE );
-//  dc_callvm_argInt_ppc32( in_self, (x == 0) ? DC_FALSE : DC_TRUE );
 }
 
 
@@ -221,7 +218,6 @@ static void dc_callvm_argChar_ppc32(DCCallVM* in_self, DCchar ch)
 {
   /* promote to integer */
   dcArgInt(in_self, (DCint) ch );
-//  dc_callvm_argInt_ppc32(in_self, (DCint) ch);
 }
 
 
@@ -229,7 +225,6 @@ static void dc_callvm_argShort_ppc32(DCCallVM* in_self, DCshort s)
 {
   /* promote to integer */
   dcArgInt(in_self, (DCint) s );
-//  dc_callvm_argInt_ppc32(in_self, (DCint) s);
 }
 
 
@@ -237,45 +232,22 @@ static void dc_callvm_argLong_ppc32(DCCallVM* in_self, DClong l)
 {
   /* promote to integer */
   dcArgInt(in_self, (DCint) l );
-//  dc_callvm_argInt_ppc32(in_self, (DCint) l);
 }
 
 static void dc_callvm_argPointer_ppc32(DCCallVM* in_self, DCpointer p)
 {
   /* promote to integer */
   dcArgInt(in_self, *(DCint*) &p );
-//  dc_callvm_argInt_ppc32(in_self, * (DCint*) &p);
 }
 
-#ifndef max
-#define max(a,b) (a>=b)?a:b
-#endif
-
-
-#if 0
-/* Call. */
-void dc_callvm_call_ppc32(DCCallVM* in_self, DCpointer target)
-{
-  DCCallVM_ppc32* self = (DCCallVM_ppc32*)in_self;
-  ( void (*) (DCpointer, DCpointer, DCint, DCpointer) self->mpCallFunc ) (
-/*  
-  dcCall_ppc32(
- */
-    target
-   ,&self->mRegData
-   ,DC_MAX( dcVecSize(&self->mVecHead) , 8*4 )
-   ,dcVecData(&self->mVecHead)
-  );
-}
-#endif
 
 void dc_callvm_call_ppc32_darwin(DCCallVM* in_self, DCpointer target)
 {
-  DCCallVM_ppc32* self = (DCCallVM_ppc32*) in_self;
+  DCCallVM_ppc32* self = (DCCallVM_ppc32*)in_self;
   dcCall_ppc32_darwin( 
     target, 
     &self->mRegData, 
-    max( dcVecSize(&self->mVecHead), 8*4 ) , 
+    DC_MAX(dcVecSize(&self->mVecHead), 8*4),
     dcVecData(&self->mVecHead)
   );
 }
@@ -302,6 +274,7 @@ DCCallVM_vt gVT_ppc32_darwin =
 , &dc_callvm_argFloat_ppc32_darwin
 , &dc_callvm_argDouble_ppc32_darwin
 , &dc_callvm_argPointer_ppc32
+, NULL /* argStruct */
 , (DCvoidvmfunc*)       &dc_callvm_call_ppc32_darwin
 , (DCboolvmfunc*)       &dc_callvm_call_ppc32_darwin
 , (DCcharvmfunc*)       &dc_callvm_call_ppc32_darwin
@@ -312,6 +285,7 @@ DCCallVM_vt gVT_ppc32_darwin =
 , (DCfloatvmfunc*)      &dc_callvm_call_ppc32_darwin
 , (DCdoublevmfunc*)     &dc_callvm_call_ppc32_darwin
 , (DCpointervmfunc*)    &dc_callvm_call_ppc32_darwin
+, NULL /* callStruct */
 };
 
 DCCallVM_vt gVT_ppc32_sysv =
@@ -328,6 +302,7 @@ DCCallVM_vt gVT_ppc32_sysv =
 , &dc_callvm_argFloat_ppc32_sysv
 , &dc_callvm_argDouble_ppc32_sysv
 , &dc_callvm_argPointer_ppc32
+, NULL /* argStruct */
 , (DCvoidvmfunc*)       &dc_callvm_call_ppc32_sysv
 , (DCboolvmfunc*)       &dc_callvm_call_ppc32_sysv
 , (DCcharvmfunc*)       &dc_callvm_call_ppc32_sysv
@@ -338,6 +313,7 @@ DCCallVM_vt gVT_ppc32_sysv =
 , (DCfloatvmfunc*)      &dc_callvm_call_ppc32_sysv
 , (DCdoublevmfunc*)     &dc_callvm_call_ppc32_sysv
 , (DCpointervmfunc*)    &dc_callvm_call_ppc32_sysv
+, NULL /* callStruct */
 };
 
 void dc_callvm_mode_ppc32(DCCallVM* in_self, DCint mode)

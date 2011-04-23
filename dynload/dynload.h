@@ -46,17 +46,16 @@ DC_API DLLib* dlLoadLibrary(const char* libpath);
 DC_API void   dlFreeLibrary(DLLib* pLib);
 DC_API void*  dlFindSymbol(DLLib* pLib, const char* pSymbolName);
 
-/* symbol table enumeration */
+/* symbol table enumeration - only for symbol lookup, not resolve */
 
 typedef struct DLSyms_ DLSyms;
 
-DLSyms*     dlSymsInit   (DLLib* pLib);
+DLSyms*     dlSymsInit   (const char* libPath);
 void        dlSymsCleanup(DLSyms* pSyms);
 
 int         dlSymsCount        (DLSyms* pSyms);
 const char* dlSymsName         (DLSyms* pSyms, int index);
-void*       dlSymsValue        (DLSyms* pSyms, int index);
-const char* dlSymsNameFromValue(DLSyms* pSyms, void* value);
+const char* dlSymsNameFromValue(DLSyms* pSyms, void* value); /* symbol must be loaded */
 
 
 #ifdef __cplusplus

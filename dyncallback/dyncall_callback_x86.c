@@ -75,6 +75,39 @@ static int dcbCleanupSize_x86_std(const char* signature)
   return size;
 }
 
+static int dcbCleanupSize_x86_this_ms(const char* signature)
+{
+  const char* ptr = signature;
+  int size = 0;
+  char ch;
+  while( (ch = *ptr++) != DC_SIGCHAR_ENDARG )
+  {
+    switch(ch)
+    {
+    case DC_SIGCHAR_BOOL:
+    case DC_SIGCHAR_CHAR:
+    case DC_SIGCHAR_SHORT:
+    case DC_SIGCHAR_INT:
+    case DC_SIGCHAR_LONG:
+    case DC_SIGCHAR_POINTER:
+    case DC_SIGCHAR_UCHAR:
+    case DC_SIGCHAR_USHORT:
+    case DC_SIGCHAR_UINT:
+    case DC_SIGCHAR_ULONG:
+    case DC_SIGCHAR_STRING:
+    case DC_SIGCHAR_FLOAT:
+      size += 4;
+      break;
+    case DC_SIGCHAR_DOUBLE:
+    case DC_SIGCHAR_LONGLONG:
+    case DC_SIGCHAR_ULONGLONG:
+      size += 8;
+      break;
+    }
+  }
+  return size;
+}
+
 static int dcbCleanupSize_x86_fast_ms(const char* signature)
 {
   const char* ptr = signature;
@@ -153,40 +186,45 @@ void dcbInitCallback(DCCallback* pcb, const char* signature, DCCallbackHandler* 
   ptr = signature;
   ch = *ptr;
 
-  // x86 hints:
+  /* x86 hints: */
 
   mode = DC_CALL_C_X86_CDECL;
 
-  if (ch == DC_SIGCHAR_CC_PREFIX)
+  if(ch == DC_SIGCHAR_CC_PREFIX)
   {
     ptr++;
     ch = *ptr++;
     switch(ch) {
       case DC_SIGCHAR_CC_STDCALL:      mode = DC_CALL_C_X86_WIN32_STD;      break;
+      case DC_SIGCHAR_CC_THISCALL_MS:  mode = DC_CALL_C_X86_WIN32_THIS_MS;  break;
       case DC_SIGCHAR_CC_FASTCALL_GNU: mode = DC_CALL_C_X86_WIN32_FAST_GNU; break;
       case DC_SIGCHAR_CC_FASTCALL_MS:  mode = DC_CALL_C_X86_WIN32_FAST_MS;  break;
     }
   }
 
-  // x86 configuration:
+  /* x86 configuration: */
 
   switch(mode) {
-  case DC_CALL_C_X86_CDECL:
-    pcb->args_vt = &dcArgsVT_default;
-    pcb->stack_cleanup = dcbCleanupSize_x86_cdecl(ptr);
-    break;
-  case DC_CALL_C_X86_WIN32_STD:
-    pcb->args_vt = &dcArgsVT_default;
-    pcb->stack_cleanup = dcbCleanupSize_x86_std(ptr);
-    break;
-  case DC_CALL_C_X86_WIN32_FAST_MS:
-    pcb->args_vt = &dcArgsVT_fast_ms;
-    pcb->stack_cleanup = dcbCleanupSize_x86_fast_ms(ptr);
-    break;
-  case DC_CALL_C_X86_WIN32_FAST_GNU:
-    pcb->args_vt = &dcArgsVT_fast_gnu;
-    pcb->stack_cleanup = dcbCleanupSize_x86_fast_gnu(ptr);
-    break;
+    case DC_CALL_C_X86_CDECL:
+      pcb->args_vt = &dcArgsVT_default;
+      pcb->stack_cleanup = dcbCleanupSize_x86_cdecl(ptr);
+      break;
+    case DC_CALL_C_X86_WIN32_STD:
+      pcb->args_vt = &dcArgsVT_default;
+      pcb->stack_cleanup = dcbCleanupSize_x86_std(ptr);
+      break;
+    case DC_CALL_C_X86_WIN32_THIS_MS:
+      pcb->args_vt = &dcArgsVT_this_ms;
+      pcb->stack_cleanup = dcbCleanupSize_x86_this_ms(ptr);
+      break;
+    case DC_CALL_C_X86_WIN32_FAST_MS:
+      pcb->args_vt = &dcArgsVT_fast_ms;
+      pcb->stack_cleanup = dcbCleanupSize_x86_fast_ms(ptr);
+      break;
+    case DC_CALL_C_X86_WIN32_FAST_GNU:
+      pcb->args_vt = &dcArgsVT_fast_gnu;
+      pcb->stack_cleanup = dcbCleanupSize_x86_fast_gnu(ptr);
+      break;
   }
 }
 

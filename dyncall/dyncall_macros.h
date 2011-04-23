@@ -215,5 +215,12 @@
 # endif
 #endif /* MIPS */
 
+
+
+/* Internal macro/tag. */
+#if !defined(DC_API)
+#define DC_API
+#endif
+
 #endif /* DYNCALL_MACROS_H */
 

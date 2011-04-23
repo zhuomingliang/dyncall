@@ -21,6 +21,7 @@
 */
 
 #include "dyncall_vector.h"
+#include <string.h>
 
 
 void dcVecAppend(DCVecHead* pHead, const void* pData, size_t size)
@@ -38,6 +39,6 @@ void dcVecAppend(DCVecHead* pHead, const void* pData, size_t size)
   	}
     pHead->mSize = newSize;
   }
-  // else @@@ warning? error?
+  /*else @@@ warning? error?*/
 }
 

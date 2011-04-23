@@ -49,6 +49,7 @@ struct DCCallVM_vt_
   void         (*argFloat)       (DCCallVM* vm,DCfloat         f);
   void         (*argDouble)      (DCCallVM* vm,DCdouble        d);
   void         (*argPointer)     (DCCallVM* vm,DCpointer       p);
+  void         (*argStruct)      (DCCallVM* vm,DCstruct* s, DCpointer p);
   void         (*callVoid)       (DCCallVM* vm,DCpointer funcptr);
   DCbool       (*callBool)       (DCCallVM* vm,DCpointer funcptr);
   DCchar       (*callChar)       (DCCallVM* vm,DCpointer funcptr);
@@ -59,6 +60,7 @@ struct DCCallVM_vt_
   DCfloat      (*callFloat)      (DCCallVM* vm,DCpointer funcptr);
   DCdouble     (*callDouble)     (DCCallVM* vm,DCpointer funcptr);
   DCpointer    (*callPointer)    (DCCallVM* vm,DCpointer funcptr);
+  void         (*callStruct)     (DCCallVM* vm,DCpointer funcptr,DCstruct* s, DCpointer returnValue);
 };
 
 typedef DCvoid       (DCvoidvmfunc)      (DCCallVM* vm,DCpointer funcptr); 

@@ -44,10 +44,12 @@ frame_CTX          = -4
 frame_DCArgs       = -24
 frame_DCValue      = -32
 
+ASCII_L = 76
 ASCII_l = 108
 ASCII_d	= 100
 ASCII_f = 102
 ASCII_i = 105
+ASCII_v = 118
 
 _dcCallbackThunkEntry:
 	push %ebp
@@ -96,21 +98,25 @@ _dcCallbackThunkEntry:
 
 	// handle return value
 
+	cmp %al, ASCII_v
+	je .return_void
 	cmp %al, ASCII_d
 	je .return_f64
 	cmp %al, ASCII_f
 	je .return_f32
 	cmp %al, ASCII_l
 	je .return_i64
-	cmp %al, ASCII_i
-	je .return_i32
-	ret
+	cmp %al, ASCII_L
+	je .return_i64_
+	
+	// All int cases <= 32 bits (+ pointer & string cases) fall in the 32 bits int case	
 
 .return_i32:
 	mov  %eax, [%edx]
 	ret
 
 .return_i64:
+.return_i64_:
 	mov  %eax, [%edx]
 	mov  %edx, [%edx+4]
 	ret
@@ -121,4 +127,7 @@ _dcCallbackThunkEntry:
 
 .return_f64:
 	fld qword ptr [%edx]
+	ret
+
+.return_void:
 	ret

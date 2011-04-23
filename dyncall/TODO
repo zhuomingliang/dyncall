@@ -1,3 +1,5 @@
+- make sure that struct support for ellipsis calls are not forgotten (copy everything by value)
+
 - merge arm32_thumb_{gas/apple} and include thumb support for portasm
 - check dyncall_call_x64_traditional_cpp.S / try-sync with win64 masm
 - remove dyncall_call_x86_apple.s

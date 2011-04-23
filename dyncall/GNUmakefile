@@ -37,7 +37,7 @@ INSTALL_HEADERS	= \
 
 INSTALL_LIB = 1
 
-UNITS = dyncall_vector dyncall_api dyncall_callvm dyncall_callvm_base
+UNITS = dyncall_vector dyncall_api dyncall_callvm dyncall_callvm_base dyncall_struct
 
 # @@@ disable dyncall_callf for pcc support temporarly
 ifndef BUILD_TOOL_pcc

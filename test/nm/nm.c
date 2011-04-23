@@ -20,43 +20,41 @@
 #include "../../dynload/dynload.h"
 #include <stdio.h>
 
-void list_syms(DLLib* pLib)
+void list_syms(const char* filePath)
 {
   DLSyms* pSyms;
   int i,n;
   
-  pSyms = dlSymsInit(pLib);
+  pSyms = dlSymsInit(filePath);
   i = 0, n = dlSymsCount(pSyms);
 
   for (; i < n; ++i) {
     const char* name = dlSymsName(pSyms,i);
-    void* addr = dlSymsValue(pSyms,i);
-    printf("%s %lx\n", name, (ptrdiff_t) addr);
+    printf("%s\n", name);
   }
   dlSymsCleanup(pSyms);
-  free(pSyms);
 }
 
 
 int main(int argc, char* argv[])
 {
   int i, n;
-  const char* libpath = argv[1];
+  const char* libPath = argv[1];
   
   /* load lib */
 
-  DLLib* pLib = dlLoadLibrary(libpath);
+  DLLib* pLib = dlLoadLibrary(libPath);
   
   if (argc == 1) {
     fprintf(stderr, "usage : %s <dllpath>\n", argv[0]);
     return 1;
   }
   if (!pLib) {
-    fprintf(stderr, "unable to open library %s\n", libpath);
+    fprintf(stderr, "unable to open library %s\n", libPath);
     return 2;
   }
 
-  list_syms(pLib);
+  list_syms(libPath);
 
   dlFreeLibrary(pLib);
   return 0;
