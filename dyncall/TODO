@@ -1,3 +1,4 @@
+- implement structure passing for all calling conventinos and platforms
 - make sure that struct support for ellipsis calls are not forgotten (copy everything by value)
 
 - merge arm32_thumb_{gas/apple} and include thumb support for portasm
