@@ -36,6 +36,7 @@
 #include "dyncall_alloc.h"
 #include "dyncall_macros.h"
 #include "dyncall_types.h"
+#include "dyncall_utils.h"
 
 /* Support for Mac OS X (Darwin) and Systen V ABI for Power PC 32-bit */
 
