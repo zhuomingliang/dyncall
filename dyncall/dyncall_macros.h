@@ -147,6 +147,10 @@
 #elif defined(__PCC__)
   #define DC__C_PCC
 
+/* Sun Pro C. */
+#elif defined(__SUNPRO_C)
+  #define DC__C_SUNPRO
+
 /* Undetected C Compiler. */
 #else
   #define DC__C_UNKNOWN
@@ -177,6 +181,10 @@
 # define DC__Arch_ARM_THUMB
 #elif defined(__sh__)
 # define DC__Arch_SuperH
+#elif defined(__sparc)
+# define DC__Arch_Sparc
+#elif defined(__sparcv9)
+# define DC__Arch_Sparcv9
 #endif
 
 
