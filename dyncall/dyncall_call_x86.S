@@ -1,7 +1,7 @@
 /*
  Package: dyncall
  File: dyncall/dyncall_call_x86.S
- Description: All - expect Plan9 - x86 abi call kernel implementation
+ Description: All - except Plan9 - x86 abi call kernel implementation
  License:
 
  Copyright (c) 2007-2011 Daniel Adler <dadler@uni-goettingen.de>,
@@ -18,12 +18,14 @@
  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+ Bugs:
+ - On Oracle Solaris Studio 12.2: 'rep movsd' not supported 
+
 */
 
-#include "../portasm/portasm-x86.S"
-
+#include "../portasm/portasm-x86-2.S"
 BEGIN_ASM
-
 /* ============================================================================
    DynCall Call Kernels for X86 Architecture
    ----------------------------------------------------------------------------
@@ -54,31 +56,35 @@ BEGIN_ASM
 
 GLOBAL(dcCall_x86_cdecl)
 BEGIN_PROC(dcCall_x86_cdecl)
-	push EBP			/* prolog. */
- 	mov  EBP, ESP
-	push ESI			/* save preserved. */
-	push EDI
-	mov  ESI, dword ptr[EBP+12] 	/* ESI = copy source args. */
-	mov  ECX, dword ptr[EBP+16] 	/* ECX = size. */
+	PUSH(EBP)			/* prolog. */
+	MOVL(ESP,EBP)
+	PUSH(ESI)			/* save preserved registers. */
+	PUSH(EDI)
+	MOVL(DWORD(EBP,12),ESI)		/* ESI = arg buffer ptr */
+	MOVL(DWORD(EBP,16),ECX)		/* ECX = arg buffer size */
+	ADDL(LIT(15),ECX)		/* ECX = align(ECX,16) */
+	ANDL(LIT(-16),ECX)
+	MOVL(ECX,DWORD(EBP,16))		/* save ECX. */
+	SUBL(ECX,ESP)			/* allocate stack size */
+	MOVL(ESP,EDI)			/* EDI = stack ptr */			
 	
-	add  ECX, 15			/* align size to 16 byte. */
-	and  ECX, -16
-	mov  dword ptr [EBP+16], ECX
+	/* 
+		work around for rep movsd (not supported by SunPro) 
 	
-	sub  ESP, ECX         	    	/* alloc stack size. */
-	mov  EDI, ESP		    	/* EDI = copy target stack. */
-	shr  ECX, 2			/* ECX = count DWORDs. */
-	rep  movsd			/* copy DWORDs. */
-	call dword ptr[EBP+8] 		/* call target. */
-	add  ESP, dword ptr[EBP+16] 	/* cleanup stack. */
-	pop  EDI               	    	/* restore preserved. */ 
-	pop  ESI
-	mov  ESP, EBP			/* epilog. */
-	pop  EBP
-	ret
+	SHRL(LIT(2),ECX)		
+	REP(MOVSD)
+	
+	*/
+
+	REP(MOVSB)
+	CALL_DWORD(EBP,8)
+	ADDL(DWORD(EBP,16),ESP)
+	POP(EDI)
+	POP(ESI)
+	MOVL(EBP,ESP)
+	POP(EBP)
+	RET()
 END_PROC(dcCall_x86_cdecl)
-
-
 /* ---- C++ this calls (microsoft) ------------------------------------------ 
 
   Details:
@@ -88,25 +94,25 @@ END_PROC(dcCall_x86_cdecl)
 
 GLOBAL(dcCall_x86_win32_msthis)
 BEGIN_PROC(dcCall_x86_win32_msthis)
-	push EBP               		/* prolog. */
-	mov  EBP, ESP
-	push ESI               		/* save preserved. */
-	push EDI
-	mov  ESI, dword ptr [EBP+12]	/* ESI = pointer on args. */
-	mov  ECX, dword ptr [EBP+16]	/* ECX = size. */
-	mov  EAX, dword ptr [ESI+0]	/* EAX = this pointer. */ 
-	add  ESI, 4           		/* increment args pointer by thisptr. */
-	sub  ECX, 4         		/* decrement size by sizeof(thisptr). */
-	sub  ESP, ECX         		/* allocate argument-block on stack. */
-	mov  EDI, ESP       		/* EDI = stack args. */
-	rep  movsb              	/* copy arguments. */
-	mov  ECX, EAX       		/* ECX = this pointer. */
-	call dword ptr[EBP+8]		/* call function. */
-	pop  EDI			/* restore preserved. */
-	pop  ESI
-	mov  ESP, EBP        		/* epilog. */
-	pop  EBP
-	ret
+	PUSH(EBP)               	/* prolog. */
+	MOVL(ESP,EBP)
+	PUSH(ESI)               	/* save preserved. */
+	PUSH(EDI)
+	MOVL(DWORD(EBP,12),ESI)		/* ESI = pointer on args. */
+	MOVL(DWORD(EBP,16),ECX)		/* ECX = size. */
+	MOVL(DWORD(ESI,0),EAX) 		/* EAX = this pointer. */ 
+	ADDL(LIT(4),ESI)           		/* increment args pointer by thisptr. */
+	SUBL(LIT(4),ECX)        		/* decrement size by sizeof(thisptr). */
+	SUBL(ECX,ESP)         		/* allocate argument-block on stack. */
+	MOVL(ESP,EDI)       		/* EDI = stack args. */
+	REP(MOVSB)              	/* copy arguments. */
+	MOVL(EAX,ECX)        		/* ECX = this pointer. */
+	CALL_DWORD(EBP,8)		/* call function. */
+	POP(EDI)			/* restore preserved. */
+	POP(ESI)
+	MOVL(EBP,ESP)       		/* epilog. */
+	POP(EBP)
+	RET()
 END_PROC(dcCall_x86_win32_msthis)
 
 /*---- win32 stdcall ---------------------------------------------------------
@@ -118,21 +124,21 @@ END_PROC(dcCall_x86_win32_msthis)
 
 GLOBAL(dcCall_x86_win32_std)
 BEGIN_PROC(dcCall_x86_win32_std)
-	push EBP			/* prolog. */
-	mov  EBP, ESP
-	push ESI			/* save ESI, EDI. */
-	push EDI
-	mov  ESI, dword ptr[EBP+12]	/* ESI = args. */
-	mov  ECX, dword ptr[EBP+16]	/* ECX = size. */
-	sub  ESP, ECX			/* allocate size bytes on stack. */
-	mov  EDI, ESP			/* EDI = copy destination stack. */
-	rep  movsb			/* copy BYTEs. */
-	call dword ptr[EBP+8]		/* call target. */
-	pop  EDI			/* restore EDI, ESI. */
-	pop  ESI
-	mov  ESP, EBP			/* epilog. */
-	pop  EBP
-	ret
+	PUSH(EBP)			/* prolog. */
+	MOVL(ESP,EBP)
+	PUSH(ESI)			/* save ESI, EDI. */
+	PUSH(EDI)
+	MOVL(DWORD(EBP,12),ESI)		/* ESI = args. */
+	MOVL(DWORD(EBP,16),ECX)		/* ECX = size. */
+	SUBL(ECX,ESP)			/* allocate size bytes on stack. */
+	MOVL(ESP,EDI)			/* EDI = copy destination stack. */
+	REP(MOVSB)			/* copy BYTEs. */
+	CALL_DWORD(EBP,8)		/* call target. */
+	POP(EDI)			/* restore EDI, ESI. */
+	POP(ESI)
+	MOVL(EBP,ESP)			/* epilog. */
+	POP(EBP)
+	RET()
 END_PROC(dcCall_x86_win32_std)
 
 /*---- win32 fastcall (GNU/Microsoft) ----------------------------------------
@@ -145,27 +151,27 @@ END_PROC(dcCall_x86_win32_std)
 
 GLOBAL(dcCall_x86_win32_fast)
 BEGIN_PROC(dcCall_x86_win32_fast)
-	push EBP			/* prolog. */
-	mov  EBP, ESP
-	push ESI			/* save preserved. */
-	push EDI
-	mov  ESI, dword ptr[EBP+12]	/* ESI = copy source args. */
-	mov  ECX, dword ptr[EBP+16]	/* ECX = size. */
-	mov  EAX, dword ptr[ESI+0]	/* EAX = first argument. */
-	mov  EDX, dword ptr[ESI+4]	/* EDX = second argument. */
-	add  ESI, 8			/* skip registers. */
-	sub  ECX, 8
-	mov  dword ptr [EBP+16], ECX	/* save stack alloc size. */
-	sub  ESP, ECX			/* allocate stack. */
-	mov  EDI, ESP			/* EDI = stack args. */ 
-	rep  movsb			/* copy BYTEs. */
-	mov  ECX, EAX			/* ECX = first argument. */ 
-	call dword ptr[EBP+8]		/* call target. */
-	pop  EDI			/* restore preserved. */
-	pop  ESI
-	mov  ESP, EBP			/* epilog. */
-	pop  EBP
-	ret
+	PUSH(EBP)			/* prolog. */
+	MOVL(ESP,EBP)
+	PUSH(ESI)			/* save preserved. */
+	PUSH(EDI)
+	MOVL(DWORD(EBP,12),ESI)		/* ESI = copy source args. */
+	MOVL(DWORD(EBP,16),ECX)		/* ECX = size. */
+	MOVL(DWORD(ESI,0),EAX)		/* EAX = first argument. */
+	MOVL(DWORD(ESI,4),EDX)		/* EDX = second argument. */
+	ADDL(LIT(8),ESI)		/* skip registers. */
+	SUBL(LIT(8),ECX)
+	MOVL(ECX,DWORD(EBP,16))		/* save stack alloc size. */
+	SUBL(ECX,ESP)  			/* allocate stack. */
+	MOVL(ESP,EDI)  			/* EDI = stack args. */ 
+	REP(MOVSB) 			/* copy BYTEs. */
+	MOVL(EAX,ECX)			/* ECX = first argument. */ 
+	CALL_DWORD(EBP,8)		/* call target. */
+	POP(EDI)			/* restore preserved. */
+	POP(ESI)
+	MOVL(EBP,ESP)			/* epilog. */
+	POP(EBP)
+	RET()
 END_PROC(dcCall_x86_win32_fast)
 
 /*--- syscall int80 linux ---------------------------------------------------
@@ -177,25 +183,25 @@ END_PROC(dcCall_x86_win32_fast)
 
 GLOBAL(dcCall_x86_sys_int80h_linux)
 BEGIN_PROC(dcCall_x86_sys_int80h_linux)
-	push EBP        		/* prolog. */
- 	mov  EBP, ESP
-	push EBX			/* save preserved. */
-	push ESI               
-	push EDI
-	mov  EAX, dword ptr[EBP+12]	/* EAX = argument buffer. */
-	mov  EBX, dword ptr[EAX+0]	/* move first five arguments. */
-	mov  ECX, dword ptr[EAX+4] 	
-	mov  EDX, dword ptr[EAX+8] 
-	mov  ESI, dword ptr[EAX+12]
-	mov  EDI, dword ptr[EAX+16]
-	mov  EAX, dword ptr[EBP+8] 	/* EAX = syscall id. */
-	int  HEX(80)
-	pop  EDI			/* restore preserved. */
-	pop  ESI
-	pop  EBX
-	mov  ESP, EBP			/* epilog. */
-	pop  EBP
-	ret
+	PUSH(EBP)        		/* prolog. */
+ 	MOVL(ESP,EBP)
+	PUSH(EBX)			/* save preserved. */
+	PUSH(ESI)               
+	PUSH(EDI)
+	MOVL(DWORD(EBP,12),EAX)		/* EAX = argument buffer. */
+	MOVL(DWORD(EAX,0),EBX)		/* move first five arguments. */
+	MOVL(DWORD(EAX,4),ECX)	
+	MOVL(DWORD(EAX,8),EDX)
+	MOVL(DWORD(EAX,12),ESI)
+	MOVL(DWORD(EAX,16),EDI)
+	MOVL(DWORD(EBP,8),EAX)		/* EAX = syscall id. */
+	INT(LIT(HEX(80)))
+	POP(EDI)			/* restore preserved. */
+	POP(ESI)
+	POP(EBX)
+	MOVL(EBP,ESP)			/* epilog. */
+	POP(EBP)
+	RET()
 END_PROC(dcCall_x86_sys_int80h_linux)
 
 /*--- syscall int80 bsd -----------------------------------------------------
@@ -207,26 +213,25 @@ END_PROC(dcCall_x86_sys_int80h_linux)
 	
 GLOBAL(dcCall_x86_sys_int80h_bsd)
 BEGIN_PROC(dcCall_x86_sys_int80h_bsd)
-	push EBP			/* prolog. */
- 	mov  EBP, ESP
-	push ESI			/* save preserved. */
-	push EDI
-	mov  ESI, dword ptr[EBP+12]    	/* ESI = pointer on args. */
-	mov  ECX, dword ptr[EBP+16]    	/* ECX = size. */
-	sub  ESP, ECX       		/* allocate stack space. */
-	mov  EDI, ESP           	/* EDI = stack args. */
-	shr  ECX, 2             	/* ECX = number of DWORDs. */
-	rep  movsd               	/* copy DWORDs. */
-	mov  EAX, dword ptr[EBP+8]	/* load system call id. */
-	call _do_int
-	pop  EDI               		/* restore preserved. */
-	pop  ESI
-	mov  ESP, EBP          		/* epilog. */
-	pop  EBP
-	ret
+	PUSH(EBP)			/* prolog. */
+ 	MOVL(ESP,EBP)
+	PUSH(ESI)			/* save preserved. */
+	PUSH(EDI)
+	MOVL(DWORD(EBP,12),ESI)    	/* ESI = pointer on args. */
+	MOVL(DWORD(EBP,16),ECX)   	/* ECX = size. */
+	SUBL(ECX,ESP)       		/* allocate stack space. */
+	MOVL(ESP,EDI)           		/* EDI = stack args. */
+	REP(MOVSB)
+	MOVL(DWORD(EBP,8),EAX)		/* load system call id. */
+	CALL(_do_int)
+	POP(EDI)               		/* restore preserved. */
+	POP(ESI)
+	MOVL(EBP,ESP)          		/* epilog. */
+	POP(EBP)
+	RET()
 _do_int:
-	int  HEX(80)
-	ret
+	INT(LIT(HEX(80)))
+	RET()
 END_PROC(dcCall_x86_sys_int80h_bsd)
 
 END_ASM

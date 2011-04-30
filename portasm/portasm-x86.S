@@ -17,6 +17,9 @@
  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 */
+/* Common macros. */
+#define XCONCAT(A,B) A##B
+/* MASM syntax. */
 #if defined(GEN_MASM)
 .386
 .MODEL FLAT
@@ -26,9 +29,26 @@
 #  define GLOBAL(X) _##X PROC
 #  define BEGIN_PROC(X) 	OPTION PROLOGUE:NONE, EPILOGUE:NONE
 #  define END_PROC(X)   _##X ENDP
-#  define HEX(X) X##h
+#  define PUSH(R) push R
+#  define POP(R) pop R
+#  define MOVL(S,D) mov D,S
+#  define ADDL(S,D) add D,S
+#  define ANDL(S,D) and D,S
+#  define SUBL(S,D) sub D,S
+#  define SHRL(S,D) shr D,S
+#  define RET() ret
+#  define CALL_DWORD(R,OFF) call DWORD(R,OFF)
+#  define REP(X) rep X
+#  define MOVSB movsb
+#  define MOVSW movsw
+#  define MOVSD movsd
+#  define DWORD(R,OFF) dword ptr [R+OFF]
+#  define LIT(X) X
+#  define INT(X) int X
+#  define HEX(X) XCONCAT(X,h)
+#  define CALL(X) call X
 #else
-	.intel_syntax
+/* GNU/SunPro Assembler AT&T Syntax */
 	.text
 #  define BEGIN_ASM
 #  define END_ASM 
@@ -50,6 +70,23 @@
 #  define GLOBAL(X) .globl CSYM(X)
 #  define BEGIN_PROC(X)  CSYM(X):
 #  define END_PROC(X)
-#  define HEX(X) 0x##X
+#  define PUSH(R) pushl R
+#  define POP(R) popl R
+#  define MOVL(S,D) movl S,D
+#  define ADDL(S,D) addl S,D
+#  define ANDL(S,D) andl S,D
+#  define SUBL(S,D) subl S,D
+#  define SHRL(S,D) shrl S,D
+#  define RET() ret
+#  define CALL_DWORD(R,OFF) call *DWORD(R,OFF)
+#  define REP(X) rep X
+#  define MOVSB movsb
+#  define MOVSW movsw
+#  define MOVSD movsd
+#  define DWORD(R,OFF) OFF(R)
+#  define LIT(X) $X
+#  define INT(X) int X
+#  define HEX(X) XCONCAT(0x,X)
+#  define CALL(X) call X
 #endif
 
