@@ -8,7 +8,7 @@ LINK = ${CXX}
 
 all: ${APP}
 
-.PHONY: all clean install
+.PHONY: all clean install autogen
 
 RM      ?= rm -f
 AR      ?= ar
@@ -21,3 +21,5 @@ ${APP}: ${OBJS}
 clean:
 	${RM} ${APP} ${OBJS}
 
+autogen:
+	python mkcase.py 1>case.h 2>config.h
