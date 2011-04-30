@@ -15,6 +15,17 @@ all-c:
 	cd malloc_wx ; ${MAKE_CMD}
 	cd callback_plain ; ${MAKE_CMD}
 	cd callback_suite ; ${MAKE_CMD}
+all-win32:
+	cd suite_x86win32std  ; ${MAKE_CMD}
+	cd suite_x86win32fast ; ${MAKE_CMD}
+	cd suite2_x86win32std ; ${MAKE_CMD}
+	cd suite2_x86win32fast ; ${MAKE_CMD}
+run-all-win32:
+	suite_X86win32std/suite_x86win32std
+	suite_X86win32fast/suite_x86win32fast
+	suite2_X86win32std/suite2_x86win32std
+	suite2_X86win32fast/suite2_x86win32fast
+
 
 all-dyncall:
 	cd plain ; ${MAKE_CMD}
