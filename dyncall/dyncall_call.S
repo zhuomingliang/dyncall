@@ -46,6 +46,8 @@
 #    include "dyncall_call_ppc32.S"
 #  elif defined(DC__Arch_MIPS) || defined(DC__Arch_MIPS64)
 #    include "dyncall_call_mips_gas.S"
+#  elif defined(DC__Arch_Sparc)
+#    include "dyncall_call_sparc.S"
 #  else
 #    error Unsupported Architecture.
 #  endif
