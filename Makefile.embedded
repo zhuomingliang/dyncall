@@ -1,0 +1,10 @@
+.PHONY: all clean
+all:
+	cd dynload;make -f Makefile.embedded
+	cd dyncall;make -f Makefile.embedded
+	cd dyncallback;make -f Makefile.embedded
+clean:
+	cd dynload;make -f Makefile.embedded clean
+	cd dyncall;make -f Makefile.embedded clean
+	cd dyncallback;make -f Makefile.embedded clean
+

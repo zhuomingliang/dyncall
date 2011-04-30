@@ -1,0 +1,6 @@
+OBJS = dyncall_vector.o dyncall_api.o dyncall_callvm.o dyncall_callvm_base.o dyncall_call.o dyncall_callf.o
+libdyncall_s.a(${OBJS}): ${OBJS}
+	${AR} cr $@ $^
+.PHONY: clean
+clean:
+	${RM} ${OBJS} libdyncall_s.a
