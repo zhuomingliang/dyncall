@@ -31,7 +31,7 @@ static DCCallVM* dc_callvm_new_sparc(DCCallVM_vt* vt, DCsize size)
 {
   DCCallVM_sparc* self = (DCCallVM_sparc*) dcAllocMem(sizeof(DCCallVM_sparc)+size);
   dc_callvm_base_init(&self->mInterface, vt);
-  size=DC_MAX(size,24);
+  size=DC_MAX(size,sizeof(void*)*6);
   dcVecInit(&self->mVecHead,size);
   return (DCCallVM*)self;
 }
@@ -56,38 +56,39 @@ static void dc_callvm_argInt_sparc(DCCallVM* in_self, DCint x)
   dcVecAppend(&self->mVecHead, &x, sizeof(DCint));
 }
 
-/* we propagate Bool,Short,Long,Pointer to Int. */
+/* we propagate Bool,Char,Short to Int. */
 
 static void dc_callvm_argBool_sparc(DCCallVM* in_self, DCbool x) { dc_callvm_argInt_sparc(in_self, (DCint)x); }
 static void dc_callvm_argChar_sparc(DCCallVM* in_self, DCchar x) { dc_callvm_argInt_sparc(in_self, (DCint)x); }
 static void dc_callvm_argShort_sparc(DCCallVM* in_self, DCshort x) { dc_callvm_argInt_sparc(in_self, (DCint)x); }
-static void dc_callvm_argLong_sparc(DCCallVM* in_self, DClong x) { dc_callvm_argInt_sparc(in_self, (DClong)x); }
-static void dc_callvm_argPointer_sparc(DCCallVM* in_self, DCpointer x) { dc_callvm_argInt_sparc(in_self, (DCint) x); }
 
+/* handle others Pointer, Long, LongLong, Float and Double as-is. */
 
-/* long long: is broken into 2x int. */
+static void dc_callvm_argPointer_sparc(DCCallVM* in_self, DCpointer x) 
+{ 
+  DCCallVM_sparc* self = (DCCallVM_sparc*)in_self;
+  dcVecAppend(&self->mVecHead, &x, sizeof(DCpointer));
+}
 
+static void dc_callvm_argLong_sparc(DCCallVM* in_self, DClong x) 
+{ 
+  DCCallVM_sparc* self = (DCCallVM_sparc*)in_self;
+  dcVecAppend(&self->mVecHead, &x, sizeof(DClong));
+}
 static void dc_callvm_argLongLong_sparc(DCCallVM* in_self, DClonglong x)
 {
-  dc_callvm_argInt_sparc(in_self, ( (DCint*) &x )[0] );
-  dc_callvm_argInt_sparc(in_self, ( (DCint*) &x )[1] );
+  DCCallVM_sparc* self = (DCCallVM_sparc*)in_self;
+  dcVecAppend(&self->mVecHead, &x, sizeof(DClonglong));
 }
-
-
-/* float: is like int. */
-
 static void dc_callvm_argFloat_sparc(DCCallVM* in_self, DCfloat x)
 {
-  dc_callvm_argInt_sparc(in_self, ( (DCint*) &x )[0] );
+  DCCallVM_sparc* self = (DCCallVM_sparc*)in_self;
+  dcVecAppend(&self->mVecHead, &x, sizeof(DCfloat));
 }
-
-
-/* double: is like 2x int. */
-
 static void dc_callvm_argDouble_sparc(DCCallVM* in_self, DCdouble x)
 {
-  dc_callvm_argInt_sparc(in_self, ( (DCint*) &x )[0] );
-  dc_callvm_argInt_sparc(in_self, ( (DCint*) &x )[1] );
+  DCCallVM_sparc* self = (DCCallVM_sparc*)in_self;
+  dcVecAppend(&self->mVecHead, &x, sizeof(DCdouble));
 }
   
 /* mode: only a single mode available currently. */

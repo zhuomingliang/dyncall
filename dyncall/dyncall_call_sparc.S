@@ -40,7 +40,7 @@ We need to raise a dynamic stack frame.
 Therefore we need to compute the stack size in the context of the caller as a leaf note (using o3 in addition).
 Then we raise the frame.
 
-Stack Layout:
+Stack Layout 32-Bit Model:
 - sp+92 seventh argument
 - sp+68 first argument
 - sp+64 
@@ -54,6 +54,14 @@ Stack Layout:
 	68: input argument 0 spill
 	64: struct/union pointer return value
 	 0: 16 registers save area
+
+Stack Layout 64-Bit Model:
+        XX: should be 16 byte aligned (min stack frame size is 172).
+       168: on stack argument 6
+       136: input argument 0 spill
+       128: struct/union poiner return value
+	 0: 16 registers save area
+
 
 
 Register Usage:
@@ -74,6 +82,14 @@ r24-r31 -> ins
 
 */
 
+#if defined __arch64__
+#define REGSIZE 8
+#else
+#define REGSIZE 4
+#endif
+
+#define ALIGN   16
+
 .global dcCall_sparc
 dcCall_sparc:
 
@@ -83,41 +99,44 @@ dcCall_sparc:
 	/*o0-2:target,size,data*/
 	/*o3-5:free to use */
 
-	/* compute a matiching stack size (approximate): o3 = align(92+o1,8) */
-	add     %o1, 92+15, %o3
-	and     %o3,   -16, %o3
+	/* Compute a matiching stack size (approximate): o3 = align(92+o1,16) */
+
+	add     %o1, (16+1+6)*REGSIZE+ALIGN-1, %o3
+	and     %o3,   -ALIGN, %o3
 	neg     %o3
 	
-	/* prolog. */
+	/* Prolog. */
 	save	%sp, %o3, %sp	/* min stack size 64+4+6*4=92 plus 8 byte alignment => min frame size of 96 bytes. */
 	
-	ld	[%i2   ],%o0
-	ld	[%i2+4 ],%o1
-	ld	[%i2+8 ],%o2
-	ld	[%i2+12],%o3
-	ld	[%i2+16],%o4
-	ld	[%i2+20],%o5
+	/* Load output registers. */
+
+	ld	[%i2           ],%o0
+	ld	[%i2+REGSIZE*1 ],%o1
+	ld	[%i2+REGSIZE*2 ],%o2
+	ld	[%i2+REGSIZE*3 ],%o3
+	ld	[%i2+REGSIZE*4 ],%o4
+	ld	[%i2+REGSIZE*5 ],%o5
 
 	/* Copy on stack? */
-	sub	%i1,  24, %i1   /* i1 = decrement copy size by 6 regs (=6 regs x 4 bytes = 24 bytes total). */
+	sub	%i1,  REGSIZE*6, %i1   		/* i1 = decrement copy size by 6 regs (=6 regs x 4 bytes = 24 bytes total). */
 	cmp     %i1, 0
         ble	.do_call
 	 nop
 
 	/* Copy loop: */
-	add     %i2,  24, %i2	/* i2 = address of 7th word of args buffer. */
-	or	%g0, %g0, %l0	/* l0 = offset initialized to 0. */
-	add     %sp,  92, %l2	/* l2 = argument area on stack space (7th word). (64+4+6*4 = byte offset 92). */
+	add     %i2,  REGSIZE*6, %i2		/* i2 = address of 7th word of args buffer. */
+	or	%g0, %g0, %l0			/* l0 = offset initialized to 0. */
+	add     %sp,  REGSIZE*(16+1+6), %l2	/* l2 = argument area on stack space (7th word). (64+4+6*4 = byte offset 92). */
 .next:
-	ld      [%i2+%l0],%l1	/* read from arg buffer(%i2) to %l1. */
-	st      %l1, [%l2+%l0]	/* write %l1 to stack space(%l2). */
-	add     %l0, 4, %l0	/* increment offset. */
-	sub     %i1, 4, %i1	/* decrement copy size. */
+	ld      [%i2+%l0],%l1			/* Read from arg buffer(%i2) to %l1. */
+	st      %l1, [%l2+%l0]			/* Write %l1 to stack space(%l2). */
+	add     %l0, REGSIZE, %l0		/* Increment offset. */
+	sub     %i1, REGSIZE, %i1		/* Decrement copy size. */
 	cmp     %i1, 0
         bgt     .next
 	 nop
 .do_call:
-	call	%i0		/* call target. */
+	call	%i0				/* Call target. */
 	 nop
         restore
 	ret
