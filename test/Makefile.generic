@@ -1,4 +1,4 @@
-MAKEFILE ?= Makefile
+MAKEFILE ?= Makefile.generic
 MAKE_CMD = ${MAKE} -f ${MAKEFILE} 
 
 .PHONY: all all-dyncall all-dyncallback all-dynload clean install
@@ -20,7 +20,7 @@ all-win32:
 	cd suite_x86win32fast ; ${MAKE_CMD}
 	cd suite2_x86win32std ; ${MAKE_CMD}
 	cd suite2_x86win32fast ; ${MAKE_CMD}
-run-all-win32:
+run-win32:
 	suite_X86win32std/suite_x86win32std
 	suite_X86win32fast/suite_x86win32fast
 	suite2_X86win32std/suite2_x86win32std
@@ -28,7 +28,6 @@ run-all-win32:
 
 
 all-dyncall:
-	cd plain ; ${MAKE_CMD}
 	cd plain_c++ ; ${MAKE_CMD}
 	cd suite ; ${MAKE_CMD}
 	cd suite2 ; ${MAKE_CMD}
@@ -36,6 +35,18 @@ all-dyncall:
 	cd suite_floats ; ${MAKE_CMD}
 	cd ellipsis ; ${MAKE_CMD}
 	cd callf ; ${MAKE_CMD}
+
+run-dyncall:
+	plain_c++/plain_c++;
+	suite/suite;
+	suite2/suite2;
+	suite3/suite3;
+	suite_floats/suite_floats;
+	ellipsis/ellipsis;
+	callfs/callf;
+
+# BUG: need to disable on sparc: testStructSize not found
+#	cd plain ; ${MAKE_CMD}
 
 all-dynload:
 	cd nm ; ${MAKE_CMD}
