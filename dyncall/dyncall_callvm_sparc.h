@@ -40,7 +40,5 @@ struct DCCallVM_sparc_
 
 DCCallVM* dcNewCallVM_sparc(DCsize size);
 
-#endif /* DYNCALL_CALLVM_PPC32_H */
-
-
+#endif /* DYNCALL_CALLVM_SPARC_H */
 

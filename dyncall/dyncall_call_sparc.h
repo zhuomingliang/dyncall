@@ -1,7 +1,6 @@
 /*
 
- Copyright (c) 2011 Daniel Adler <dadler@uni-goettingen.de>, 
-                    Tassilo Philipp <tphilipp@potion-studios.com>
+ Copyright (c) 2012 Daniel Adler <dadler@uni-goettingen.de> 
 
  Permission to use, copy, modify, and distribute this software for any
  purpose with or without fee is hereby granted, provided that the above
@@ -17,8 +16,8 @@
 
 */
 
-#ifndef DYNCALL_SPARC_H
-#define DYNCALL_SPARC_H
+#ifndef DYNCALL_CALL_SPARC_H
+#define DYNCALL_CALL_SPARC_H
 
 #include "dyncall_types.h"
 
@@ -32,5 +31,5 @@ void dcCall_sparc (DCpointer target, DCsize size, DCpointer data);
 }
 #endif
 
-#endif /* DYNCALL_SPARC_H */
+#endif /* DYNCALL_CALL_SPARC_H */
 

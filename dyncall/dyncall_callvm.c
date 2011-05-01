@@ -48,7 +48,11 @@
 #elif defined(DC__Arch_ARM_THUMB)
 #  include "dyncall_callvm_arm32_thumb.c"
 #elif defined(DC__Arch_Sparc)
-#  include "dyncall_callvm_sparc.c"
+#  ifdef __arch64__
+#    include "dyncall_callvm_sparc64.c"
+#  else
+#    include "dyncall_callvm_sparc.c"
+#  endif
 #else
 #  error unsupported platform
 #endif

@@ -84,6 +84,7 @@ r24-r31 -> ins
 
 #if defined __arch64__
 #define REGSIZE 8
+#error invalid arch
 #else
 #define REGSIZE 4
 #endif
@@ -106,7 +107,7 @@ dcCall_sparc:
 	neg     %o3
 	
 	/* Prolog. */
-	save	%sp, %o3, %sp	/* min stack size 64+4+6*4=92 plus 8 byte alignment => min frame size of 96 bytes. */
+	save	%sp, %o3, %sp	/* min stack size (16+1+6)*sizeof(ptr)=92 paddded to 8-byte alignment => min frame size of 96 bytes. */
 	
 	/* Load output registers. */
 
@@ -126,7 +127,7 @@ dcCall_sparc:
 	/* Copy loop: */
 	add     %i2,  REGSIZE*6, %i2		/* i2 = address of 7th word of args buffer. */
 	or	%g0, %g0, %l0			/* l0 = offset initialized to 0. */
-	add     %sp,  REGSIZE*(16+1+6), %l2	/* l2 = argument area on stack space (7th word). (64+4+6*4 = byte offset 92). */
+	add     %sp,  (16+1+6)*REGSIZE, %l2	/* l2 = argument area on stack space (7th word). (64+4+6*4 = byte offset 92). */
 .next:
 	ld      [%i2+%l0],%l1			/* Read from arg buffer(%i2) to %l1. */
 	st      %l1, [%l2+%l0]			/* Write %l1 to stack space(%l2). */

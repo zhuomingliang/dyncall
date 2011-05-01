@@ -34,8 +34,12 @@ void dcVecAppend(DCVecHead* pHead, const void* pData, size_t size)
   	  case 1: *(DCchar    *)dst = *(const DCchar    *)pData; break;
   	  case 2: *(DCshort   *)dst = *(const DCshort   *)pData; break;
   	  case 4: *(DCint     *)dst = *(const DCint     *)pData; break;
-  	  case 8: *(DClonglong*)dst = *(const DClonglong*)pData; break;
-  	  default: memcpy(dst, pData, size); /* for all the rest. */
+  	  case 8: *(DCint     *)(dst+4) = *(const DCint     *)(pData+4); 
+  	          *(DCint     *)dst = *(const DCint     *)pData; break;
+ 	  /* On sparc 32-bit, this one crashes if ptrs are not aligned.
+          case 8: *(DClonglong*)dst = *(const DClonglong*)pData; break;
+  	  */
+          default: memcpy(dst, pData, size); /* for all the rest. */
   	}
     pHead->mSize = newSize;
   }
