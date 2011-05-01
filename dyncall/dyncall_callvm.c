@@ -32,17 +32,17 @@
 #elif defined(DC__Arch_PPC64)
 #  include "dyncall_callvm_ppc64.c"
 #elif defined(DC__Arch_MIPS) || defined(DC__Arch_MIPS64)
-#if defined(DC__ABI_MIPS_EABI)
-#  include "dyncall_callvm_mips_eabi.c"
-#elif defined(DC__ABI_MIPS_O32)
-#  include "dyncall_callvm_mips_o32.c"
-#elif defined(DC__ABI_MIPS_N64)
-#  include "dyncall_callvm_mips_n64.c"
-#elif defined(DC__ABI_MIPS_N32)
-#  include "dyncall_callvm_mips_n32.c"
-#else
-#  error Unknown MIPS ABI.
-#endif /* DC__Arch_MIPS || DC__Arch_MIPS64 */
+#  if defined(DC__ABI_MIPS_EABI)
+#    include "dyncall_callvm_mips_eabi.c"
+#  elif defined(DC__ABI_MIPS_O32)
+#    include "dyncall_callvm_mips_o32.c"
+#  elif defined(DC__ABI_MIPS_N64)
+#    include "dyncall_callvm_mips_n64.c"
+#  elif defined(DC__ABI_MIPS_N32)
+#    include "dyncall_callvm_mips_n32.c"
+#  else
+#    error Unknown MIPS ABI.
+#  endif /* DC__Arch_MIPS || DC__Arch_MIPS64 */
 #elif defined(DC__Arch_ARM_ARM)
 #  include "dyncall_callvm_arm32_arm.c"
 #elif defined(DC__Arch_ARM_THUMB)

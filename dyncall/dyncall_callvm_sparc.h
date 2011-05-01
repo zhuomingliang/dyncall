@@ -1,7 +1,10 @@
 /*
+ Package: dyncall
+ File: dyncall_callvm_sparc.h
+ Description: Call VM for sparc processor architecture.
+ License:
 
- Copyright (c) 2007-2011 Daniel Adler <dadler@uni-goettingen.de>, 
-                         Tassilo Philipp <tphilipp@potion-studios.com>
+ Copyright (c) 2012 Daniel Adler <dadler@uni-goettingen.de>
 
  Permission to use, copy, modify, and distribute this software for any
  purpose with or without fee is hereby granted, provided that the above

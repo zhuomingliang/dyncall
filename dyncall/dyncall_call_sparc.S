@@ -1,65 +1,124 @@
-/* 
-void dcCall_sparc (DCpointer target, DCsize size, DCpointer data);
-                   %i0             , %i1           , %i2
+/*
+ Package: dyncall
+ File: dyncall/dyncall_call_sparc.S
+ Description: Call kernel for sparc processor architecture.
+ Status: passed all dyncall tests.
+ License: 
 
-%sp or %o6: stack pointer, always 16-byte aligned.
-%fp or %i6: frame pointer.
+ Copyright (c) 2012 Daniel Adler <dadler@uni-goettingen.de> 
+
+ Permission to use, copy, modify, and distribute this software for any
+ purpose with or without fee is hereby granted, provided that the above
+ copyright notice and this permission notice appear in all copies.
+
+ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+ WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+ MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+ WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+*/
+
+
+/* --------------------------------------------------------------------------- 
+
+Default call kernel for sparc
+tested on linux/debian [gcc54.fsffrance.org - thanx to the farm!] 
+
+C Interface:
+  void dcCall_sparc (DCpointer target, DCsize size, DCpointer data);
+		     %i0             , %i1        , %i2
+Input:
+  i0   target
+  i1   size
+  i2   data
+
+Description:
+We need to raise a dynamic stack frame.
+Therefore we need to compute the stack size in the context of the caller as a leaf note (using o3 in addition).
+Then we raise the frame.
+
+Stack Layout:
+- sp+92 seventh argument
+- sp+68 first argument
+- sp+64 
+- 16 registers save area (in/local).
+
+	XX: should be 8 byte aligned (min stack frame size is 96).
+	            ...
+	92: on stack argument 6
+	88: input argument 5 spill
+	            ...
+	68: input argument 0 spill
+	64: struct/union pointer return value
+	 0: 16 registers save area
+
+
+Register Usage:
+%sp or  %o6: stack pointer, always 8 (or 16?)-byte aligned.
+%fp or  %i6: frame pointer.
 %i0 and %o0: integer and pointer return values.
 %i7 and %o7: return address. (caller puts return address to %o7, callee uses %i7)
 %f0 and %f1: return value (float).
-%i0..%i5: 
-%o0..%o5:
+%i0..%i5:    input argument registers 
+%o0..%o5:    output argument registers
+%g0:         always zero, writes to it have no effect.
+
+Register Mappings:
+r0-7    -> globals
+r8-15   -> outs
+r16-r23 -> locals
+r24-r31 -> ins
 
 */
+
 .global dcCall_sparc
 dcCall_sparc:
-/* decrement stack using size */
-/* sp+92 seventh argument */
-/* sp+68 argument 0 */
-/* copy data to sp+68 , 
-/*
-*/
-	save	%sp, -160, %sp
-	st	%i0, [%sp+68]
-	st	%i1, [%sp+72]
-	st	%i2, [%sp+76]
+
+/* Basic Prolog: supports up to 6 arguments. */
+
+	/*leaf functions: may use the first six output registers.*/
+	/*o0-2:target,size,data*/
+	/*o3-5:free to use */
+
+	/* compute a matiching stack size (approximate): o3 = align(92+o1,8) */
+	add     %o1, 92+15, %o3
+	and     %o3,   -16, %o3
+	neg     %o3
+	
+	/* prolog. */
+	save	%sp, %o3, %sp	/* min stack size 64+4+6*4=92 plus 8 byte alignment => min frame size of 96 bytes. */
+	
 	ld	[%i2   ],%o0
 	ld	[%i2+4 ],%o1
 	ld	[%i2+8 ],%o2
 	ld	[%i2+12],%o3
 	ld	[%i2+16],%o4
 	ld	[%i2+20],%o5
-	add     %i2,  24, %i2
-	or	%g0, %g0, %l0
-	add     %sp,  92, %l2
-.next:
-	ld      [%i2+%l0],%l1
-	st      %l1, [%l2+%l0]
-	add     %l0, 4, %l0
-	subcc   %i1, 4, %i1
-	bgt     .next
-	nop
 
-	call	%i0
-	nop
+	/* Copy on stack? */
+	sub	%i1,  24, %i1   /* i1 = decrement copy size by 6 regs (=6 regs x 4 bytes = 24 bytes total). */
+	cmp     %i1, 0
+        ble	.do_call
+	 nop
+
+	/* Copy loop: */
+	add     %i2,  24, %i2	/* i2 = address of 7th word of args buffer. */
+	or	%g0, %g0, %l0	/* l0 = offset initialized to 0. */
+	add     %sp,  92, %l2	/* l2 = argument area on stack space (7th word). (64+4+6*4 = byte offset 92). */
+.next:
+	ld      [%i2+%l0],%l1	/* read from arg buffer(%i2) to %l1. */
+	st      %l1, [%l2+%l0]	/* write %l1 to stack space(%l2). */
+	add     %l0, 4, %l0	/* increment offset. */
+	sub     %i1, 4, %i1	/* decrement copy size. */
+	cmp     %i1, 0
+        bgt     .next
+	 nop
+.do_call:
+	call	%i0		/* call target. */
+	 nop
+        restore
 	ret
-	restore
-/*
-	nop
-	mov	[%sp+A   ],%o0
-	mov	[%sp+A+4 ],%o1
-	mov	[%sp+A+8 ],%o2
-	mov	[%sp+A+12],%o3
-	mov	[%sp+A+16],%o4
-	mov	[%sp+A+20],%o5
-	ld      [%sp+F],%f9
-	ld      [%sp+F],%f10
-	ld      [%sp+F],%f11
-	ld      [%sp+F],%f12
-	ld      [%sp+F],%f13
-	ld      [%sp+F],%f14
-	call	%i0, 0
-	nop
-	restore
-	ret
-*/
+
