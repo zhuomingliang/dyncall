@@ -1,6 +1,6 @@
 /*
 
- Copyright (c) 2012 Daniel Adler <dadler@uni-goettingen.de> 
+ Copyright (c) 2011 Daniel Adler <dadler@uni-goettingen.de> 
 
  Permission to use, copy, modify, and distribute this software for any
  purpose with or without fee is hereby granted, provided that the above

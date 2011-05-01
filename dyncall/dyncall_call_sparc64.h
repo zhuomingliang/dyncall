@@ -1,10 +1,6 @@
 /*
- Package: dyncall
- File: dyncall_callvm_sparc.h
- Description: Call VM for sparc processor architecture.
- License:
 
- Copyright (c) 2011 Daniel Adler <dadler@uni-goettingen.de>
+ Copyright (c) 2011 Daniel Adler <dadler@uni-goettingen.de> 
 
  Permission to use, copy, modify, and distribute this software for any
  purpose with or without fee is hereby granted, provided that the above
@@ -20,25 +16,20 @@
 
 */
 
-#ifndef DYNCALL_CALLVM_SPARC_H
-#define DYNCALL_CALLVM_SPARC_H
+#ifndef DYNCALL_CALL_SPARC64_H
+#define DYNCALL_CALL_SPARC64_H
 
-#include "dyncall_callvm.h"
-#include "dyncall_vector.h"
+#include "dyncall_types.h"
 
-typedef struct DCCallVM_sparc_ DCCallVM_sparc;
-struct DCCallVM_sparc_
-{
-  DCCallVM  mInterface;
-#if 0
-  int       mIntRegs;
-  int       mFloatRegs;
-  struct DCRegData_ppc32_ mRegData;
+#ifdef __cplusplus
+extern "C" {
 #endif
-  DCVecHead mVecHead;
-};
 
-DCCallVM* dcNewCallVM_sparc(DCsize size);
+void dcCall_sparc64 (DCpointer target, DCsize size, DCpointer data);
 
-#endif /* DYNCALL_CALLVM_SPARC_H */
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* DYNCALL_CALL_SPARC64_H */
 

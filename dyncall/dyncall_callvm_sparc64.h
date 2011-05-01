@@ -1,7 +1,7 @@
 /*
  Package: dyncall
- File: dyncall_callvm_sparc.h
- Description: Call VM for sparc processor architecture.
+ File: dyncall_callvm_sparc64.h
+ Description: Call VM for sparc64 processor architecture.
  License:
 
  Copyright (c) 2011 Daniel Adler <dadler@uni-goettingen.de>
@@ -26,8 +26,8 @@
 #include "dyncall_callvm.h"
 #include "dyncall_vector.h"
 
-typedef struct DCCallVM_sparc_ DCCallVM_sparc;
-struct DCCallVM_sparc_
+typedef struct DCCallVM_sparc64_ DCCallVM_sparc64;
+struct DCCallVM_sparc64_
 {
   DCCallVM  mInterface;
 #if 0
@@ -38,7 +38,9 @@ struct DCCallVM_sparc_
   DCVecHead mVecHead;
 };
 
-DCCallVM* dcNewCallVM_sparc(DCsize size);
+DCCallVM* dcNewCallVM_sparc64(DCsize size);
 
-#endif /* DYNCALL_CALLVM_SPARC_H */
+#endif /* DYNCALL_CALLVM_SPARC64_H */
+
+
 

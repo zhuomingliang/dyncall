@@ -1,7 +1,7 @@
 /*
  Package: dyncall
- File: dyncall/dyncall_call_sparc.S
- Description: Call kernel for sparc processor architecture.
+ File: dyncall/dyncall_call_sparc_v9.S
+ Description: Call kernel for sparc processor architecture Sparc 64-bit "Sparc V9" ABI.
  Status: passed all dyncall tests.
  License: 
 
@@ -24,8 +24,8 @@
 
 /* --------------------------------------------------------------------------- 
 
-Default call kernel for sparc
-tested on linux/debian [gcc54.fsffrance.org - thanx to the farm!] 
+call kernel for sparc v9
+tested on sparc64/linux/debian [gcc54.fsffrance.org - thanx to the farm!] 
 
 C Interface:
   void dcCall_sparc (DCpointer target, DCsize size, DCpointer data);
@@ -35,34 +35,23 @@ Input:
   i1   size
   i2   data
 
+Changes from v8:
+- fundamental data types
+	- (un)signed int: 8,16,32,64
+	- float: 32,64,128
+- float: IEEE 754 compilant
+	32 32-bit  float registers f0,f1,..,f31
+	32 64-bit  float registers f0,f2,..,f62
+	16 128-bit float registers f0,f4,..,f60
+- 
+
 Description:
-We need to raise a dynamic stack frame.
-Therefore we need to compute the stack size in the context of the caller as a leaf note (using o3 in addition).
-Then we raise the frame.
-
-sparc:
-- big endian
-
-sparc V8:
-- integer/pointer: 32 32-bit integers.
-- float: 8 quad precision, 16 double precision, 32 single precision.
-
-sparc V9:
-- integer/pointer: 32 64-bit integers.
-
-plan9:
-- completely different scheme - similar to mips/plan9.
-- registers are named r0 .. r31
-  r1 stack pointer
-  r2 static base register
-  .. to be continued..
+We need to raise up a dynamic stack frame.
+Therefore we need to compute the stack size. We do this first, 
+in the context of the caller as a leaf function (using o3 as scratch for addition).
+Then we raise the frame, ending up in o0-o3 is then i0-i3.
 
 Stack Layout 32-Bit Model:
-- sp+92 seventh argument
-- sp+68 first argument
-- sp+64 
-- 16 registers save area (in/local).
-
 	XX: should be 8 byte aligned (min stack frame size is 96).
 	            ...
 	92: on stack argument 6
@@ -82,11 +71,12 @@ Stack Layout 64-Bit Model:
 
 
 Register Usage:
+%fp0..%fp31: floating-point arguments.
 %sp or  %o6: stack pointer, always 8 (or 16?)-byte aligned.
 %fp or  %i6: frame pointer.
 %i0 and %o0: integer and pointer return values.
 %i7 and %o7: return address. (caller puts return address to %o7, callee uses %i7)
-%f0 and %f1: return value (float).
+%fp0 and %fp1: return value (float).
 %i0..%i5:    input argument registers 
 %o0..%o5:    output argument registers
 %g0:         always zero, writes to it have no effect.
@@ -97,19 +87,53 @@ r8-15   -> outs
 r16-r23 -> locals
 r24-r31 -> ins
 
+Integer Register Overview Table:
+ID      Class   Name    Description
+------------------------------------------------------------------------------
+0	globals	g0	always zero, writes to it have no effect
+1		g1
+2		g2
+3		g3
+4		g4
+5		g5
+6		g6
+7		g7
+8	out	o0	[int/ptr] arg 0 and return
+9		o1	          arg 1
+10		o2	          arg 2
+11		o3	          arg 3
+12              o4                arg 4
+13              o5                arg 5
+14              o6	stack pointer
+15		o7
+16	local	l0	scratch
+17		l1
+18		l2
+19		l3
+20		l4
+21		l5
+22		l6
+23		l7
+24	in	i0	[int/pt] arg 0 and return
+25		i1
+26		i2
+27		i3
+28		i4
+29		i5
+30		i6	frame pointer
+31		i7
 */
 
 #if defined __arch64__
 #define REGSIZE 8
-#error invalid arch
 #else
 #define REGSIZE 4
 #endif
 
 #define ALIGN   16
 
-.global dcCall_sparc
-dcCall_sparc:
+.global dcCall_sparc64
+dcCall_sparc64:
 
 /* Basic Prolog: supports up to 6 arguments. */
 
@@ -124,7 +148,7 @@ dcCall_sparc:
 	neg     %o3
 	
 	/* Prolog. */
-	save	%sp, %o3, %sp	/* min stack size (16+1+6)*sizeof(ptr)=92 paddded to 8-byte alignment => min frame size of 96 bytes. */
+	save	%sp, %o3, %sp	/* min stack size 64+4+6*4=92 plus 8 byte alignment => min frame size of 96 bytes. */
 	
 	/* Load output registers. */
 
@@ -144,7 +168,7 @@ dcCall_sparc:
 	/* Copy loop: */
 	add     %i2,  REGSIZE*6, %i2		/* i2 = address of 7th word of args buffer. */
 	or	%g0, %g0, %l0			/* l0 = offset initialized to 0. */
-	add     %sp,  (16+1+6)*REGSIZE, %l2	/* l2 = argument area on stack space (7th word). (64+4+6*4 = byte offset 92). */
+	add     %sp,  REGSIZE*(16+1+6), %l2	/* l2 = argument area on stack space (7th word). (64+4+6*4 = byte offset 92). */
 .next:
 	ld      [%i2+%l0],%l1			/* Read from arg buffer(%i2) to %l1. */
 	st      %l1, [%l2+%l0]			/* Write %l1 to stack space(%l2). */
