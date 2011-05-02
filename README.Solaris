@@ -1,0 +1,24 @@
+Notes on DynCall and Solaris
+============================
+
+Status
+------
+Everything builds.
+Dyncall/callbacks work fine.
+Dynload_syms seems to be broken here.
+  
+Details
+-------
+It has been ported and tested on Solaris 10/X86 using the SunPro compiler suite and
+sun's make. "Makefile.embedded" are slim-sized Makefiles (even slimmer than Makefile.generic).
+
+How-to build libs
+  $ make -f Makefile.embedded
+
+How-to build tests
+  $ (cd test; make -f Makefile.embedded)
+
+Cross-build for x64 on x86
+--------------------------
+  $ CFLAGS=-m64 CCFLAGS=-m64 ASFLAGS=-m64 make -f Makefile.embedded
+  

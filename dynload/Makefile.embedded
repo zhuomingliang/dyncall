@@ -1,7 +1,8 @@
 OBJS = dynload.o dynload_syms.o
 CFLAGS += -I../dyncall
-libdynload_s.a(${OBJS}): ${OBJS}
+libdynload_s.a: ${OBJS}
 	${AR} cr $@ $^
-.PHONY: clean
+.PHONY: all clean
+all: libdynload_s.a
 clean:
-	${RM} ${OBJS} libdynload_s.a
+	rm -f ${OBJS} libdynload_s.a

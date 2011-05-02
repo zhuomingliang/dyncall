@@ -1,7 +1,8 @@
 OBJS = dyncall_alloc_wx.o dyncall_args.o dyncall_callback.o dyncall_callback_arch.o dyncall_thunk.o
 CFLAGS += -I../dyncall
-libdyncallback_s.a(${OBJS}): ${OBJS}
+libdyncallback_s.a: ${OBJS}
 	${AR} cr $@ $^
-.PHONY: clean
+.PHONY: all clean
+all: libdyncallback_s.a
 clean:
-	${RM} ${OBJS} libdyncallback_s.a
+	rm -f ${OBJS} libdyncallback_s.a
