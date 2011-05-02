@@ -1,4 +1,4 @@
-MAKEFILE = Makefile.generic
+MAKEFILE = Makefile.embedded
 MAKE_CMD = ${MAKE} -f ${MAKEFILE} 
 
 .PHONY: all all-dyncall all-dyncallback all-dynload clean install
@@ -29,7 +29,6 @@ run-all-win32:
 
 
 all-dyncall:
-	cd plain_c++ ; ${MAKE_CMD}
 	cd suite ; ${MAKE_CMD}
 	cd suite2 ; ${MAKE_CMD}
 	cd suite3 ; ${MAKE_CMD}
@@ -37,6 +36,7 @@ all-dyncall:
 	cd ellipsis ; ${MAKE_CMD}
 	cd callf ; ${MAKE_CMD}
 #	cd plain ; ${MAKE_CMD}
+#	cd plain_c++ ; ${MAKE_CMD}
 
 all-dynload:
 	cd nm ; ${MAKE_CMD}

@@ -1,6 +1,6 @@
 /*
 
- Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>, 
+ Copyright (c) 2007-2011 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
 
  Permission to use, copy, modify, and distribute this software for any
@@ -22,6 +22,10 @@
 #include "test_framework.h"
 #include "../../dyncall/dyncall.h"
 #include <cstdio>
+#ifdef __SUNPRO_CC
+#include <stdio.h>  
+/* needed by SunPro .. otherwise printf not included */
+#endif
 /* ------------------------------------------------------------------------- 
  * test: identity function calls 
  * ------------------------------------------------------------------------- */

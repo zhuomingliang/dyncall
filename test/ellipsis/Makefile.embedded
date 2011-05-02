@@ -1,0 +1,20 @@
+APP  = ellipsis
+OBJS = ellipsis.o main.o
+
+TOP      = ../..
+CFLAGS  += -I${TOP}/dyncall
+LDFLAGS += -L${TOP}/dyncall -ldyncall_s
+
+all: ${APP}
+
+%.o: %.cpp
+	${CXX} -c ${CPPFLAGS} ${CXXFLAGS} $< ${OUTPUT_OPTION} 
+
+.PHONY: all clean install
+
+${APP}: ${OBJS} 
+	${CXX} ${OBJS} ${LDFLAGS} -o ${APP} 
+
+clean:
+	${RM} ${APP} ${OBJS}
+

@@ -1,0 +1,22 @@
+APP  = suite2
+OBJS = case.o main.o
+
+TOP      = ../..
+CFLAGS  += -I${TOP}/dyncall
+LDFLAGS += -L${TOP}/dyncall -ldyncall_s
+
+all: ${APP}
+
+%.o: %.cpp
+	${CXX} -c ${CPPFLAGS} ${CXXFLAGS} $< ${OUTPUT_OPTION} 
+
+.PHONY: all clean autogen
+
+${APP}: ${OBJS} 
+	${CXX} ${OBJS} ${LDFLAGS} -o ${APP} 
+
+clean:
+	rm -f ${APP} ${OBJS}
+
+autogen:
+	python mkcase.py 1>case.h 2>config.h

@@ -20,6 +20,10 @@
 #include "config.h"
 #include "../../dyncall/dyncall.h"
 #include "../../dyncall/dyncall_value.h"
+#include <cstdarg>
+#if defined __SUNPRO_CC
+#include <stdarg.h>
+#endif
 
 DCValue mValue[NARGS];
 

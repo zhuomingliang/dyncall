@@ -1,0 +1,14 @@
+APP      = suite
+OBJS     = case.o main.o
+SRCTOP   = ../..
+BLDTOP   = ../..
+CFLAGS  += -I${SRCTOP}/dyncall
+LDFLAGS += -L${BLDTOP}/dyncall -ldyncall_s 
+
+.PHONY: all clean install
+all: ${APP}
+${APP}: ${OBJS} 
+	${CC} ${OBJS} ${LDFLAGS} -o ${APP}
+clean:
+	${RM} ${APP} ${OBJS}
+

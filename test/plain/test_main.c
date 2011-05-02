@@ -1,6 +1,6 @@
 /*
 
- Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>, 
+ Copyright (c) 2007-2011 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
 
  Permission to use, copy, modify, and distribute this software for any
@@ -77,7 +77,7 @@ DC_DEFINE_TEST_FUNC_BEGIN(testCallC)
   }
   /* long */
   {
-    DClong r, val=0xCAFEBABEUL;
+    DClong r, val=(DClong) 0xCAFEBABEL;
     dcReset(pc);
     dcArgLong(pc, val);
     r = dcCallLong(pc, (DCpointer) &fun_c_j);
@@ -85,7 +85,7 @@ DC_DEFINE_TEST_FUNC_BEGIN(testCallC)
   }
   /* long long */
   {
-    DClonglong r, val=0xCAFEBABEDEADC0DEULL;
+    DClonglong r, val=(DClonglong) 0xCAFEBABEDEADC0DELL;
     dcReset(pc);
     dcArgLongLong(pc, val);
     r = dcCallLongLong(pc, (DCpointer) &fun_c_l);
@@ -285,7 +285,7 @@ DC_DEFINE_TEST_FUNC_END
 #endif
 
 int testCallStructs();
-
+int testStructSizes();
 int main(int argc, char* argv[])
 {
   int b = TRUE;

@@ -24,7 +24,7 @@ void test_stack()
 {
   DCThunk t;
   printfun* fp;
-  dcbInitThunk(&t, (void*)&my_entry);
+  dcbInitThunk(&t, &my_entry);
   fp = (printfun*)&t;
   fp("stack");
 }
@@ -39,7 +39,7 @@ void test_heap()
     printf("0\n");
     return;
   }
-  dcbInitThunk(p, (void*)&my_entry);
+  dcbInitThunk(p, &my_entry);
   fp = (printfun*)p;
   fp("heap");
   free(p);
@@ -54,7 +54,7 @@ void test_wx()
     printf("0\n");
     return;
   }
-  dcbInitThunk(p, (void*)&my_entry);
+  dcbInitThunk(p, &my_entry);
   fp = (printfun*)p;
   fp("wx");
   dcFreeWX((void*)p, sizeof(DCThunk));

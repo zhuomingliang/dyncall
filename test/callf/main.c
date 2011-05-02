@@ -44,7 +44,7 @@ int main(int argc, char* argv[])
   vm = dcNewCallVM(4096);
 
   /* call using 'formatted' API */
-  dcCallF(vm, &r, &vf_iii, "iii)i", 1, 2, 3);
+  dcCallF(vm, &r, (void*) &vf_iii, "iii)i", 1, 2, 3);
 
   /* free vm */
   dcFree(vm);
