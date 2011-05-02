@@ -1,7 +1,7 @@
 /*
 
- Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>, 
-                         Tassilo Philipp <tphilipp@potion-studios.com>
+ Copyright (c) 2007-2011 Daniel Adler <dadler@uni-goettingen.de>, 
+                         Tassilo Philipp <tphilipp@potion-studios.com>,
                          Olivier Chafik <olivier.chafik@gmail.com>
 
  Permission to use, copy, modify, and distribute this software for any
@@ -45,6 +45,7 @@
 #include <sys/types.h>
 #include <sys/mman.h>
 #include <elf.h>
+#include <unistd.h> 
 
 /* run-time configuration 64/32 */
 
@@ -61,7 +62,9 @@ typedef Elf32_Ehdr   Elf_Ehdr;
 typedef Elf32_Phdr   Elf_Phdr;
 typedef Elf32_Shdr   Elf_Shdr;
 typedef Elf32_Sym    Elf_Sym;
+#ifndef DC__OS_SunOS
 typedef Elf32_Dyn    Elf_Dyn;
+#endif
 typedef Elf32_Sword  Elf_tag;
 typedef Elf32_Addr   Elf_Addr;
 #endif
@@ -89,7 +92,7 @@ DLSyms* dlSymsInit(const char* libPath)
   pSyms->file = open(libPath, O_RDONLY);
   stat(libPath, &st);
   pSyms->fileSize = st.st_size;
-  pSyms->pElf_Ehdr = mmap(NULL, pSyms->fileSize, PROT_READ, MAP_SHARED, pSyms->file, 0);
+  pSyms->pElf_Ehdr = (Elf_Ehdr*) mmap((void*) NULL, pSyms->fileSize, PROT_READ, MAP_SHARED, pSyms->file, 0);
 
 #ifdef DL__BinaryFormat_elf32
   assert(pSyms->pElf_Ehdr->e_ident[EI_CLASS] == ELFCLASS32);
@@ -134,7 +137,7 @@ DLSyms* dlSymsInit(const char* libPath)
 
 void dlSymsCleanup(DLSyms* pSyms)
 {
-  munmap(pSyms->pElf_Ehdr, pSyms->fileSize);
+  munmap( (void*) pSyms->pElf_Ehdr, pSyms->fileSize);
   close(pSyms->file);
   dcFreeMem(pSyms);
 }
