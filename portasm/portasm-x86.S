@@ -67,6 +67,14 @@
 #  define EDI %edi
 #  define EBP %ebp
 #  define ESP %esp
+#  define AL  %al
+#  define AH  %ah
+#  define BL  %bl
+#  define BH  %bh
+#  define CL  %cl
+#  define CH  %ch
+#  define DL  %dl
+#  define DH  %dh
 #  define GLOBAL(X) .globl CSYM(X)
 #  define BEGIN_PROC(X)  CSYM(X):
 #  define END_PROC(X)
@@ -84,9 +92,16 @@
 #  define MOVSW movsw
 #  define MOVSD movsd
 #  define DWORD(R,OFF) OFF(R)
+#  define QWORD(R,OFF) OFF(R)
 #  define LIT(X) $X
 #  define INT(X) int X
 #  define HEX(X) XCONCAT(0x,X)
 #  define CALL(X) call X
+#  define LEA(A,B) lea A,B
+#  define CMP(A,B) cmp A,B
+#  define JE(X)    je X
+#  define FLDS(X)  flds X
+#  define FLDL(X)  fldl X
+#  define ADD(A,B) add A,B
 #endif
 
