@@ -3,13 +3,18 @@ This file lists big/noteworthy changes, only...
 Version 0.7 (upcoming)
 architecture:
   o added 'portasm' sub-project folder 
+  o added Solaris/x86/sunpro port (stable, dynload is still wacky).
 dyncall updates:
+  o added support for sparc (32-bit) (works on debian/gcc).
   o inital support for syscalls on x86
   o documentation update and fixes
   o portable generic assembly files (portasm) for x86,x64,ppc32,arm32_arm
   o added Minix port (stable).
+  o x86 uses portasm.
 dyncallback updates:
+  o added Solaris/x86/sunpro port (stable).
   o added Minix port (unstable).
+  o x86 uses portasm.
 dynload updates:
   o fixes for self-resolving symbols on windows
 buildsys/gmake:
@@ -24,6 +29,7 @@ buildsys/cmake:
   o fixes for msvc and ml
 buildsys updates:
   o new simplified makefile system: Makefile.generic (works on GNU- and BSDmake)
+  o experimental: support for sun's make as well: 'Makefile.embedded'
 tests:
   o added syscall test
   o updates to resolve-self test (adding additional link flags to export symbols)
