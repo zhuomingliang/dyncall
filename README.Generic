@@ -125,3 +125,9 @@ Feature:
 configure --prefix=<prefix> -> Makefile DESTDIR=variable
 make -f Makefile.generic DESTDIR=<prefix>
 
+
+Todo: integrate with sun's make:
+
+- CXX does not exist.. no rule for *.cpp files but *.cc.
+- TARGET_ARCH is predefined with -i386 on x86 and TARGET_MACH is predefined with -i86pc
+

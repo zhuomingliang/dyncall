@@ -20,6 +20,10 @@ build-system:
   multiple architectures
 
 
+portasm:
+--------
+- add solaris support for x64
+
 dyncall:
 --------
 - check if dcMode can be implemented in dcCallVM_XXX.c files directly..
