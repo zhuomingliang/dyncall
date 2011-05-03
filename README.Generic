@@ -3,21 +3,31 @@ Building with generic makefiles
 
 Description
 -----------
-Hybrid 'makefiles', compatible with {BSD,GNU}make.
-Supports two operating modes: Embedded and Configure.
+
+Makefile.generic is a simple and _hybrid_ make-based build system setup for dyncall, 
+designed to work with with GNU and BSD make.
+
+This build-flavour supports two operating modes: Embedded and Configure.
+
 Project files are specified in Makefile.generic.
+
+
+History
+-------
+During the integration of dyncall into the R package rdyncall, there
+was a need for a clean simple build system that could be launched from R
+and works with various make's such as GNU, BSD and sun make.
 
 
 Generic Usage
 -------------
 
-{g|bsd}make [-f Makefile.generic] [all|clean|install] [INSTALL_TOP=<path>]
+[MAKEFILE=Makefile.generic] [g|bsd]make [-f Makefile.generic] [all|clean|autogen|install] [INSTALL_TOP=<path>]
 
 
 Embeeded Mode
 -------------
-Makefile.generic makefiles are taken as-is directly
-without extra configuration.
+Makefile.generic makefiles are taken "as-is" without the need for extra configuration.
 
 <VAR1>=<VALUE1> ... bsdmake -f Makefile.generic
 MAKEFILE=Makefile.generic <VAR1>=<VALUE1> ... gmake -f Makefile.generic
@@ -40,7 +50,9 @@ Configure Mode
 
 Usage:
 
-  ./configure2 [--prefix=<path>]
+  mkdir <build-dir>
+  cd <build-dir>
+  ../<path-to-source>/configure2 [--prefix=<path>]
   make
   make install [DESTDIR=<path>]
 
@@ -50,13 +62,21 @@ VPATH, {SRC,BLD}{TOP,DIR}.
 
 Two build types are supported: In-source and out-of-Sosurce.
 
-In 'out-of-source' build type, the configure script is executed from
-a different directory - the build directory.
+in-source builds:
+Makefile's are created in parallel to the Makefile.generic files.
+
+out-of-source builds:
+the configure script is executed from a (possible empty) build directory. 
 The source directory tree is duplicated into that directory.
 
 
 Useful Variables
 ----------------
+
+For libraries:
+  CC, CFLAGS, CPPFLAGS
+For tests:
+  CXX, LDFLAGS
 
 MAKE_CMD - The make tool (including -f flag) to run sub-directories.
 SRCTOP   - Source top-level directory (defaults to relative top).
@@ -120,14 +140,26 @@ Haiku Alpha 2:
   ( cd test ; make -f Makefile.generic all-dyncall all-dyncallback )
 
 
-Feature:
+Build notes related to dyncall:
+-------------------------------
 
+CFLAGS
+  Use '-fPIC' for at least 64-bit systems and when you want the code to be 
+  included as a shared library or module image.
+LDFLAGS
+  Use '-lm' for test/suite - it uses pow function.
+  Use '-ldl' for dynload examples such as test/nm and test/resolve_self on Linux.
+
+
+Feature:
+--------
 configure --prefix=<prefix> -> Makefile DESTDIR=variable
 make -f Makefile.generic DESTDIR=<prefix>
 
 
-Todo: integrate with sun's make:
-
-- CXX does not exist.. no rule for *.cpp files but *.cc.
+Todo: 
+-----
+- integrate with sun's make:
+- sun's make: CXX does not exist.. no rule for *.cpp files but *.cc.
 - TARGET_ARCH is predefined with -i386 on x86 and TARGET_MACH is predefined with -i86pc
 

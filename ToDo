@@ -1,5 +1,6 @@
 build-system:
 -------------
+- cxx or cpp, overlay on OpenBSD/make  for cpp rule?
 - add dependencies to Makefile.{generic|embedded}
 - CPPFLAGS ?
 - out-of-source building  
@@ -27,6 +28,7 @@ portasm:
 
 dyncall:
 --------
+- support for 'long double'
 - check if dcMode can be implemented in dcCallVM_XXX.c files directly..
 - port x64: split callvm into a sysv and a win64, both available at run-time
 - port ppc64
