@@ -47,12 +47,12 @@ void init_K()
 {
   int i;
   for(i=0;i<VSIZE;++i) {
-    k_c[i] = (char)      (rand_d() * 127);
-    k_i[i] = (int)       (rand_d() * __INT_MAX__);
-    k_s[i] = (short)     (rand_d() * 32768);
-    k_j[i] = (long)      (rand_d() * __LONG_MAX__);
-    k_l[i] = (long long) (rand_d() * __INTMAX_MAX__);
-    k_p[i] = (void*)     (long) (rand_d() * __LONG_MAX__);
+    k_c[i] = (char)      (rand_d() * (1<<7));
+    k_i[i] = (int)       (rand_d() * (1<<(sizeof(int)*8-1)));
+    k_s[i] = (short)     (rand_d() * (1<<(sizeof(int)*8-1)));
+    k_j[i] = (long)      (rand_d() * (1L<<(sizeof(long)*8-1)));
+    k_l[i] = (long long) (rand_d() * (1LL<<(sizeof(long long)*8-1)));
+    k_p[i] = (void*)     (long) (rand_d() * (1L<<(sizeof(void*)*8-1)));
     k_f[i] = (float)     (rand_d() * __FLT_MAX__);
     k_d[i] = (double)    (rand_d() * __DBL_MAX__);
   }
