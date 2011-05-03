@@ -30,12 +30,14 @@ typedef struct DCCallVM_sparc64_ DCCallVM_sparc64;
 struct DCCallVM_sparc64_
 {
   DCCallVM  mInterface;
+  int       mIntRegs;
+  int       mFloatRegs;
+  DCVecHead mVecHead;
 #if 0
   int       mIntRegs;
   int       mFloatRegs;
   struct DCRegData_ppc32_ mRegData;
 #endif
-  DCVecHead mVecHead;
 };
 
 DCCallVM* dcNewCallVM_sparc64(DCsize size);

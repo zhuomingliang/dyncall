@@ -25,14 +25,27 @@
 #include "dyncall_utils.h"
 #include "dyncall_alloc.h"
 
+#define IREGS 6
+#define FREGS 16
+#define DHEAD (IREGS+FREGS)*8
+
+/* Reset argument buffer. */
+static void dc_callvm_reset_sparc64(DCCallVM* in_self)
+{
+  DCCallVM_sparc64* self = (DCCallVM_sparc64*)in_self;
+  dcVecResize(&self->mVecHead,DHEAD);
+  self->mIntRegs   = 0;
+  self->mFloatRegs = 0;
+}
+
 /* Construtor. */
 /* the six output registers %o0-%o5 are always loaded, thus we need to ensure the argument buffer has space for at least 24 bytes. */
 static DCCallVM* dc_callvm_new_sparc64(DCCallVM_vt* vt, DCsize size)
 {
-  size=DC_MAX(size,sizeof(void*)*6);
-  DCCallVM_sparc64* self = (DCCallVM_sparc64*) dcAllocMem(sizeof(DCCallVM_sparc64)+size);
+  DCCallVM_sparc64* self = (DCCallVM_sparc64*) dcAllocMem(sizeof(DCCallVM_sparc64)+DHEAD+size);
   dc_callvm_base_init(&self->mInterface, vt);
-  dcVecInit(&self->mVecHead,size);
+  dcVecInit(&self->mVecHead,DHEAD+size);
+  dc_callvm_reset_sparc64(&self->mInterface);
   return (DCCallVM*)self;
 }
 
@@ -42,64 +55,52 @@ static void dc_callvm_free_sparc64(DCCallVM* in_self)
   dcFreeMem(in_self);
 }
 
-/* Reset argument buffer. */
-static void dc_callvm_reset_sparc64(DCCallVM* in_self)
-{
-  DCCallVM_sparc64* self = (DCCallVM_sparc64*)in_self;
-  dcVecReset(&self->mVecHead);
-}
+/* all integers are promoted to 64-bit. */
 
 static void dc_callvm_argLongLong_sparc64(DCCallVM* in_self, DClonglong x)
 {
   DCCallVM_sparc64* self = (DCCallVM_sparc64*)in_self;
-  dcVecAppend(&self->mVecHead, &x, sizeof(DClonglong));
-}
-#if 0
-/* Load integer 32-bit. */
-static void dc_callvm_argInt_sparc64(DCCallVM* in_self, DCint x)
-{
-  DCCallVM_sparc64* self = (DCCallVM_sparc64*)in_self;
-  dcVecAppend(&self->mVecHead, &x, sizeof(DCint));
+  if (self->mIntRegs < IREGS) {
+    * ( (DClonglong*) ( dcVecAt(&self->mVecHead, (self->mIntRegs++)*8) ) ) = x;
+  } else {
+    dcVecAppend(&self->mVecHead, &x, sizeof(DClonglong));
+  }
+  if (self->mFloatRegs < FREGS) self->mFloatRegs++;
 }
 
-/* we propagate Bool,Char,Short,Int to LongLong. */
+static void dc_callvm_argLong_sparc64 (DCCallVM* in_self, DClong  x) { dc_callvm_argLongLong_sparc64(in_self, (DClonglong) x ); }
+static void dc_callvm_argInt_sparc64  (DCCallVM* in_self, DCint   x) { dc_callvm_argLongLong_sparc64(in_self, (DClonglong) x ); }
+static void dc_callvm_argBool_sparc64 (DCCallVM* in_self, DCbool  x) { dc_callvm_argLongLong_sparc64(in_self, (DClonglong) x ); }
+static void dc_callvm_argChar_sparc64 (DCCallVM* in_self, DCchar  x) { dc_callvm_argLongLong_sparc64(in_self, (DClonglong) x ); }
+static void dc_callvm_argShort_sparc64(DCCallVM* in_self, DCshort x) { dc_callvm_argLongLong_sparc64(in_self, (DClonglong) x ); }
+static void dc_callvm_argPointer_sparc64(DCCallVM* in_self, DCpointer x) { dc_callvm_argLongLong_sparc64(in_self, (DClonglong) x ); }
 
-static void dc_callvm_argBool_sparc64(DCCallVM* in_self, DCbool x)   { dc_callvm_argInt_sparc64(in_self, (DCint)x); }
-static void dc_callvm_argChar_sparc64(DCCallVM* in_self, DCchar x)   { dc_callvm_argInt_sparc64(in_self, (DCint)x); }
-static void dc_callvm_argShort_sparc64(DCCallVM* in_self, DCshort x) { dc_callvm_argInt_sparc64(in_self, (DCint)x); }
-#endif
-
-static void dc_callvm_argBool_sparc64(DCCallVM* in_self, DCbool x)   { dc_callvm_argLongLong_sparc64(in_self, (DClonglong) (DCulonglong)x ); }
-static void dc_callvm_argChar_sparc64(DCCallVM* in_self, DCchar x)   { dc_callvm_argLongLong_sparc64(in_self, (DClonglong) (DCulonglong)x ); }
-static void dc_callvm_argShort_sparc64(DCCallVM* in_self, DCshort x) { dc_callvm_argLongLong_sparc64(in_self, (DClonglong) (DCulonglong)x ); }
-static void dc_callvm_argInt_sparc64(DCCallVM* in_self, DCint x)     { dc_callvm_argLongLong_sparc64(in_self, (DClonglong) (DCulonglong)x ); }
-
-/* handle others Pointer, Long, LongLong, Float and Double as-is. */
-
-static void dc_callvm_argPointer_sparc64(DCCallVM* in_self, DCpointer x) 
-{ 
-  DCCallVM_sparc64* self = (DCCallVM_sparc64*)in_self;
-  dcVecAppend(&self->mVecHead, &x, sizeof(DCpointer));
-}
-
-static void dc_callvm_argLong_sparc64(DCCallVM* in_self, DClong x) 
-{ 
-  DCCallVM_sparc64* self = (DCCallVM_sparc64*)in_self;
-  dcVecAppend(&self->mVecHead, &x, sizeof(DClong));
-}
-
-static void dc_callvm_argFloat_sparc64(DCCallVM* in_self, DCfloat x)
-{
-  DCCallVM_sparc64* self = (DCCallVM_sparc64*)in_self;
-  dcVecAppend(&self->mVecHead, &x, sizeof(DCfloat));
-}
 
 static void dc_callvm_argDouble_sparc64(DCCallVM* in_self, DCdouble x)
 {
   DCCallVM_sparc64* self = (DCCallVM_sparc64*)in_self;
-  dcVecAppend(&self->mVecHead, &x, sizeof(DCdouble));
+  if (self->mFloatRegs < FREGS) {
+    * ((double*)dcVecAt(&self->mVecHead,(IREGS+(self->mFloatRegs++))*8)) = x;
+    if (self->mIntRegs < IREGS) self->mIntRegs++;
+    else {
+      dcVecAppend(&self->mVecHead, &x, sizeof(DCdouble));
+    }
+  } else {
+    struct {
+      DCdouble d;
+      DClonglong l;
+    } u;
+    u.d = x;
+    dc_callvm_argLongLong_sparc64(in_self,u.l);
+  }
 }
-  
+
+static void dc_callvm_argFloat_sparc64(DCCallVM* in_self, DCfloat x)
+{
+  dc_callvm_argDouble_sparc64(in_self, (DCdouble) x );
+}
+
+ 
 /* mode: only a single mode available currently. */
 static void dc_callvm_mode_sparc64(DCCallVM* in_self, DCint mode)
 {
@@ -154,4 +155,19 @@ DCCallVM* dcNewCallVM(DCsize size)
 {
   return dc_callvm_new_sparc64(&gVT_sparc64,size);
 }
+
+#if 0
+/* Load integer 32-bit. */
+static void dc_callvm_argInt_sparc64(DCCallVM* in_self, DCint x)
+{
+  DCCallVM_sparc64* self = (DCCallVM_sparc64*)in_self;
+  dcVecAppend(&self->mVecHead, &x, sizeof(DCint));
+}
+
+/* we propagate Bool,Char,Short,Int to LongLong. */
+
+static void dc_callvm_argBool_sparc64(DCCallVM* in_self, DCbool x)   { dc_callvm_argInt_sparc64(in_self, (DCint)x); }
+static void dc_callvm_argChar_sparc64(DCCallVM* in_self, DCchar x)   { dc_callvm_argInt_sparc64(in_self, (DCint)x); }
+static void dc_callvm_argShort_sparc64(DCCallVM* in_self, DCshort x) { dc_callvm_argInt_sparc64(in_self, (DCint)x); }
+#endif
 
