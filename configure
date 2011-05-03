@@ -136,7 +136,9 @@ guess_arch()
   ARCH=`uname -m`
   # OS Specifics
   if [ "$OS" = "SunOS" ]; then
-    if [ "$ARCH" = "i86pc" ] && [ "`isainfo -n`" = "amd64" ]; then
+    if [ "$ARCH" = "sparc" ]; then
+      CONFIG_ARCH="sparc64"
+    elif [ "$ARCH" = "i86pc" ] && [ "`isainfo -n`" = "amd64" ]; then
       CONFIG_ARCH="x64"
     else
       CONFIG_ARCH="x86"
@@ -177,6 +179,8 @@ guess_arch()
     CONFIG_ARCH="mips32el"
   elif [ "$ARCH" = "loongson" ]; then
     CONFIG_ARCH="mips64el"
+  elif [ "$ARCH" = "sparc64" ]; then
+    CONFIG_ARCH="sparc"
   fi
   info "guess arch $CONFIG_ARCH"
 }
