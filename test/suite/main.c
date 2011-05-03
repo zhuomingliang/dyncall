@@ -41,17 +41,25 @@ DCdouble   valueDouble  [NARGS];
 DCpointer  valuePointer [NARGS];
 DCfloat    valueFloat   [NARGS];
 
+enum {
+  ID_DOUBLE = 0,
+  ID_LONGLONG,
+  ID_INT,
+  ID_POINTER,
+  ID_BOOL,
+  ID_FLOAT
+};
 
 DCbool equals(int select, int pos, void* data)
 {
   switch(select)
   {
-    case 0: return ( getArg(pos)->B == valueBool    [pos] ); break;
-    case 1: return ( getArg(pos)->i == valueInt     [pos] ); break;
-    case 2: return ( getArg(pos)->l == valueLongLong[pos] ); break;
-    case 3: return ( getArg(pos)->d == valueDouble  [pos] ); break;
-    case 4: return ( getArg(pos)->p == valuePointer [pos] ); break;
-    case 5: return ( getArg(pos)->f == valueFloat   [pos] ); break;
+    case ID_BOOL:     return ( getArg(pos)->B == valueBool    [pos] ); break;
+    case ID_INT:      return ( getArg(pos)->i == valueInt     [pos] ); break;
+    case ID_LONGLONG: return ( getArg(pos)->l == valueLongLong[pos] ); break;
+    case ID_DOUBLE:   return ( getArg(pos)->d == valueDouble  [pos] ); break;
+    case ID_POINTER:  return ( getArg(pos)->p == valuePointer [pos] ); break;
+    case ID_FLOAT:    return ( getArg(pos)->f == valueFloat   [pos] ); break;
   }
   return DC_FALSE;
 }
@@ -79,12 +87,12 @@ void push(DCCallVM* pCall, int select, int pos)
 {
   switch(select) 
   {
-    case 0: dcArgBool    ( pCall, valueBool    [pos] ); break;
-    case 1: dcArgInt     ( pCall, valueInt     [pos] ); break;
-    case 2: dcArgLongLong( pCall, valueLongLong[pos] ); break;
-    case 3: dcArgDouble  ( pCall, valueDouble  [pos] ); break;
-    case 4: dcArgPointer ( pCall, valuePointer [pos] ); break;
-    case 5: dcArgFloat   ( pCall, valueFloat   [pos] ); break;
+    case ID_BOOL: dcArgBool    ( pCall, valueBool    [pos] ); break;
+    case ID_INT: dcArgInt     ( pCall, valueInt     [pos] ); break;
+    case ID_LONGLONG: dcArgLongLong( pCall, valueLongLong[pos] ); break;
+    case ID_DOUBLE: dcArgDouble  ( pCall, valueDouble  [pos] ); break;
+    case ID_POINTER: dcArgPointer ( pCall, valuePointer [pos] ); break;
+    case ID_FLOAT: dcArgFloat   ( pCall, valueFloat   [pos] ); break;
   }
 }
 

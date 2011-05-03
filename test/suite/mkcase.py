@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #//////////////////////////////////////////////////////////////////////////////
 #
-# Copyright (c) 2007,2009 Daniel Adler <dadler@uni-goettingen.de>, 
+# Copyright (c) 2007,2011 Daniel Adler <dadler@uni-goettingen.de>, 
 #                         Tassilo Philipp <tphilipp@potion-studios.com>
 #
 # Permission to use, copy, modify, and distribute this software for any
@@ -22,10 +22,11 @@ import sys
 
 # parameters
 
-nargs    = 3
+nargs    = 8
 
-types    = ["DCbool","DCint","DClonglong","DCdouble","DCpointer","DCfloat"]
-typeSigs = ["b"     ,"i"    ,"l"         ,"d"       ,"p"        ,"f"      ]
+#TODO: enable all types. temporary disabled for debuggin sparc64.
+types    = ["DCdouble","DClonglong"]#,"DCint","DCpointer","DCbool"]#,"DCfloat"]
+typeSigs = ["d"       ,"l"         ]#,"i"    ,"p"        ,"B"     ]#,"f"      ]
 
 # generator
 
