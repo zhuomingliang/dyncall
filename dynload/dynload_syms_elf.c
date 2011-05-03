@@ -44,11 +44,11 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/mman.h>
-#include <elf.h>
 #include <unistd.h> 
 
 /* run-time configuration 64/32 */
-
+#if defined(DC__OS_OpenBSD)
+#else 
 #ifdef DL__BinaryFormat_elf64
 typedef Elf64_Ehdr   Elf_Ehdr;
 typedef Elf64_Phdr   Elf_Phdr;
@@ -67,6 +67,7 @@ typedef Elf32_Dyn    Elf_Dyn;
 #endif
 typedef Elf32_Sword  Elf_tag;
 typedef Elf32_Addr   Elf_Addr;
+#endif
 #endif
 
 struct DLSyms_
