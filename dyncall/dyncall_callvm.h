@@ -27,6 +27,8 @@
 
 /* --- callvm virtual function table --------------------------------------- */
 
+/* NOTE: if something changes in DCCallVM_, update offset marks in dyncall_call_sparc.S */
+
 typedef struct DCCallVM_vt_ DCCallVM_vt;
 
 struct DCCallVM_

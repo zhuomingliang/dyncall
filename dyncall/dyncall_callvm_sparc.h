@@ -26,16 +26,13 @@
 #include "dyncall_callvm.h"
 #include "dyncall_vector.h"
 
+/* NOTE: if something changes here, update offset marks in dyncall_call_sparc.S */
+
 typedef struct DCCallVM_sparc_ DCCallVM_sparc;
 struct DCCallVM_sparc_
 {
-  DCCallVM  mInterface;
-#if 0
-  int       mIntRegs;
-  int       mFloatRegs;
-  struct DCRegData_ppc32_ mRegData;
-#endif
-  DCVecHead mVecHead;
+  DCCallVM  mInterface;	/* 8 bytes (vtable,errorid) */
+  DCVecHead mVecHead;	/* 8 bytes (max,size)       */
 };
 
 DCCallVM* dcNewCallVM_sparc(DCsize size);

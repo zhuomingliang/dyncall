@@ -24,13 +24,32 @@
 
 /* --------------------------------------------------------------------------- 
 
-Default call kernel for sparc
+call kernel for sparc 32-bit
+----------------------------
 tested on linux/debian [gcc54.fsffrance.org - thanx to the farm!] 
 
-C Interface:
+new C Interface:
+  void dcCall_sparc (DCCallVM* callvm, DCpointer target);
+                     %i0               %1 
+
+we need to do that, due to the special property of sparc, its 'register windows'
+that propagate input registers..
+otherwise, we would have a 'void' return-value layer which results in failure
+to propagate back return values.
+instead of implementing 'dummy'-C return-values, we call directly.
+
+in sparc, this is simply a leaf-function layer using %o3.
+
+old C Interface:
   void dcCall_sparc (DCpointer target, DCsize size, DCpointer data);
 		     %i0             , %i1        , %i2
+
+
 Input:
+  i0   callvm
+  i1   target
+
+old Input:
   i0   target
   i1   size
   i2   data
@@ -107,14 +126,22 @@ r24-r31 -> ins
 #endif
 
 #define ALIGN   16
-
+CALLVM_size    = 12
+CALLVM_dataoff = 16
 .global dcCall_sparc
 dcCall_sparc:
 
 /* Basic Prolog: supports up to 6 arguments. */
 
-	/*leaf functions: may use the first six output registers.*/
+	/*o0-1:callvm,target*/
+	
+	or  %o0, %g0, %o3	   /* %o3: callvm */
+	or  %o1, %g0, %o0	   /* %o0: target */
+	ld [%o3+CALLVM_size], %o1  /* %o1: size */
+	or  %o3, CALLVM_dataoff, %o2  /* %o2: data */
 	/*o0-2:target,size,data*/
+
+	/*leaf functions: may use the first six output registers.*/
 	/*o3-5:free to use */
 
 	/* Compute a matiching stack size (approximate): o3 = align(92+o1,16) */

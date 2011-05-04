@@ -104,12 +104,15 @@ static void dc_callvm_mode_sparc(DCCallVM* in_self, DCint mode)
   }
 }
 
+/* we call directly with 'RTYPE dcCall(DCCallVM* in_self, DCpointer target)' */
+#if 0
 /* call: delegate to default call kernel */
 static void dc_callvm_call_sparc(DCCallVM* in_self, DCpointer target)
 {
   DCCallVM_sparc* self = (DCCallVM_sparc*)in_self;
   dcCall_sparc(target, dcVecSize(&self->mVecHead), dcVecData(&self->mVecHead));
 }
+#endif
 
 /* CallVM virtual table. */
 DCCallVM_vt gVT_sparc =
@@ -127,16 +130,16 @@ DCCallVM_vt gVT_sparc =
   &dc_callvm_argDouble_sparc, 
   &dc_callvm_argPointer_sparc, 
   NULL /* argStruct */, 
-  (DCvoidvmfunc*)       &dc_callvm_call_sparc, 
-  (DCboolvmfunc*)       &dc_callvm_call_sparc, 
-  (DCcharvmfunc*)       &dc_callvm_call_sparc, 
-  (DCshortvmfunc*)      &dc_callvm_call_sparc, 
-  (DCintvmfunc*)        &dc_callvm_call_sparc, 
-  (DClongvmfunc*)       &dc_callvm_call_sparc, 
-  (DClonglongvmfunc*)   &dc_callvm_call_sparc, 
-  (DCfloatvmfunc*)      &dc_callvm_call_sparc, 
-  (DCdoublevmfunc*)     &dc_callvm_call_sparc, 
-  (DCpointervmfunc*)    &dc_callvm_call_sparc, 
+  (DCvoidvmfunc*)       &dcCall_sparc,  
+  (DCboolvmfunc*)       &dcCall_sparc,  
+  (DCcharvmfunc*)       &dcCall_sparc,  
+  (DCshortvmfunc*)      &dcCall_sparc,  
+  (DCintvmfunc*)        &dcCall_sparc, 
+  (DClongvmfunc*)       &dcCall_sparc, 
+  (DClonglongvmfunc*)   &dcCall_sparc,  
+  (DCfloatvmfunc*)      &dcCall_sparc,  
+  (DCdoublevmfunc*)     &dcCall_sparc,  
+  (DCpointervmfunc*)    &dcCall_sparc,
   NULL /* callStruct */
 };
 
