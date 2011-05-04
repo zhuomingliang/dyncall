@@ -6,6 +6,24 @@ case `uname -s` in
   Darwin)
     LPLAF=macosx
     ;;
+  Linux)
+    LPLAF=linux
+    ;;
+  FreeBSD)
+    LPLAF=freebsd
+    ;;
+  SunOS)
+    LPLAF=solaris
+    ;;
+  AIX)
+    LPLAF=aix
+    ;;
+  DragonFly)
+    LPLAF=bsd
+    ;;
+  *BSD)
+    LPLAF=bsd
+    ;;
   *)
     LPLAF=posix
     ;;
