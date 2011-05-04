@@ -156,6 +156,6 @@ dcCall_sparc:
 .do_call:
 	call	%i0				/* Call target. */
 	 nop
-        restore
-	ret
-
+        jmpl %i7 + 8, %g0			/* Return. */
+	 nop
+	
