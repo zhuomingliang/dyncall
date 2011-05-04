@@ -81,13 +81,13 @@ BEGIN_PROC(dcCallbackThunkEntry)
 	MOVL(DWORD(EBP,0), EBP)			/* EBP = parent frame */
 	/* handle return value */
 	/* cmpb 	$118, %al */
-	CMP($'v',AL)
+	CMP(ASCII_v,AL)
 	JE(.return_void)
-	CMP($'d',AL)
+	CMP(ASCII_d,AL)
 	JE(.return_f64)
-	CMP($'f',AL)
+	CMP(ASCII_f,AL)
 	JE(.return_f32)
-	CMP($'l',AL)
+	CMP(ASCII_l,AL)
 	JE(.return_i64)
 	
 	/* All int cases <= 32 bits (+ pointer & string cases) fall in the 32 bits int case*/

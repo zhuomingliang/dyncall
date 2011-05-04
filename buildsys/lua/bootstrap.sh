@@ -1,7 +1,7 @@
 #!/bin/sh
-DL=wget make Makefile lua-5.1.4
+make -f `dirname $0`/Makefile lua-5.1.4
 case `uname -s` in
-  darwin)
+  Darwin)
     LPLAF=macosx
     ;;
   *)
@@ -9,4 +9,5 @@ case `uname -s` in
     ;;
 esac
 (cd lua-5.1.4; make ${LPLAF})
+
 
