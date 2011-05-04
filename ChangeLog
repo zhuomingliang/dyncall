@@ -30,9 +30,12 @@ buildsys/cmake:
 buildsys updates:
   o new simplified makefile system: Makefile.generic (works on GNU- and BSDmake)
   o experimental: support for sun's make as well: 'Makefile.embedded'
+  o added lua bootstrap (download/build) script
 tests:
   o added syscall test
   o updates to resolve-self test (adding additional link flags to export symbols)
+  o added C/lua call test suite (call_suite)
+  o renamed *.cpp -> *.cc files (OpenBSD/Sun make has no implicit rules for cpp)
 
 Version 0.6
 building:

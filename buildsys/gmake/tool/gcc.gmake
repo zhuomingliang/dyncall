@@ -91,6 +91,9 @@ $(BUILD_DIR)/%.o: %.c
 $(BUILD_DIR)/%.o: %.cpp
 	$(COMPILE.cpp) $< $(OUTPUT_OPTION)
 
+$(BUILD_DIR)/%.o: %.cc
+	$(COMPILE.cpp) $< $(OUTPUT_OPTION)
+
 #	$(CXX) -MM -MT $@ $(CPPFLAGS) $(CXXFLAGS) $< > $(BUILD_DIR)/$*.d
 
 # --- static library ----------------------------------------------------------

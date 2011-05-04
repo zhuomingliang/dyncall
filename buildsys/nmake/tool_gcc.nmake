@@ -59,7 +59,7 @@ LDFLAGS  = $(LDFLAGS) -specs=ds_arm9.specs
 
 
 .SUFFIXES:
-.SUFFIXES: .o .so .a .arm9 .nds .pdf .c .cpp .s .tex
+.SUFFIXES: .o .so .a .arm9 .nds .pdf .c .cpp .s .tex .cc
 
 
 .s.o:
@@ -72,6 +72,10 @@ LDFLAGS  = $(LDFLAGS) -specs=ds_arm9.specs
 
 .cpp.o:
 	echo .cpp.o: Compiling $< ...
+	$(CXX) $(CXXFLAGS) -o $@ -c $<
+
+.cc.o:
+	echo .cc.o: Compiling $< ...
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 .tex.pdf:

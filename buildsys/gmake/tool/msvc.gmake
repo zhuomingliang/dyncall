@@ -63,6 +63,10 @@ $(BUILD_DIR)/%.obj: %.c
 $(BUILD_DIR)/%.obj: %.cpp
 	cl $< /nologo /c $(CPPFLAGS) $(CXXFLAGS) /Fo$@ 
 
+$(BUILD_DIR)/%.obj: %.cc
+	cl $< /nologo /c $(CPPFLAGS) $(CXXFLAGS) /Fo$@ 
+
+
 # --- Link flags --------------------------------------------------------------
 
 LDFLAGS += $(foreach X,$(LINK_DIRS),/LIBPATH:$X)
