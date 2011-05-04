@@ -21,7 +21,7 @@ extern int fid;
 #define f float
 #define d double
 
-funptr *T[1+NCASES];
-
 #include "cases.h"
+
+int G_ncases = sizeof(G_sigtab)/sizeof(G_sigtab[0]);
 

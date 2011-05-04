@@ -1,5 +1,6 @@
 -- feel free to edit:
-maxargs  = 30
+minargs  = 0
+maxargs  = 50 
 ncases   = 100
-types    = "ijlpfd"
+types    = "scijlpfd"
 

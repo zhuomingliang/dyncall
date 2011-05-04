@@ -18,41 +18,52 @@ int invoke(char const* signature, void* t)
   while ( (atype = *sig++) != '\0') {
     pos++;
     switch(atype) {
-      case 'f': dcArgFloat   (p,K_f[pos]); break;
+      case 'c': dcArgChar    (p,K_c[pos]); break;
+      case 's': dcArgShort   (p,K_s[pos]); break;
       case 'i': dcArgInt     (p,K_i[pos]); break;
-      case 'd': dcArgDouble  (p,K_d[pos]); break;
       case 'j': dcArgLong    (p,K_j[pos]); break;
       case 'l': dcArgLongLong(p,K_l[pos]); break;
       case 'p': dcArgPointer (p,K_p[pos]); break;
-      default: printf("invalid argument signature;"); return 0;
+      case 'f': dcArgFloat   (p,K_f[pos]); break;
+      case 'd': dcArgDouble  (p,K_d[pos]); break;
+      default: printf("unknown atype '%c' (1) ;", atype); return 0;
     }
   }
   
   switch(rtype) 
   {
     case 'v': dcCallVoid(p,t); s=1; /*TODO:check that no return-arg was touched.*/ break;
-    case 'f': s = (dcCallFloat   (p,t) == K_f[pos]) ; break;
+    case 'c': s = (dcCallChar    (p,t) == K_c[pos]) ; break;
+    case 's': s = (dcCallShort   (p,t) == K_s[pos]) ; break;
     case 'i': s = (dcCallInt     (p,t) == K_i[pos]) ; break;
-    case 'd': s = (dcCallDouble  (p,t) == K_d[pos]) ; break;
     case 'j': s = (dcCallLong    (p,t) == K_j[pos]) ; break;
     case 'l': s = (dcCallLongLong(p,t) == K_l[pos]) ; break;
     case 'p': s = (dcCallPointer (p,t) == K_p[pos]) ; break;
-    default: printf("invalid return-type signature;"); return 0;
+    case 'f': s = (dcCallFloat   (p,t) == K_f[pos]) ; break;
+    case 'd': s = (dcCallDouble  (p,t) == K_d[pos]) ; break;
+    default: printf("unknown rtype '%c'", rtype); return 0;
   }
 
-  if (!s) { printf("return value mismatch;"); return 0; }
+  if (!s) { printf("rval wrong;"); return 0; }
   /* test: */
   sig = signature+1;
   pos = 1;
   while ( (atype = *sig++) != '\0') {
     switch(atype) {
-      case 'f': s = ( V_f[pos] == K_f[pos] ); break;
+#define X(CH,T,QCH) case QCH: s = (V_##CH[pos] == K_##CH[pos]); break;
+DEF_TYPES
+#undef X
+#if 0
+      case 'c': s = ( V_c[pos] == K_c[pos] ); break;
+      case 's': s = ( V_s[pos] == K_s[pos] ); break;
       case 'i': s = ( V_i[pos] == K_i[pos] ); break;
-      case 'd': s = ( V_d[pos] == K_d[pos] ); break;
       case 'j': s = ( V_j[pos] == K_j[pos] ); break;
       case 'l': s = ( V_l[pos] == K_l[pos] ); break;
       case 'p': s = ( V_p[pos] == K_p[pos] ); break;
-      default: printf("invalid return-type signature;"); return 0;
+      case 'f': s = ( V_f[pos] == K_f[pos] ); break;
+      case 'd': s = ( V_d[pos] == K_d[pos] ); break;
+#endif
+      default: printf("unknown atype '%c';", atype); return 0;
     }
     if (!s) {
       printf("arg mismatch at %d;", pos);

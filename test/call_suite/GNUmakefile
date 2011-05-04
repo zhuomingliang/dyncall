@@ -12,27 +12,26 @@ endif
 TARGET_APP	 = call_suite
 
 UNITS		 = globals invoke cases main
-CPPFLAGS  	+= -I$(TOP)/dyncallback -I$(TOP)/dyncall
+CPPFLAGS  	+= -I$(TOP)/dyncall
 LINK_DIRS	+= $(TOP)/dyncall/$(BUILD_DIR)
 LINK_LIBS 	+= dyncall_s
 
 include $(GMAKE_TOP)/epilog.gmake
 
-CONFIG_FILES	= cases.txt config.h cases.h
+CONFIG_FILES	= config.h cases.h
 
-.PHONY: config clean-config config-random config-stress1
+.PHONY: config config-random config-design
 
-config: clean-config $(CONFIG_FILES)
+config: config-random
 
-clean-config: clean
-	$(RM) $(CONFIG_FILES)
+config-random: 
+	$(LUA) mk-config.lua >config.h
+	$(LUA) rand-sig.lua >cases.txt
+	$(LUA) mk-cases.lua <cases.txt >cases.h 
 
-cases.txt: 
-	$(LUA) rand-sig.lua >$@ 
+config-design:
+	$(LUA) mk-config.lua >config.h
+	cp design.txt cases.txt
+	$(LUA) mk-cases.lua <cases.txt >cases.h 
 
-cases.h: cases.txt
-	$(LUA) mk-cases.lua >$@ <cases.txt
-
-config.h:
-	$(LUA) mk-config.lua >$@
 

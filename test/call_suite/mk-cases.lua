@@ -1,7 +1,14 @@
+require"math"
+local max = math.max
+local maxargs = 0
+
+function trim(l) return l:gsub("^%s+",""):gsub("%s+$","") end
 function mkcase(id,sig)
+  local sig = trim(sig)
   local h = { "/* ",id,":",sig," */ ",sig:sub(1,1), " f", id,"(",""}
   local t = { "fid=",id,";" }
   local pos = 0
+  maxargs = max(maxargs, #sig-1)
   for i = 2, #sig do 
     pos = tostring(i-1)
     local name = "a"..pos
@@ -32,23 +39,39 @@ function mkcase(id,sig)
 end
 
 function mkfuntab(n)
-  local s = { "void init_T(){\n"}
+  local s = { "funptr G_funtab[] = {\n"}
   for i = 1, n do
-    s[#s+1] = "\tT["..i.."]=(void*)&f"..i..";\n"
+    s[#s+1] = "\t(funptr)&f"..i..",\n"
   end
   s[#s+1] = "};\n"
   return table.concat(s,"")
 end
 
-function mkbatch()
+function mksigtab(sigs)
+  local s = { "char const * G_sigtab[] = {\n"}
+  for k,v in pairs(sigs) do
+    s[#s+1] = '\t"'
+    s[#s+1] = v
+    s[#s+1] = '",\n'
+  end
+  s[#s+1] = "};\n"
+  return table.concat(s,"")
+end
+
+function mkall()
   local lineno = 1
+  local sigtab = { }
   for line in io.lines() do
-    io.write(mkcase(lineno,line))
+    local sig = trim(line)
+    io.write(mkcase(lineno,sig))
+    sigtab[#sigtab+1] = sig
     lineno = lineno + 1
   end
   io.write(mkfuntab(lineno-1))
+  io.write(mksigtab(sigtab))
+  io.write("int G_maxargs = "..maxargs..";\n")
 end
 
-mkbatch()
+mkall()
 -- print(mkcase(1,"vififififi"))
 
