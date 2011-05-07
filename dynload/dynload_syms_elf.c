@@ -33,6 +33,7 @@
 #if defined(DC__OS_OpenBSD)
 #	include <elf_abi.h>
 #elif defined(DC__OS_SunOS)
+#	include <libelf.h>
 #else
 #	include <elf.h>
 #endif
