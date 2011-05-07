@@ -25,7 +25,7 @@ Generic Usage
 [MAKEFILE=Makefile.generic] [g|bsd]make [-f Makefile.generic] [all|clean|autogen|install] [INSTALL_TOP=<path>]
 
 
-Embeeded Mode
+Embedded Mode
 -------------
 Makefile.generic makefiles are taken "as-is" without the need for extra configuration.
 
