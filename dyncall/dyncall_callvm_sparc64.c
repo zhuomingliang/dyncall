@@ -27,15 +27,18 @@
 
 #define IREGS 6
 #define FREGS 16
-#define DHEAD (IREGS+FREGS)*8
+#define SREGS 16
+#define DHEAD (IREGS+FREGS)*8+SREGS*4
 
 /* Reset argument buffer. */
 static void dc_callvm_reset_sparc64(DCCallVM* in_self)
 {
   DCCallVM_sparc64* self = (DCCallVM_sparc64*)in_self;
   dcVecResize(&self->mVecHead,DHEAD);
-  self->mIntRegs   = 0;
-  self->mFloatRegs = 0;
+  self->mIntRegs    = 0;
+  self->mFloatRegs  = 0;
+  self->mSingleRegs = 0;
+  self->mUseSingleFlags = 0;
 }
 
 /* Construtor. */
@@ -65,7 +68,8 @@ static void dc_callvm_argLongLong_sparc64(DCCallVM* in_self, DClonglong x)
   } else {
     dcVecAppend(&self->mVecHead, &x, sizeof(DClonglong));
   }
-    if (self->mFloatRegs < FREGS) self->mFloatRegs++;
+  if (self->mFloatRegs < FREGS) self->mFloatRegs++;
+  if (self->mSingleRegs < SREGS) self->mSingleRegs++;
 }
 
 static void dc_callvm_argLong_sparc64   (DCCallVM* in_self, DClong    x) { dc_callvm_argLongLong_sparc64(in_self, (DClonglong) x ); }
@@ -81,22 +85,46 @@ static void dc_callvm_argDouble_sparc64(DCCallVM* in_self, DCdouble x)
   if (self->mFloatRegs < FREGS) {
     * ((double*)dcVecAt(&self->mVecHead,(IREGS+(self->mFloatRegs++))*8)) = x;
     if (self->mIntRegs < IREGS) self->mIntRegs++;
-    else {
-      dcVecAppend(&self->mVecHead, &x, sizeof(DCdouble));
-    }
+    if (self->mSingleRegs < SREGS) self->mSingleRegs++;
+    // dcVecAppend(&self->mVecHead, &x, sizeof(DCdouble));
   } else {
+    dcVecAppend(&self->mVecHead, &x, sizeof(DCdouble));
+  }
+#if 0
+  {
     union {
       DCdouble d;
       DClonglong l;
     } u;
     u.d = x;
+    dcVecAppend(&self->mVecHead, &x, sizeof(DCdouble));
     dc_callvm_argLongLong_sparc64(in_self,u.l);
   }
+#endif
 }
 
 static void dc_callvm_argFloat_sparc64(DCCallVM* in_self, DCfloat x)
 {
-  dc_callvm_argDouble_sparc64(in_self, (DCdouble) x );
+  DCCallVM_sparc64* self = (DCCallVM_sparc64*)in_self;
+  if (self->mSingleRegs < SREGS) {
+    self->mUseSingleFlags |= 1<<self->mSingleRegs;
+    * ((float*)dcVecAt(&self->mVecHead,(IREGS+FREGS)*8 + (self->mSingleRegs++)*4)) = x;
+    if (self->mIntRegs < IREGS) self->mIntRegs++;
+    if (self->mFloatRegs < FREGS) self->mFloatRegs++;
+  } 
+  double y = (DCdouble) x;
+  dcVecAppend(&self->mVecHead, &y, sizeof(DCdouble));
+  /* else { */
+  {
+    union {
+      DCdouble d;
+      DClonglong l;
+      DCfloat f;
+    } u;
+    u.f = x;
+    dc_callvm_argLongLong_sparc64(in_self,u.l);
+  } 
+ /* } */
 }
 
  
