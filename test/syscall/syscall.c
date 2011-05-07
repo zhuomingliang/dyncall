@@ -20,7 +20,7 @@ int syscall_write(int fd, char* buf, size_t len)
 int main(int argc, char* argv[])
 {
   syscallvm_init();
-  syscall_write(1/*stdout*/, "syscall: result: 1\n", 19);
+  syscall_write(1/*stdout*/, "result: syscall: 1\n", 19);
   return 0;
 }
 
