@@ -62,10 +62,10 @@ static void dc_callvm_argLongLong_sparc64(DCCallVM* in_self, DClonglong x)
   DCCallVM_sparc64* self = (DCCallVM_sparc64*)in_self;
   if (self->mIntRegs < IREGS) {
     * ( (DClonglong*) ( dcVecAt(&self->mVecHead, (self->mIntRegs++)*8) ) ) = x;
-    if (self->mFloatRegs < FREGS) self->mFloatRegs++;
   } else {
     dcVecAppend(&self->mVecHead, &x, sizeof(DClonglong));
   }
+    if (self->mFloatRegs < FREGS) self->mFloatRegs++;
 }
 
 static void dc_callvm_argLong_sparc64   (DCCallVM* in_self, DClong    x) { dc_callvm_argLongLong_sparc64(in_self, (DClonglong) x ); }
