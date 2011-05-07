@@ -2,7 +2,7 @@
  Package: dyncall
  File: dyncall/dyncall_call_sparc64.S
  Description: Call kernel for sparc64 v9 ABI.
- Status: passed all dyncall tests.
+ Status: buggy. i/d regs are loaded, still wrong stack position.
  License: 
 
  Copyright (c) 2011 Daniel Adler <dadler@uni-goettingen.de> 
@@ -27,7 +27,13 @@
 call kernel for sparc64 v9 abi
 tested on sparc64/linux/debian [gcc54.fsffrance.org - thanx to the farm!] 
 
-C Interface:
+new C Interface:
+  void dcCall_sparc (DCCallVM* callvm, DCpointer target);
+                     %i0               %1 
+
+see dyncall_call_sparc.S for details.
+
+old C Interface:
   void dcCall_sparc (DCpointer target, DCsize size, DCpointer data);
 		     %i0             , %i1        , %i2
 Input:
@@ -126,18 +132,30 @@ ID      Class   Name    Description
 
 #define ALIGN 16 
 
-#define SHEAD ((16+6)*8)
-#define DHEAD  ((IREGS+FREGS)*8)
-
 #define IREGS 6
 #define FREGS 16
 #define IBASE  0
 #define FBASE  (IREGS*8)
 
+#define SHEAD ((16+6)*8)
+#define DHEAD  ((IREGS+FREGS)*8)
+
+CALLVM_size    = 32
+CALLVM_dataoff = 40
+
+
 .global dcCall_sparc64
 dcCall_sparc64:
 
 /* Basic Prolog: supports up to 6 arguments. */
+	
+	/* new C interface */
+	/* o0-1: callvm,target */
+	
+	or   %o0, %g0, %o3	       /* %o3: callvm */
+	or   %o1, %g0, %o0	       /* %o0: target */
+	ldx [%o3+CALLVM_size], %o1     /* %o1: size */
+	add %o3, CALLVM_dataoff, %o2  /* %o2: data */
 
 	/*leaf functions: may use the first six output registers.*/
 	/*o0-2:target,size,data*/

@@ -62,19 +62,18 @@ static void dc_callvm_argLongLong_sparc64(DCCallVM* in_self, DClonglong x)
   DCCallVM_sparc64* self = (DCCallVM_sparc64*)in_self;
   if (self->mIntRegs < IREGS) {
     * ( (DClonglong*) ( dcVecAt(&self->mVecHead, (self->mIntRegs++)*8) ) ) = x;
+    if (self->mFloatRegs < FREGS) self->mFloatRegs++;
   } else {
     dcVecAppend(&self->mVecHead, &x, sizeof(DClonglong));
   }
-  if (self->mFloatRegs < FREGS) self->mFloatRegs++;
 }
 
-static void dc_callvm_argLong_sparc64 (DCCallVM* in_self, DClong  x) { dc_callvm_argLongLong_sparc64(in_self, (DClonglong) x ); }
-static void dc_callvm_argInt_sparc64  (DCCallVM* in_self, DCint   x) { dc_callvm_argLongLong_sparc64(in_self, (DClonglong) x ); }
-static void dc_callvm_argBool_sparc64 (DCCallVM* in_self, DCbool  x) { dc_callvm_argLongLong_sparc64(in_self, (DClonglong) x ); }
-static void dc_callvm_argChar_sparc64 (DCCallVM* in_self, DCchar  x) { dc_callvm_argLongLong_sparc64(in_self, (DClonglong) x ); }
-static void dc_callvm_argShort_sparc64(DCCallVM* in_self, DCshort x) { dc_callvm_argLongLong_sparc64(in_self, (DClonglong) x ); }
+static void dc_callvm_argLong_sparc64   (DCCallVM* in_self, DClong    x) { dc_callvm_argLongLong_sparc64(in_self, (DClonglong) x ); }
+static void dc_callvm_argInt_sparc64    (DCCallVM* in_self, DCint     x) { dc_callvm_argLongLong_sparc64(in_self, (DClonglong) x ); }
+static void dc_callvm_argBool_sparc64   (DCCallVM* in_self, DCbool    x) { dc_callvm_argLongLong_sparc64(in_self, (DClonglong) x ); }
+static void dc_callvm_argChar_sparc64   (DCCallVM* in_self, DCchar    x) { dc_callvm_argLongLong_sparc64(in_self, (DClonglong) x ); }
+static void dc_callvm_argShort_sparc64  (DCCallVM* in_self, DCshort   x) { dc_callvm_argLongLong_sparc64(in_self, (DClonglong) x ); }
 static void dc_callvm_argPointer_sparc64(DCCallVM* in_self, DCpointer x) { dc_callvm_argLongLong_sparc64(in_self, (DClonglong) x ); }
-
 
 static void dc_callvm_argDouble_sparc64(DCCallVM* in_self, DCdouble x)
 {
@@ -86,7 +85,7 @@ static void dc_callvm_argDouble_sparc64(DCCallVM* in_self, DCdouble x)
       dcVecAppend(&self->mVecHead, &x, sizeof(DCdouble));
     }
   } else {
-    struct {
+    union {
       DCdouble d;
       DClonglong l;
     } u;
@@ -114,12 +113,14 @@ static void dc_callvm_mode_sparc64(DCCallVM* in_self, DCint mode)
   }
 }
 
+#if 0
 /* call: delegate to default call kernel */
 static void dc_callvm_call_sparc64(DCCallVM* in_self, DCpointer target)
 {
   DCCallVM_sparc64* self = (DCCallVM_sparc64*)in_self;
   dcCall_sparc64(target, dcVecSize(&self->mVecHead), dcVecData(&self->mVecHead));
 }
+#endif
 
 /* CallVM virtual table. */
 DCCallVM_vt gVT_sparc64 =
@@ -137,16 +138,16 @@ DCCallVM_vt gVT_sparc64 =
   &dc_callvm_argDouble_sparc64, 
   &dc_callvm_argPointer_sparc64, 
   NULL /* argStruct */, 
-  (DCvoidvmfunc*)       &dc_callvm_call_sparc64, 
-  (DCboolvmfunc*)       &dc_callvm_call_sparc64, 
-  (DCcharvmfunc*)       &dc_callvm_call_sparc64, 
-  (DCshortvmfunc*)      &dc_callvm_call_sparc64, 
-  (DCintvmfunc*)        &dc_callvm_call_sparc64, 
-  (DClongvmfunc*)       &dc_callvm_call_sparc64, 
-  (DClonglongvmfunc*)   &dc_callvm_call_sparc64, 
-  (DCfloatvmfunc*)      &dc_callvm_call_sparc64, 
-  (DCdoublevmfunc*)     &dc_callvm_call_sparc64, 
-  (DCpointervmfunc*)    &dc_callvm_call_sparc64, 
+  (DCvoidvmfunc*)       &dcCall_sparc64, 
+  (DCboolvmfunc*)       &dcCall_sparc64, 
+  (DCcharvmfunc*)       &dcCall_sparc64, 
+  (DCshortvmfunc*)      &dcCall_sparc64, 
+  (DCintvmfunc*)        &dcCall_sparc64, 
+  (DClongvmfunc*)       &dcCall_sparc64, 
+  (DClonglongvmfunc*)   &dcCall_sparc64, 
+  (DCfloatvmfunc*)      &dcCall_sparc64, 
+  (DCdoublevmfunc*)     &dcCall_sparc64, 
+  (DCpointervmfunc*)    &dcCall_sparc64, 
   NULL /* callStruct */
 };
 
