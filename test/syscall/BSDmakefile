@@ -1,7 +1,4 @@
-# Package: dyncall
-# File: test/GNUmakefile
-# Description: Tests for dyn{load,call,callback} library, buildsys/gmake GNUmakefile
-# License:
+#//////////////////////////////////////////////////////////////////////////////
 #
 # Copyright (c) 2007,2011 Daniel Adler <dadler@uni-goettingen.de>, 
 #                         Tassilo Philipp <tphilipp@potion-studios.com>
@@ -18,20 +15,28 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #
+#//////////////////////////////////////////////////////////////////////////////
 
-TOP ?= ..
-GMAKE_TOP ?= $(TOP)/buildsys/gmake
-include $(GMAKE_TOP)/prolog.gmake
+#///////////////////////////////////////////////////
+#
+#	bsdmake makefile
+#	BSDmakefile
+#
+#///////////////////////////////////////////////////
 
-DIRS	+= plain plain_c++ call_suite suite suite2 suite3 suite_floats callback_plain callback_suite ellipsis callf nm resolve_self thunk malloc_wx
 
-ifdef BUILD_ARCH_x86
-DIRS	+= syscall
-DIRS	+= suite_x86win32fast
-DIRS	+= suite_x86win32std
-DIRS	+= suite2_x86win32fast
-DIRS	+= suite2_x86win32std
-endif
+TOP=../..
 
-include $(GMAKE_TOP)/epilog.gmake
+.include "$(TOP)/buildsys/bsdmake/prolog.bsdmake"
+
+
+MODS	= syscall
+APP	=	syscall
+
+CPPFLAGS	=
+LDFLAGS		=
+LIBS	=	"$(TOP)/dyncall/libdyncall_s.a"
+
+
+.include "$(TOP)/buildsys/bsdmake/epilog.bsdmake"
 
