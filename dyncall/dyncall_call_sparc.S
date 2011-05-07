@@ -133,12 +133,13 @@ dcCall_sparc:
 
 /* Basic Prolog: supports up to 6 arguments. */
 
-	/*o0-1:callvm,target*/
+	/* new C interface */
+	/* o0-1: callvm,target */
 	
-	or  %o0, %g0, %o3	   /* %o3: callvm */
-	or  %o1, %g0, %o0	   /* %o0: target */
-	ld [%o3+CALLVM_size], %o1  /* %o1: size */
-	or  %o3, CALLVM_dataoff, %o2  /* %o2: data */
+	or   %o0, %g0, %o3	       /* %o3: callvm */
+	or   %o1, %g0, %o0	       /* %o0: target */
+	ld  [%o3+CALLVM_size], %o1     /* %o1: size */
+	add  %o3, CALLVM_dataoff, %o2  /* %o2: data */
 	/*o0-2:target,size,data*/
 
 	/*leaf functions: may use the first six output registers.*/
@@ -183,6 +184,6 @@ dcCall_sparc:
 .do_call:
 	call	%i0				/* Call target. */
 	 nop
-        jmpl %i7 + 8, %g0			/* Return. */
+        jmpl %i7 + 8, %g0			/* Return from proc. */
 	 nop
 	
