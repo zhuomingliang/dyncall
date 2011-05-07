@@ -23,17 +23,17 @@ TOP ?= ..
 GMAKE_TOP ?= $(TOP)/buildsys/gmake
 include $(GMAKE_TOP)/prolog.gmake
 
-DIRS	+= plain plain_c++ suite suite2 suite3 suite_floats callback_plain callback_suite ellipsis callf nm resolve_self
+DIRS	+= plain plain_c++ call_suite suite suite2 suite3 suite_floats callback_plain callback_suite ellipsis callf nm resolve_self
 
 ifdef BUILD_ARCH_x86
 DIRS	+= suite_x86win32fast
 DIRS	+= suite_x86win32std
 DIRS	+= suite2_x86win32fast
 DIRS	+= suite2_x86win32std
+endif
 ifdef BUILD_TOOL_gcc
 DIRS	+= thunk
 DIRS	+= malloc_wx
-endif
 endif
 
 include $(GMAKE_TOP)/epilog.gmake
