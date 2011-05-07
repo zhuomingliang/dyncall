@@ -10,6 +10,7 @@ all-c:
 	cd call_suite ; ${MAKE_CMD}
 	cd suite ; ${MAKE_CMD}
 	cd callf ; ${MAKE_CMD}
+	cd syscall ; ${MAKE_CMD}
 	cd nm ; ${MAKE_CMD}
 	cd resolve_self ; ${MAKE_CMD}
 	cd thunk ; ${MAKE_CMD}
@@ -37,6 +38,7 @@ all-dyncall:
 	cd suite_floats ; ${MAKE_CMD}
 	cd ellipsis ; ${MAKE_CMD}
 	cd callf ; ${MAKE_CMD}
+	cd syscall ; ${MAKE_CMD}
 
 run-dyncall:
 	plain_c++/plain_c++;
@@ -47,6 +49,7 @@ run-dyncall:
 	suite_floats/suite_floats;
 	ellipsis/ellipsis;
 	callfs/callf;
+	syscall/syscall;
 
 # BUG: need to disable on sparc: testStructSize not found
 #	cd plain ; ${MAKE_CMD}
@@ -73,6 +76,7 @@ clean:
 	cd callback_suite ; ${MAKE_CMD} clean
 	cd ellipsis ; ${MAKE_CMD} clean
 	cd callf ; ${MAKE_CMD} clean
+	cd syscall ; ${MAKE_CMD} clean
 	cd nm ; ${MAKE_CMD} clean
 	cd resolve_self ; ${MAKE_CMD} clean
 	cd thunk ; ${MAKE_CMD} clean
