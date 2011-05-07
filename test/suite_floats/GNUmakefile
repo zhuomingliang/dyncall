@@ -43,6 +43,9 @@ endif
 ifdef BUILD_OS_psp
 LINK_LIBS	+= m
 endif
+ifdef BUILD_OS_sunos
+LINK_LIBS	+= m
+endif
 
 include $(TOP)/buildsys/gmake/epilog.gmake
 
