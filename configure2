@@ -104,7 +104,7 @@ ConfigureByHost()
       addVar CFLAGS "-fPIC"
       addVar LDFLAGS "-lm -ldl"
       ;;
-    *BSD)
+    *BSD|DragonFly*)
       addVar CFLAGS "-fPIC"
       addVar LDFLAGS "-lm"
       ;;
