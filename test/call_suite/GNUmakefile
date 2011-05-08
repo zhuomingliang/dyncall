@@ -18,20 +18,15 @@ LINK_LIBS 	+= dyncall_s
 
 include $(GMAKE_TOP)/epilog.gmake
 
-CONFIG_FILES	= config.h cases.h
-
 .PHONY: config config-random config-design
 
 config: config-random
 
 config-random: 
-	$(LUA) mk-config.lua >config.h
 	$(LUA) rand-sig.lua >cases.txt
 	$(LUA) mk-cases.lua <cases.txt >cases.h 
 
 config-design:
-	$(LUA) mk-config.lua >config.h
-	cp design.txt cases.txt
 	$(LUA) mk-cases.lua <cases.txt >cases.h 
 
 

@@ -5,7 +5,7 @@
 char  linebuf[1024];
 void* G_callvm;
   
-void run_test(int i) {  
+int run_test(int i) {  
   char const * sig;
   void * target;
   int success;
@@ -14,20 +14,25 @@ void run_test(int i) {
   printf("%d:%s:",i,sig);
   success = invoke(sig,target);
   printf("%d\n",success);
+  return success;
 }
 
-void run_all() {
+int run_all() {
   int i;
+  int failure = 0;
   for(i=0;i<G_ncases;++i) {
-    run_test(i);
+    failure |= !( run_test(i) );
   }
+  return !failure;
 }
 
 int main(int argc, char* argv[])
 {
+  int total;
   init_K(G_maxargs);
   G_callvm = (DCCallVM*) dcNewCallVM(4096);
-  run_all();
+  total = run_all();
+  if (total) printf("result: call_suite: %d\n", total);
   return 0;
 }
 
