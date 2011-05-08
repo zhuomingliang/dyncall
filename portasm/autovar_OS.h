@@ -33,7 +33,7 @@
 #elif defined(__psp__) || defined(PSP)
 #  define OS_PSP
 #elif defined(__HAIKU__)
-#  define OS_BEOS
+#  define OS_BeOS
 #elif defined(Plan9) || defined(__Plan9__)
 #  define OS_Plan9
 #elif defined(__vms)

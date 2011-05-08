@@ -34,6 +34,8 @@
 #	include <elf_abi.h>
 #elif defined(DC__OS_SunOS)
 #	include <libelf.h>
+#elif defined(DC__OS_BeOS)
+#	include <elf32.h>
 #else
 #	include <elf.h>
 #endif

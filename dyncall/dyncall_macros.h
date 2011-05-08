@@ -105,7 +105,7 @@
 
 /* Haiku (BeOS alike). */
 #elif defined(__HAIKU__)
-	#define DC__OS_BEOS
+	#define DC__OS_BeOS
 
 /* The Unix successor - Plan9 from Bell Labs */
 #elif defined(Plan9) || defined(__Plan9__)
