@@ -298,15 +298,15 @@ Function Argument Passing:
 - continuous memory starting at %sp+BIAS+136 (caller view).
 
 Register Usage:
-%fp0..%fp31: floating-point arguments.
-%sp or  %o6: stack pointer, always 8 (or 16?)-byte aligned.
-%fp or  %i6: frame pointer.
-%i0 and %o0: integer and pointer return values.
-%i7 and %o7: return address. (caller puts return address to %o7, callee uses %i7)
+%fp0..%fp31  : floating-point arguments.
+%sp  or  %o6 : stack pointer, always 8 (or 16?)-byte aligned.
+%fp  or  %i6 : frame pointer.
+%i0  and %o0 : integer and pointer return values.
+%i7  and %o7 : return address. (caller puts return address to %o7, callee uses %i7)
 %fp0 and %fp1: return value (float).
-%i0..%i5:    input argument registers 
-%o0..%o5:    output argument registers
-%g0:         always zero, writes to it have no effect.
+%i0..%i5     : input argument registers 
+%o0..%o5     : output argument registers
+%g0          : always zero, writes to it have no effect.
 
 Register Mappings:
 r0-7    -> globals
