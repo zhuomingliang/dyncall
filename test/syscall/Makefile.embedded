@@ -1,10 +1,10 @@
-APP = thunk
-OBJS = test_thunk.o
+APP = syscall
+OBJS = syscall.o
 
 SRCTOP   = ../..
 BLDTOP   = ../..
-CFLAGS  += -I${SRCTOP}/dyncallback -I${SRCTOP}/dyncall
-LDFLAGS += -L${BLDTOP}/dyncallback -ldyncallback_s
+CFLAGS  += -I${SRCTOP}/dyncall
+LDFLAGS += -L${BLDTOP}/dyncall -ldyncall_s
 LINK = ${CC}
 
 all: ${APP}
