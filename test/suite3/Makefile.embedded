@@ -5,8 +5,6 @@ TOP = ../..
 CFLAGS = -I${TOP}/dyncall
 LDFLAGS = -L${TOP}/dyncall -ldyncall_s
 LINK = ${CXX}
-%.o: %.cpp
-	${CXX} -c ${CPPFLAGS} ${CXXFLAGS} $< ${OUTPUT_OPTION} 
 
 
 .PHONY: all clean autogen

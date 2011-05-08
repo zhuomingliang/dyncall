@@ -6,8 +6,6 @@ LDFLAGS += -L${TOP}/dyncall -ldyncall_s
 
 all: ${APP}
 
-%.o: %.cpp
-	${CXX} -c ${CPPFLAGS} ${CXXFLAGS} $< ${OUTPUT_OPTION} 
 
 .PHONY: all clean 
 

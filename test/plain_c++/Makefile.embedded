@@ -8,8 +8,6 @@ LINK = ${CXX}
 
 all: ${APP}
 
-%.o: %.cpp
-	${CXX} -c ${CPPFLAGS} ${CXXFLAGS} $< ${OUTPUT_OPTION} $@ 
 
 .PHONY: all clean install
 
