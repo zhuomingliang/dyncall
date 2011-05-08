@@ -26,6 +26,10 @@ void list_syms(const char* filePath)
   int i,n;
   
   pSyms = dlSymsInit(filePath);
+  if (!pSyms) {
+    fprintf(stderr, "dlSymsInit fail.");
+    return; 
+  }
   i = 0, n = dlSymsCount(pSyms);
 
   for (; i < n; ++i) {
