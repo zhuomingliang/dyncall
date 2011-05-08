@@ -39,16 +39,19 @@ void list_syms(const char* filePath)
 int main(int argc, char* argv[])
 {
   int i, n;
-  const char* libPath = argv[1];
-  
-  /* load lib */
-
-  DLLib* pLib = dlLoadLibrary(libPath);
+  const char* libPath;
   
   if (argc == 1) {
     fprintf(stderr, "usage : %s <dllpath>\n", argv[0]);
     return 1;
   }
+  
+  libPath = argv[1];
+  
+  /* load lib */
+
+  DLLib* pLib = dlLoadLibrary(libPath);
+  
   if (!pLib) {
     fprintf(stderr, "unable to open library %s\n", libPath);
     return 2;
