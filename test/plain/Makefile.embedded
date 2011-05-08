@@ -10,7 +10,7 @@ all: ${APP}
 .PHONY: all clean install
 
 ${APP}: ${OBJS} 
-	${LD} ${OBJS} ${LDFLAGS} -o ${APP}
+	${CC} ${OBJS} ${LDFLAGS} -o ${APP}
 
 clean:
 	${RM} ${APP} ${OBJS}
