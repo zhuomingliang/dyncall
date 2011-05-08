@@ -30,6 +30,7 @@ run-win32:
 
 
 all-dyncall:
+	cd plain ; ${MAKE_CMD}
 	cd plain_c++ ; ${MAKE_CMD}
 	cd call_suite ; ${MAKE_CMD}
 	cd suite ; ${MAKE_CMD}
@@ -41,6 +42,7 @@ all-dyncall:
 	cd syscall ; ${MAKE_CMD}
 
 run-dyncall:
+	plain/plain;
 	plain_c++/plain_c++;
 	call_suite/call_suite;
 	suite/suite;
