@@ -22,8 +22,16 @@ TOP		= ../..
 <$TOP/buildsys/mk/prolog.mk
 
 
-UNITS       =   test_main test_structs
-APPLICATION =   plain
-LIBS        =   $TOP/dyncall/libdyncall_s.a$O
+UNITS       = globals invoke cases main
+APPLICATION = call_suite
+LIBS        = $TOP/dyncall/libdyncall_s.a$O
+
+#.PHONY: config 
+#config: mkconfig.lua rand-sig.lua mk-cases.lua
+#	echo Generating test cases...
+#	lua mk-config.lua >config.h
+#	lua rand-sig.lua >cases.txt
+#	lua mk-cases.lua <cases.txt >cases.h 
+
 
 <$TOP/buildsys/mk/epilog.mk
