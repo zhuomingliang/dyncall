@@ -2,23 +2,24 @@ This file lists big/noteworthy changes, only...
 
 Version 0.7 (upcoming)
 architecture:
-  o added 'portasm' sub-project folder 
-  o added Solaris/x86/sunpro port (stable, dynload is still wacky).
+  o added 'portasm' sub-project folder
+  o added Solaris/x86/sunpro port (stable, dynload is still wacky)
 dyncall updates:
-  o added support for sparc (32-bit) (works on debian/gcc).
+  o added support for sparc (32-bit) (tested on linux/debian)
+  o added support for sparc (64-bit) (tested on linux/debian, buggy on openbsd)
   o inital support for syscalls on x86
   o documentation update and fixes
   o portable generic assembly files (portasm) for x86,x64,ppc32,arm32_arm
-  o added Minix port (stable).
-  o x86 uses portasm.
+  o added Minix port (stable)
+  o x86 uses portasm
 dyncallback updates:
-  o added Solaris/x86/sunpro port (stable).
-  o added Minix port (unstable).
-  o x86 uses portasm.
+  o added Solaris/x86/sunpro port (stable)
+  o added Minix port (unstable)
+  o x86 uses portasm
 dynload updates:
   o fixes for self-resolving symbols on windows
 buildsys/gmake:
-  o added simple generic make build-system (Makefile.generic files).
+  o added simple generic make build-system (Makefile.generic files)
   o added support for msvc/x64 tool-chain
   o default settings for build-dir changed to '.'
   o cleanup: removed top-level Make{Prolog,Epilog,Rules} files and updated all sub-projects and tests
