@@ -32,7 +32,7 @@ int main(int argc, char* argv[])
   init_K(G_maxargs);
   G_callvm = (DCCallVM*) dcNewCallVM(4096);
   total = run_all();
-  if (total) printf("result: call_suite: %d\n", total);
+  printf("result: call_suite: %d\n", total);
   return 0;
 }
 
