@@ -55,18 +55,18 @@ int invoke(char const* signature, void* t)
 DEF_TYPES
 #undef X
 #endif
-      case 'c': s = ( V_c[pos] == K_c[pos] ); if (!s) printf("'c':%d: %d  != %d", pos, V_c[pos], K_c[pos]); break;
-      case 's': s = ( V_s[pos] == K_s[pos] ); if (!s) printf("'s':%d: %d  != %d", pos, V_s[pos], K_s[pos]); break;
-      case 'i': s = ( V_i[pos] == K_i[pos] ); if (!s) printf("'i':%d: %d  != %d", pos, V_i[pos], K_i[pos]); break;
-      case 'j': s = ( V_j[pos] == K_j[pos] ); if (!s) printf("'j':%d: %d  != %d", pos, V_j[pos], K_j[pos]); break;
-      case 'l': s = ( V_l[pos] == K_l[pos] ); if (!s) printf("'l':%d: %d  != %d", pos, V_l[pos], K_l[pos]); break;
-      case 'p': s = ( V_p[pos] == K_p[pos] ); if (!s) printf("'p':%d: %lx != %lx", pos, V_p[pos], K_p[pos]); break;
-      case 'f': s = ( V_f[pos] == K_f[pos] ); if (!s) printf("'f':%d: %f  != %f", pos, V_f[pos], K_f[pos]); break;
-      case 'd': s = ( V_d[pos] == K_d[pos] ); if (!s) printf("'d':%d: %f  != %f", pos, V_d[pos], K_d[pos]); break;
-      default: printf("unknown atype '%c';", atype); return 0;
+      case 'c': s = ( V_c[pos] == K_c[pos] ); if (!s) printf("'c':%d: %d != %d ; ", pos, V_c[pos], K_c[pos]); break;
+      case 's': s = ( V_s[pos] == K_s[pos] ); if (!s) printf("'s':%d: %d != %d ; ", pos, V_s[pos], K_s[pos]); break;
+      case 'i': s = ( V_i[pos] == K_i[pos] ); if (!s) printf("'i':%d: %d != %d ; ", pos, V_i[pos], K_i[pos]); break;
+      case 'j': s = ( V_j[pos] == K_j[pos] ); if (!s) printf("'j':%d: %ld != %ld ; ", pos, V_j[pos], K_j[pos]); break;
+      case 'l': s = ( V_l[pos] == K_l[pos] ); if (!s) printf("'l':%d: %lld != %lld ; ", pos, V_l[pos], K_l[pos]); break;
+      case 'p': s = ( V_p[pos] == K_p[pos] ); if (!s) printf("'p':%d: %lld != %lld ; ", pos, (long long) V_p[pos], (long long) K_p[pos]); break;
+      case 'f': s = ( V_f[pos] == K_f[pos] ); if (!s) printf("'f':%d: %f != %f ; ", pos, V_f[pos], K_f[pos]); break;
+      case 'd': s = ( V_d[pos] == K_d[pos] ); if (!s) printf("'d':%d: %f != %f ; ", pos, V_d[pos], K_d[pos]); break;
+      default: printf("unknown atype '%c' ; ", atype); return 0;
     }
     if (!s) {
-      printf("arg mismatch at %d;", pos);
+      printf("arg mismatch at %d ; ", pos);
       return 0;
     }
     pos++;
