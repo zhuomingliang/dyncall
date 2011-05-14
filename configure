@@ -183,6 +183,8 @@ guess_arch()
     CONFIG_ARCH="mips64el"
   elif [ "$ARCH" = "sparc64" ]; then
     CONFIG_ARCH="sparc"
+  elif [ "$ARCH" = "ia64" ]; then
+    CONFIG_ARCH="ia64"
   fi
   info "guess arch $CONFIG_ARCH"
 }
