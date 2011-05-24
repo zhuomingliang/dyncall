@@ -64,6 +64,9 @@ BEGIN_PROC(dcCallbackThunkEntry)
 	PUSH(LIT(0))
 	
 	MOVL(ESP,EDX)				/* EDX = DCValue* */
+	/* align stack to 16 bytes. */
+	ADDL(LIT(15),ESP)
+	ANDL(LIT(-16),ESP)
 	/* call handler(context) */
 	PUSH(DWORD(EAX,CTX_userdata))		/* userdata */
 	PUSH(EDX)				/* DCValue* */
