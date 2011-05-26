@@ -49,8 +49,11 @@ TODO: verify portasm/x86 impl ... and them remove
 /* other than Darwin.. */
 
 #    if defined(DC__Arch_AMD64)
-#      include "dyncall_callback_x64_gas.s"
-
+#      if defined(DC_WINDOWS)
+#        include "dyncall_callback_x64_gas_w64.s"
+#      else
+#        include "dyncall_callback_x64_gas.s"
+#      endif
 /* 
 TODO: verify portasm/x86 impl ... and them remove  
 #    elif defined(DC__Arch_Intel_x86)
