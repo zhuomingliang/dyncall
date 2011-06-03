@@ -55,6 +55,7 @@ BEGIN_PROC(dcCall_x64_sysv)
 
 	ADDQ(LIT(31),RDI)		/* Align stack to 32-byte. */
 	ANDQ(LIT(-32),RDI)
+	ADDQ(LIT(8),RDI)		/* Adjust by 8-byte for the return-address. */
 	SUBQ(RDI,RSP)			/* Setup stack frame by subtracting the size of arguments. */
 					
 	MOVQ(RDI,RCX)			/* Store number of bytes to copy to stack in RCX (for rep movsb). */
