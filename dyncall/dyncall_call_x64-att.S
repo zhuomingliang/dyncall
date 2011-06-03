@@ -44,14 +44,14 @@ BEGIN_PROC(dcCall_x64_sysv)
 	PUSHQ(RBX)			/* Preserve RBX and store pointer to function in it. */
 	MOVQ(RSP,RBP)			/* Store stack pointer in RBP. */
 	MOVQ(R8 ,RBX)
-	MOVQ(QWORD(RCX,0) ,XMM0)	/* Copy first 8 floats to XMM0-XMM7. */
-	MOVQ(QWORD(RCX,8) ,XMM1)
-	MOVQ(QWORD(RCX,16),XMM2)
-	MOVQ(QWORD(RCX,24),XMM3)
-	MOVQ(QWORD(RCX,32),XMM4)
-	MOVQ(QWORD(RCX,40),XMM5)
-	MOVQ(QWORD(RCX,48),XMM6)
-	MOVQ(QWORD(RCX,56),XMM7)
+	MOVSD(QWORD(RCX,0) ,XMM0)	/* Copy first 8 floats to XMM0-XMM7. */
+	MOVSD(QWORD(RCX,8) ,XMM1)
+	MOVSD(QWORD(RCX,16),XMM2)
+	MOVSD(QWORD(RCX,24),XMM3)
+	MOVSD(QWORD(RCX,32),XMM4)
+	MOVSD(QWORD(RCX,40),XMM5)
+	MOVSD(QWORD(RCX,48),XMM6)
+	MOVSD(QWORD(RCX,56),XMM7)
 
 	ADDQ(LIT(31),RDI)		/* Align stack to 32-byte. */
 	ANDQ(LIT(-32),RDI)
@@ -70,7 +70,7 @@ BEGIN_PROC(dcCall_x64_sysv)
 	MOVQ(QWORD(RDX,16),RDX)		/* Set RDX last to not overwrite it to soon. */
 
 	MOVB(LIT(8),AL)			/* Put upper bound of number of used xmm registers in AL. */
-	CALL(*RBX)			/* Call function. */
+	CALL(RBX)			/* Call function. */
 
 	MOVQ(RBP,RSP)			/* Restore stack pointer. */
 	POPQ(RBX)			/* Restore RBX. */
@@ -125,7 +125,7 @@ BEGIN_PROC(dcCall_x64_win64)
 	PUSHQ(RDX)
 	PUSHQ(RCX)
 
-	CALL(*RAX)			/* Invoke function. */
+	CALL(RAX)			/* Invoke function. */
 
 	MOVQ(RBP, RSP)			/* Restore stack pointer (such that we can pop the preserved vALues). */
 

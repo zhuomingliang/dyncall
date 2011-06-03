@@ -29,17 +29,25 @@
 #  define END_PROC(X)   X ENDP
 #  define PUSHQ(R) push R
 #  define POPQ(R) pop R
+#  define MOVB(S,D) mov D,S
 #  define MOVL(S,D) mov D,S
 #  define ADDL(S,D) add D,S
 #  define ANDL(S,D) and D,S
 #  define SUBL(S,D) sub D,S
 #  define SHRL(S,D) shr D,S
+#  define MOVQ(S,D) mov D,S
+#  define ADDQ(S,D) add D,S
+#  define ANDQ(S,D) and D,S
+#  define SUBQ(S,D) sub D,S
+#  define SHRQ(S,D) shr D,S
+#  define MOVD(S,D) movd D,S
 #  define RET() ret
 #  define CALL_DWORD(R,OFF) call DWORD(R,OFF)
 #  define REP(X) rep X
 #  define MOVSB movsb
 #  define MOVSW movsw
-#  define MOVSD movsd
+#  define MOVSD(S,D)  movsd D,S
+#  define MOVSDX(S,D) movsdx D,S
 #  define DWORD(R,OFF) dword ptr [R+OFF]
 #  define QWORD(R,OFF) qword ptr [R+OFF]
 #  define LIT(X) X
