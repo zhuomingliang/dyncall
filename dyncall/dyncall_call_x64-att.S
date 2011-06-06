@@ -71,7 +71,7 @@ BEGIN_PROC(dcCall_x64_sysv)
 	MOVQ(QWORD(RDX,16),RDX)		/* Set RDX last to not overwrite it to soon. */
 
 	MOVB(LIT(8),AL)			/* Put upper bound of number of used xmm registers in AL. */
-	CALL(RBX)			/* Call function. */
+	CALL_REG(RBX)			/* Call function. */
 
 	MOVQ(RBP,RSP)			/* Restore stack pointer. */
 	POPQ(RBX)			/* Restore RBX. */
@@ -126,7 +126,7 @@ BEGIN_PROC(dcCall_x64_win64)
 	PUSHQ(RDX)
 	PUSHQ(RCX)
 
-	CALL(RAX)			/* Invoke function. */
+	CALL_REG(RAX)			/* Invoke function. */
 
 	MOVQ(RBP, RSP)			/* Restore stack pointer (such that we can pop the preserved vALues). */
 
