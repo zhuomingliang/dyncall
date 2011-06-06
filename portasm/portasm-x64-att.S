@@ -54,6 +54,7 @@
 #  define INT(X) int X
 #  define HEX(X) XCONCAT(X,h)
 #  define CALL(X) call X
+#  define CALL_REG(X) call X
 #else
 /* GNU/SunPor Assembler AT&T Syntax */
 	.text
@@ -119,6 +120,7 @@
 #  define INT(X) int X
 #  define HEX(X) XCONCAT(0x,X)
 #  define CALL(X) call X
+#  define CALL_REG(X) call *X
 #  define LEA(A,B) lea A,B
 #  define CMP(A,B) cmp A,B
 #  define JE(X)    je X
