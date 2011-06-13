@@ -26,48 +26,28 @@
 
 #if defined(DC__Arch_Intel_x86)
 #  include "dyncall_callback_arch_x86.S"
+#elif defined(DC__Arch_AMD64)
+#  if defined(DC_WINDOWS)
+#    include "dyncall_callback_x64_gas_w64.s"
+#  else
+#    include "dyncall_callback_arch_x64.S"
+#  endif
 #else
-
 #  if defined(DC__OS_Darwin)
-
-#    if defined(DC__Arch_AMD64)
-#      include "dyncall_callback_x64_apple.s"
-
-/* 
-TODO: verify portasm/x86 impl ... and them remove  
-#    elif defined(DC__Arch_Intel_x86)
-#      include "dyncall_callback_x86_apple.s"
-*/
-
-#    elif defined(DC__Arch_PowerPC)
+#    if defined(DC__Arch_PowerPC)
 #      include "dyncall_callback_ppc32_apple.s"
 #    elif defined(DC__Arch_ARM_ARM)
 #      include "dyncall_callback_arm32_arm_apple.s"
 #    endif
-
 #  else 
 /* other than Darwin.. */
-
-#    if defined(DC__Arch_AMD64)
-#      if defined(DC_WINDOWS)
-#        include "dyncall_callback_x64_gas_w64.s"
-#      else
-#        include "dyncall_callback_x64_gas.s"
-#      endif
-/* 
-TODO: verify portasm/x86 impl ... and them remove  
-#    elif defined(DC__Arch_Intel_x86)
-#      include "dyncall_callback_x86_gas.S"
-*/
-
-#    elif defined(DC__Arch_PowerPC)
+#    if defined(DC__Arch_PowerPC)
 #      include "dyncall_callback_ppc32.S"
 #    elif defined(DC__Arch_ARM_ARM)
 #      include "dyncall_callback_arm32_arm_gas.s"
 #    elif defined(DC__Arch_ARM_THUMB)
 #      include "dyncall_callback_arm32_thumb_gas.s"
 #    endif
-
 #  endif
 #endif
 
