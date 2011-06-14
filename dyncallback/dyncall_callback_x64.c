@@ -28,7 +28,8 @@
 
 
 /* Callback symbol. */
-extern void dcCallbackThunkEntry();
+extern void dcCallback_x64_sysv();
+extern void dcCallback_x64_win64();
 
 
 void dcbInitCallback(DCCallback* pcb, const char* signature, DCCallbackHandler* handler, void* userdata)
@@ -45,7 +46,11 @@ DCCallback* dcbNewCallback(const char* signature, DCCallbackHandler* handler, vo
   err = dcAllocWX(sizeof(DCCallback), (void**) &pcb);
   if (err != 0) return 0;
 
-  dcbInitThunk(&pcb->thunk, dcCallbackThunkEntry);
+#if defined (DC__OS_Win64)
+  dcbInitThunk(&pcb->thunk, dcCallback_x64_win64); 
+#else
+  dcbInitThunk(&pcb->thunk, dcCallback_x64_sysv); 
+#endif
   dcbInitCallback(pcb, signature, handler, userdata);
   return pcb;
 }

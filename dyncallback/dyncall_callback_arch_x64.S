@@ -26,16 +26,20 @@
 /* structure sizes */
 
 SET(DCThunk_size,24)
-SET(DCArgs_size,128)
+SET(DCArgs_size_win64,80)
+SET(DCArgs_size_sysv,128)
 SET(DCValue_size,8)
 
 /* frame local variable offsets relative to %rbp*/
 
-SET(FRAME_arg0,16)
+SET(FRAME_arg0_win64,48)
+SET(FRAME_arg0_sysv,16)
 SET(FRAME_return,8)
 SET(FRAME_parent,0)
-SET(FRAME_DCArgs,-128)
-SET(FRAME_DCValue,-136)
+SET(FRAME_DCArgs_sysv,-128)
+SET(FRAME_DCValue_sysv,-136)
+SET(FRAME_DCArgs_win64,-80)
+SET(FRAME_DCValue_win64,-80)
 
 /* struct DCCallback */
 
@@ -49,8 +53,8 @@ SET(DCCallback_size,40)
 SET(ASCII_f,102)
 SET(ASCII_d,100)
 
-GLOBAL(dcCallbackThunkEntry)
-BEGIN_PROC(dcCallbackThunkEntry)
+GLOBAL(dcCallback_x64_sysv)
+BEGIN_PROC(dcCallback_x64_sysv)
 	
 	PUSHQ(RBP)
 	MOVQ(RSP,RBP)
@@ -60,7 +64,7 @@ BEGIN_PROC(dcCallbackThunkEntry)
 	/* float parameters (8 registers spill to DCArgs) */
 
 	SUBQ(LIT(8*8),RSP)	
-	
+
 	MOVQ(XMM7, QWORD(RSP,8*7))		/* struct offset 120: float parameter 7 */
 	MOVQ(XMM6, QWORD(RSP,8*6))		/* struct offset 112: float parameter 6 */
 	MOVQ(XMM5, QWORD(RSP,8*5))		/* struct offset 104: float parameter 5 */
@@ -78,13 +82,13 @@ BEGIN_PROC(dcCallbackThunkEntry)
 	PUSHQ(RDX)				/* struct offset 32: parameter 2 */
 	PUSHQ(RSI)				/* struct offset 24: parameter 1 */
 	PUSHQ(RDI)				/* struct offset 16: parameter 0 */
-
+	
 	/* register counts for integer/pointer and float regs */
 
 	PUSHQ(LIT(0))				/* struct offset 12: fcount */
 						/* struct offset  8: icount */
 
-	LEA(QWORD(RBP,FRAME_arg0),RDX)		/* struct offset  0: stack pointer */
+	LEA(QWORD(RBP,FRAME_arg0_sysv),RDX)		/* struct offset  0: stack pointer */
 	PUSHQ(RDX)
 
 	MOVQ(RSP,RSI)				/* arg 1 RSI : DCArgs* */
@@ -105,7 +109,7 @@ BEGIN_PROC(dcCallbackThunkEntry)
 	/* distinguish two basic classes 'integer' and 'float' */
 	
 	MOVB(AL,DL)
-	MOVQ(QWORD(RBP,FRAME_DCValue),RAX)
+	MOVQ(QWORD(RBP,FRAME_DCValue_sysv),RAX)
 
 	CMPB(LIT(ASCII_f),DL)
 	JE(.float)
@@ -119,4 +123,63 @@ BEGIN_PROC(dcCallbackThunkEntry)
 	MOVQ(RBP,RSP)
 	POPQ(RBP)
 	RET()
+END_PROC(dcCallback_x64_sysv)
+
+GLOBAL(dcCallback_x64_win64)
+BEGIN_PROC(dcCallback_x64_win64)
+	
+	PUSHQ(RBP)
+	MOVQ(RSP,RBP)
+
+	/* initialize DCArgs */
+
+	/* float parameters (8 registers spill to DCArgs) */
+
+	SUBQ(LIT(4*8),RSP)	
+
+	MOVQ(XMM3, QWORD(RSP,8*3))		/* struct offset  72: float parameter 3 */
+	MOVQ(XMM2, QWORD(RSP,8*2))		/* struct offset  64: float parameter 2 */
+	MOVQ(XMM1, QWORD(RSP,8*1))		/* struct offset  56: float parameter 1 */
+	MOVQ(XMM0, QWORD(RSP,8*0))		/* struct offset  48: float parameter 0 */
+
+	/* integer parameters (4 registers spill to DCArgs) */
+
+	PUSHQ(R9)				/* struct offset 40: parameter 3 */
+	PUSHQ(R8)				/* struct offset 32: parameter 2 */
+	PUSHQ(RDX)				/* struct offset 24: parameter 1 */
+	PUSHQ(RCX)				/* struct offset 16: parameter 0 */
+	
+	/* register counts for integer/pointer and float regs */
+
+	PUSHQ(LIT(0))				/* struct offset 12: fcount */
+						/* struct offset  8: icount */
+
+	LEA(QWORD(RBP,FRAME_arg0_win64),RDX)		/* struct offset  0: stack pointer */
+	PUSHQ(RDX)
+
+	MOVQ(RSP,RDX)				/* arg 1 RDX : DCArgs* */
+	
+	/* initialize DCValue */
+
+	// PUSHQ(LIT(0))				/* struct offset 0: return value (max long long) */
+
+	/* call handler( *ctx, *args, *value, *userdata) */
+
+	MOVQ(RAX,RCX)				/* arg 0 RCX : DCCallback* (RAX) */
+	MOVQ(QWORD(RAX,CTX_userdata),R9)	/* arg 3 R9  : userdata* */
+	MOVQ(RSP,R8)				/* arg 2 R8  : DCValue*  */
+	SUBQ(LIT(4*8),RSP)                      /* make room for spill area and call */
+	CALL_REG(QWORD(RAX,CTX_handler))
+
+	
+	MOVQ(QWORD(RBP,FRAME_DCValue_win64),RAX)
+	MOVD(RAX,XMM0)
+
+	MOVQ(RBP,RSP)
+	POPQ(RBP)
+	RET()
+
+END_PROC(dcCallback_x64_win64)	
+
+END_ASM
 

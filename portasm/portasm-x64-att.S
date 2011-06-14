@@ -55,8 +55,13 @@
 #  define HEX(X) XCONCAT(X,h)
 #  define CALL(X) call X
 #  define CALL_REG(X) call X
+#  define LEA(S,D) lea D,S
+#  define SET(K,V) K = V
+#  define JE(X) je X
+#  define JNE(X) jne X
+#  define CMPB(A,B) cmpb a,b
 #else
-/* GNU/SunPor Assembler AT&T Syntax */
+/* GNU/SunPro Assembler AT&T Syntax */
 	.text
 #  define BEGIN_ASM
 #  define END_ASM
@@ -91,6 +96,13 @@
 #  define XMM6 %xmm6
 #  define XMM7 %xmm7
 #  define AL   %al
+#  define AH   %ah
+#  define BL   %bl
+#  define BH   %bh
+#  define CL   %cl
+#  define CH   %ch
+#  define DL   %dl
+#  define DH   %dh
 #  define GLOBAL(X) .globl CSYM(X)
 #  define BEGIN_PROC(X)  CSYM(X):
 #  define END_PROC(X)
@@ -123,9 +135,12 @@
 #  define CALL_REG(X) call *X
 #  define LEA(A,B) lea A,B
 #  define CMP(A,B) cmp A,B
+#  define CMPB(A,B) cmpb A,B
 #  define JE(X)    je X
+#  define JNE(X)    jne X
 #  define FLDS(X)  flds X
 #  define FLDL(X)  fldl X
 #  define ADD(A,B) add A,B
+#  define SET(K,V) .set K,V
 #endif
 

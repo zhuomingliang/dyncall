@@ -60,7 +60,7 @@ dcCallbackThunkEntry:
 	movq [%rsp+8*1], %xmm1  # struct offset  56: float parameter 1
 	movq [%rsp+8*0], %xmm0	# struct offset  48: float parameter 0
 
-	// fill integer parameters (6 registers spill to DCArgs)
+	// fill integer parameters (4 registers spill to DCArgs)
 	pushq 	%r9			# struct offset 40: int parameter 3
 	pushq 	%r8			# struct offset 32: int parameter 2
 	pushq 	%rdx			# struct offset 24: int parameter 1
