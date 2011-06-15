@@ -20,7 +20,7 @@
 
 */
 #include "../portasm/portasm-x86.S"
-
+BEGIN_ASM
 DCThunk_size		= 16
 DCArgs_size		= 20
 DCValue_size		=  8
@@ -92,6 +92,8 @@ BEGIN_PROC(dcCallbackThunkEntry)
 	JE(.return_f32)
 	CMP(ASCII_l,AL)
 	JE(.return_i64)
+	CMP(ASCII_L,AL)
+	JE(.return_i64)
 	
 	/* All int cases <= 32 bits (+ pointer & string cases) fall in the 32 bits int case*/
 .return_i32:
@@ -108,4 +110,6 @@ BEGIN_PROC(dcCallbackThunkEntry)
 	FLDL(QWORD(EDX,0))
 .return_void:
 	RET()
-		
+END_PROC(dcCallbackThunkEntry)
+END_ASM
+

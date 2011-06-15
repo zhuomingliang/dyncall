@@ -43,10 +43,17 @@
 #  define MOVSW movsw
 #  define MOVSD movsd
 #  define DWORD(R,OFF) dword ptr [R+OFF]
+#  define QWORD(R,OFF) qword ptr [R+OFF]
 #  define LIT(X) X
 #  define INT(X) int X
 #  define HEX(X) XCONCAT(X,h)
 #  define CALL(X) call X
+#  define LEA(S,D) lea D,S
+#  define ADD(S,D) add D,S
+#  define CMP(S,D) cmp D,S
+#  define JE(T) je T
+#  define FLDS(OP) flds OP
+#  define FLDL(OP) fldl OP
 #else
 /* GNU/SunPro Assembler AT&T Syntax */
 	.text
