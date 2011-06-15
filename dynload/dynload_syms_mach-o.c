@@ -64,7 +64,7 @@ DLSyms* dlSymsInit(const char* libPath)
 		const char* name = _dyld_get_image_name(iImage);
 		if (name && !strcmp(name, libPath))
 		{
-			const struct MACH_HEADER_TYPE* pHeader = _dyld_get_image_header(iImage);
+			const struct MACH_HEADER_TYPE* pHeader = (const struct MACH_HEADER_TYPE*) _dyld_get_image_header(iImage);
 			const char* pBase = ((const char*)pHeader);
 			if (pHeader->filetype != MH_DYLIB)
 				return NULL;
