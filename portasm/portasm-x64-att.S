@@ -108,8 +108,9 @@
 #  define GLOBAL(X) .globl CSYM(X)
 #  define BEGIN_PROC(X)  CSYM(X):
 #  define END_PROC(X)
-#  define PUSHQ(R) pushq R
-#  define POPQ(R) popq R
+#  define PUSH(R) pushq R
+#  define POP(R) popq R
+#  define MOV(S,D)  movq S,D
 #  define MOVB(S,D) movb S,D
 #  define MOVL(S,D) movl S,D
 #  define ADDL(S,D) addl S,D
@@ -117,10 +118,10 @@
 #  define SUBL(S,D) subl S,D
 #  define SHRL(S,D) shrl S,D
 #  define MOVQ(S,D) movq S,D
-#  define ADDQ(S,D) addq S,D
-#  define ANDQ(S,D) andq S,D
-#  define SUBQ(S,D) subq S,D
-#  define SHRQ(S,D) shrq S,D
+#  define ADD(S,D) addq S,D
+#  define AND(S,D) andq S,D
+#  define SUB(S,D) subq S,D
+#  define SHR(S,D) shrq S,D
 #  define MOVD(S,D) movd S,D
 #  define RET() ret
 #  define CALL_DWORD(R,OFF) call *DWORD(R,OFF)
@@ -142,7 +143,6 @@
 #  define JNE(X)    jne X
 #  define FLDS(X)  flds X
 #  define FLDL(X)  fldl X
-#  define ADD(A,B) add A,B
 #  define SET(K,V) .set K,V
 #  define LOCAL(X) .X
 #endif

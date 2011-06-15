@@ -6,16 +6,17 @@ OPTION PROLOGUE:NONE, EPILOGUE:NONE
  push RBX
  mov RBP,RSP
  mov RBX,R8
- movsd XMM0,qword ptr [RCX+0]
- movsd XMM1,qword ptr [RCX+8]
- movsd XMM2,qword ptr [RCX+16]
- movsd XMM3,qword ptr [RCX+24]
- movsd XMM4,qword ptr [RCX+32]
- movsd XMM5,qword ptr [RCX+40]
- movsd XMM6,qword ptr [RCX+48]
- movsd XMM7,qword ptr [RCX+56]
+ movq XMM0,qword ptr [RCX+0]
+ movq XMM1,qword ptr [RCX+8]
+ movq XMM2,qword ptr [RCX+16]
+ movq XMM3,qword ptr [RCX+24]
+ movq XMM4,qword ptr [RCX+32]
+ movq XMM5,qword ptr [RCX+40]
+ movq XMM6,qword ptr [RCX+48]
+ movq XMM7,qword ptr [RCX+56]
  add RDI,31
  and RDI,-32
+ add RDI,8
  sub RSP,RDI
  mov RCX,RDI
  mov RDI,RSP
