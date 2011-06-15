@@ -65,14 +65,14 @@ BEGIN_PROC(dcCallback_x64_sysv)
 
 	SUB(LIT(8*8),RSP)	
 
-	MOVQ(XMM7, QWORD(RSP,8*7))		/* struct offset 120: float parameter 7 */
-	MOVQ(XMM6, QWORD(RSP,8*6))		/* struct offset 112: float parameter 6 */
-	MOVQ(XMM5, QWORD(RSP,8*5))		/* struct offset 104: float parameter 5 */
-	MOVQ(XMM4, QWORD(RSP,8*4))		/* struct offset  96: float parameter 4 */
-	MOVQ(XMM3, QWORD(RSP,8*3))		/* struct offset  88: float parameter 3 */
-	MOVQ(XMM2, QWORD(RSP,8*2))		/* struct offset  80: float parameter 2 */
-	MOVQ(XMM1, QWORD(RSP,8*1))		/* struct offset  72: float parameter 1 */
-	MOVQ(XMM0, QWORD(RSP,8*0))		/* struct offset  64: float parameter 0 */
+	MOVSD(XMM7, QWORD(RSP,8*7))		/* struct offset 120: float parameter 7 */
+	MOVSD(XMM6, QWORD(RSP,8*6))		/* struct offset 112: float parameter 6 */
+	MOVSD(XMM5, QWORD(RSP,8*5))		/* struct offset 104: float parameter 5 */
+	MOVSD(XMM4, QWORD(RSP,8*4))		/* struct offset  96: float parameter 4 */
+	MOVSD(XMM3, QWORD(RSP,8*3))		/* struct offset  88: float parameter 3 */
+	MOVSD(XMM2, QWORD(RSP,8*2))		/* struct offset  80: float parameter 2 */
+	MOVSD(XMM1, QWORD(RSP,8*1))		/* struct offset  72: float parameter 1 */
+	MOVSD(XMM0, QWORD(RSP,8*0))		/* struct offset  64: float parameter 0 */
 
 	/* integer parameters (6 registers spill to DCArgs) */
 
@@ -133,14 +133,14 @@ BEGIN_PROC(dcCallback_x64_win64)
 
 	/* initialize DCArgs */
 
-	/* float parameters (8 registers spill to DCArgs) */
+	/* float parameters (4 registers spill to DCArgs) */
 
 	SUB(LIT(4*8),RSP)	
 
-	MOVQ(XMM3, QWORD(RSP,8*3))		/* struct offset  72: float parameter 3 */
-	MOVQ(XMM2, QWORD(RSP,8*2))		/* struct offset  64: float parameter 2 */
-	MOVQ(XMM1, QWORD(RSP,8*1))		/* struct offset  56: float parameter 1 */
-	MOVQ(XMM0, QWORD(RSP,8*0))		/* struct offset  48: float parameter 0 */
+	MOVSD(XMM3, QWORD(RSP,8*3))		/* struct offset  72: float parameter 3 */
+	MOVSD(XMM2, QWORD(RSP,8*2))		/* struct offset  64: float parameter 2 */
+	MOVSD(XMM1, QWORD(RSP,8*1))		/* struct offset  56: float parameter 1 */
+	MOVSD(XMM0, QWORD(RSP,8*0))		/* struct offset  48: float parameter 0 */
 
 	/* integer parameters (4 registers spill to DCArgs) */
 

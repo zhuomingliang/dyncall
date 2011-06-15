@@ -20,14 +20,14 @@ OPTION PROLOGUE:NONE, EPILOGUE:NONE
  push RBP
  mov RBP,RSP
  sub RSP,8*8
- movq qword ptr [RSP+8*7],XMM7
- movq qword ptr [RSP+8*6],XMM6
- movq qword ptr [RSP+8*5],XMM5
- movq qword ptr [RSP+8*4],XMM4
- movq qword ptr [RSP+8*3],XMM3
- movq qword ptr [RSP+8*2],XMM2
- movq qword ptr [RSP+8*1],XMM1
- movq qword ptr [RSP+8*0],XMM0
+ movsd qword ptr [RSP+8*7],XMM7
+ movsd qword ptr [RSP+8*6],XMM6
+ movsd qword ptr [RSP+8*5],XMM5
+ movsd qword ptr [RSP+8*4],XMM4
+ movsd qword ptr [RSP+8*3],XMM3
+ movsd qword ptr [RSP+8*2],XMM2
+ movsd qword ptr [RSP+8*1],XMM1
+ movsd qword ptr [RSP+8*0],XMM0
  push R9
  push R8
  push RCX
@@ -62,10 +62,10 @@ OPTION PROLOGUE:NONE, EPILOGUE:NONE
  push RBP
  mov RBP,RSP
  sub RSP,4*8
- movq qword ptr [RSP+8*3],XMM3
- movq qword ptr [RSP+8*2],XMM2
- movq qword ptr [RSP+8*1],XMM1
- movq qword ptr [RSP+8*0],XMM0
+ movsd qword ptr [RSP+8*3],XMM3
+ movsd qword ptr [RSP+8*2],XMM2
+ movsd qword ptr [RSP+8*1],XMM1
+ movsd qword ptr [RSP+8*0],XMM0
  push R9
  push R8
  push RDX

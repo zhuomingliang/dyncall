@@ -44,14 +44,14 @@ BEGIN_PROC(dcCall_x64_sysv)
 	PUSH(RBX)			/* Preserve RBX and store pointer to function in it. */
 	MOV(RSP,RBP)			/* Store stack pointer in RBP. */
 	MOV(R8 ,RBX)
-	MOVQ(QWORD(RCX,0) ,XMM0)	/* Copy first 8 floats to XMM0-XMM7. */
-	MOVQ(QWORD(RCX,8) ,XMM1)
-	MOVQ(QWORD(RCX,16),XMM2)
-	MOVQ(QWORD(RCX,24),XMM3)
-	MOVQ(QWORD(RCX,32),XMM4)
-	MOVQ(QWORD(RCX,40),XMM5)
-	MOVQ(QWORD(RCX,48),XMM6)
-	MOVQ(QWORD(RCX,56),XMM7)
+	MOVSD(QWORD(RCX,0) ,XMM0)	/* Copy first 8 floats to XMM0-XMM7. */
+	MOVSD(QWORD(RCX,8) ,XMM1)
+	MOVSD(QWORD(RCX,16),XMM2)
+	MOVSD(QWORD(RCX,24),XMM3)
+	MOVSD(QWORD(RCX,32),XMM4)
+	MOVSD(QWORD(RCX,40),XMM5)
+	MOVSD(QWORD(RCX,48),XMM6)
+	MOVSD(QWORD(RCX,56),XMM7)
 
 	ADD(LIT(31),RDI)		/* Align stack to 32-byte. */
 	AND(LIT(-32),RDI)
@@ -111,7 +111,7 @@ BEGIN_PROC(dcCall_x64_win64)
 
 	REP(MOVSB) 			/* @@@ should be optimized (e.g. movq) */
 
-	MOV(QWORD(R8,0),RCX)		/* Copy first four arguments to RCX, RDX, R8, R( and XMM0-XMM3. */
+	MOV(QWORD(R8,0),RCX)		/* Copy first four arguments to RCX, RDX, R9, R8 ( and XMM0-XMM3. ) */
 	MOV(QWORD(R8,8),RDX)
 	MOV(QWORD(R8,24),R9)
 	MOV(QWORD(R8,16),R8)
