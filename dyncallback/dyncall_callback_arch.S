@@ -27,11 +27,7 @@
 #if defined(DC__Arch_Intel_x86)
 #  include "dyncall_callback_arch_x86.S"
 #elif defined(DC__Arch_AMD64)
-#  if defined(DC_WINDOWS)
-#    include "dyncall_callback_x64_gas_w64.s"
-#  else
-#    include "dyncall_callback_arch_x64.S"
-#  endif
+#  include "dyncall_callback_arch_x64.S"
 #else
 #  if defined(DC__OS_Darwin)
 #    if defined(DC__Arch_PowerPC)
