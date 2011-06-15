@@ -53,7 +53,7 @@ dcCallbackThunkEntry:
 
 	// initialize DCArgs
 
-	// float parameters (8 registers spill to DCArgs)
+	// float parameters (4 registers spill to DCArgs)
 	sub %rsp, 4*8
 	movq [%rsp+8*3], %xmm3  # struct offset  72: float parameter 3
 	movq [%rsp+8*2], %xmm2  # struct offset  64: float parameter 2
