@@ -15,21 +15,19 @@ CTX_thunk = 0
 CTX_handler = 24
 CTX_userdata = 32
 DCCallback_size = 40
-ASCII_f = 102
-ASCII_d = 100
 dcCallback_x64_sysv PROC
 OPTION PROLOGUE:NONE, EPILOGUE:NONE
  push RBP
  mov RBP,RSP
  sub RSP,8*8
- mov qword ptr [RSP+8*7],XMM7
- mov qword ptr [RSP+8*6],XMM6
- mov qword ptr [RSP+8*5],XMM5
- mov qword ptr [RSP+8*4],XMM4
- mov qword ptr [RSP+8*3],XMM3
- mov qword ptr [RSP+8*2],XMM2
- mov qword ptr [RSP+8*1],XMM1
- mov qword ptr [RSP+8*0],XMM0
+ movq qword ptr [RSP+8*7],XMM7
+ movq qword ptr [RSP+8*6],XMM6
+ movq qword ptr [RSP+8*5],XMM5
+ movq qword ptr [RSP+8*4],XMM4
+ movq qword ptr [RSP+8*3],XMM3
+ movq qword ptr [RSP+8*2],XMM2
+ movq qword ptr [RSP+8*1],XMM1
+ movq qword ptr [RSP+8*0],XMM0
  push R9
  push R8
  push RCX
@@ -48,13 +46,13 @@ OPTION PROLOGUE:NONE, EPILOGUE:NONE
  call qword ptr [RAX+CTX_handler]
  mov DL,AL
  mov RAX,qword ptr [RBP+FRAME_DCValue_sysv]
- cmpb a,b
- je .float
- cmpb a,b
- jne .return
-.float:
+ cmp DL,102
+ je return_f64
+ cmp DL,100
+ jne return_i64
+return_f64:
  movd XMM0,RAX
-.return:
+return_i64:
  mov RSP,RBP
  pop RBP
  ret
@@ -64,10 +62,10 @@ OPTION PROLOGUE:NONE, EPILOGUE:NONE
  push RBP
  mov RBP,RSP
  sub RSP,4*8
- mov qword ptr [RSP+8*3],XMM3
- mov qword ptr [RSP+8*2],XMM2
- mov qword ptr [RSP+8*1],XMM1
- mov qword ptr [RSP+8*0],XMM0
+ movq qword ptr [RSP+8*3],XMM3
+ movq qword ptr [RSP+8*2],XMM2
+ movq qword ptr [RSP+8*1],XMM1
+ movq qword ptr [RSP+8*0],XMM0
  push R9
  push R8
  push RDX

@@ -50,20 +50,20 @@ SET(DCCallback_size,40)
 
 /* character constants */
 
-SET(ASCII_f,102)
-SET(ASCII_d,100)
+#define ASCII_f 102
+#define ASCII_d 100
 
 GLOBAL(dcCallback_x64_sysv)
 BEGIN_PROC(dcCallback_x64_sysv)
 	
-	PUSHQ(RBP)
-	MOVQ(RSP,RBP)
+	PUSH(RBP)
+	MOV(RSP,RBP)
 
 	/* initialize DCArgs */
 
 	/* float parameters (8 registers spill to DCArgs) */
 
-	SUBQ(LIT(8*8),RSP)	
+	SUB(LIT(8*8),RSP)	
 
 	MOVQ(XMM7, QWORD(RSP,8*7))		/* struct offset 120: float parameter 7 */
 	MOVQ(XMM6, QWORD(RSP,8*6))		/* struct offset 112: float parameter 6 */
@@ -76,66 +76,66 @@ BEGIN_PROC(dcCallback_x64_sysv)
 
 	/* integer parameters (6 registers spill to DCArgs) */
 
-	PUSHQ(R9)				/* struct offset 56: parameter 5 */
-	PUSHQ(R8)				/* struct offset 48: parameter 4 */
-	PUSHQ(RCX)				/* struct offset 40: parameter 3 */
-	PUSHQ(RDX)				/* struct offset 32: parameter 2 */
-	PUSHQ(RSI)				/* struct offset 24: parameter 1 */
-	PUSHQ(RDI)				/* struct offset 16: parameter 0 */
+	PUSH(R9)				/* struct offset 56: parameter 5 */
+	PUSH(R8)				/* struct offset 48: parameter 4 */
+	PUSH(RCX)				/* struct offset 40: parameter 3 */
+	PUSH(RDX)				/* struct offset 32: parameter 2 */
+	PUSH(RSI)				/* struct offset 24: parameter 1 */
+	PUSH(RDI)				/* struct offset 16: parameter 0 */
 	
 	/* register counts for integer/pointer and float regs */
 
-	PUSHQ(LIT(0))				/* struct offset 12: fcount */
+	PUSH(LIT(0))				/* struct offset 12: fcount */
 						/* struct offset  8: icount */
 
 	LEA(QWORD(RBP,FRAME_arg0_sysv),RDX)		/* struct offset  0: stack pointer */
-	PUSHQ(RDX)
+	PUSH(RDX)
 
-	MOVQ(RSP,RSI)				/* arg 1 RSI : DCArgs* */
+	MOV(RSP,RSI)				/* arg 1 RSI : DCArgs* */
 	
 	/* initialize DCValue */
 
-	PUSHQ(LIT(0))				/* struct offset 0: return value (max long long) */
+	PUSH(LIT(0))				/* struct offset 0: return value (max long long) */
 
 	/* call handler( *ctx, *args, *value, *userdata) */
 
-	MOVQ(RAX,RDI)				/* arg 0 RDI : DCCallback* (RAX) */
-	MOVQ(QWORD(RDI,CTX_userdata),RCX)	/* arg 3 RCX : userdata* */
-	MOVQ(RSP,RDX)				/* arg 2 RDX : DCValue*  */
-	PUSHQ(LIT(0))				/* align to 16 bytes */
+	MOV(RAX,RDI)				/* arg 0 RDI : DCCallback* (RAX) */
+	MOV(QWORD(RDI,CTX_userdata),RCX)	/* arg 3 RCX : userdata* */
+	MOV(RSP,RDX)				/* arg 2 RDX : DCValue*  */
+	PUSH(LIT(0))				/* align to 16 bytes */
 	CALL_REG(QWORD(RAX,CTX_handler))
 
 	/* pass return type via registers */
 	/* distinguish two basic classes 'integer' and 'float' */
 	
 	MOVB(AL,DL)
-	MOVQ(QWORD(RBP,FRAME_DCValue_sysv),RAX)
+	MOV(QWORD(RBP,FRAME_DCValue_sysv),RAX)
 
-	CMPB(LIT(ASCII_f),DL)
-	JE(.float)
-	CMPB(LIT(ASCII_d),DL)
-	JNE(.return)
+	CMP(LIT(ASCII_f),DL)
+	JE(LOCAL(return_f64))
+	CMP(LIT(ASCII_d),DL)
+	JNE(LOCAL(return_i64))
 
-.float:
+LOCAL(return_f64):
 	MOVD(RAX,XMM0)
 
-.return:
-	MOVQ(RBP,RSP)
-	POPQ(RBP)
+LOCAL(return_i64):
+	MOV(RBP,RSP)
+	POP(RBP)
 	RET()
 END_PROC(dcCallback_x64_sysv)
 
 GLOBAL(dcCallback_x64_win64)
 BEGIN_PROC(dcCallback_x64_win64)
 	
-	PUSHQ(RBP)
-	MOVQ(RSP,RBP)
+	PUSH(RBP)
+	MOV(RSP,RBP)
 
 	/* initialize DCArgs */
 
 	/* float parameters (8 registers spill to DCArgs) */
 
-	SUBQ(LIT(4*8),RSP)	
+	SUB(LIT(4*8),RSP)	
 
 	MOVQ(XMM3, QWORD(RSP,8*3))		/* struct offset  72: float parameter 3 */
 	MOVQ(XMM2, QWORD(RSP,8*2))		/* struct offset  64: float parameter 2 */
@@ -144,20 +144,20 @@ BEGIN_PROC(dcCallback_x64_win64)
 
 	/* integer parameters (4 registers spill to DCArgs) */
 
-	PUSHQ(R9)				/* struct offset 40: parameter 3 */
-	PUSHQ(R8)				/* struct offset 32: parameter 2 */
-	PUSHQ(RDX)				/* struct offset 24: parameter 1 */
-	PUSHQ(RCX)				/* struct offset 16: parameter 0 */
+	PUSH(R9)				/* struct offset 40: parameter 3 */
+	PUSH(R8)				/* struct offset 32: parameter 2 */
+	PUSH(RDX)				/* struct offset 24: parameter 1 */
+	PUSH(RCX)				/* struct offset 16: parameter 0 */
 	
 	/* register counts for integer/pointer and float regs */
 
-	PUSHQ(LIT(0))				/* struct offset 12: fcount */
+	PUSH(LIT(0))				/* struct offset 12: fcount */
 						/* struct offset  8: icount */
 
 	LEA(QWORD(RBP,FRAME_arg0_win64),RDX)		/* struct offset  0: stack pointer */
-	PUSHQ(RDX)
+	PUSH(RDX)
 
-	MOVQ(RSP,RDX)				/* arg 1 RDX : DCArgs* */
+	MOV(RSP,RDX)				/* arg 1 RDX : DCArgs* */
 	
 	/* initialize DCValue */
 
@@ -165,18 +165,18 @@ BEGIN_PROC(dcCallback_x64_win64)
 
 	/* call handler( *ctx, *args, *value, *userdata) */
 
-	MOVQ(RAX,RCX)				/* arg 0 RCX : DCCallback* (RAX) */
-	MOVQ(QWORD(RAX,CTX_userdata),R9)	/* arg 3 R9  : userdata* */
-	MOVQ(RSP,R8)				/* arg 2 R8  : DCValue*  */
-	SUBQ(LIT(4*8),RSP)                      /* make room for spill area and call */
+	MOV(RAX,RCX)				/* arg 0 RCX : DCCallback* (RAX) */
+	MOV(QWORD(RAX,CTX_userdata),R9)	/* arg 3 R9  : userdata* */
+	MOV(RSP,R8)				/* arg 2 R8  : DCValue*  */
+	SUB(LIT(4*8),RSP)                      /* make room for spill area and call */
 	CALL_REG(QWORD(RAX,CTX_handler))
 
 	
-	MOVQ(QWORD(RBP,FRAME_DCValue_win64),RAX)
+	MOV(QWORD(RBP,FRAME_DCValue_win64),RAX)
 	MOVD(RAX,XMM0)
 
-	MOVQ(RBP,RSP)
-	POPQ(RBP)
+	MOV(RBP,RSP)
+	POP(RBP)
 	RET()
 
 END_PROC(dcCallback_x64_win64)	

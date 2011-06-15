@@ -52,8 +52,9 @@
 #  define ADD(S,D) add D,S
 #  define CMP(S,D) cmp D,S
 #  define JE(T) je T
-#  define FLDS(OP) flds OP
-#  define FLDL(OP) fldl OP
+#  define FLDS(OP) fld OP
+#  define FLDL(OP) fld OP
+#  define LOCAL(NAME) NAME
 #else
 /* GNU/SunPro Assembler AT&T Syntax */
 	.text
@@ -110,5 +111,6 @@
 #  define FLDS(X)  flds X
 #  define FLDL(X)  fldl X
 #  define ADD(A,B) add A,B
+#  define LOCAL(X) .X
 #endif
 

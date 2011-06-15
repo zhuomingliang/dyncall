@@ -27,19 +27,20 @@
 #  define GLOBAL(X) X PROC
 #  define BEGIN_PROC(X) 	OPTION PROLOGUE:NONE, EPILOGUE:NONE
 #  define END_PROC(X)   X ENDP
-#  define PUSHQ(R) push R
-#  define POPQ(R) pop R
+#  define PUSH(R) push R
+#  define POP(R) pop R
+#  define MOV(S,D)  mov D,S
 #  define MOVB(S,D) mov D,S
 #  define MOVL(S,D) mov D,S
 #  define ADDL(S,D) add D,S
 #  define ANDL(S,D) and D,S
 #  define SUBL(S,D) sub D,S
 #  define SHRL(S,D) shr D,S
-#  define MOVQ(S,D) mov D,S
-#  define ADDQ(S,D) add D,S
-#  define ANDQ(S,D) and D,S
-#  define SUBQ(S,D) sub D,S
-#  define SHRQ(S,D) shr D,S
+#  define MOVQ(S,D) movq D,S
+#  define ADD(S,D)  add D,S
+#  define AND(S,D)  and D,S
+#  define SUB(S,D)  sub D,S
+#  define SHR(S,D)  shr D,S
 #  define MOVD(S,D) movd D,S
 #  define RET() ret
 #  define CALL_DWORD(R,OFF) call DWORD(R,OFF)
@@ -59,7 +60,8 @@
 #  define SET(K,V) K = V
 #  define JE(X) je X
 #  define JNE(X) jne X
-#  define CMPB(A,B) cmpb a,b
+#  define CMP(A,B) cmp B,A
+#  define LOCAL(X) X
 #else
 /* GNU/SunPro Assembler AT&T Syntax */
 	.text
@@ -142,5 +144,6 @@
 #  define FLDL(X)  fldl X
 #  define ADD(A,B) add A,B
 #  define SET(K,V) .set K,V
+#  define LOCAL(X) .X
 #endif
 

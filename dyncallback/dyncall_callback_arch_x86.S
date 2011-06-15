@@ -38,12 +38,12 @@ frame_CTX         	= -4
 frame_DCArgs       	= -24
 frame_DCValue      	= -32
 
-#define ASCII_L LIT(76)
-#define ASCII_l LIT(108)
-#define ASCII_d LIT(100)
-#define ASCII_f LIT(102)
-#define ASCII_i LIT(105)
-#define ASCII_v LIT(118)
+#define ASCII_L	76
+#define ASCII_l	108
+#define ASCII_d	100
+#define ASCII_f	102
+#define ASCII_i	105
+#define ASCII_v	118
 
 GLOBAL(dcCallbackThunkEntry)
 BEGIN_PROC(dcCallbackThunkEntry)
@@ -64,9 +64,7 @@ BEGIN_PROC(dcCallbackThunkEntry)
 	PUSH(LIT(0))
 	
 	MOVL(ESP,EDX)				/* EDX = DCValue* */
-	/* align stack to 16 bytes. */
-	ADDL(LIT(15),ESP)
-	ANDL(LIT(-16),ESP)
+	ANDL(LIT(-16),ESP)			/* align stack to 16 bytes. */
 	/* call handler(context) */
 	PUSH(DWORD(EAX,CTX_userdata))		/* userdata */
 	PUSH(EDX)				/* DCValue* */
@@ -83,32 +81,31 @@ BEGIN_PROC(dcCallbackThunkEntry)
 	LEA(DWORD(EBP,frame_DCValue), EDX)
 	MOVL(DWORD(EBP,0), EBP)			/* EBP = parent frame */
 	/* handle return value */
-	/* cmpb 	$118, %al */
-	CMP(ASCII_v,AL)
-	JE(.return_void)
-	CMP(ASCII_d,AL)
-	JE(.return_f64)
-	CMP(ASCII_f,AL)
-	JE(.return_f32)
-	CMP(ASCII_l,AL)
-	JE(.return_i64)
-	CMP(ASCII_L,AL)
-	JE(.return_i64)
+	CMP(LIT(ASCII_v),AL)
+	JE(LOCAL(return_void))
+	CMP(LIT(ASCII_d),AL)
+	JE(LOCAL(return_f64))
+	CMP(LIT(ASCII_f),AL)
+	JE(LOCAL(return_f32))
+	CMP(LIT(ASCII_l),AL)
+	JE(LOCAL(return_i64))
+	CMP(LIT(ASCII_L),AL)
+	JE(LOCAL(return_i64))
 	
 	/* All int cases <= 32 bits (+ pointer & string cases) fall in the 32 bits int case*/
-.return_i32:
+LOCAL(return_i32):
 	MOVL(DWORD(EDX,0),EAX)
 	RET()
-.return_i64:
+LOCAL(return_i64):
 	MOVL(DWORD(EDX,0),EAX)
 	MOVL(DWORD(EDX,4),EDX)
 	RET()
-.return_f32:
+LOCAL(return_f32):
 	FLDS(DWORD(EDX,0))
 	RET()
-.return_f64:
+LOCAL(return_f64):
 	FLDL(QWORD(EDX,0))
-.return_void:
+LOCAL(return_void):
 	RET()
 END_PROC(dcCallbackThunkEntry)
 END_ASM
