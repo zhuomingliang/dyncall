@@ -22,7 +22,7 @@ DEF_TYPES
     K_i[i] = (int)       (rand_d() * (1<<(sizeof(int)*8-1)));
     K_j[i] = (long)      (rand_d() * (1L<<(sizeof(long)*8-1)));
     K_l[i] = (long long) (rand_d() * (1LL<<(sizeof(long long)*8-1)));
-    K_p[i] = (void*)     (long) (rand_d() * (1L<<(sizeof(void*)*8-1)));
+    K_p[i] = (void*)     (long) (rand_d() * (1LL<<(sizeof(void*)*8-1)));
     K_f[i] = (float)     (rand_d() * FLT_MAX);	/* Plan9 doesn't know the macro. */
     K_d[i] = (double)    (rand_d() * 1.7976931348623157E+308/*__DBL_MAX__*/);	/* Plan9 doesn't know the macro. */
   }
