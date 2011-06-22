@@ -57,6 +57,7 @@ typedef char DCsigchar;
 /* callback signatures */
 
 #define DC_SIGCHAR_CC_PREFIX        '_'
+#define DC_SIGCHAR_CC_ELLIPSIS      'e'
 #define DC_SIGCHAR_CC_STDCALL       's'
 #define DC_SIGCHAR_CC_FASTCALL_GNU  'f'
 #define DC_SIGCHAR_CC_FASTCALL_MS   'F'
