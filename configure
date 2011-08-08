@@ -177,7 +177,7 @@ guess_arch()
     CONFIG_ARCH="x86"
   elif [ "$ARCH" = "mips" ]; then
     CONFIG_ARCH="mips32"
-  elif [ "$ARCH" = "mipsel" ]; then
+  elif [ "$ARCH" = "mipsel" ] || [ "$ARCH" = "pmax" ]; then
     CONFIG_ARCH="mips32el"
   elif [ "$ARCH" = "loongson" ]; then
     CONFIG_ARCH="mips64el"
