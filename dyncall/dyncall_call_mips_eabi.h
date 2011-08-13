@@ -38,16 +38,16 @@ extern "C" {
    call-kernel loaded into the registers.
  */
 
-typedef struct DCRegData_mips_eabi_
+struct DCRegData_mips_eabi
 {
   DCint   mIntData[8];
   DCfloat mSingleData[8];
-} DCRegData_mips_eabi;
+};
 
 
 /* Call kernel. */
 
-void dcCall_mips_eabi  (DCpointer target, struct DCRegData_mips_eabi*   regdata, DCsize stksize, DCpointer stkdata);
+void dcCall_mips_eabi(DCpointer target, struct DCRegData_mips_eabi*  regdata, DCsize stksize, DCpointer stkdata);
 
 #ifdef __cplusplus
 }
