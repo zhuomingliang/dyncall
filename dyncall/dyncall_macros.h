@@ -173,7 +173,7 @@
 # define DC__Arch_PPC64
 #elif defined(__mips64__)
 # define DC__Arch_MIPS64
-#elif defined(_M_MRX000) || defined(__mips__)
+#elif defined(_M_MRX000) || defined(__mips__) || defined(__mips) || defined(_mips)
 # define DC__Arch_MIPS
 #elif defined(__arm__) && !defined(__thumb__)
 # define DC__Arch_ARM_ARM
@@ -212,7 +212,7 @@
 #endif /* ARM */
 
 #if defined(DC__Arch_MIPS) || defined(DC__Arch_MIPS64)
-# if defined(_ABIO32)
+# if defined(_ABIO32) || defined(_MIPS_ARCH_MIPS1) || defined(_MIPS_ARCH_MIPS2)
 #  define DC__ABI_MIPS_O32
 # elif defined(_ABIN32)
 #  define DC__ABI_MIPS_N32
