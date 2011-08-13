@@ -21,11 +21,11 @@
 
 */
 
-#if defined(_ABIO32)
+#if defined(DC__ABI_MIPS_O32)
 #include "dyncall_call_mips_o32_gas.s"
-#elif defined(_ABI64)
+#elif defined(DC__ABI_MIPS_N64)
 #include "dyncall_call_mips_n64_gas.s"
-#elif defined(_ABIN32)
+#elif defined(DC__ABI_MIPS_N32)
 #include "dyncall_call_mips_n32_gas.s"
 #else
 #include "dyncall_call_mips_eabi_gas.s"
