@@ -133,15 +133,21 @@ guess_os()
 
 guess_arch()
 {
-  ARCH=`uname -m`
   # OS Specifics
   if [ "$OS" = "SunOS" ]; then
+    ARCH=`uname -p`
     if [ "$ARCH" = "sparc" ]; then
-      CONFIG_ARCH="sparc64"
-    elif [ "$ARCH" = "i86pc" ] && [ "`isainfo -n`" = "amd64" ]; then
-      CONFIG_ARCH="x64"
-    else
-      CONFIG_ARCH="x86"
+      if [ "`isainfo -n`" = "sparcv9" ]; then
+        CONFIG_ARCH="sparc64"
+      else
+        CONFIG_ARCH="sparc"
+      fi
+    elif [ "$ARCH" = "i86pc" ]; then
+      if [ "`isainfo -n`" = "amd64" ]; then
+        CONFIG_ARCH="x64"
+      else
+        CONFIG_ARCH="x86"
+      fi
     fi
   elif [ "$OS" = "Darwin" ]; then
     # Mac OS X and iPhone OS config:
@@ -163,28 +169,31 @@ guess_arch()
     elif [ "$PROCESSOR" = "powerpc" ]; then
       CONFIG_ARCH="ppc32"
     fi
-  elif [ "$ARCH" = "Power Macintosh" ] || [ "$ARCH" = "ppc" ] || [ "$ARCH" = "macppc" ] || [ "$ARCH" = "powerpc" ]; then
+  else
+    ARCH=`uname -m`
+    if [ "$ARCH" = "Power Macintosh" ] || [ "$ARCH" = "ppc" ] || [ "$ARCH" = "macppc" ] || [ "$ARCH" = "powerpc" ]; then
       CONFIG_ARCH="ppc32"
-  elif [ "$ARCH" = "ppc64" ]; then
-    CONFIG_ARCH="ppc64"
-  elif [ "$ARCH" = "x86" ] || [ "$ARCH" = "i386" ] || [ "$ARCH" = "i486" ] || [ "$ARCH" = "i586" ] || [ "$ARCH" = "i686" ] || [ "$ARCH" = "i86pc" ]; then
-    CONFIG_ARCH="x86"
-  elif [ "$ARCH" = "amd64" ] || [ "$ARCH" = "x86_64" ] || [ "$ARCH" = "x64" ]; then
-    CONFIG_ARCH="x64"
-  elif [ "$ARCH" = "acorn32" ] || [ "$ARCH" = "cats" ] || [ "$ARCH" = "shark" ] || [ "$ARCH" = "armv7l" ] || [ "$ARCH" = "armv5tejl" ]; then
-    CONFIG_ARCH="arm32_arm"
-  elif [ "$ARCH" = "BePC" ]; then
-    CONFIG_ARCH="x86"
-  elif [ "$ARCH" = "mips" ]; then
-    CONFIG_ARCH="mips32"
-  elif [ "$ARCH" = "mipsel" ] || [ "$ARCH" = "pmax" ]; then
-    CONFIG_ARCH="mips32el"
-  elif [ "$ARCH" = "loongson" ]; then
-    CONFIG_ARCH="mips64el"
-  elif [ "$ARCH" = "sparc64" ]; then
-    CONFIG_ARCH="sparc"
-  elif [ "$ARCH" = "ia64" ]; then
-    CONFIG_ARCH="ia64"
+    elif [ "$ARCH" = "ppc64" ]; then
+      CONFIG_ARCH="ppc64"
+    elif [ "$ARCH" = "x86" ] || [ "$ARCH" = "i386" ] || [ "$ARCH" = "i486" ] || [ "$ARCH" = "i586" ] || [ "$ARCH" = "i686" ] || [ "$ARCH" = "i86pc" ]; then
+      CONFIG_ARCH="x86"
+    elif [ "$ARCH" = "amd64" ] || [ "$ARCH" = "x86_64" ] || [ "$ARCH" = "x64" ]; then
+      CONFIG_ARCH="x64"
+    elif [ "$ARCH" = "acorn32" ] || [ "$ARCH" = "cats" ] || [ "$ARCH" = "shark" ] || [ "$ARCH" = "armv7l" ] || [ "$ARCH" = "armv5tejl" ]; then
+      CONFIG_ARCH="arm32_arm"
+    elif [ "$ARCH" = "BePC" ]; then
+      CONFIG_ARCH="x86"
+    elif [ "$ARCH" = "mips" ]; then
+      CONFIG_ARCH="mips32"
+    elif [ "$ARCH" = "mipsel" ] || [ "$ARCH" = "pmax" ]; then
+      CONFIG_ARCH="mips32el"
+    elif [ "$ARCH" = "loongson" ]; then
+      CONFIG_ARCH="mips64el"
+    elif [ "$ARCH" = "sparc64" ]; then
+      CONFIG_ARCH="sparc"
+    elif [ "$ARCH" = "ia64" ]; then
+      CONFIG_ARCH="ia64"
+    fi
   fi
   info "guess arch $CONFIG_ARCH"
 }
