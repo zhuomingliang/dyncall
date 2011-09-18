@@ -95,13 +95,13 @@
 #  define SHRL(S,D) shrl S,D
 #  define RET() ret
 #  define CALL_DWORD(R,OFF) call *DWORD(R,OFF)
-#  define REP(X) rep X
+#  define REP(X) rep; X
 #  define MOVSB movsb
 #  define MOVSW movsw
 #  define MOVSD movsd
 #  define DWORD(R,OFF) OFF(R)
 #  define QWORD(R,OFF) OFF(R)
-#  define LIT(X) $X
+#  define LIT(X) XCONCAT($,X)
 #  define INT(X) int X
 #  define HEX(X) XCONCAT(0x,X)
 #  define CALL(X) call X
