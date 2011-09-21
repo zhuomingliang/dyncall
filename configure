@@ -142,7 +142,7 @@ guess_arch()
       else
         CONFIG_ARCH="sparc"
       fi
-    elif [ "$ARCH" = "i86pc" ]; then
+    elif [ "$ARCH" = "i386" ] || [ "$ARCH" = "i86pc" ]; then
       if [ "`isainfo -n`" = "amd64" ]; then
         CONFIG_ARCH="x64"
       else
