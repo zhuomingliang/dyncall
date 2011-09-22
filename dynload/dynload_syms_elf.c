@@ -57,7 +57,9 @@ typedef Elf64_Ehdr   Elf_Ehdr;
 typedef Elf64_Phdr   Elf_Phdr;
 typedef Elf64_Shdr   Elf_Shdr;
 typedef Elf64_Sym    Elf_Sym;
+#ifndef DC__OS_SunOS
 typedef Elf64_Dyn    Elf_Dyn;
+#endif
 typedef Elf64_Sxword Elf_tag;
 typedef Elf64_Addr   Elf_Addr;
 #else
