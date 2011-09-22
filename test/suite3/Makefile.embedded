@@ -1,13 +1,11 @@
-APP = suite3
-OBJS = case.o main.o
-
-TOP = ../..
-CFLAGS = -I${TOP}/dyncall
-LDFLAGS = -L${TOP}/dyncall -ldyncall_s
-LINK = ${CXX}
-
+APP 	 = suite3
+OBJS 	 = case.o main.o
+TOP	 = ../..
+CFLAGS  += -I${TOP}/dyncall
+LDFLAGS += -L${TOP}/dyncall -ldyncall_s
 
 .PHONY: all clean autogen
+
 all: ${APP}
 ${APP}: ${OBJS} 
 	${CXX} ${OBJS} ${LDFLAGS} -o ${APP}

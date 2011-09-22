@@ -1,13 +1,10 @@
-APP = plain_c++
-OBJS = test_main.o
-
-TOP = ../..
-CFLAGS  = -I${TOP}/dyncall
-LDFLAGS = -L${TOP}/dyncall -ldyncall_s 
-LINK = ${CXX}
+APP	 = plain_c++
+OBJS	 = test_main.o
+TOP	 = ../..
+CFLAGS  += -I${TOP}/dyncall
+LDFLAGS += -L${TOP}/dyncall -ldyncall_s 
 
 all: ${APP}
-
 
 .PHONY: all clean install
 

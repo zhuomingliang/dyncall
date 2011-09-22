@@ -1,10 +1,24 @@
+MAKEFILE = Makefile.embedded
+MAKE_CMD = ${MAKE} -f ${MAKEFILE} 
+
 .PHONY: all clean
 all:
-	cd dynload;make -f Makefile.embedded
-	cd dyncall;make -f Makefile.embedded
-	cd dyncallback;make -f Makefile.embedded
+	cd dynload ; ${MAKE_CMD}
+	cd dyncall ; ${MAKE_CMD}
+	cd dyncallback ; ${MAKE_CMD}
 clean:
-	cd dynload;make -f Makefile.embedded clean
-	cd dyncall;make -f Makefile.embedded clean
-	cd dyncallback;make -f Makefile.embedded clean
+	cd dynload ; ${MAKE_CMD} clean
+	cd dyncall ; ${MAKE_CMD} clean
+	cd dyncallback ; ${MAKE_CMD} clean
+	cd test ; ${MAKE_CMD} clean
+
+# --- add configurations -----------------------------------------------------
+
+sun-gcc:
+	CC=gcc ${MAKE_CMD}
+	( cd test ; CC=gcc CXX=g++ CCC=g++ LDFLAGS=-lm ${MAKE_CMD} all-dynload all-dyncall )
+
+sun-gcc-sparc64:
+	CC=gcc CFLAGS=-m64 ASFLAGS=-m64 ${MAKE_CMD}
+	( cd test ; CC=gcc CXX=g++ CCC=g++ CFLAGS=-m64 CXXFLAGS=-m64 CCFLAGS=-m64 LDFLAGS="-m64 -lm" ${MAKE_CMD} all-dynload all-dyncall )
 

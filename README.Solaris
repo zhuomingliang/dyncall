@@ -1,24 +1,51 @@
 Notes on DynCall and Solaris
 ============================
 
-Status
-------
-Everything builds.
-Dyncall/callbacks work fine.
-Dynload_syms seems to be broken here.
-  
+Current Status of Solaris Architectures:
+
+i386      : ok.
+AMD64     : ok.
+SPARC     : no dyncallback support.
+SPARC64   : bugs in dyncall (see BUGS), no dyncallback support.
+
+
 Details
--------
-It has been ported and tested on Solaris 10/X86 using the SunPro compiler suite and
-sun's make. "Makefile.embedded" are slim-sized Makefiles (even slimmer than Makefile.generic).
+=======
+It has been ported and tested for x86 and x64 on Solaris 10/X86 
+using the SunPro compiler suite and sun's make.
+We use 'Makefile.embedded' for sun make (and GNU and BSD as well)
+and zero configuration.
 
-How-to build libs
-  $ make -f Makefile.embedded
 
-How-to build tests
-  $ (cd test; make -f Makefile.embedded)
+Build with make and compilers from sun
+--------------------------------------
+  $ make -f Makefile.embedded                 # libs
+  $ (cd test; make -f Makefile.embedded)      # tests
 
-Cross-build for x64 on x86
---------------------------
+
+Compile for 64-bit
+------------------
   $ CFLAGS=-m64 CCFLAGS=-m64 ASFLAGS=-m64 make -f Makefile.embedded
-  
+
+
+Build with GNU C compiler
+-------------------------
+  $ make -f Makefile.embedded sun-gcc
+ 
+
+Build with Sun make and gcc for sparc64
+---------------------------------------
+  $ make -f Makefile.embedded sun-sparc64-gcc
+
+
+NOTE: There are still issues with the sparc64 port on Solaris.
+
+Tested Platforms
+----------------
+
+x86/amd64: 
+  using Solaris 10 and SunPro Tools
+
+sparc 32/64 bit:
+  SunOS 5.1 using gcc on a Sun Fire V440 via developer account (thanks to gwdg.de!)
+
