@@ -3,6 +3,7 @@
  File: dyncall/dyncall_struct.h
  Description: C interface to compute struct size
  License:
+
  Copyright (c) 2010 Olivier Chafik <olivier.chafik@centraliens.net>
 
  Permission to use, copy, modify, and distribute this software for any

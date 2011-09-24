@@ -3,7 +3,7 @@
  File: dyncall/dyncall_callf.c
  Description: formatted call C interface (extension module)
  License:
- Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>, 
+ Copyright (c) 2007-2011 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
 
  Permission to use, copy, modify, and distribute this software for any

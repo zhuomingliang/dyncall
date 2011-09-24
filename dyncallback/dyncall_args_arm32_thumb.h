@@ -4,7 +4,8 @@
  File: dyncallback/dyncall_args_arm32_thumb.h
  Description: Callback's Arguments VM - Header for ARM32 (THUMB mode)
  License:
- Copyright (c) 2007-2010 Daniel Adler <dadler@uni-goettingen.de>,
+
+ Copyright (c) 2007-2011 Daniel Adler <dadler@uni-goettingen.de>,
                          Tassilo Philipp <tphilipp@potion-studios.com>
 
  Permission to use, copy, modify, and distribute this software for any

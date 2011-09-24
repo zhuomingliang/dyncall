@@ -1,6 +1,6 @@
 /*
 
- Copyright (c) 2007-2010 Olivier Chafik <olivier.chafik@gmail.com>
+ Copyright (c) 2007-2011 Olivier Chafik <olivier.chafik@gmail.com>
  Minor bug-fix modifications by Daniel Adler. 
 
  Permission to use, copy, modify, and distribute this software for any
