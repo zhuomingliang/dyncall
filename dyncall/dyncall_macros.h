@@ -45,11 +45,11 @@
 
 /* MS Windows XP x64/Vista64 or later. */
 #if defined(WIN64) || defined(_WIN64) || defined(__WIN64__)
-	#define DC__OS_Win64
+#define DC__OS_Win64
 
 /* MS Windows NT/95/98/ME/2000/XP/Vista32. */
 #elif defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__) || defined(__WINDOWS__) || defined(_WINDOWS)
-	#define DC__OS_Win32
+#define DC__OS_Win32
 
 /* All the OS' based on Darwin OS (MacOS X, OpenDarwin). Note that '__APPLE__' may be defined for classic MacOS, too. */
 /* __MACOSX__ is not defined in gcc assembler mode (switch: -S) */
@@ -65,58 +65,58 @@
 
 /* The most popular open source Unix-like OS - Linux. */
 #elif defined(__linux__) || defined(__linux) || defined(__gnu_linux__)
-	#define DC__OS_Linux
+#define DC__OS_Linux
 
 /* The most powerful open source Unix-like OS - FreeBSD. */
 #elif defined(__FreeBSD__)
-	#define DC__OS_FreeBSD
+#define DC__OS_FreeBSD
 
 /* The most secure open source Unix-like OS - OpenBSD. */
 #elif defined(__OpenBSD__)
-	#define DC__OS_OpenBSD
+#define DC__OS_OpenBSD
 
 /* The most portable open source Unix-like OS - NetBSD. */
 #elif defined(__NetBSD__)
-	#define DC__OS_NetBSD
+#define DC__OS_NetBSD
 
 /* The FreeBSD fork having heavy clusterization in mind - DragonFlyBSD. */
 #elif defined(__DragonFly__)
-	#define DC__OS_DragonFlyBSD
+#define DC__OS_DragonFlyBSD
 
 /* Sun's Unix-like OS - SunOS / Solaris. */
 #elif defined(__sun__) || defined(__sun) || defined(sun)
-	#define DC__OS_SunOS
+#define DC__OS_SunOS
 
 /* The "Linux-like environment for Windows" - Cygwin. */
 #elif defined(__CYGWIN__)
-	#define DC__OS_Cygwin
+#define DC__OS_Cygwin
 
 /* The "Minimalist GNU for Windows" - MinGW. */
 #elif defined(__MINGW__)/*@@@*/
-	#define DC__OS_MinGW
+#define DC__OS_MinGW
 
 /* The Nintendo DS (homebrew) using devkitpro. */
 #elif defined(__nds__)
-        #define DC__OS_NDS
+#define DC__OS_NDS
 
 /* The PlayStation Portable (homebrew) SDK. */
 #elif defined(__psp__) || defined(PSP)
-        #define DC__OS_PSP
+#define DC__OS_PSP
 
 /* Haiku (BeOS alike). */
 #elif defined(__HAIKU__)
-	#define DC__OS_BeOS
+#define DC__OS_BeOS
 
 /* The Unix successor - Plan9 from Bell Labs */
 #elif defined(Plan9) || defined(__Plan9__)
-	#define DC__OS_Plan9
+#define DC__OS_Plan9
 
 /* Digital's Unix-like OS - VMS */
 #elif defined(__vms)
-	#define DC__OS_VMS
+#define DC__OS_VMS
 
 #elif defined(__minix)
-        #define DC__OS_Minix
+#define DC__OS_Minix
 
 #else
 	#error Unsupported OS.
@@ -129,31 +129,31 @@
 
 /* Intel's C/C++ compiler. */
 #if defined(__INTEL_COMPILER)
-	#define DC__C_Intel
+#define DC__C_Intel
 
 /* MS C/C++ compiler. */
 #elif defined(_MSC_VER)
-	#define DC__C_MSVC
+#define DC__C_MSVC
 
 /* The GNU Compiler Collection - GCC. */
 #elif defined(__GNUC__)
-	#define DC__C_GNU
+#define DC__C_GNU
 
 /* Watcom compiler. */
 #elif defined(__WATCOMC__)
-  #define DC__C_WATCOM
+#define DC__C_WATCOM
 
 /* Portable C Compiler. */
 #elif defined(__PCC__)
-  #define DC__C_PCC
+#define DC__C_PCC
 
 /* Sun Pro C. */
 #elif defined(__SUNPRO_C)
-  #define DC__C_SUNPRO
+#define DC__C_SUNPRO
 
 /* Undetected C Compiler. */
 #else
-  #define DC__C_UNKNOWN
+#define DC__C_UNKNOWN
 #endif
 
 
@@ -181,10 +181,11 @@
 # define DC__Arch_ARM_THUMB
 #elif defined(__sh__)
 # define DC__Arch_SuperH
+#elif defined(__sparcv9) 
+/* this could be needed on Linux/GNU sparc64 in the future: || ( defined(__sparc) && defined(__arch64__) ) */
+# define DC__Arch_Sparcv9
 #elif defined(__sparc)
 # define DC__Arch_Sparc
-#elif defined(__sparcv9)
-# define DC__Arch_Sparcv9
 #endif
 
 

@@ -19,9 +19,7 @@
  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 */
-
 #include "dyncall_macros.h"
-
 /* Plan9 */
 #if defined(DC__OS_Plan9)
 #  if defined(DC__Arch_Intel_x86)
@@ -47,13 +45,10 @@
 #  elif defined(DC__Arch_MIPS) || defined(DC__Arch_MIPS64)
 #    include "dyncall_call_mips_gas.S"
 #  elif defined(DC__Arch_Sparc)
-#    ifdef __arch64__
-#      include "dyncall_call_sparc64.S"
-#    else
-#      include "dyncall_call_sparc.S"
-#    endif
+#    include "dyncall_call_sparc.S"
+#  elif defined(DC__Arch_Sparcv9)
+#    include "dyncall_call_sparc64.S"
 #  else
 #    error Unsupported Architecture.
 #  endif
 #endif
-
