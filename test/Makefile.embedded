@@ -58,7 +58,7 @@ clean:
 	cd plain_c++ ; ${MAKE_CMD} clean
 	cd syscall ; ${MAKE_CMD} clean
 	cd suite ; ${MAKE_CMD} clean
-	cd call_suite ; ${MAKE_CMD}
+	cd call_suite ; ${MAKE_CMD} clean
 	cd suite2 ; ${MAKE_CMD} clean
 	cd suite3 ; ${MAKE_CMD} clean
 	cd suite_floats ; ${MAKE_CMD} clean
