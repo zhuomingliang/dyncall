@@ -1,5 +1,5 @@
 
-#define DEF_TYPES X(c,char,'c') X(s,short,'s') X(i,int,'i') X(j,long,'j') X(l,long long,'l') X(p,void*,'p') X(f,float,'f') X(d,double,'d');
+#define DEF_TYPES X(c,char,'c') X(s,short,'s') X(i,int,'i') X(j,long,'j') X(l,long long,'l') X(p,void*,'p') X(f,float,'f') X(d,double,'d')
 
 #define X(CH,T,QCH) extern T *K_##CH; extern T *V_##CH;
 DEF_TYPES

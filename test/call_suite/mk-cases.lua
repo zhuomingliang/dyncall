@@ -34,7 +34,7 @@ function mkcase(id,sig)
   t[#t+1] = "("
   t[#t+1] = pos
   t[#t+1] = ")"
-  t[#t+1] = "};\n"
+  t[#t+1] = "}\n"
   return table.concat(h,"")..table.concat(t,"")
 end
 

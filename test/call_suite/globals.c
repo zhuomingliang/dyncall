@@ -17,14 +17,14 @@ void init_K()
 DEF_TYPES
 #undef X
   for(i=0;i<G_maxargs;++i) {
-    K_c[i] = (char)      (rand_d() * (1<<7));
-    K_s[i] = (short)     (rand_d() * (1<<(sizeof(int)*8-1)));
-    K_i[i] = (int)       (rand_d() * (1<<(sizeof(int)*8-1)));
-    K_j[i] = (long)      (rand_d() * (1L<<(sizeof(long)*8-1)));
-    K_l[i] = (long long) (rand_d() * (1LL<<(sizeof(long long)*8-1)));
-    K_p[i] = (void*)     (long) (rand_d() * (1LL<<(sizeof(void*)*8-1)));
+    K_c[i] = (char)      (((rand_d()-0.5)*2) * (1<<7));
+    K_s[i] = (short)     (((rand_d()-0.5)*2) * (1<<(sizeof(short)*8-1)));
+    K_i[i] = (int)       (((rand_d()-0.5)*2) * (1<<(sizeof(int)*8-2)));
+    K_j[i] = (long)      (((rand_d()-0.5)*2) * (1L<<(sizeof(long)*8-2)));
+    K_l[i] = (long long) (((rand_d()-0.5)*2) * (1LL<<(sizeof(long long)*8-2)));
+    K_p[i] = (void*)     (long) (((rand_d()-0.5)*2) * (1LL<<(sizeof(void*)*8-1)));
     K_f[i] = (float)     (rand_d() * FLT_MAX);	/* Plan9 doesn't know the macro. */
-    K_d[i] = (double)    (rand_d() * 1.7976931348623157E+308/*__DBL_MAX__*/);	/* Plan9 doesn't know the macro. */
+    K_d[i] = (double)    (((rand_d()-0.5)*2) * 1.7976931348623157E+308/*__DBL_MAX__*/);	/* Plan9 doesn't know the macro. */
   }
 }
 

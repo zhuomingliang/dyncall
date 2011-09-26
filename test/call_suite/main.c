@@ -10,7 +10,7 @@ int run_test(int i) {
   void * target;
   int success;
   sig = G_sigtab[i];
-  target = G_funtab[i];
+  target = (void*) G_funtab[i];
   printf("%d:%s:",i,sig);
   success = invoke(sig,target);
   printf("%d\n",success);
