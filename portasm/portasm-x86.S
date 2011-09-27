@@ -101,10 +101,11 @@
 #  define MOVSD movsd
 #  define DWORD(R,OFF) OFF(R)
 #  define QWORD(R,OFF) OFF(R)
-#  if defined OS_Darwin
-#    define LIT(X) XCONCAT($,X)
-#  else
+#  include "autovar_CC.h"
+#  if defined CC_SUN
 #    define LIT(X) $X
+#  else
+#    define LIT(X) XCONCAT($,X)
 #  endif
 #  define INT(X) int X
 #  define HEX(X) XCONCAT(0x,X)
