@@ -8,6 +8,7 @@ AMD64     : ok.
 SPARC     : no dyncallback support.
 SPARC64   : bugs in dyncall (see BUGS), no dyncallback support.
 
+Supported Compilers: SunPro C/C++ compiler and GCC.
 
 Details
 =======
@@ -17,25 +18,28 @@ We use 'Makefile.embedded' for sun make (and GNU and BSD as well)
 and zero configuration.
 
 
-Build with make and compilers from sun
+Build with SUN make and compilers from sun
 --------------------------------------
-  $ make -f Makefile.embedded                 # libs
-  $ (cd test; make -f Makefile.embedded)      # tests
+  $ make -f Makefile.embedded sun                
+  $ (cd test; make -f Makefile.embedded sun) 
 
 
 Compile for 64-bit
 ------------------
-  $ CFLAGS=-m64 CCFLAGS=-m64 ASFLAGS=-m64 make -f Makefile.embedded
+  $ make -f Makefile.embedded sun-64bit
+  $ (cd test; make -f Makefile.embedded sun-64bit)
 
 
 Build with GNU C compiler
 -------------------------
   $ make -f Makefile.embedded sun-gcc
+  $ (cd test; make -f Makefile.embedded sun-gcc)
  
 
 Build with Sun make and gcc for sparc64
 ---------------------------------------
-  $ make -f Makefile.embedded sun-sparc64-gcc
+  $ make -f Makefile.embedded sun-gcc-64bit
+  $ (cd test; make -f Makefile.embedded sun-gcc-64bit)
 
 
 NOTE: There are still issues with the sparc64 port on Solaris.
