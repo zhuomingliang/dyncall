@@ -43,6 +43,10 @@
 #      include "dyncall_callback_arm32_arm_gas.s"
 #    elif defined(DC__Arch_ARM_THUMB)
 #      include "dyncall_callback_arm32_thumb_gas.s"
+#    elif defined(DC__Arch_Sparc)
+#      include "dyncall_callback_sparc32.s"
+#    elif defined(DC__Arch_Sparcv9)
+#      include "dyncall_callback_sparc64.s"
 #    endif
 #  endif
 #endif

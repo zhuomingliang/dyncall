@@ -1,10 +1,9 @@
 /*
  Package: dyncall
  Library: dyncallback
- File: dyncallback/dyncall_thunk.c
- Description: Thunk - Implementation Back-end selection
+ File: dyncallback/dyncall_callback_sparc64.c
+ Description: Callback - Implementation for sparc64 (TODO: not implemented yet)
  License:
-
  Copyright (c) 2007-2011 Daniel Adler <dadler@uni-goettingen.de>,
                          Tassilo Philipp <tphilipp@potion-studios.com>
 
@@ -21,23 +20,31 @@
  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 */
+#include "dyncall_callback.h"
+#include "dyncall_callback_sparc32.h"
 
-#include "dyncall_thunk.h"
+#include "dyncall_alloc_wx.h"
 
+void dcbInitCallback(DCCallback* pcb, const char* signature, DCCallbackHandler* handler, void* userdata)
+{
+}
 
-#if defined(DC__Arch_Intel_x86)
-# include "dyncall_thunk_x86.c"
-#elif defined(DC__Arch_AMD64)
-# include "dyncall_thunk_x64.c"
-#elif defined(DC__Arch_PowerPC)
-# include "dyncall_thunk_ppc32.c"
-#elif defined(DC__Arch_ARM_ARM)
-#include "dyncall_thunk_arm32_arm.c"
-#elif defined(DC__Arch_ARM_THUMB)
-#include "dyncall_thunk_arm32_thumb.c"
-#elif defined(DC__Arch_Sparc)
-#include "dyncall_thunk_sparc32.c"
-#elif defined(DC__Arch_Sparcv9)
-#include "dyncall_thunk_sparc64.c"
-#endif
+extern void dcCallbackThunkEntry();
+
+DCCallback* dcbNewCallback(const char* signature, DCCallbackHandler* handler, void* userdata)
+{
+  DCCallback* pcb;
+  int err = dcAllocWX(sizeof(DCCallback), (void**) &pcb);
+  if (err != 0) return 0;
+
+  dcbInitThunk(&pcb->thunk, dcCallbackThunkEntry);
+  dcbInitCallback(pcb, signature, handler, userdata);
+
+  return pcb;
+}
+
+void dcbFreeCallback(DCCallback* pcb)
+{
+  dcFreeWX(pcb, sizeof(DCCallback));
+}
 

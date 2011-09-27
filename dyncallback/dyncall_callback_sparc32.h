@@ -1,11 +1,10 @@
 /*
  Package: dyncall
  Library: dyncallback
- File: dyncallback/dyncall_thunk.c
- Description: Thunk - Implementation Back-end selection
+ File: dyncallback/dyncall_callback_sparc32.h
+ Description: Callback - Header for sparc32
  License:
-
- Copyright (c) 2007-2011 Daniel Adler <dadler@uni-goettingen.de>,
+ Copyright (c) 2007-2009 Daniel Adler <dadler@uni-goettingen.de>,
                          Tassilo Philipp <tphilipp@potion-studios.com>
 
  Permission to use, copy, modify, and distribute this software for any
@@ -21,23 +20,21 @@
  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 */
+#ifndef DYNCALL_CALLBACK_SPARC32_H
+#define DYNCALL_CALLBACK_SPARC32_H
+
+#include "dyncall_callback.h"
 
 #include "dyncall_thunk.h"
+#include "dyncall_args_sparc32.h"
 
+struct DCCallback
+{
+  DCThunk            thunk;         /* offset  0, size ?? */
+  DCCallbackHandler* handler;       /* offset ??, size  4 */
+  size_t             stack_cleanup; /* offset ??, size  4 */
+  void*              userdata;      /* offset ??, size  4 */
+};
 
-#if defined(DC__Arch_Intel_x86)
-# include "dyncall_thunk_x86.c"
-#elif defined(DC__Arch_AMD64)
-# include "dyncall_thunk_x64.c"
-#elif defined(DC__Arch_PowerPC)
-# include "dyncall_thunk_ppc32.c"
-#elif defined(DC__Arch_ARM_ARM)
-#include "dyncall_thunk_arm32_arm.c"
-#elif defined(DC__Arch_ARM_THUMB)
-#include "dyncall_thunk_arm32_thumb.c"
-#elif defined(DC__Arch_Sparc)
-#include "dyncall_thunk_sparc32.c"
-#elif defined(DC__Arch_Sparcv9)
-#include "dyncall_thunk_sparc64.c"
-#endif
+#endif /* DYNCALL_CALLBACK_SPARC32_H */
 

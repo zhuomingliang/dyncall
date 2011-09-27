@@ -33,5 +33,9 @@
 #include "dyncall_args_arm32_arm.c"
 #elif defined (DC__Arch_ARM_THUMB)
 #include "dyncall_args_arm32_thumb.c"
+#elif defined (DC__Arch_Sparc)
+#include "dyncall_args_sparc32.c"
+#elif defined (DC__Arch_Sparcv9)
+#include "dyncall_args_sparc64.c"
 #endif
 

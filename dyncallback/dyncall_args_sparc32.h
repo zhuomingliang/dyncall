@@ -1,10 +1,9 @@
 /*
  Package: dyncall
  Library: dyncallback
- File: dyncallback/dyncall_thunk.c
- Description: Thunk - Implementation Back-end selection
+ File: dyncallback/dyncall_args_sparc32.h
+ Description: Callback's Arguments VM - Header for sparc32
  License:
-
  Copyright (c) 2007-2011 Daniel Adler <dadler@uni-goettingen.de>,
                          Tassilo Philipp <tphilipp@potion-studios.com>
 
@@ -21,23 +20,15 @@
  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 */
+#ifndef DYNCALLBACK_ARGS_SPARC32_H
+#define DYNCALLBACK_ARGS_SPARC32_H
 
-#include "dyncall_thunk.h"
+#include "dyncall_args.h"
 
+struct DCArgs
+{
+  int dummy;
+};
 
-#if defined(DC__Arch_Intel_x86)
-# include "dyncall_thunk_x86.c"
-#elif defined(DC__Arch_AMD64)
-# include "dyncall_thunk_x64.c"
-#elif defined(DC__Arch_PowerPC)
-# include "dyncall_thunk_ppc32.c"
-#elif defined(DC__Arch_ARM_ARM)
-#include "dyncall_thunk_arm32_arm.c"
-#elif defined(DC__Arch_ARM_THUMB)
-#include "dyncall_thunk_arm32_thumb.c"
-#elif defined(DC__Arch_Sparc)
-#include "dyncall_thunk_sparc32.c"
-#elif defined(DC__Arch_Sparcv9)
-#include "dyncall_thunk_sparc64.c"
-#endif
+#endif /* DYNCALLBACK_ARGS_SPARC32_H */
 
