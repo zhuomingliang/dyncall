@@ -1,24 +1,23 @@
 MAKEFILE = Makefile.embedded
 MAKE_CMD = ${MAKE} -f ${MAKEFILE} 
-
-.PHONY: all clean
+.PHONY: all tests clean bsd linux sun sun-64bit sun-gcc sun-gcc-64bit
 all:
 	cd dynload ; ${MAKE_CMD}
 	cd dyncall ; ${MAKE_CMD}
 	cd dyncallback ; ${MAKE_CMD}
+tests: 
+	cd test ; ${MAKE_CMD} 
 clean:
-	cd dynload ; ${MAKE_CMD} clean
-	cd dyncall ; ${MAKE_CMD} clean
+	cd dynload     ; ${MAKE_CMD} clean
+	cd dyncall     ; ${MAKE_CMD} clean
 	cd dyncallback ; ${MAKE_CMD} clean
-	cd test ; ${MAKE_CMD} clean
-
-# --- add configurations -----------------------------------------------------
-
+	cd test        ; ${MAKE_CMD} clean
+bsd linux sun:
+	${MAKE_CMD} all
+sun-64bit:
+	CFLAGS="${CFLAGS} -m64" ASFLAGS="${ASFLAGS} -m64" ${MAKE_CMD} all
 sun-gcc:
-	CC=gcc ${MAKE_CMD}
-	( cd test ; CC=gcc CXX=g++ CCC=g++ LDFLAGS=-lm ${MAKE_CMD} all-dynload all-dyncall )
-
-sun-gcc-sparc64:
-	CC=gcc CFLAGS=-m64 ASFLAGS=-m64 ${MAKE_CMD}
-	( cd test ; CC=gcc CXX=g++ CCC=g++ CFLAGS=-m64 CXXFLAGS=-m64 CCFLAGS=-m64 LDFLAGS="-m64 -lm" ${MAKE_CMD} all-dynload all-dyncall )
+	CC=gcc ${MAKE_CMD} all
+sun-gcc-64bit:
+	CC=gcc CFLAGS="${CFLAGS} -m64" ASFLAGS="${ASFLAGS} -m64" ${MAKE_CMD} all
 

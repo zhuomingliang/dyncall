@@ -1,7 +1,8 @@
-OBJS = dyncall_vector.o dyncall_api.o dyncall_callvm.o dyncall_callvm_base.o dyncall_call.o dyncall_callf.o dyncall_struct.o
+TARGET	= libdyncall_s.a
+OBJS	= dyncall_vector.o dyncall_api.o dyncall_callvm.o dyncall_callvm_base.o dyncall_call.o dyncall_callf.o dyncall_struct.o
+all: ${TARGET}
 libdyncall_s.a: ${OBJS}
 	${AR} cr $@ ${OBJS}
-.PHONY: all clean
-all: libdyncall_s.a
 clean:
-	rm -f ${OBJS} libdyncall_s.a
+	rm -f ${OBJS} ${TARGET}
+.PHONY: all clean
