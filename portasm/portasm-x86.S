@@ -101,7 +101,11 @@
 #  define MOVSD movsd
 #  define DWORD(R,OFF) OFF(R)
 #  define QWORD(R,OFF) OFF(R)
-#  define LIT(X) XCONCAT($,X)
+#  if defined OS_Darwin
+#    define LIT(X) XCONCAT($,X)
+#  else
+#    define LIT(X) $X
+#  endif
 #  define INT(X) int X
 #  define HEX(X) XCONCAT(0x,X)
 #  define CALL(X) call X
