@@ -47,14 +47,18 @@ if(MSVC)
   #set(CMAKE_ASM_MASM_SOURCE_FILE_EXTENSIONS asm)
   #set(CMAKE_ASM_MASM_COMPILE_OBJECT "<CMAKE_ASM_MASM_COMPILER> <FLAGS> /c /Fo <OBJECT> <SOURCE>")
 elseif(CMAKE_COMPILER_IS_GNUCC)
+  # when used in shared libraries, -fPIC is required by several architectures
+  # and platforms (observed on AMD64, Solaris/Sparc).
+  # we enable it per default here.
+  add_definitions("-fPIC")
   # enable gcc as front-end to assembler for .S files
   set(CMAKE_ASM_COMPILER "${CMAKE_C_COMPILER}")
   # string(REGEX REPLACE "(.*);?" "-arch \\1 " GCC_ARCH_FLAGS "${OSX_ARCHITECTURES}")
   set(CMAKE_ASM_COMPILER_ARG1 "${CPPFLAGS} -c")
-  # fix for AMD64: force -fPIC (even for static libs).
-  if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "x86_64")
-    add_definitions("-fPIC")
-  endif()
+  enable_language(ASM)
+elseif("${CMAKE_C_COMPILER_ID}" STREQUAL "SunPro")
+  set(CMAKE_ASM_COMPILER "${CMAKE_C_COMPILER}")
+  set(CMAKE_ASM_COMPILER_ARG1 "${CPPFLAGS} -c")
   enable_language(ASM)
 endif()
 

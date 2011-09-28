@@ -9,6 +9,7 @@ SPARC     : no dyncallback support.
 SPARC64   : bugs in dyncall (see BUGS), no dyncallback support.
 
 Supported Compilers: SunPro C/C++ compiler and GCC.
+Supported Build-Systems: Makefile.embedded and CMake.
 
 Details
 =======
@@ -45,6 +46,13 @@ Build with Sun make and gcc for sparc64
 
 
 NOTE: There are still issues with the sparc64 port on Solaris.
+
+
+Build with CMake, Sun make and SunPro for sparc64
+-------------------------------------------------
+  $ cmake -DCMAKE_C_FLAGS=-m64 -DCMAKE_ASM_FLAGS=-m64 -DCMAKE_CXX_FLAGS=-m64 .
+  $ make
+
 
 Tested Platforms
 ----------------

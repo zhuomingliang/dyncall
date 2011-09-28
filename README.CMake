@@ -75,3 +75,12 @@ set(DynCallback_DIR ${DynCall_SOURCE_DIR}/dyncallback)
 has the effect, that the 'find_package' works from within the project source 
 tree.
 
+
+Building for SPARC64 Architectures
+----------------------------------
+
+Supported Compilers: GCC, SunPro
+Add -m64 to C, C++ and ASM flags, e.g.
+
+$ cmake -DCMAKE_C_FLAGS=-m64 -DCMAKE_ASM_FLAGS=-m64 -DCMAKE_ASM_CXX_FLAGS=-m64
+
