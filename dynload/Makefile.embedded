@@ -1,9 +1,13 @@
-TARGET  = libdynload_s.a
-OBJS    = dynload.o dynload_syms.o
-CFLAGS += -I../dyncall
+MAKEFILE  = Makefile.embedded
+MAKE_CMD  = ${MAKE} -f Makefile.embedded
+TARGET    = libdynload_s.a
+OBJS      = dynload.o dynload_syms.o
+CPPFLAGS += -I../dyncall
 all: ${TARGET}
 libdynload_s.a: ${OBJS}
 	${AR} cr $@ ${OBJS}
 clean:
 	rm -f ${OBJS} ${TARGET}
 .PHONY: all clean
+sun-gcc:
+	CC=gcc ${MAKE_CMD} all
