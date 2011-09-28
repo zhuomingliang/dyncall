@@ -132,6 +132,12 @@ ConfigureByArch()
     x64)
       addVar CFLAGS "-fPIC"
       ;;
+    sparc64)
+      addVar CFLAGS "-m64"
+      addVar ASFLAGS "-m64"
+      addVar CXXFLAGS "-m64"
+      addVar CCFLAGS "-m64"
+      ;;
   esac
 }
 
