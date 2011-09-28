@@ -46,6 +46,7 @@ buildsys/cmake updates:
   o fixes for msvc and ml
   o fixes for CPack
   o fixes for universal builds on Mac OS X
+  o supports SunPro with *.S files.
 documentation updates:
   o added dyncallback documentation
   o updated dyncall documentation 
