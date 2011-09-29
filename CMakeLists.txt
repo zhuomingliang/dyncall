@@ -53,7 +53,6 @@ elseif(CMAKE_COMPILER_IS_GNUCC)
   add_definitions("-fPIC")
   # enable gcc as front-end to assembler for .S files
   set(CMAKE_ASM_COMPILER "${CMAKE_C_COMPILER}")
-  # string(REGEX REPLACE "(.*);?" "-arch \\1 " GCC_ARCH_FLAGS "${OSX_ARCHITECTURES}")
   set(CMAKE_ASM_COMPILER_ARG1 "${CPPFLAGS} -c")
   enable_language(ASM)
 elseif("${CMAKE_C_COMPILER_ID}" STREQUAL "SunPro")
