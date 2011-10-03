@@ -131,7 +131,7 @@ dcCall_sparc64:
 
 	/* load single-precision float registers */
 
-	or	%l0, 1, %l0
+	or	%g0, 1, %l0
 .f0:
 	andcc   %i4, %l0, %g0
 	beq	.f1	
