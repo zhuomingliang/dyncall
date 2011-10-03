@@ -23,7 +23,7 @@
 # endif
 #elif defined(__sh__)
 # define ARCH_SH
-#elif defined(__sparcv9)
+#elif defined(__sparcv9) || ( defined(__sparc) && defined(__arch64__) ) 
 # define ARCH_SPARC64
 #elif defined(__sparc)
 # define ARCH_SPARC
