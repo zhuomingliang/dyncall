@@ -18,7 +18,7 @@
 
 */
 
-#if defined(DC__OS_Linux) && !defined(_GNU_SOURCE)
+#if defined(OS_Linux) && !defined(_GNU_SOURCE)
 #define _GNU_SOURCE
 #define __USE_GNU
 #endif
@@ -30,15 +30,18 @@
  */
 
 #include "dynload.h"
-#if defined(DC__OS_OpenBSD)
-#	include <elf_abi.h>
-#elif defined(DC__OS_SunOS)
-#	include <libelf.h>
-#elif defined(DC__OS_BeOS)
-#	include <elf32.h>
+#include "../autovar/autovar_OS.h"
+#if defined(OS_OpenBSD)
+#  include <elf_abi.h>
+#elif defined(OS_SunOS)
+#  include <libelf.h>
+#elif defined(OS_BeOS)
+#  include <elf32.h>
 #else
-#	include <elf.h>
+#  include <elf.h>
 #endif
+#include "dynload_alloc.h"
+
 #include <assert.h>
 #include <fcntl.h>
 #include <dlfcn.h>
@@ -50,14 +53,15 @@
 #include <unistd.h> 
 
 /* run-time configuration 64/32 */
-#if defined(DC__OS_OpenBSD)
+#if defined(OS_OpenBSD)
 #else 
-#ifdef DL__BinaryFormat_elf64
+#include "../autovar/autovar_ABI.h"
+#ifdef ABI_ELF64
 typedef Elf64_Ehdr   Elf_Ehdr;
 typedef Elf64_Phdr   Elf_Phdr;
 typedef Elf64_Shdr   Elf_Shdr;
 typedef Elf64_Sym    Elf_Sym;
-#ifndef DC__OS_SunOS
+#ifndef OS_SunOS
 typedef Elf64_Dyn    Elf_Dyn;
 #endif
 typedef Elf64_Sxword Elf_tag;
@@ -67,7 +71,7 @@ typedef Elf32_Ehdr   Elf_Ehdr;
 typedef Elf32_Phdr   Elf_Phdr;
 typedef Elf32_Shdr   Elf_Shdr;
 typedef Elf32_Sym    Elf_Sym;
-#ifndef DC__OS_SunOS
+#ifndef OS_SunOS
 typedef Elf32_Dyn    Elf_Dyn;
 #endif
 typedef Elf32_Sword  Elf_tag;
@@ -93,14 +97,14 @@ DLSyms* dlSymsInit(const char* libPath)
   void* pSectionContent;
   int i;
   struct stat st;
-  DLSyms* pSyms = (DLSyms*)dcAllocMem(sizeof(DLSyms));
+  DLSyms* pSyms = (DLSyms*)dlAllocMem(sizeof(DLSyms));
   memset(pSyms, 0, sizeof(DLSyms));
   pSyms->file = open(libPath, O_RDONLY);
   stat(libPath, &st);
   pSyms->fileSize = st.st_size;
   pSyms->pElf_Ehdr = (Elf_Ehdr*) mmap((void*) NULL, pSyms->fileSize, PROT_READ, MAP_SHARED, pSyms->file, 0);
 
-#ifdef DL__BinaryFormat_elf32
+#ifdef ABI_ELF32
   assert(pSyms->pElf_Ehdr->e_ident[EI_CLASS] == ELFCLASS32);
 #else
   assert(pSyms->pElf_Ehdr->e_ident[EI_CLASS] == ELFCLASS64);
@@ -145,7 +149,7 @@ void dlSymsCleanup(DLSyms* pSyms)
 {
   munmap( (void*) pSyms->pElf_Ehdr, pSyms->fileSize);
   close(pSyms->file);
-  dcFreeMem(pSyms);
+  dlFreeMem(pSyms);
 }
 
 int dlSymsCount(DLSyms* pSyms)

@@ -1,4 +1,8 @@
 /*
+ Library: dynload
+ File: dynload.c
+ Description: Auto-include delegate to windows/posix-based dynamic linker.
+ License:
 
  Copyright (c) 2007-2011 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
@@ -17,12 +21,12 @@
 
 */
 
-#include "dynload.h"
-
-#if defined(DC_WINDOWS)
+#include "../autovar/autovar_OSFAMILY.h"
+#if defined(OSFAMILY_Windows)
 #  include "dynload_windows.c"
-#elif defined(DC_UNIX)
-#  if defined(DC__OS_Darwin)
+#elif defined(OSFAMILY_Unix)
+#  include "../autovar/autovar_OS.h"
+#  if defined(OS_Darwin)
 #    include "dynload_darwin.c"
 #  else
 #    include "dynload_unix.c"

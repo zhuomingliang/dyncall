@@ -49,12 +49,12 @@ DLLib* dlLoadLibrary(const char* libPath)
 		return NULL;
 
       
-        lib = (DLLib*)dcAllocMem(sizeof(DLLib));
+        lib = (DLLib*)dlAllocMem(sizeof(DLLib));
         lib->handle = handle;
         /* libPath might be null (self reference on image) [Daniel] */
         if (libPath != NULL) {
                 len = strlen(libPath);
-                lib->libPath = (char*)dcAllocMem(len + 1);
+                lib->libPath = (char*)dlAllocMem(len + 1);
                 strcpy(lib->libPath, libPath);
                 lib->libPath[len] = '\0';
         } else {
@@ -76,7 +76,7 @@ void  dlFreeLibrary(DLLib* libHandle)
 	
 	dlclose(libHandle->handle);
         if (libHandle->libPath)
-	        dcFreeMem(libHandle->libPath);
-	dcFreeMem(libHandle);
+	        dlFreeMem(libHandle->libPath);
+	dlFreeMem(libHandle);
 }
 

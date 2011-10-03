@@ -1,4 +1,8 @@
 /*
+ Library: dynload
+ File: dynload_alloc.c
+ Description: heap memory management interface (header only)
+ License:
 
  Copyright (c) 2007-2011 Daniel Adler <dadler@uni-goettingen.de>, 
                          Tassilo Philipp <tphilipp@potion-studios.com>
@@ -17,17 +21,17 @@
 
 */
 
-#ifndef DYNLOAD_MACROS_H
-#define DYNLOAD_MACROS_H
+#ifndef DL_ALLOC_H
+#define DL_ALLOC_H
 
-#if defined(__ELF__)
-# define DL__BinaryFormat_elf
-# if defined(__LP64__) || defined(_LP64)
-#   define DL__BinaryFormat_elf64
-# else
-#   define DL__BinaryFormat_elf32
-# endif
+#ifndef dlAllocMem
+#include <stdlib.h>
+#define dlAllocMem malloc
 #endif
 
-#endif // DYNLOAD_MACROS_H
+#ifndef dlFreeMem
+#define dlFreeMem  free
+#endif
+
+#endif /* DL_ALLOC_H */
 

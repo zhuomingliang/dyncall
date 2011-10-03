@@ -18,15 +18,13 @@
 */
 
 #include "dynload.h"
-
-#if defined(DC__OS_Win32) || defined(DC__OS_Win64) || defined(DC__OS_Cygwin)
-#  include "dynload_syms_pe.c"
-#elif defined(DC_UNIX)
-#  if defined(DC__OS_Darwin)
-#    include "dynload_syms_mach-o.c"
-#  else
-#    include "dynload_syms_elf.c"
-#  endif
+#include "../autovar/autovar_ABI.h"
+#if defined(ABI_PE)
+#include "dynload_syms_pe.c"
+#elif defined(ABI_Mach)
+#include "dynload_syms_mach-o.c"
+#elif defined(ABI_ELF)
+#include "dynload_syms_elf.c"
 #else
 void dummy() { }
 #endif

@@ -23,13 +23,14 @@
 */
 
 #include "dynload.h"
+#include "dynload_alloc.h"
 
 #include <mach-o/dyld.h>
 #include <mach-o/nlist.h>
 #include <dlfcn.h>
 #include <string.h>
 
-#if defined(DC__Arch_AMD64)
+#if defined(ARCH_X64)
 #define MACH_HEADER_TYPE mach_header_64
 #define SEGMENT_COMMAND segment_command_64
 #define NLIST_TYPE nlist_64
@@ -82,7 +83,7 @@ DLSyms* dlSymsInit(const char* libPath)
 					{
 						const struct symtab_command* scmd = (const struct symtab_command*)cmd;
 					
-						pSyms = (DLSyms*)( dcAllocMem(sizeof(DLSyms)) );
+						pSyms = (DLSyms*)( dlAllocMem(sizeof(DLSyms)) );
 						pSyms->symbolCount = scmd->nsyms;
 						pSyms->pStringTable = pBase + scmd->stroff;
 						pSyms->pSymbolTable = (struct NLIST_TYPE*)(pBase + scmd->symoff);
@@ -104,7 +105,7 @@ void dlSymsCleanup(DLSyms* pSyms)
 	if (!pSyms)
 		return;
 	
-	dcFreeMem(pSyms);
+	dlFreeMem(pSyms);
 }
 
 int dlSymsCount(DLSyms* pSyms)

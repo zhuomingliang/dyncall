@@ -42,7 +42,7 @@ struct DLSyms_
 DLSyms* dlSymsInit(const char* libPath)
 {
   DLLib* pLib = dlLoadLibrary(libPath);
-  DLSyms* pSyms = (DLSyms*)dcAllocMem(sizeof(DLSyms));
+  DLSyms* pSyms = (DLSyms*)dlAllocMem(sizeof(DLSyms));
   const char* base = (const char*) pLib;
   IMAGE_DOS_HEADER*       pDOSHeader      = (IMAGE_DOS_HEADER*) base;  
   IMAGE_NT_HEADERS*       pNTHeader       = (IMAGE_NT_HEADERS*) ( base + pDOSHeader->e_lfanew );  
@@ -63,7 +63,7 @@ DLSyms* dlSymsInit(const char* libPath)
 void dlSymsCleanup(DLSyms* pSyms)
 {
   dlFreeLibrary(pSyms->pLib);
-  dcFreeMem(pSyms);
+  dlFreeMem(pSyms);
 }
 
 
