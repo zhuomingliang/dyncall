@@ -1,6 +1,6 @@
 APP  = suite_floats
 OBJS = case.o main.o
-TOP     = ../..
+TOP      = ../..
 CFLAGS  += -I${TOP}/dyncall
 LDFLAGS += -L${TOP}/dyncall -ldyncall_s
 

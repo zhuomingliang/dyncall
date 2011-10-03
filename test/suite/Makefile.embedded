@@ -10,6 +10,6 @@ all: ${APP}
 ${APP}: ${OBJS} 
 	${CC} ${OBJS} ${LDFLAGS} -o ${APP}
 clean:
-	${RM} ${APP} ${OBJS}
+	rm -f ${APP} ${OBJS}
 autogen:
 	python mkcase.py >case.h 2>config.h

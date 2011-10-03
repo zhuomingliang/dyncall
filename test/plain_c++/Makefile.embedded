@@ -12,5 +12,5 @@ ${APP}: ${OBJS}
 	${CXX} ${OBJS} ${LDFLAGS} -o ${APP}
 
 clean:
-	${RM} ${APP} ${OBJS}
+	rm -f ${APP} ${OBJS}
 

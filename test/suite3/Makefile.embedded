@@ -4,6 +4,10 @@ TOP	 = ../..
 CFLAGS  += -I${TOP}/dyncall
 LDFLAGS += -L${TOP}/dyncall -ldyncall_s
 
+TOP = ../..
+CFLAGS = -I${TOP}/dyncall
+LDFLAGS = -L${TOP}/dyncall -ldyncall_s
+
 .PHONY: all clean autogen
 
 all: ${APP}
@@ -11,6 +15,5 @@ ${APP}: ${OBJS}
 	${CXX} ${OBJS} ${LDFLAGS} -o ${APP}
 clean:
 	rm -f ${APP} ${OBJS}
-
 autogen:
 	python mkcase.py 1>case.h 2>config.h
