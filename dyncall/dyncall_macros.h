@@ -181,7 +181,7 @@
 # define DC__Arch_ARM_THUMB
 #elif defined(__sh__)
 # define DC__Arch_SuperH
-#elif defined(__sparcv9) 
+#elif defined(__sparcv9) || defined(__sparc64__) || ( defined(__sparc) && defined(__arch64__) ) 
 /* this could be needed on Linux/GNU sparc64 in the future: || ( defined(__sparc) && defined(__arch64__) ) */
 # define DC__Arch_Sparcv9
 #elif defined(__sparc)
