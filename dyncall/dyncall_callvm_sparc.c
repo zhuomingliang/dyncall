@@ -97,10 +97,11 @@ static void dc_callvm_mode_sparc(DCCallVM* in_self, DCint mode)
   switch(mode) {
     case DC_CALL_C_DEFAULT:
     case DC_CALL_C_ELLIPSIS:
-    case DC_CALL_C_SPARC:
+    case DC_CALL_C_SPARC32:
       break;
     default:
-      break; /* TODO: set error. */
+      in_self->mError = DC_ERROR_UNSUPPORTED_MODE;
+      break; 
   }
 }
 

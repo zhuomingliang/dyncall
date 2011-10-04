@@ -94,6 +94,21 @@ static void dc_callvm_argDouble_sparc64(DCCallVM* in_self, DCdouble x)
   }
 }
 
+static void dc_callvm_argDouble_sparc64_ellipsis(DCCallVM* in_self, DCdouble x)
+{
+  union {
+    long long l;
+    double d;
+  } u;
+  u.d = x;
+  dc_callvm_argLongLong_sparc64(in_self, u.l);
+}
+
+static void dc_callvm_argFloat_sparc64_ellipsis(DCCallVM* in_self, DCfloat x)
+{
+  dc_callvm_argDouble_sparc64_ellipsis(in_self, (DCdouble) x);
+}
+
 static void dc_callvm_argFloat_sparc64(DCCallVM* in_self, DCfloat x)
 {
   DCCallVM_sparc64* self = (DCCallVM_sparc64*)in_self;
@@ -117,17 +132,21 @@ static void dc_callvm_argFloat_sparc64(DCCallVM* in_self, DCfloat x)
   }
 }
 
- 
 /* mode: only a single mode available currently. */
 static void dc_callvm_mode_sparc64(DCCallVM* in_self, DCint mode)
 {
   switch(mode) {
     case DC_CALL_C_DEFAULT:
     case DC_CALL_C_ELLIPSIS:
-    case DC_CALL_C_SPARC:
+    case DC_CALL_C_SPARC64:
+      in_self->mVTpointer = &gVT_sparc64; 
+      break;
+    case DC_CALL_C_ELLIPSIS_VARARGS:
+      in_self->mVTpointer = &gVT_sparc64_ellipsis; 
       break;
     default:
-      break; /* TODO: set error. */
+      in_self->mError = DC_ERROR_UNSUPPORTED_MODE;
+      break; 
   }
 }
 
@@ -139,6 +158,34 @@ static void dc_callvm_call_sparc64(DCCallVM* in_self, DCpointer target)
   dcCall_sparc64(target, dcVecSize(&self->mVecHead), dcVecData(&self->mVecHead));
 }
 #endif
+
+DCCallVM_vt gVT_sparc64_ellipsis = 
+{
+  &dc_callvm_free_sparc64, 
+  &dc_callvm_reset_sparc64, 
+  &dc_callvm_mode_sparc64, 
+  &dc_callvm_argBool_sparc64, 
+  &dc_callvm_argChar_sparc64, 
+  &dc_callvm_argShort_sparc64, 
+  &dc_callvm_argInt_sparc64, 
+  &dc_callvm_argLong_sparc64, 
+  &dc_callvm_argLongLong_sparc64, 
+  &dc_callvm_argFloat_sparc64_ellipsis, 
+  &dc_callvm_argDouble_sparc64_ellipsis, 
+  &dc_callvm_argPointer_sparc64, 
+  NULL /* argStruct */, 
+  (DCvoidvmfunc*)       &dcCall_sparc64, 
+  (DCboolvmfunc*)       &dcCall_sparc64, 
+  (DCcharvmfunc*)       &dcCall_sparc64, 
+  (DCshortvmfunc*)      &dcCall_sparc64, 
+  (DCintvmfunc*)        &dcCall_sparc64, 
+  (DClongvmfunc*)       &dcCall_sparc64, 
+  (DClonglongvmfunc*)   &dcCall_sparc64, 
+  (DCfloatvmfunc*)      &dcCall_sparc64, 
+  (DCdoublevmfunc*)     &dcCall_sparc64, 
+  (DCpointervmfunc*)    &dcCall_sparc64, 
+  NULL /* callStruct */
+};
 
 /* CallVM virtual table. */
 DCCallVM_vt gVT_sparc64 =

@@ -1,7 +1,7 @@
 /*
  Package: dyncall
  File: dyncall/dyncall.h
- Description: main header file for dyncall
+ Description: public header for library dyncall
  License:
 
  Copyright (c) 2007-2011 Daniel Adler <dadler@uni-goettingen.de>, 
@@ -46,13 +46,13 @@ typedef struct DCstruct_    DCstruct;
 
 #define DC_CALL_C_DEFAULT               0
 #define DC_CALL_C_ELLIPSIS		100
+#define DC_CALL_C_ELLIPSIS_VARARGS      101
 #define DC_CALL_C_X86_CDECL             1
 #define DC_CALL_C_X86_WIN32_STD         2
 #define DC_CALL_C_X86_WIN32_FAST_MS     3
 #define DC_CALL_C_X86_WIN32_FAST_GNU    4
 #define DC_CALL_C_X86_WIN32_THIS_MS     5
 #define DC_CALL_C_X86_WIN32_THIS_GNU    6
-#define DC_CALL_C_X86_PLAN9            19
 #define DC_CALL_C_X64_WIN64             7
 #define DC_CALL_C_X64_SYSV              8
 #define DC_CALL_C_PPC32_DARWIN          9
@@ -68,7 +68,9 @@ typedef struct DCstruct_    DCstruct;
 #define DC_CALL_C_MIPS32_O32           16
 #define DC_CALL_C_MIPS64_N32           17
 #define DC_CALL_C_MIPS64_N64           18
-#define DC_CALL_C_SPARC                19
+#define DC_CALL_C_X86_PLAN9            19
+#define DC_CALL_C_SPARC32              20
+#define DC_CALL_C_SPARC64              21
 #define DC_CALL_SYS_DEFAULT           200
 #define DC_CALL_SYS_X86_INT80H_LINUX  201
 #define DC_CALL_SYS_X86_INT80H_BSD    202
