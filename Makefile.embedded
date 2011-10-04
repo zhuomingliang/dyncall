@@ -12,8 +12,12 @@ clean:
 	cd dyncall     ; ${MAKE_CMD} clean
 	cd dyncallback ; ${MAKE_CMD} clean
 	cd test        ; ${MAKE_CMD} clean
-bsd linux:
+bsd:
 	${MAKE_CMD} all
+linux:
+	${MAKE_CMD} all
+linux64:
+	CFLAGS="${CFLAGS} -m64" ASFLAGS="${ASFLAGS} -m64" ${MAKE_CMD} all
 sun:
 	CFLAGS="${CFLAGS}" ${MAKE_CMD} all
 sun-64bit:
