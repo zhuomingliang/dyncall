@@ -68,6 +68,11 @@ linux:
 	LDFLAGS="${LDFLAGS} -lm -ldl" ${MAKE_CMD} all
 linux64:
 	CFLAGS="${CFLAGS} -m64" CXXFLAGS="${CXXFLAGS} -m64" CCFLAGS="${CXXFLAGS} -m64" LDFLAGS="${LDFLAGS} -m64 -lm -ldl" ${MAKE_CMD} all-c
+osx:
+	${MAKE_CMD} all
+osx-universal:
+	CFLAGS="${CFLAGS} -arch i386 -arch x86_64 -arch ppc" CXXFLAGS="${CXXFLAGS} -arch i386 -arch x86_64 -arch ppc" LDFLAGS="-arch i386 -arch x86_64 -arch ppc" ${MAKE_CMD}
+
 sun:
 	CXX=CC LDFLAGS="${LDFLAGS} -lm" ${MAKE_CMD} all
 sun-64bit:
