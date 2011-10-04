@@ -66,6 +66,8 @@ bsd:
 	LDFLAGS="${LDFLAGS} -lm" ${MAKE_CMD} all
 linux:
 	LDFLAGS="${LDFLAGS} -lm -ldl" ${MAKE_CMD} all
+linux64:
+	CFLAGS="${CFLAGS} -m64" CXXFLAGS="${CXXFLAGS} -m64" CCFLAGS="${CXXFLAGS} -m64" LDFLAGS="${LDFLAGS} -m64 -lm -ldl" ${MAKE_CMD} all-c
 sun:
 	CXX=CC LDFLAGS="${LDFLAGS} -lm" ${MAKE_CMD} all
 sun-64bit:
