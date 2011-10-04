@@ -32,6 +32,7 @@
 #include "dynload.h"
 #include "../autovar/autovar_OS.h"
 #if defined(OS_OpenBSD)
+#  include <stdint.h>
 #  include <elf_abi.h>
 #elif defined(OS_SunOS)
 #  include <libelf.h>
