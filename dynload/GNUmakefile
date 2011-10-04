@@ -25,7 +25,6 @@ include $(GMAKE_TOP)/prolog.gmake
 
 TARGET_LIB = dynload
 UNITS = dynload dynload_syms
-CPPFLAGS += -I../dyncall
 INSTALL_HEADERS = dynload.h
 INSTALL_LIB = 1
 

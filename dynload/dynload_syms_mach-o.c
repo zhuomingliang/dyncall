@@ -146,7 +146,7 @@ void* dlSymsValue(DLSyms* pSyms, int index)
 	if (!nl)
 		return NULL;
 	
-	return (void*)nl->n_value;
+	return (void*) (ptrdiff_t) (nl->n_value);
 }
 
 

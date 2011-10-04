@@ -18,6 +18,10 @@ linux:
 	${MAKE_CMD} all
 linux64:
 	CFLAGS="${CFLAGS} -m64" ASFLAGS="${ASFLAGS} -m64" ${MAKE_CMD} all
+osx:
+	${MAKE_CMD} all
+osx-universal:
+	CFLAGS="${CFLAGS} -arch i386 -arch x86_64 -arch ppc" ASFLAGS="${ASFLAGS} -arch i386 -arch x86_64 -arch ppc" AR="libtool" ARFLAGS="-static -o" ${MAKE_CMD} all
 sun:
 	CFLAGS="${CFLAGS}" ${MAKE_CMD} all
 sun-64bit:
