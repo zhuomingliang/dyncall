@@ -256,6 +256,5 @@ static void dc_callvm_mode_arm32_thumb(DCCallVM* in_self,DCint mode)
     default: self->mInterface.mError = DC_ERROR_UNSUPPORTED_MODE; return;
   }
   self->mInterface.mVTpointer = vt;
-  dcReset(in_self);
 }
 

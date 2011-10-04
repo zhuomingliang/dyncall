@@ -262,10 +262,13 @@ sysv_done:
 	lfd  f6 ,72(r11)
 	lfd  f7 ,80(r11)
 	lfd  f8 ,88(r11)
+	
+	
+	/* used for ellipsis calls */
+	creqv 6,6,6	
 
 
 	/* branch with this call support */
-	
 	mtctr r12
 	bctrl 
 

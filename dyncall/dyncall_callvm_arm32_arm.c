@@ -240,6 +240,5 @@ static void dc_callvm_mode_arm32_arm(DCCallVM* in_self,DCint mode)
     default: return;
   }
   self->mInterface.mVTpointer = vt;
-  dcReset(in_self);
 }
 

@@ -328,6 +328,7 @@ void dc_callvm_mode_ppc32(DCCallVM* in_self, DCint mode)
 #if defined(DC__ABI_Darwin)
     case DC_CALL_C_DEFAULT:
     case DC_CALL_C_ELLIPSIS:
+    case DC_CALL_C_ELLIPSIS_VARARGS:
 #endif
 
       vt = &gVT_ppc32_darwin; 
@@ -338,6 +339,7 @@ void dc_callvm_mode_ppc32(DCCallVM* in_self, DCint mode)
 #if defined(DC__ABI_SysV)
     case DC_CALL_C_DEFAULT:
     case DC_CALL_C_ELLIPSIS:
+    case DC_CALL_C_ELLIPSIS_VARARGS:
 #endif
 
       vt = &gVT_ppc32_sysv;
@@ -349,8 +351,6 @@ void dc_callvm_mode_ppc32(DCCallVM* in_self, DCint mode)
   }
   
   dc_callvm_base_init(&self->mInterface, vt);
-
-  dcReset(in_self);
 }
 
 DCCallVM* dcNewCallVM(DCsize size)

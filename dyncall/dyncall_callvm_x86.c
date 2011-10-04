@@ -648,7 +648,6 @@ void dc_callvm_mode_x86(DCCallVM* in_self, DCint mode)
       self->mInterface.mError = DC_ERROR_UNSUPPORTED_MODE; return;
   }
   self->mInterface.mVTpointer = vt;
-  dcReset(in_self);
 }
 
 /* new */
