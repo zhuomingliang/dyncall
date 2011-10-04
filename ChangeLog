@@ -17,7 +17,10 @@ dyncall updates:
   o added Minix port (stable)
   o optimized vector buffer for small type pushing
   o minor fix for amd64/sysv: alignment to 32-byte
-dyncallback updates:
+  o bug fix for ppc32/sysv: ellipsis calls work now
+  o updated API, introduced DC_CALL_C_ELLIPSIS_VARARGS
+  o changed interface: dcMode does not reset internally anymore
+ dyncallback updates:
   o uses portasm for x86,x64
   o added Solaris/x86/sunpro port (stable)
   o added Minix port (unstable)
