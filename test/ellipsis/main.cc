@@ -89,7 +89,18 @@ bool test_ellipsis_case(int x)
   int y = x;
   int selects[NARGS] = { 0 };
   int pos = 0;
-  for(pos = 0; y>0; ++pos) 
+  if (y > 0) 
+  {
+    int select = (y-1) % NTYPES; 
+    selects[pos] = select;
+    arg(pCall,select,pos);
+    y = (y-1) / NTYPES;
+    ++pos;
+  }
+
+  dcMode(pCall, DC_CALL_C_ELLIPSIS_VARARGS);
+
+  for(; y>0; ++pos) 
   {
     int select = (y-1) % NTYPES; 
     selects[pos] = select;
