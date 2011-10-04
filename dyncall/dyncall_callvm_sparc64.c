@@ -132,24 +132,6 @@ static void dc_callvm_argFloat_sparc64(DCCallVM* in_self, DCfloat x)
   }
 }
 
-/* mode: only a single mode available currently. */
-static void dc_callvm_mode_sparc64(DCCallVM* in_self, DCint mode)
-{
-  switch(mode) {
-    case DC_CALL_C_DEFAULT:
-    case DC_CALL_C_ELLIPSIS:
-    case DC_CALL_C_SPARC64:
-      in_self->mVTpointer = &gVT_sparc64; 
-      break;
-    case DC_CALL_C_ELLIPSIS_VARARGS:
-      in_self->mVTpointer = &gVT_sparc64_ellipsis; 
-      break;
-    default:
-      in_self->mError = DC_ERROR_UNSUPPORTED_MODE;
-      break; 
-  }
-}
-
 #if 0
 /* call: delegate to default call kernel */
 static void dc_callvm_call_sparc64(DCCallVM* in_self, DCpointer target)
@@ -158,6 +140,8 @@ static void dc_callvm_call_sparc64(DCCallVM* in_self, DCpointer target)
   dcCall_sparc64(target, dcVecSize(&self->mVecHead), dcVecData(&self->mVecHead));
 }
 #endif
+
+static void dc_callvm_mode_sparc64(DCCallVM* in_self, DCint mode);
 
 DCCallVM_vt gVT_sparc64_ellipsis = 
 {
@@ -215,6 +199,25 @@ DCCallVM_vt gVT_sparc64 =
   (DCpointervmfunc*)    &dcCall_sparc64, 
   NULL /* callStruct */
 };
+
+/* mode: only a single mode available currently. */
+static void dc_callvm_mode_sparc64(DCCallVM* in_self, DCint mode)
+{
+  switch(mode) {
+    case DC_CALL_C_DEFAULT:
+    case DC_CALL_C_ELLIPSIS:
+    case DC_CALL_C_SPARC64:
+      in_self->mVTpointer = &gVT_sparc64; 
+      break;
+    case DC_CALL_C_ELLIPSIS_VARARGS:
+      in_self->mVTpointer = &gVT_sparc64_ellipsis; 
+      break;
+    default:
+      in_self->mError = DC_ERROR_UNSUPPORTED_MODE;
+      break; 
+  }
+}
+
 
 /* Public API. */
 DCCallVM* dcNewCallVM(DCsize size)

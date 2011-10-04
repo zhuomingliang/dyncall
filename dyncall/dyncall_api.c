@@ -38,7 +38,8 @@ void dcFree(DCCallVM* vm)
 void dcMode(DCCallVM* vm,DCint mode) 
 { 
   vm->mVTpointer->mode(vm,mode);
-  dcReset(vm);
+  /* dcReset(vm); -- in order to support ellipsis calls, we need to allow
+   * a dcMode(callvm, DC_CALL_C_ELLIPSIS_VARARGS) */
 }
 
 void dcArgBool(DCCallVM* vm,DCbool x) 
