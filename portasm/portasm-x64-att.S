@@ -67,7 +67,7 @@
 	.text
 #  define BEGIN_ASM
 #  define END_ASM
-#  include "autovar_OS.h"
+#  include "../autovar/autovar_OS.h"
 #  if defined (OS_Darwin)
 #    define CSYM(X) _##X
 #  else

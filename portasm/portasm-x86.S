@@ -60,7 +60,7 @@
 	.text
 #  define BEGIN_ASM
 #  define END_ASM 
-#  include "autovar_OS.h"
+#  include "../autovar/autovar_OS.h"
 #  if defined(OS_Win32) || defined(OS_Cygwin) || defined(OS_MinGW) || defined(OS_Darwin) || defined(OS_Minix)
 #    define CSYM(X) _##X
 #  else
@@ -101,7 +101,7 @@
 #  define MOVSD movsd
 #  define DWORD(R,OFF) OFF(R)
 #  define QWORD(R,OFF) OFF(R)
-#  include "autovar_CC.h"
+#  include "../autovar/autovar_CC.h"
 #  if defined CC_SUN
 #    define LIT(X) $X
 #  else

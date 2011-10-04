@@ -18,7 +18,7 @@
  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 */
 
-#include "autovar_OS.h"
+#include "../autovar/autovar_OS.h"
 #if defined(OS_Darwin)
 #define GLOBAL_C(X) .globl _##X 
 #define ENTRY_C(X)  _##X:

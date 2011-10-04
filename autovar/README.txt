@@ -53,6 +53,8 @@ ABI:
   PE
   Mach
   ELF
+    ELF32
+    ELF64
 
 OSFAMILY: 
   Windows
