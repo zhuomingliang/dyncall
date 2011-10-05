@@ -1,3 +1,27 @@
+/*
+
+ Package: dyncall
+ Library: test
+ File: test/call_suite/cases.h
+ Description: 
+ License:
+
+   Copyright (c) 2011 Daniel Adler <dadler@uni-goettingen.de>,
+                      Tassilo Philipp <tphilipp@potion-studios.com>
+
+   Permission to use, copy, modify, and distribute this software for any
+   purpose with or without fee is hereby granted, provided that the above
+   copyright notice and this permission notice appear in all copies.
+
+   THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+   WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+   MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+   ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+   WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+   ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+   OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+*/
 /* 1:jifjdidpslfdfpifdflclcsjfjsdd */ j f1(i a1,f a2,j a3,d a4,i a5,d a6,p a7,s a8,l a9,f a10,d a11,f a12,p a13,i a14,f a15,d a16,f a17,l a18,c a19,l a20,c a21,s a22,j a23,f a24,j a25,s a26,d a27,d a28){fid=1;V_i[1]=a1;V_f[2]=a2;V_j[3]=a3;V_d[4]=a4;V_i[5]=a5;V_d[6]=a6;V_p[7]=a7;V_s[8]=a8;V_l[9]=a9;V_f[10]=a10;V_d[11]=a11;V_f[12]=a12;V_p[13]=a13;V_i[14]=a14;V_f[15]=a15;V_d[16]=a16;V_f[17]=a17;V_l[18]=a18;V_c[19]=a19;V_l[20]=a20;V_c[21]=a21;V_s[22]=a22;V_j[23]=a23;V_f[24]=a24;V_j[25]=a25;V_s[26]=a26;V_d[27]=a27;V_d[28]=a28;ret_j(28)}
 /* 2:fdsdcjjjjlpd */ f f2(d a1,s a2,d a3,c a4,j a5,j a6,j a7,j a8,l a9,p a10,d a11){fid=2;V_d[1]=a1;V_s[2]=a2;V_d[3]=a3;V_c[4]=a4;V_j[5]=a5;V_j[6]=a6;V_j[7]=a7;V_j[8]=a8;V_l[9]=a9;V_p[10]=a10;V_d[11]=a11;ret_f(11)}
 /* 3:jlisplppcdifsjfsjcliipfpcpj */ j f3(l a1,i a2,s a3,p a4,l a5,p a6,p a7,c a8,d a9,i a10,f a11,s a12,j a13,f a14,s a15,j a16,c a17,l a18,i a19,i a20,p a21,f a22,p a23,c a24,p a25,j a26){fid=3;V_l[1]=a1;V_i[2]=a2;V_s[3]=a3;V_p[4]=a4;V_l[5]=a5;V_p[6]=a6;V_p[7]=a7;V_c[8]=a8;V_d[9]=a9;V_i[10]=a10;V_f[11]=a11;V_s[12]=a12;V_j[13]=a13;V_f[14]=a14;V_s[15]=a15;V_j[16]=a16;V_c[17]=a17;V_l[18]=a18;V_i[19]=a19;V_i[20]=a20;V_p[21]=a21;V_f[22]=a22;V_p[23]=a23;V_c[24]=a24;V_p[25]=a25;V_j[26]=a26;ret_j(26)}
