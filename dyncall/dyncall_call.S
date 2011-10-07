@@ -27,6 +27,10 @@
 #  else
 #    error Unsupported Architecture on Plan9.
 #  endif
+#elif defined(DC__OS_Win32)
+#  include "dyncall_call_x86_generic_masm.asm"
+#elif defined(DC__OS_Win62)
+#  include "dyncall_call_x64_generic_masm.asm"
 #else
 #  if defined(DC__Arch_Intel_x86)
 #    include "dyncall_call_x86.S"
