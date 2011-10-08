@@ -11,19 +11,28 @@
 #define PREREQS  **
 
 /* Makefile internal vars for platform abstraction */
-MAKE_FLAG  = /f
+MAKEFLAGS_USER = /NOLOGO
+MAKEFLAG_FILE = /f
 MAKE_DEFAULT_FILE = dynMakefile
 SHELL_COMMAND_SEPARATOR = &&
 
 AR = lib
-ARFLAGS = /NOLOGO
+ARFLAGS_USER = /NOLOGO
+ARFLAGS = 
 ARFLAG_OUT_PREFIX = /OUT:
+
+CFLAGS_USER = /nologo
+CFLAGS      = _(CFLAGS) _(CFLAGS_USER)
+
+ASLAGS_USER = /NOLOGO
+ASLAGS      = _(AFLAGS) _(ASLAGS_USER)
+ALAGS      = _(ASFLAGS) /* Set AFLAGS (without 'S'), which is the standard nmake predefined macro for MASM */
 
 .SUFFIXES : .S
 
 .S.obj:
-	cl /EP $< > $*.asm
-	$(AS) $(AFLAGS) /c $*.asm
+	cl /nologo /EP $< > $*.asm
+	_(AS) _(ASFLAGS) _(ASFLAGS_USER) /nologo /c $*.asm
 	del $*.asm
 
 
@@ -38,12 +47,17 @@ ARFLAG_OUT_PREFIX = /OUT:
 #define _PREREQS  <
 
 /* Makefile internal vars for platform abstraction */
-MAKE_FLAG  = -f
+MAKEFLAGS_USER = 
+MAKEFLAG_FILE = -f
 MAKE_DEFAULT_FILE = dynMakefile
 SHELL_COMMAND_SEPARATOR = ;
 
 ARFLAG_OUT_PREFIX = /OUT:
 
-#endif
+CFLAGS_USER = 
+CFLAGS      = _(CFLAGS) _(CFLAGS_USER)
 
+ASLAGS_USER = 
+
+#endif
 
