@@ -32,7 +32,7 @@
 #  endif
 #elif defined(DC__Arch_AMD64)
 #  if defined(DC__OS_Win64)
-#    include "dyncall_callback_x86_masm.asm"
+#    include "dyncall_callback_x64_masm.asm"
 #  else
 #    include "dyncall_callback_arch_x64.S"
 #  endif
