@@ -26,7 +26,7 @@ CFLAGS      = _(CFLAGS) _(CFLAGS_USER)
 
 ASLAGS_USER = /NOLOGO
 ASLAGS      = _(AFLAGS) _(ASLAGS_USER)
-ALAGS      = _(ASFLAGS) /* Set AFLAGS (without 'S'), which is the standard nmake predefined macro for MASM */
+ALAGS       = _(ASFLAGS) /* Set AFLAGS (without 'S'), which is the standard nmake predefined macro for MASM */
 
 .SUFFIXES : .S
 
@@ -43,8 +43,8 @@ ALAGS      = _(ASFLAGS) /* Set AFLAGS (without 'S'), which is the standard nmake
 #define _L(X)     lib##X.a
 #define _O(X)     X.o
 
-#define _TARGET   @
-#define _PREREQS  <
+#define TARGET   @
+#define PREREQS  >
 
 /* Makefile internal vars for platform abstraction */
 MAKEFLAGS_USER = 
@@ -52,10 +52,10 @@ MAKEFLAG_FILE = -f
 MAKE_DEFAULT_FILE = dynMakefile
 SHELL_COMMAND_SEPARATOR = ;
 
-ARFLAG_OUT_PREFIX = /OUT:
+ARFLAG_OUT_PREFIX = 
 
 CFLAGS_USER = 
-CFLAGS      = _(CFLAGS) _(CFLAGS_USER)
+CFLAGS     += _(CFLAGS_USER)
 
 ASLAGS_USER = 
 
