@@ -1,3 +1,3 @@
 .PHONY: all
 all: ./buildsys/dynmake/dynmake.bat
-	$(?:/=\) && exit || sh $(?:bat=sh)
+	$(?:/=\\) && exit || sh $(?:bat=sh)

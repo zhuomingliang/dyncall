@@ -4,8 +4,8 @@
 
 /* Abstractions */
 #define _(X)      $(X)         /* Standard variables */
-#define _L(X)     X##.lib
-#define _O(X)     X##.obj
+#define _L(X)     X.lib
+#define _O(X)     X.obj
 
 /* Makefile internal vars for platform abstraction */
 MAKE_FLAG  = /f
@@ -25,8 +25,8 @@ SHELL_COMMAND_SEPARATOR = &&
 
 /* Abstractions */
 #define _(X)      ${X}         /* Standard variables */
-#define _L(X)     lib##X##.a
-#define _O(X)     X##.o
+#define _L(X)     lib##X.a
+#define _O(X)     X.o
 
 /* Makefile internal vars for platform abstraction */
 MAKE_FLAG  = -f
