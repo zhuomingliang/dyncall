@@ -21,7 +21,7 @@ ARFLAGS_USER = /NOLOGO
 ARFLAGS = 
 ARFLAG_OUT_PREFIX = /OUT:
 
-CFLAGS_USER = /nologo /I..\dyncall /I../dyncallback
+CFLAGS_USER = /nologo /I..\dyncall /I..\dyncallback
 CFLAGS      = _(CFLAGS) _(CFLAGS_USER)
 
 ASLAGS_USER = /NOLOGO
@@ -54,7 +54,7 @@ SHELL_COMMAND_SEPARATOR = ;
 
 ARFLAG_OUT_PREFIX = 
 
-CFLAGS_USER = 
+CFLAGS_USER = -I ../dyncall -I ../dyncallback
 CFLAGS     += _(CFLAGS_USER)
 
 ASLAGS_USER = 
