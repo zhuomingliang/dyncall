@@ -1,5 +1,7 @@
 #include "../buildsys/dynmake/Makefile.base.M"
 
+.PHONY: all clean
+
 all: _L(dyncall_s)
 
 _L(dyncall_s): _O(dyncall_vector) _O(dyncall_api) _O(dyncall_callvm) _O(dyncall_callvm_base) _O(dyncall_call) _O(dyncall_callf) _O(dyncall_struct)

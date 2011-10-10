@@ -1,5 +1,7 @@
 #include "../buildsys/dynmake/Makefile.base.M"
 
+.PHONY: all clean
+
 all: _L(dyncallback_s)
 
 _L(dyncallback_s): _O(dyncall_thunk) _O(dyncall_alloc_wx) _O(dyncall_args) _O(dyncall_callback) _O(dyncall_callback_arch)
