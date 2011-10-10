@@ -1,7 +1,5 @@
 #include "buildsys/dynmake/Makefile.base.M"
 
-.PHONY: all clean test
-
 all:
 	cd dyncall     _(SHELL_COMMAND_SEPARATOR) _(MAKE) _(MAKEFLAGS_USER) _(MAKEFLAG_FILE) _(MAKE_DEFAULT_FILE)
 	cd dynload     _(SHELL_COMMAND_SEPARATOR) _(MAKE) _(MAKEFLAGS_USER) _(MAKEFLAG_FILE) _(MAKE_DEFAULT_FILE)

@@ -1,4 +1,3 @@
-.PHONY: all clean
 all: ./../buildsys/dynmake/dynmake.bat
 	$(?:/=\\) all && exit || sh $(?:bat=sh) all
 clean: ./../buildsys/dynmake/dynmake.bat

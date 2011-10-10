@@ -1,7 +1,5 @@
 #include "../buildsys/dynmake/Makefile.base.M"
 
-.PHONY: all clean
-
 all: _L(dynload_s)
 
 _L(dynload_s): _O(dynload) _O(dynload_syms)

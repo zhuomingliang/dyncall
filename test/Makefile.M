@@ -1,7 +1,5 @@
 #include "../buildsys/dynmake/Makefile.base.M"
 
-.PHONY: all clean
-
 all:
 	cd plain                       _(SHELL_COMMAND_SEPARATOR) _(MAKE) _(MAKEFLAGS_USER) _(MAKEFLAG_FILE) _(MAKE_DEFAULT_FILE)
 	cd plain_c++                   _(SHELL_COMMAND_SEPARATOR) _(MAKE) _(MAKEFLAGS_USER) _(MAKEFLAG_FILE) _(MAKE_DEFAULT_FILE)
