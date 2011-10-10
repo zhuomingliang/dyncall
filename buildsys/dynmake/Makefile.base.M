@@ -28,6 +28,8 @@ ASLAGS_USER = /NOLOGO
 ASLAGS      = _(AFLAGS) _(ASLAGS_USER)
 ALAGS       = _(ASFLAGS) /* Set AFLAGS (without 'S'), which is the standard nmake predefined macro for MASM */
 
+RM = del
+
 .SUFFIXES : .S
 
 .S.obj:
@@ -58,6 +60,8 @@ CFLAGS_USER = -I ../dyncall -I ../dyncallback
 CFLAGS     += _(CFLAGS_USER)
 
 ASLAGS_USER = 
+
+RM = rm
 
 #endif
 
