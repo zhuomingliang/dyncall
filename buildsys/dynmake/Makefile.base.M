@@ -21,12 +21,17 @@ ARFLAGS_USER = /NOLOGO
 ARFLAGS = 
 ARFLAG_OUT_PREFIX = /OUT:
 
-CFLAGS_USER = /nologo /I..\dyncall /I..\dyncallback
-CFLAGS      = _(CFLAGS) _(CFLAGS_USER)
+CFLAGS_USER      = /nologo /I..\dyncall /I..\dyncallback
+CFLAGS           = _(CFLAGS) _(CFLAGS_USER)
 
-ASLAGS_USER = /NOLOGO
-ASLAGS      = _(AFLAGS) _(ASLAGS_USER)
-ALAGS       = _(ASFLAGS) /* Set AFLAGS (without 'S'), which is the standard nmake predefined macro for MASM */
+LDFLAGS_USER      = /nologo /L..\dyncall /L..\dyncallback
+LDFLAGS           = _(LDFLAGS) _(LDFLAGS_USER)
+LDFLAG_IN_PREFIX  =
+LDFLAG_OUT_PREFIX = /OUT:
+
+ASFLAGS_USER = /nologo
+ASFLAGS      = _(AFLAGS) _(ASFLAGS_USER)
+AFLAGS       = _(ASFLAGS) /* Set AFLAGS (without 'S'), which is the standard nmake predefined macro for MASM */
 
 RM = del
 
@@ -34,7 +39,7 @@ RM = del
 
 .S.obj:
 	cl /nologo /EP $< > $*.asm
-	_(AS) _(ASFLAGS) _(ASFLAGS_USER) /nologo /c $*.asm
+	_(AS) _(ASFLAGS) /c $*.asm
 	del $*.asm
 
 
@@ -59,7 +64,12 @@ ARFLAG_OUT_PREFIX =
 CFLAGS_USER = -I ../dyncall -I ../dyncallback
 CFLAGS     += _(CFLAGS_USER)
 
-ASLAGS_USER = 
+LDFLAGS_USER      = -L../../dyncall -L../../dyncallback
+LDFLAGS          += _(LDFLAGS_USER)
+LDFLAG_IN_PREFIX  = -l
+LDFLAG_OUT_PREFIX = -o
+
+ASFLAGS_USER = 
 
 RM = rm
 
