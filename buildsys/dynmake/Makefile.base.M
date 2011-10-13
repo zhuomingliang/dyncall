@@ -1,6 +1,6 @@
 #include "../../dyncall/dyncall_macros.h"
 
-#if defined(DC_WINDOWS)
+#if defined(DC_WINDOWS) && defined(MAKE_CMD_nmake)
 
 /* Abstractions */
 #define _(X)      $(X)         /* Standard variables */
@@ -30,8 +30,8 @@ LDFLAG_IN_PREFIX  =
 LDFLAG_OUT_PREFIX = /OUT:
 
 ASFLAGS_USER = /nologo
-ASFLAGS      = _(AFLAGS) _(ASFLAGS_USER)
-AFLAGS       = _(ASFLAGS) /* Set AFLAGS (without 'S'), which is the standard nmake predefined macro for MASM */
+AFLAGS       = _(AFLAGS) _(ASFLAGS_USER)  /* Set AFLAGS (without 'S'), which is the standard nmake predefined macro for MASM */
+ASFLAGS      = _(AFLAGS)
 
 RM = del
 
