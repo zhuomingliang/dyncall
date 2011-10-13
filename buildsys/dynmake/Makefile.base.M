@@ -51,7 +51,12 @@ RM = del
 #define _O(X)     X.o
 
 #define TARGET   @
-#define PREREQS  >
+#if defined(MAKE_CMD_gmake) || (defined(DC__OS_Linux) && !defined(MAKE_CMD_bsdmake)) || (defined(DC__OS_Darwin) && !defined(MAKE_CMD_bsdmake))
+#  define PREREQS  ^
+#else
+#  define PREREQS  >
+#endif
+
 
 /* Makefile internal vars for platform abstraction */
 MAKEFLAGS_USER = 
