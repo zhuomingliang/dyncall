@@ -18,6 +18,9 @@ linux:
 	${MAKE_CMD} all
 linux64:
 	CFLAGS="${CFLAGS} -m64" ASFLAGS="${ASFLAGS} -m64" ${MAKE_CMD} all
+minix-gcc:
+	cd dyncall	; CC=gcc CFLAGS= ${MAKE_CMD} 
+	cd dyncallback	; CC=gcc CFLAGS= ${MAKE_CMD} 
 osx:
 	${MAKE_CMD} all
 osx-universal:
