@@ -51,7 +51,7 @@ RM = del
 #define _O(X)     X.o
 
 #define TARGET   @
-#if defined(MAKE_CMD_gmake) || (defined(DC__OS_Linux) && !defined(MAKE_CMD_bsdmake)) || (defined(DC__OS_Darwin) && !defined(MAKE_CMD_bsdmake))
+#if defined(MAKE_CMD_gmake) || (defined(DC__OS_Linux) && !defined(MAKE_CMD_bsdmake)) || (defined(DC__OS_Darwin) && !defined(MAKE_CMD_bsdmake)) || (defined(DC__OS_SunOS) && !defined(MAKE_CMD_bsdmake))
 #  define PREREQS  ^
 #else
 #  define PREREQS  >
@@ -76,7 +76,7 @@ LDFLAG_OUT_PREFIX = -o
 
 ASFLAGS_USER = 
 
-RM = rm
+RM = rm -f
 
 #endif
 
