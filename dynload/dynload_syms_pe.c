@@ -26,6 +26,7 @@
 
 
 #include "dynload.h"
+#include "dynload_alloc.h"
 
 #include <windows.h>
 
