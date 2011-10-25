@@ -45,6 +45,10 @@ dynload:
 - get rid of Dl_info and friends (_GNU_SOURCE) in dynload/dynload_syms_elf.c
   for implementation of dlSymsNameFromValue(..)
 
+dyncallback:
+------------
+- callback_plain's return value not correct anymore on NDS (maybe just broken testcode?)
+
 urgent issues:
 --------------
 - finish dyncallback doc, finish dynload doc, add both to troff doc
@@ -82,7 +86,8 @@ nice to have:
 bugs:
 -----
 - vararg function calls don't work for PPC32 System V ABI
-- vararg function calls don't work for ARM THUMB mode
+- vararg function calls don't work for ARM THUMB mode (Daniel's new interface for modesetting for varag
+  args should be used); adapt test/ellipsis
 
 missing implementations (descending priority):
 ----------------------------------------------

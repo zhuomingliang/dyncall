@@ -46,7 +46,7 @@ TARGETS = resolve_self.nds
 OBJS = main.o
 
 $(TARGETS):# $(OBJS)
-	echo Not building dynload: There is no dynload support on this platform.
+	echo Not building: There is no dynload support on this platform.
 
 !ENDIF
 

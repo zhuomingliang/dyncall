@@ -22,10 +22,12 @@
    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 */
+#include "../common/platformInit.h"
 #include "dyncall.h"
 #include "globals.h"
 #include <stdio.h>
 #include <string.h>
+
 char  linebuf[1024];
 void* G_callvm;
   
@@ -53,10 +55,16 @@ int run_all() {
 int main(int argc, char* argv[])
 {
   int total;
+
+  dcTest_initPlatform();
+
   init_K(G_maxargs);
   G_callvm = (DCCallVM*) dcNewCallVM(4096);
   total = run_all();
   printf("result: call_suite: %d\n", total);
+
+  dcTest_deInitPlatform();
+
   return 0;
 }
 

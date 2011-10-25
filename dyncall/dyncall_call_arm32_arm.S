@@ -33,7 +33,7 @@
      dcCall_arm32_arm(DCpointer target, DCpointer argv, DCsize size);
 
    This Call Kernel works across multiple OS.
-   It has been tested on Nintendo DS, Linux and Darwin(IOS).
+   It has been tested on Nintendo DS, Linux and Darwin(iOS).
 
 */
 

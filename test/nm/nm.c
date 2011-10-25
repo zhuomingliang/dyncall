@@ -25,6 +25,7 @@
 
 
 #include "../../dynload/dynload.h"
+#include "../../dynload/dynload_alloc.h"
 #include <stdio.h>
 
 void list_syms(const char* filePath)

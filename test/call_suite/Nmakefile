@@ -40,13 +40,13 @@ OBJS = main.obj cases.obj globals.obj invoke.obj
 
 $(TARGETS): $(OBJS)
 	echo Linking $@ ...
-	$(LD) /OUT:"$@" $(LDFLAGS) $(OBJS) $(TOP)\dyncall\libdyncall_s.lib > nul
+	$(LD) /OUT:"$@" $(LDFLAGS) $(OBJS) $(TOP)\dyncall\libdyncall_s.lib
 
 
 !ELSE IF "$(BUILD_OS)" == "nds"
 
 TARGETS = call_suite.nds
-OBJS = main.o cases.o globals.obj invoke.obj
+OBJS = main.o cases.o globals.o invoke.o
 
 $(TARGETS): $(OBJS)
 	echo Linking $@ ...

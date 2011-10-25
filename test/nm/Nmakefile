@@ -46,7 +46,7 @@ TARGETS = nm.nds
 OBJS = nm.o
 
 $(TARGETS):# $(OBJS)
-	echo Not building dynload: There is no dynload support on this platform.
+	echo Not building: There is no dynload support on this platform.
 #	echo Linking $@ ...
 #	$(LD) $(LDFLAGS) $(OBJS) $(DEVKITPRO_PATH)\libnds\lib\libnds9.a $(TOP)\dynload\libdynload_s.a $(TOP)/dyncall/libdyncall_s.a -o "$(@B).elf"
 #	$(OCP) -O binary "$(@B).elf" "$(@B).arm9"
