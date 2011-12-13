@@ -34,29 +34,30 @@
 #    include "dyncall_callback_x64_masm.asm"
 #  endif
 #else
-#if defined(DC__Arch_Intel_x86)
-#  include "dyncall_callback_arch_x86.S"
-#elif defined(DC__Arch_AMD64)
-#  include "dyncall_callback_arch_x64.S"
-#else
-#  if defined(DC__OS_Darwin)
-#    if defined(DC__Arch_PowerPC)
-#      include "dyncall_callback_ppc32_apple.s"
-#    elif defined(DC__Arch_ARM_ARM)
-#      include "dyncall_callback_arm32_arm_apple.s"
-#    endif
-#  else 
-/* other than Darwin.. */
-#    if defined(DC__Arch_PowerPC)
-#      include "dyncall_callback_ppc32.S"
-#    elif defined(DC__Arch_ARM_ARM)
-#      include "dyncall_callback_arm32_arm_gas.s"
-#    elif defined(DC__Arch_ARM_THUMB)
-#      include "dyncall_callback_arm32_thumb_gas.s"
-#    elif defined(DC__Arch_Sparc)
-#      include "dyncall_callback_sparc32.s"
-#    elif defined(DC__Arch_Sparcv9)
-#      include "dyncall_callback_sparc64.s"
+#  if defined(DC__Arch_Intel_x86)
+#    include "dyncall_callback_arch_x86.S"
+#  elif defined(DC__Arch_AMD64)
+#    include "dyncall_callback_arch_x64.S"
+#  else
+#    if defined(DC__OS_Darwin)
+#      if defined(DC__Arch_PowerPC)
+#        include "dyncall_callback_ppc32_apple.s"
+#      elif defined(DC__Arch_ARM_ARM)
+#        include "dyncall_callback_arm32_arm_apple.s"
+#      endif
+#    else 
+     /* other than Darwin.. */
+#      if defined(DC__Arch_PowerPC)
+#        include "dyncall_callback_ppc32.S"
+#      elif defined(DC__Arch_ARM_ARM)
+#        include "dyncall_callback_arm32_arm_gas.s"
+#      elif defined(DC__Arch_ARM_THUMB)
+#        include "dyncall_callback_arm32_thumb_gas.s"
+#      elif defined(DC__Arch_Sparc)
+#        include "dyncall_callback_sparc32.s"
+#      elif defined(DC__Arch_Sparcv9)
+#        include "dyncall_callback_sparc64.s"
+#      endif
 #    endif
 #  endif
 #endif
