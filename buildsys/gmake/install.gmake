@@ -37,6 +37,10 @@ INSTALL_PARTS = install-app install-dll install-lib install-includes
 $(INSTALL_PARTS): build
 install: $(INSTALL_PARTS)
 
+ifdef DESTDIR
+INSTALL_PREFIX = $(DESTDIR)
+endif
+
 ifdef INSTALL_PREFIX
 
 INSTALL_BINDIR ?= $(INSTALL_PREFIX)/bin
