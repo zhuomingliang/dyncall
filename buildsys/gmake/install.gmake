@@ -37,15 +37,11 @@ INSTALL_PARTS = install-app install-dll install-lib install-includes
 $(INSTALL_PARTS): build
 install: $(INSTALL_PARTS)
 
-ifdef DESTDIR
-INSTALL_PREFIX = $(DESTDIR)
-endif
-
 ifdef INSTALL_PREFIX
 
-INSTALL_BINDIR ?= $(INSTALL_PREFIX)/bin
-INSTALL_LIBDIR ?= $(INSTALL_PREFIX)/lib
-INSTALL_INCDIR ?= $(INSTALL_PREFIX)/include
+INSTALL_BINDIR ?= $(DESTDIR)$(INSTALL_PREFIX)/bin
+INSTALL_LIBDIR ?= $(DESTDIR)$(INSTALL_PREFIX)/lib
+INSTALL_INCDIR ?= $(DESTDIR)$(INSTALL_PREFIX)/include
 
 $(INSTALL_PREFIX):
 	mkdir -p $(INSTALL_PREFIX)
@@ -68,26 +64,26 @@ endif
 ifdef INSTALL_LIB
 ifdef LIB_FILE
 install-lib: $(INSTALL_LIBDIR)
-	cp -Rf $(LIB_FILE) $(INSTALL_LIBDIR)
+	install -m 644 $(LIB_FILE) $(INSTALL_LIBDIR)
 endif
 endif
 
 ifdef INSTALL_APP
 ifdef APP_FILE
 install-app: $(APP_FILE) $(INSTALL_BINDIR)
-	cp -Rf $(APP_FILE) $(INSTALL_BINDIR)
+	install $(APP_FILE) $(INSTALL_BINDIR)
 endif
 endif
 
 ifdef INSTALL_DLL
 ifdef DLL_FILE
 install-dll: $(DLL_FILE) $(INSTALL_BINDIR)
-	cp -Rf $(DLL_FILE) $(INSTALL_BINDIR)
+	install -m 644 $(DLL_FILE) $(INSTALL_BINDIR)
 endif
 endif
 
 ifdef INSTALL_HEADERS
 install-includes: $(INSTALL_HEADERS) $(INSTALL_INCDIR)
-	cp -Rf $(INSTALL_HEADERS) $(INSTALL_INCDIR)
+	install -m 644 $(INSTALL_HEADERS) $(INSTALL_INCDIR)
 endif
 
