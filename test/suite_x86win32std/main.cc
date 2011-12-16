@@ -104,6 +104,7 @@ bool test(int x)
 
   DCCallVM* pCall = dcNewCallVM(4096);
   dcMode(pCall, DC_CALL_C_X86_WIN32_STD);
+  dcReset(pCall);
   int y = x;
   int selects[NARGS] = { 0, };
   int pos = 0;

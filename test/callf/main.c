@@ -49,6 +49,7 @@ int main(int argc, char* argv[])
 
   /* allocate call vm */
   vm = dcNewCallVM(4096);
+  dcReset(vm);
 
   /* call using 'formatted' API */
   dcCallF(vm, &r, (void*) &vf_iii, "iii)i", 1, 2, 3);

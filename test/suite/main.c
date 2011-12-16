@@ -109,11 +109,12 @@ void push(DCCallVM* pCall, int select, int pos)
 
 DCbool test(int x)
 {
-  DCCallVM* pCall = dcNewCallVM(4096);
   int y = x;
   int selects[NARGS] = { 0, };
   int pos, i;
 
+  DCCallVM* pCall = dcNewCallVM(4096);
+  dcReset(pCall);
   clearValues();
 
   for(pos = 0; y>0; ++pos) 

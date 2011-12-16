@@ -33,6 +33,7 @@ int main(int argc, char* argv[])
   int result;
   int total;
   vm = dcNewCallVM(4096);
+  dcReset(vm);
   dcArgChar( vm, (char) 255 );
   result = dcCallInt( vm, &add1 );
   total = (result == 256);

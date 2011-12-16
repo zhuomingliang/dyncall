@@ -109,6 +109,8 @@ bool test(int x)
 #else
   dcMode(pCall, DC_CALL_C_X86_WIN32_FAST_MS);
 #endif
+  dcReset(pCall);
+
   int y = x;
   int selects[NARGS] = { 0, };
   int pos = 0;

@@ -244,6 +244,7 @@ DC_DEFINE_TEST_FUNC_BEGIN(testCallThisMS)
 
   DCCallVM* pc = dcNewCallVM(4096);
   dcMode(pc,DC_CALL_C_X86_WIN32_THIS_MS);
+  dcReset(pc);
   testCallValue<ValueMS>(pc); 
   dcFree(pc);
 
@@ -255,6 +256,7 @@ DC_DEFINE_TEST_FUNC_END
 DC_DEFINE_TEST_FUNC_BEGIN(testCallThisC)
 
   DCCallVM* pc = dcNewCallVM(4096);
+  dcReset(pc);
   testCallValue<Value>(pc); 
   dcFree(pc);
 

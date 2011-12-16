@@ -60,6 +60,7 @@ int main(int argc, char* argv[])
 
   init_K(G_maxargs);
   G_callvm = (DCCallVM*) dcNewCallVM(4096);
+  dcReset(G_callvm);
   total = run_all();
   printf("result: call_suite: %d\n", total);
 

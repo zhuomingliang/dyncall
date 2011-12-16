@@ -39,14 +39,14 @@ DCValue* getArg(int pos);
 
 
 
-DCbool    valueBool[MAXARGS];
-DCchar    valueChar[MAXARGS];
+DCbool     valueBool[MAXARGS];
+DCchar     valueChar[MAXARGS];
 DCshort    valueShort[MAXARGS];
-DCint     valueInt[MAXARGS];
-DClonglong    valueLongLong[MAXARGS];
-DCdouble  valueDouble[MAXARGS];
-DCpointer     valuePointer[MAXARGS];
-DCfloat   valueFloat[MAXARGS];
+DCint      valueInt[MAXARGS];
+DClonglong valueLongLong[MAXARGS];
+DCdouble   valueDouble[MAXARGS];
+DCpointer  valuePointer[MAXARGS];
+DCfloat    valueFloat[MAXARGS];
 
 
 void clearValues();
@@ -95,6 +95,7 @@ bool test(int x)
 #else
   dcMode(pCall, DC_CALL_C_X86_WIN32_FAST_MS);
 #endif
+  dcReset(pCall);
  
   while ( (ch=*ptr++) != '\0' ) {
     switch(ch) {

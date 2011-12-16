@@ -91,6 +91,7 @@ bool test(int x)
   pos = 0;
 
   pCall = dcNewCallVM(4096);
+  dcReset(pCall);
  
   while ( (ch=*ptr++) != '\0' ) {
     switch(ch) {

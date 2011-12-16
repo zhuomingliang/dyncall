@@ -80,6 +80,7 @@ bool test(int x)
   clearValues();
 
   DCCallVM* pCall = dcNewCallVM(4096);
+  dcReset(pCall);
   int y = x;
   int selects[NARGS] = { 0, };
   int pos = 0;

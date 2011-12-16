@@ -174,8 +174,8 @@ DC_DEFINE_TEST_FUNC_BEGIN(testCallStructs)
 		values.b = 2;
 		values.c = 3;
 
-		dcReset(pc);
 		dcMode(pc, DC_CALL_C_DEFAULT);
+		dcReset(pc);
 		printf("BEFORE dcArgStruct\n");
 		dcArgStruct(pc, s, &values);
 		printf("AFTER dcArgStruct\n");
@@ -202,8 +202,8 @@ DC_DEFINE_TEST_FUNC_BEGIN(testCallStructs)
 		values.p[1] = 11;
 		values.p[2] = 12;
 
-		dcReset(pc);
 		dcMode(pc, DC_CALL_C_DEFAULT);
+		dcReset(pc);
 		dcArgStruct(pc, s, &values);
 		calledSum = dcCallDouble(pc, (DCpointer) &sum_SomeValues);
 		expectedSum = sum_SomeValues(values);
