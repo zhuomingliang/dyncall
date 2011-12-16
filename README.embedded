@@ -60,4 +60,10 @@ are Assembly files which are preprocessed by the C Preprocessor.
 
 This feature is available by GCC and SunPro compilers.
 
+Limitations
+-----------
+
+Mac OS X universal static libraries require to use 
+
+'libtool -static -o libname.a obj1.o obj2.o ...' instead of 'ar cru libname.a obj1.o obj2.o'.
 
