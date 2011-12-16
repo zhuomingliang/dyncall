@@ -120,7 +120,7 @@ DC_DEFINE_TEST_FUNC_BEGIN(testCallC)
     dcReset(pc);
     dcArgPointer(pc, (DCpointer) &fun_c_b);
     r = dcCallPointer(pc, (DCpointer) &fun_c_p);
-    DC_TEST(r == &fun_c_b);
+    DC_TEST(r == (DCpointer) &fun_c_b);
   }
   dcFree(pc);
 
