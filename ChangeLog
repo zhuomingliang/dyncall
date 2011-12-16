@@ -3,8 +3,9 @@ This file lists big/noteworthy changes, only...
 Version 0.7 (upcoming)
 architecture:
   o added subproject: portasm - portable (GNU AS,+Apple and MASM) assembly framework  
-  o added support for sparc (32-bit) (tested on linux/debian)
-  o added support for sparc (64-bit) (tested on linux/debian, buggy on openbsd)
+  o added subproject: autovar - predefined macro framework (was dyncall_macros.h)
+  o added support for sparc (32-bit) (tested on linux/debian,openbsd,solaris)
+  o added support for sparc (64-bit) (tested on linux/debian,openbsd,solaris)
   o added support for Solaris and SunPro compiler for i386, x86_64, sparc and sparc64
   o improved auto-detection via preprocessor defines
 dyncall updates:
@@ -31,6 +32,7 @@ dynload updates:
   o removed Dbghelf.lib dependency
   o bug fixes for cygwin/x86
   o fixes for beos/haiku
+  o no dependencies to libdyncall sources.
 buildsys additions:
   o added zero-config (BSD,GNU,SUN) make files (Makefile.embedded)
   o added in/out-of-source configure2 w/ (BSD,GNU) make files (Makefile.generic')
@@ -38,6 +40,7 @@ buildsys additions:
   o Nmakefile: more tests included (resolve_self)
   o improved cross-compilation for iOS (upgrade to 4.3 sdk)
   o darwin 8.0 support
+  o added 'install' support for Makefile.embedded
 buildsys/gmake updates:
   o added support for msvc/x64 tool-chain
   o default settings for build-dir changed to '.'
