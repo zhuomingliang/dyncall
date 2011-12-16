@@ -13,6 +13,8 @@ install: all
 	cp ${HEADERS} ${DESTDIR}${PREFIX}/include
 	mkdir -p ${DESTDIR}${PREFIX}/lib
 	cp ${TARGET}  ${DESTDIR}${PREFIX}/lib
+	mkdir -p ${DESTDIR}${PREFIX}/man/man3
+	gzip -c dyncall.3 >${DESTDIR}${PREFIX}/man/man3/dyncall.3.gz
 .PHONY: all clean install
 osx-universal:
 	CFLAGS="${CFLAGS} -arch i386 -arch x86_64 -arch ppc" ASFLAGS="${ASFLAGS} -arch i386 -arch x86_64 -arch ppc" AR="libtool" ARFLAGS="-static -o" ${MAKE_CMD} all
