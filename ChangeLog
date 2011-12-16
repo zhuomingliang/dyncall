@@ -42,6 +42,8 @@ buildsys/gmake updates:
   o added support for msvc/x64 tool-chain
   o default settings for build-dir changed to '.'
   o cleanup: removed top-level Make{Prolog,Epilog,Rules} files and updated all sub-projects and tests
+  o added support for DESTDIR staging installation
+  o added support for manual page installation
 buildsys/cmake updates:
   o updated find module scripts (see cmake/Modules)
   o added support for using dyncall as sub-project (via *Config.cmake files)
