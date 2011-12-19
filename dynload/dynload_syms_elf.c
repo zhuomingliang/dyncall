@@ -65,25 +65,25 @@
 #else 
 #include "../autovar/autovar_ABI.h"
 #ifdef ABI_ELF64
-typedef Elf64_Ehdr   Elf_Ehdr;
-typedef Elf64_Phdr   Elf_Phdr;
-typedef Elf64_Shdr   Elf_Shdr;
-typedef Elf64_Sym    Elf_Sym;
+typedef struct Elf64_Ehdr   Elf_Ehdr;
+typedef struct Elf64_Phdr   Elf_Phdr;
+typedef struct Elf64_Shdr   Elf_Shdr;
+typedef struct Elf64_Sym    Elf_Sym;
 #ifndef OS_SunOS
-typedef Elf64_Dyn    Elf_Dyn;
+typedef struct Elf64_Dyn    Elf_Dyn;
 #endif
-typedef Elf64_Sxword Elf_tag;
-typedef Elf64_Addr   Elf_Addr;
+typedef        Elf64_Sxword Elf_tag;
+typedef        Elf64_Addr   Elf_Addr;
 #else
-typedef Elf32_Ehdr   Elf_Ehdr;
-typedef Elf32_Phdr   Elf_Phdr;
-typedef Elf32_Shdr   Elf_Shdr;
-typedef Elf32_Sym    Elf_Sym;
+typedef struct Elf32_Ehdr   Elf_Ehdr;
+typedef struct Elf32_Phdr   Elf_Phdr;
+typedef struct Elf32_Shdr   Elf_Shdr;
+typedef struct Elf32_Sym    Elf_Sym;
 #ifndef OS_SunOS
-typedef Elf32_Dyn    Elf_Dyn;
+typedef struct Elf32_Dyn    Elf_Dyn;
 #endif
-typedef Elf32_Sword  Elf_tag;
-typedef Elf32_Addr   Elf_Addr;
+typedef        Elf32_Sword  Elf_tag;
+typedef        Elf32_Addr   Elf_Addr;
 #endif
 #endif
 
