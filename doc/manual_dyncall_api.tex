@@ -208,9 +208,10 @@ The X86 platform provides a rich family of different calling conventions.
 void dcReset(DCCallVM* vm);
 \end{lstlisting}
 
-Resets the internal argument buffer. This function should be called prior 
-to binding new arguments to the CallVM, because arguments don't get flushed
-automatically after a foreign function call invocation.\\
+resets the internal stack of arguments and prepares it for the selected mode.
+This function should be called after setting the call mode (using dcMode), but
+prior to binding arguments to the CallVM. Use it when reusing a CallVM, too, as
+arguments don't get flushed automatically after a function call invocation.\\
 
 \subsection{Argument binding}
 

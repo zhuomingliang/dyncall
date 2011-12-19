@@ -109,6 +109,7 @@ double call_as_sqrt(void* funptr, double x)
   double r;
   DCCallVM* vm = dcNewCallVM(4096);
   dcMode(vm, DC_CALL_C_DEFAULT);
+  dcReset(vm);
   dcArgDouble(vm, x);  
   r = dcCallDouble(vm, funptr);
   dcFree(vm);
