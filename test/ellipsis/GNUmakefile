@@ -37,6 +37,8 @@ config:
 	python mkcase.py >case.h 2>config.h
 	
 ifdef BUILD_TOOL_gcc
+ifndef BUILD_OS_beos
 LINK_LIBS	+= m
+endif
 endif
 
