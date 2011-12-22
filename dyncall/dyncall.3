@@ -1,4 +1,4 @@
-.\" Copyright (c) 2007,2011 Daniel Adler <dadler AT uni-goettingen DOT de>, 
+.\" Copyright (c) 2007,2008 Daniel Adler <dadler AT uni-goettingen DOT de>, 
 .\"                         Tassilo Philipp <tphilipp AT potion-studios DOT com>
 .\" 
 .\" Permission to use, copy, modify, and distribute this software for any
@@ -109,9 +109,10 @@ available modes. Note that some mode/platform combinations don't make any
 sense (e.g. using a PowerPC calling convention on a MIPS platform).
 .Pp
 .Fn dcReset
-resets the internal stack of arguments. This function should be called prior to
-binding new arguments to the CallVM, because arguments don't get flushed
-automatically after a function call invocation.
+resets the internal stack of arguments and prepares it for the selected mode.
+This function should be called after setting the call mode (using dcMode), but
+prior to binding arguments to the CallVM. Use it when reusing a CallVM, too, as
+arguments don't get flushed automatically after a function call invocation.
 .Pp
 .Fn dcArgBool ,
 .Fn dcArgChar ,
@@ -170,6 +171,7 @@ library, this function would be called as follows:
 	double r;
 	DCCallVM* vm = dcNewCallVM(4096);
 	dcMode(vm, DC_CALL_C_DEFAULT);
+	dcReset(vm);
 	dcArgDouble(vm, 4.2373);
 	r = dcCallDouble(vm, (DCpointer)&sqrt);
 	dcFree(vm);
