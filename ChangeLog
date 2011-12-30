@@ -21,7 +21,7 @@ dyncall updates:
   o bug fix for ppc32/sysv: ellipsis calls work now
   o updated API, introduced DC_CALL_C_ELLIPSIS_VARARGS
   o changed interface: dcMode does not reset internally anymore
- dyncallback updates:
+dyncallback updates:
   o uses portasm for x86,x64
   o added Solaris/x86/sunpro port (stable)
   o added Minix port (unstable)
@@ -55,6 +55,7 @@ buildsys/cmake updates:
   o fixes for CPack
   o fixes for universal builds on Mac OS X
   o supports SunPro with *.S files.
+  o added experimental 'dynMake' portable make-based build-system (not stable, yet)
 documentation updates:
   o added dyncallback documentation
   o updated dyncall documentation 
