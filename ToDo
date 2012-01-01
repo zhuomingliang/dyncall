@@ -14,7 +14,7 @@ build-system:
   buildsys/bsdmake silently builds without configure file and
    no cmake-based build files is used at all.
 
-  workarond:
+  workaround:
 
     make -f Makefile
 
