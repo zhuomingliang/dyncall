@@ -48,6 +48,9 @@ dynload:
 dyncallback:
 ------------
 - callback_plain's return value not correct anymore on NDS (maybe just broken testcode?)
+- add MIPS callbacks
+- finish PPC32 callbacks
+- add Plan9 support
 
 urgent issues:
 --------------
@@ -56,14 +59,9 @@ urgent issues:
 - Haiku/gmake build doesn't build dynload due to the fact, that elf.h is not found
   on default installations (one has to install the system headers)
   * add to doc
-- dyncall_thunk.h is the only header that will be exposed to clients, that includes
-  platform specific headers - would be nice to be able to only ship non-platform
-  specific headers
 - Solaris/gmake build doesn't build dynload and tests anymore (maybe not even dyncallback)
 - test arm32/ATPCS/THUMB (and then change Status in doc Appendix)
 - look over code and fix TODO or @@@ marks
-- add MIPS callbacks
-- finish PPC32 callbacks
 - consider moving bindings into dyncall/ such that releases include it in the future
   * or, alternatively, pack them separately and put them on the website, for releases
 - add note to documentation, that bindings are svn-only ATM
@@ -87,6 +85,7 @@ nice to have:
 bugs:
 -----
 - vararg function calls don't work for PPC32 System V ABI
+- callbacks don't work for PPC32 System V ABI
 - vararg function calls don't work for ARM THUMB mode (Daniel's new interface for modesetting for varag
   args should be used); adapt test/ellipsis
 
