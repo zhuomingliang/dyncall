@@ -51,10 +51,11 @@ dyncallback:
 
 urgent issues:
 --------------
+- add SPARC/SPARC64 calling conventions to doc's callconv-appendix !!!
 - finish dyncallback doc, finish dynload doc, add both to troff doc
 - Haiku/gmake build doesn't build dynload due to the fact, that elf.h is not found
-  * does Haiku use ELF?
-  * implement Haiku/dynload if not
+  on default installations (one has to install the system headers)
+  * add to doc
 - dyncall_thunk.h is the only header that will be exposed to clients, that includes
   platform specific headers - would be nice to be able to only ship non-platform
   specific headers
@@ -75,7 +76,7 @@ nice to have:
 -------------
 - enhance manual with a couple of examples (e.g. calling MessageBoxA on windows, etc.)
 - update: microsoft visual c++ build files - integrate all test suites in solution file
-- rename iPhoneOS to iOS
+- rename iPhoneOS to iOS (mostly done)
 - maybe rename DC__Arch_PowerPC to ...PPC32 for coherency reasons (...PPC64)?
 - consistency: on x64 platforms: make both ABIs available ('win64','sysv') for all x64 OS ports
 - microsoft build enhancement: autodetect assembly via C preprocessor (like with .S gcc files)
@@ -91,7 +92,6 @@ bugs:
 
 missing implementations (descending priority):
 ----------------------------------------------
-- sparc, sparc64
 - ppc64
 - itanium
 - 68k, 88k, 6502, etc.

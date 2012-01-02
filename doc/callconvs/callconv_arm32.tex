@@ -246,10 +246,10 @@ for parameters passed via the stack. Refer to the Debian ARM EABI port wiki for 
 
 \newpage
 
-\subsubsection{ARM on Apple's Darwin iPhoneOS Platform}
+\subsubsection{ARM on Apple's iOS (Darwin) Platform}
 
 
-The iPhoneOS runs on ARMv6 (iPhone OS 2.0) and ARMv7 (iPhone OS 3.0) architectures.
+The iOS runs on ARMv6 (iOS 2.0) and ARMv7 (iOS 3.0) architectures.
 Typically code is compiled in Thumb mode.
 
 \paragraph{Register usage}
@@ -265,7 +265,7 @@ Name         & Brief description\\
 {\bf R4-R6}  & permanent\\
 {\bf R7}     & frame pointer, permanent\\
 {\bf R8}     & permanent\\
-{\bf R9}     & permanent(iPhone OS 2.0) and scratch (since iPhone OS 3.0)\\
+{\bf R9}     & permanent(iOS 2.0) and scratch (since iOS 3.0)\\
 {\bf R10-R11}& permanent\\
 {\bf R12}    & scratch, intra-procedure scratch register (IP) used by dynamic linker\\
 {\bf R13}    & stack pointer, permanent\\
@@ -278,14 +278,14 @@ Name         & Brief description\\
 {\bf FPSCR}  & VFP status register.\\
 \hline
 \end{tabular}
-\caption{Register usage on ARM Apple Darwin iPhone OS}
+\caption{Register usage on ARM Apple iOS}
 \end{table}
 
 The ABI is based on the AAPCS but with some important differences listed below:
 
 \begin{itemize}
 \item R7 instead of R11 is used as frame pointer
-\item R9 is scratch since iPhone OS 3.0, was preserved before.
+\item R9 is scratch since iOS 3.0, was preserved before.
 \end{itemize}
 
 \subsubsection{Architectures}
