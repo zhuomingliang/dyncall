@@ -1,5 +1,7 @@
 This file lists big/noteworthy changes, only...
 
+Version 0.8 (upcoming)
+
 Version 0.7
 architecture:
   o added subproject: portasm - portable (GNU AS,+Apple and MASM) assembly framework  
