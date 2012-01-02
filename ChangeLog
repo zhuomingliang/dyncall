@@ -1,6 +1,6 @@
 This file lists big/noteworthy changes, only...
 
-Version 0.7 (upcoming)
+Version 0.7
 architecture:
   o added subproject: portasm - portable (GNU AS,+Apple and MASM) assembly framework  
   o added subproject: autovar - predefined macro framework (was dyncall_macros.h)
