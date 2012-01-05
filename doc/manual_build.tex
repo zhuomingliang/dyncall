@@ -33,8 +33,8 @@ However, as the number of source files to be compiled for a given
 platform is small, it shouldn't be difficult to build it manually with
 another toolchain.
 \begin{itemize}
-\item C compiler to build the \product{dyncall} library (GCC or Microsoft C/C++ compiler)
-\item C++ compiler to build the optional test cases (GCC or Microsoft C/C++ compiler)
+\item C compiler to build the \product{dyncall} library (GCC, SunPro or Microsoft C/C++ compiler)
+\item C++ compiler to build the optional test cases (GCC, SunPro or Microsoft C/C++ compiler)
 \item BSD make, GNU make, or Microsoft nmake as automated build tools
 \item Python (optional - for generation of some test cases)
 \item Lua (optional - for generation of some test cases)
@@ -96,7 +96,7 @@ one, please let us know.\\
                               &                                                      \\
 
 
-{\bf{\large ARM32}}           &                                                      \\
+{\bf{\large ARM}}             &                                                      \\
 \hline\hline
 {\bf NetBSD}                  & BSD make                                             \\
 {\bf Linux}                   & GNU make                                             \\
@@ -108,7 +108,26 @@ one, please let us know.\\
 
 {\bf{\large MIPS32}}          &                                                      \\
 \hline\hline
+{\bf OpenBSD}                 & BSD make                                             \\
 {\bf Playstation Portable}    & GNU make (and psptoolchain\cite{psptoolchain} tools) \\
+\hline
+                              &                                                      \\
+                              &                                                      \\
+
+{\bf{\large SPARC}}           &                                                      \\
+\hline\hline
+{\bf Linux}                   & GNU make (using Makefile.embedded)                   \\
+{\bf Solaris}                 & GNU make, Sun's make (both using Makefile.embedded)  \\
+{\bf OpenBSD}                 & BSD make (using Makefile.embedded)                   \\
+\hline
+                              &                                                      \\
+                              &                                                      \\
+
+{\bf{\large SPARC64}}         &                                                      \\
+\hline\hline
+{\bf Linux}                   & GNU make (using Makefile.embedded)                   \\
+{\bf Solaris}                 & GNU make, Sun's make (both using Makefile.embedded)  \\
+{\bf OpenBSD}                 & BSD make (using Makefile.embedded)                   \\
 \hline
 
 \end{tabular}\\
@@ -119,7 +138,7 @@ one, please let us know.\\
 
 
 \begin{enumerate}
-\item Configure the source
+\item Configure the source (not needed for Makefile.embedded)
 
 \paragraph{*nix flavour}
 \begin{lstlisting}
@@ -142,62 +161,68 @@ one, please let us know.\\
 Available options (not on Plan9, though):
 
 \begin{tabular}{ll}	
-{\tt help}                 & display help \\
-{\tt prefix={\it path}}    & specify installation prefix (Unix shell) \\
-{\tt prefix} {\it path}    & specify installation prefix (Windows batch) \\
-{\tt prefix-bd={\it path}} & specify build directory prefix (Unix shell) \\
-{\tt prefix-bd {\it path}} & specify build directory prefix (Windows batch) \\
-{\tt target-x86}           & build for x86 architecture \\
-{\tt target-x64}           & build for x64 architecture \\
-{\tt target-ppc32}         & build for ppc 32-bit architecture (not on windows batch)\\
-{\tt target-psp}           & cross-compile build for Playstation Portable (homebrew SDK)\\
-{\tt target-arm-arm}       & build for ARM architecture (using ARM mode) \\
-{\tt target-arm-thumb}     & build for ARM architecture (using THUMB mode) \\
-{\tt target-nds-arm}       & cross-compile build for Nintendo DS (using ARM mode) \\
-{\tt target-nds-thumb}     & cross-compile build for Nintendo DS (using THUMB mode) \\
-{\tt target-cygwin}        & build for Cygwin platform \\
-{\tt target-windows}       & build for Windows platform (MinGW, etc.) \\
-{\tt target-macosx}        & build for Mac OS X platform \\
-{\tt target-iphoneos}      & build for iPhone OS platform \\
-{\tt target-universal}     & build universal binaries (for Mac OS X/Darwin) \\
-{\tt tool-gcc}             & use GNU Compiler Collection tool-chain \\
-{\tt tool-msvc}            & use Microsoft Visual C++ \\
-{\tt tool-pspsdk}          & use PSP SDK tool-chain \\
-{\tt asm-as}               & use the GNU Assembler \\
-{\tt asm-nasm}             & use NASM Assembler \\
-{\tt asm-ml}               & use Microsoft Macro Assembler \\
+{\tt help}                         & display help \\
+{\tt prefix={\it path}}            & specify installation prefix (Unix shell) \\
+{\tt prefix} {\it path}            & specify installation prefix (Windows batch) \\
+{\tt prefix-bd={\it path}}         & specify build directory prefix (Unix shell) \\
+{\tt prefix-bd {\it path}}         & specify build directory prefix (Windows batch) \\
+{\tt target-x86}                   & build for x86 architecture \\
+{\tt target-x64}                   & build for x64 architecture \\
+{\tt target-ppc32}                 & build for ppc 32-bit architecture (not on windows batch)\\
+{\tt target-psp}                   & cross-compile build for Playstation Portable (homebrew SDK)\\
+{\tt target-arm-arm}               & build for ARM architecture (using ARM mode) \\
+{\tt target-arm-thumb}             & build for ARM architecture (using THUMB mode) \\
+{\tt target-nds-arm}               & cross-compile build for Nintendo DS (using ARM mode) \\
+{\tt target-nds-thumb}             & cross-compile build for Nintendo DS (using THUMB mode) \\
+{\tt target-cygwin}                & build for Cygwin platform \\
+{\tt target-windows}               & build for Windows platform (MinGW, etc.) \\
+{\tt target-macosx}                & build for Mac OS X platform \\
+{\tt target-iphoneos}              & build for iPhone OS platform \\
+{\tt target-universal}             & build universal binaries (for Mac OS X/Darwin) \\
+{\tt tool-gcc}                     & use GNU Compiler Collection tool-chain \\
+{\tt tool-msvc}                    & use Microsoft Visual C++ \\
+{\tt tool-pspsdk}                  & use PSP SDK tool-chain \\
+{\tt asm-as}                       & use the GNU Assembler \\
+{\tt asm-nasm}                     & use NASM Assembler \\
+{\tt asm-ml}                       & use Microsoft Macro Assembler \\
 {\tt with-iphonesdk={\it version}} & use iPhone SDK version \\
-{\tt config-release}       & build release version (default) \\
-{\tt config-debug}         & build debug version \\
+{\tt config-release}               & build release version (default) \\
+{\tt config-debug}                 & build debug version \\
 \end{tabular}
 
 \item Build the static libraries \product{dyncall}, \product{dynload} and \product{dyncallback}
 \begin{lstlisting}
-make                     # when using {GNU,BSD} Make
-bsdmake                  # when using BSD Make on Darwin
-make -f BSDmakefile      # when using BSD Make on NetBSD
-nmake /f Nmakefile       # when using NMake on Windows
-mk                       # when mk on Plan9
+make                      # for {GNU,BSD} Make
+make -f Makefile.embedded # for {GNU,BSD} Make and Makefile.embedded
+bsdmake                   # for BSD Make on Darwin
+make -f BSDmakefile       # for BSD Make on NetBSD
+nmake /f Nmakefile        # for NMake on Windows
+mk                        # for mk on Plan9
 \end{lstlisting}
+
 \item Install libraries and includes (supported for GNU make based builds, only)
 \begin{lstlisting}
 make install 
+make -f Makefile.embedded DESTDIR=$DIR install # for Makefile.embedded
 \end{lstlisting}
+
 \item Optionally, build the test suites
 \begin{lstlisting}
-make test                # when using {GNU,BSD} Make
-bsdmake test             # when using BSD Make on Darwin
-make -f BSDmakefile test # when using BSD Make on NetBSD
-nmake /f Nmakefile test  # when using NMake on Windows
-mk test                  # when using mk on Plan9
+make test                       # for {GNU,BSD} Make
+make -f Makefile.embedded tests # for {GNU,BSD} Make and Makefile.embedded
+bsdmake test                    # for BSD Make on Darwin
+make -f BSDmakefile test        # for BSD Make on NetBSD
+nmake /f Nmakefile test         # for NMake on Windows
+mk test                         # for mk on Plan9
 \end{lstlisting}% @@@ check Plan9, should work already
+
 \item Optionally, build the manual (LaTeX required)
 \begin{lstlisting}
-make doc                 # when using {GNU,BSD} Make
-bsdmake doc              # when using BSD Make on Darwin
-make -f BSDmakefile doc  # when using BSD Make on NetBSD
-nmake /f Nmakefile doc   # when using NMake on Windows
-mk doc                   # when using mk on Plan9
+make doc                 # for {GNU,BSD} Make
+bsdmake doc              # for BSD Make on Darwin
+make -f BSDmakefile doc  # for BSD Make on NetBSD
+nmake /f Nmakefile doc   # for on Windows
+mk doc                   # for mk on Plan9
 \end{lstlisting}% @@@ check Plan9 - add code
 \end{enumerate}
 
@@ -217,5 +242,4 @@ make -f Makefile
 
 The \verb@-f Makefile@ is required. Otherwise buildsys/gmake GNUmakefile's 
 would be used per default.
-
 
