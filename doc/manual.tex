@@ -40,7 +40,7 @@
 \usepackage{a4wide}
 \usepackage{multirow}
 \usepackage{color}
-\usepackage{colortab}
+\usepackage{colortbl}
 \usepackage{hhline}
 \usepackage{bigdelim}
 \usepackage{rotating}
@@ -110,51 +110,25 @@
 \definecolor{gray3}{gray}{0.7}
 \definecolor{gray4}{gray}{0.6}
 
-% Check some command line arguments.
-\newif\ifcoloredtables
+% Define some column types for our colortables
+\usepackage{array}
 
-\ifcoloredtables
-	\usepackage{colortbl}
-
-	\newcommand{\cellcA}{\cellcolor{gray1}}
-	\newcommand{\cellcB}{\cellcolor{gray2}}
-	\newcommand{\cellcC}{\cellcolor{gray3}}
-	\newcommand{\cellcD}{\cellcolor{gray4}}
-	\newcolumntype{1}{>{\columncolor{gray1}}l}
-	\newcolumntype{2}{>{\columncolor{gray2}}l}
-	\newcolumntype{3}{>{\columncolor{gray3}}l}
-	\newcolumntype{4}{>{\columncolor{gray4}}l}
-	\newcolumntype{5}{>{\columncolor{gray1}}r}
-	\newcolumntype{6}{>{\columncolor{gray2}}r}
-	\newcolumntype{7}{>{\columncolor{gray3}}r}
-	\newcolumntype{8}{>{\columncolor{gray4}}r}
-	\newcolumntype{A}{>{\columncolor{gray1}}p{\tablewidth}}
-	\newcolumntype{B}{>{\columncolor{gray2}}p{\tablewidth}}
-	\newcolumntype{C}{>{\columncolor{gray3}}p{\tablewidth}}
-	\newcolumntype{D}{>{\columncolor{gray4}}p{\tablewidth}}
-
-	% Fix bizarre coloring of double line table borders of hhline package.
-	\doublerulesepcolor{defbkgd}
-\else
-	\usepackage{array}
-
-	\newcommand{\cellcA}{}
-	\newcommand{\cellcB}{}
-	\newcommand{\cellcC}{}
-	\newcommand{\cellcD}{}
-	\newcolumntype{1}{l}
-	\newcolumntype{2}{l}
-	\newcolumntype{3}{l}
-	\newcolumntype{4}{l}
-	\newcolumntype{5}{r}
-	\newcolumntype{6}{r}
-	\newcolumntype{7}{r}
-	\newcolumntype{8}{r}
-	\newcolumntype{A}{p{\tablewidth}}
-	\newcolumntype{B}{p{\tablewidth}}
-	\newcolumntype{C}{p{\tablewidth}}
-	\newcolumntype{D}{p{\tablewidth}}
-\fi
+\newcommand{\cellcA}{}
+\newcommand{\cellcB}{}
+\newcommand{\cellcC}{}
+\newcommand{\cellcD}{}
+\newcolumntype{1}{l}
+\newcolumntype{2}{l}
+\newcolumntype{3}{l}
+\newcolumntype{4}{l}
+\newcolumntype{5}{r}
+\newcolumntype{6}{r}
+\newcolumntype{7}{r}
+\newcolumntype{8}{r}
+\newcolumntype{A}{p{\tablewidth}}
+\newcolumntype{B}{p{\tablewidth}}
+\newcolumntype{C}{p{\tablewidth}}
+\newcolumntype{D}{p{\tablewidth}}
 
 % listings package related settings
 
@@ -171,11 +145,11 @@
 \newcommand{\product}[1]{\emph{#1}}
 
 % colors used to signalize undefined, not used, supported, etc. states.
-\newcommand{\marknull}{\color{white}}
-\newcommand{\markimpl}{\color{green}}
-\newcommand{\marknimp}{\color{red}}
-\newcommand{\markunkn}{\color{yellow}}
-\newcommand{\marknotx}{\color{gray1}}
+\newcommand{\marknull}{\cellcolor{white}}
+\newcommand{\markimpl}{\cellcolor{green}}
+\newcommand{\marknimp}{\cellcolor{red}}
+\newcommand{\markunkn}{\cellcolor{yellow}}
+\newcommand{\marknotx}{\cellcolor{gray1}}
 
 % table of contents config
 \setcounter{tocdepth}{3}
