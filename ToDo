@@ -54,7 +54,7 @@ dyncallback:
 
 urgent issues:
 --------------
-- add SPARC/SPARC64 calling conventions to doc's callconv-appendix !!!
+- finish SPARC/SPARC64 calling conventions in doc's callconv-appendix !!!
 - finish dyncallback doc, finish dynload doc, add both to troff doc
 - Haiku/gmake build doesn't build dynload due to the fact, that elf.h is not found
   on default installations (one has to install the system headers)
