@@ -123,7 +123,7 @@ dcCall_sparc64:
 	ldd     [%i2+FBASE+REGSIZE*6 ],%f12
 	ldd     [%i2+FBASE+REGSIZE*7 ],%f14
 	ldd     [%i2+FBASE+REGSIZE*8 ],%f16
-        ldd     [%i2+FBASE+REGSIZE*9 ],%f18
+    ldd     [%i2+FBASE+REGSIZE*9 ],%f18
 	ldd     [%i2+FBASE+REGSIZE*10],%f20
 	ldd     [%i2+FBASE+REGSIZE*11],%f22
 	ldd     [%i2+FBASE+REGSIZE*12],%f24
@@ -233,8 +233,8 @@ dcCall_sparc64:
         /* Skip Register Data, do we nee to copy on stack at all? */
 	sub	%i1,  DHEAD, %i1   		/* skip data header. */
 	cmp     %i1, 0
-        ble	.do_call
-	 nop
+    ble	.do_call
+    nop
 
 	/* Copy loop: */
 	add     %i2,  DHEAD, %i2		/* i2 = skip data header. */
@@ -247,22 +247,22 @@ dcCall_sparc64:
 	add     %l0, REGSIZE, %l0		/* Increment offset. */
 	sub     %i1, REGSIZE, %i1		/* Decrement copy size. */
 	cmp     %i1, 0
-        bgt     .next
-	 nop
+    bgt     .next
+    nop
 .do_call:
 	call	%i0				/* Call target. */
-	 nop
-        or     %o0, %g0, %i0
-        or     %o1, %g0, %i1
-        or     %o2, %g0, %i2
-        or     %o3, %g0, %i3
+    nop
+    or     %o0, %g0, %i0
+    or     %o1, %g0, %i1
+    or     %o2, %g0, %i2
+    or     %o3, %g0, %i3
 	return  %i7 + 8
-	 nop
+    nop
 /*
         or      %o0, %g0, %i0
 	jmpl %i7 + 8, %g0
-	 nop
-        restore
+    nop
+    restore
 	ret
 */
 
