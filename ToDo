@@ -54,6 +54,7 @@ dyncallback:
 
 urgent issues:
 --------------
+- be less restrictive about cygwin version (see http://irclog.perlgeek.de/perl6/2012-01-13)
 - finish SPARC/SPARC64 calling conventions in doc's callconv-appendix !!!
   * fix stupid doublerulesepcolor crap after switching to colortbl
 - finish dyncallback doc, finish dynload doc, add both to troff doc
