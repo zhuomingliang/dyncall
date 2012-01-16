@@ -1,6 +1,8 @@
 This file lists big/noteworthy changes, only...
 
 Version 0.8 (upcoming)
+buildsys:
+  o relaxed overly strict cygwin/msys platform guessing in configure script
 
 Version 0.7
 architecture:
