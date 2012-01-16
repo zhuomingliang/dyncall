@@ -101,13 +101,16 @@ CONFIG_OS=""
 guess_os()
 {
   OS=`uname -s`
+  # if sed is installed, use it to strip some cygwin/msys version numbers from uname -s
+  if [ `which sed` ]; then OS=`uname -s | sed s/_NT-.*/_NT/`; fi
+
   if [ "$OS" = "WindowsNT" ]; then
     CONFIG_OS="windows"
   elif [ "$OS" = "Darwin" ]; then
     CONFIG_OS="darwin"
-  elif [ "$OS" = "CYGWIN_NT-5.1" ]; then
+  elif [ "$OS" = "CYGWIN_NT" ]; then
     CONFIG_OS="cygwin"
-  elif [ "$OS" = "MINGW32_NT-5.1" ]; then
+  elif [ "$OS" = "MINGW32_NT" ]; then
     CONFIG_OS="msys"
   elif [ "$OS" = "Linux" ]; then
     CONFIG_OS="linux"
@@ -134,7 +137,7 @@ guess_os()
 guess_arch()
 {
   # OS Specifics
-  if [ "$OS" = "SunOS" ]; then
+  if [ "$CONFIG_OS" = "sunos" ]; then
     ARCH=`uname -p`
     if [ "$ARCH" = "sparc" ]; then
       if [ "`isainfo -n`" = "sparcv9" ]; then
@@ -149,7 +152,7 @@ guess_arch()
         CONFIG_ARCH="x86"
       fi
     fi
-  elif [ "$OS" = "Darwin" ]; then
+  elif [ "$CONFIG_OS" = "darwin" ]; then
     # Mac OS X and iPhone OS config:
     PROCESSOR=`uname -p`
     if [ "$PROCESSOR" = "arm" ]; then
@@ -169,6 +172,12 @@ guess_arch()
     elif [ "$PROCESSOR" = "powerpc" ]; then
       CONFIG_ARCH="ppc32"
     fi
+  elif [ "$CONFIG_OS" = "cygwin" ] || [ "$CONFIG_OS" = "msys" ]; then
+      if [ `uname -s | grep WOW64` ]; then
+        CONFIG_ARCH="x64"
+      else
+        CONFIG_ARCH="x86"
+      fi
   else
     ARCH=`uname -m`
     if [ "$ARCH" = "Power Macintosh" ] || [ "$ARCH" = "ppc" ] || [ "$ARCH" = "macppc" ] || [ "$ARCH" = "powerpc" ]; then
