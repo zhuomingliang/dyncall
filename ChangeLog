@@ -3,6 +3,7 @@ This file lists big/noteworthy changes, only...
 Version 0.8 (upcoming)
 buildsys:
   o relaxed overly strict cygwin/msys platform guessing in configure script
+  o made configure.bat guess x64 as target arch for x64 windows hosts
 
 Version 0.7
 architecture:
