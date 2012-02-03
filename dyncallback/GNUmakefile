@@ -61,6 +61,10 @@ ifdef BUILD_TOOL_gcc
 UNITS += dyncall_callback_arch
 endif
 
+ifdef BUILD_TOOL_androidndk
+UNITS += dyncall_callback_arch
+endif
+
 ifdef BUILD_TOOL_llvm_gcc
 UNITS += dyncall_callback_arch
 endif

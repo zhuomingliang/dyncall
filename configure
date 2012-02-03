@@ -77,13 +77,16 @@ usage()
   echo "  --tool-gcc         use GNU Compiler Collection"
   echo "  --tool-pcc         use Portable C Compiler"
   echo "  --tool-msvc        use Microsoft Visual C++"
-  echo "  --tool-pspsdk      use PSP SDK tool-chain"
+  echo "  --tool-pspsdk      use PSP SDK toolchain"
   echo "  --tool-llvm-gcc    use LLVM-GCC C/C++ compilers"
+  echo "  --tool-androidndk  use Android NDK toolchain"
   echo 
   echo "  --with-iphonesdk=<version>"
   echo "                     with iPhone SDK version (2.0-4.0)"
   echo "  --with-macosxsdk=<version>"
   echo "                     with Mac OS X SDK version (10.4u, 10.5, 10.6)"
+  echo "  --with-androidndk=<prefix>"
+  echo "                     with Android NDK toolchain prefix (e.g. ~/bin/android-ndk-r5b/toolchains/arm-eabi-4.4.0/prebuilt/darwin-x86/bin/arm-eabi-)"
   echo 
   echo "  --asm-as           use GNU Assembler"
   echo "  --asm-nasm         use NASM Assembler"
@@ -252,6 +255,15 @@ args()
       --with-macosxsdk=*)
         CONFIG_MACOSXSDK_VERSION=`echo $OPT | cut -c 18-`
         ;;
+      --with-androidndk=*)
+      	CONFIG_ANDROID_TOOLS_PREFIX=`echo $OPT | cut -c 19-`
+      	CONFIG_OS=android
+      	CONFIG_TOOL=androidndk
+      	CONFIG_ASM=${ANDROID_TOOLS_PREFIX}gcc
+      	;;
+      --with-sysroot=*)
+      	CONFIG_SYSROOT=`echo $OPT | cut -c 16-`
+        ;;
       --target-universal)
         CONFIG_ARCH=universal
         ;;
@@ -319,6 +331,11 @@ args()
         CONFIG_TOOL=pspsdk
         CONFIG_ASM=as
         CONFIG_PREFIX=`psp-config -P`
+        ;;
+      --tool-androidndk)
+      	CONFIG_OS=android
+      	CONFIG_TOOL=androidndk
+      	CONFIG_ASM=${CONFIG_ANDROID_TOOLS_PREFIX}gcc
         ;;
       --tool-llvm-gcc)
         CONFIG_TOOL=llvm_gcc
@@ -419,8 +436,17 @@ output()
   if [ $CONFIG_IPHONESDK_VERSION ]; then
     echo "CONFIG_IPHONESDK_VERSION=$CONFIG_IPHONESDK_VERSION" >>$1
   fi
+  if [ $CONFIG_ANDROIDNDK_HOME ]; then
+    echo "CONFIG_ANDROIDNDK_HOME=$CONFIG_ANDROIDNDK_HOME" >>$1
+  fi
   if [ $CONFIG_MACOSXSDK_VERSION ]; then
     echo "CONFIG_MACOSXSDK_VERSION=$CONFIG_MACOSXSDK_VERSION" >>$1
+  fi
+  if [ $CONFIG_ANDROID_TOOLS_PREFIX ]; then
+    echo "CONFIG_ANDROID_TOOLS_PREFIX=$CONFIG_ANDROID_TOOLS_PREFIX" >>$1
+  fi
+  if [ $CONFIG_SYSROOT ]; then
+    echo "CONFIG_SYSROOT=$CONFIG_SYSROOT" >>$1
   fi
   echo "" >>$1
 }
