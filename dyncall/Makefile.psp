@@ -20,20 +20,24 @@
 TARGET_LIB = libdyncall_s.a
 
 OBJS = \
-	dyncall.o \
 	dyncall_vector.o \
+	dyncall_api.o \
+	dyncall_callvm.o \
+	dyncall_callvm_base.o \
+	dyncall_struct.o \
 	dyncall_callf.o \
-	dyncall_callvm_mips_eabi.o \
-	dyncall_mips_eabi.o
+	dyncall_call.o
 
 HEADERS = \
 	dyncall_macros.h \
 	dyncall_config.h \
 	dyncall_types.h \
+	dyncall.h \
 	dyncall_signature.h \
 	dyncall_value.h \
 	dyncall_callf.h \
-	dyncall.h
+	dyncall_alloc.h
+
 
 PSPSDK = $(shell psp-config --pspsdk-path)
 include $(PSPSDK)/lib/build.mak
