@@ -65,6 +65,19 @@ void dcTest_deInitPlatform()
 
 #elif defined(DC__OS_PSP)
 
+#include <pspkernel.h>
+#include <pspiofilemgr.h>
+#include <pspmodulemgr.h>
+#include <pspdisplay.h>
+#include <pspdebug.h>
+#include <pspusb.h>
+#include <pspusbstor.h>
+#include <pspthreadman.h>
+#include <pspctrl.h>
+#include <pspsdk.h>
+
+PSP_MODULE_INFO("dyncall_test",0,1,1);
+
 /*  
 int exit_callback(int arg1, int arg2, void* common) 
 {

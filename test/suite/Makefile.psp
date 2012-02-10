@@ -19,7 +19,10 @@
 
 TARGET = suite
 
-OBJS = 
+OBJS = case.o main.o
+CPPFLAGS += -I../../dyncall
+LIBDIR += ../../dyncall
+LIBS += -lm -ldyncall_s
 
 PSPSDK = $(shell psp-config --pspsdk-path)
 include $(PSPSDK)/lib/build.mak
