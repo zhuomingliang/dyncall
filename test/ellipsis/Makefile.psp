@@ -1,6 +1,6 @@
 #//////////////////////////////////////////////////////////////////////////////
 #
-# Copyright (c) 2007,2009 Daniel Adler <dadler@uni-goettingen.de>, 
+# Copyright (c) 2007-2012 Daniel Adler <dadler@uni-goettingen.de>, 
 #                         Tassilo Philipp <tphilipp@potion-studios.com>
 #
 # Permission to use, copy, modify, and distribute this software for any
@@ -17,12 +17,14 @@
 #
 #//////////////////////////////////////////////////////////////////////////////
 
-DIRS = suite suite2 suite3 suite_floats ellipsis callf plain plain_c++
+TARGET = ellipsis
 
-.PHONY: all clean tests install $(DIRS) 
+OBJS = ellipsis.o main.o
+CPPFLAGS += -I../../dyncall
+LIBDIR += ../../dyncall
+LIBS += -lm -ldyncall_s
+BUILD_PRX=1
 
-all clean install: $(DIRS)
-
-$(DIRS):
-	$(MAKE) -C $@ -f Makefile.psp $(MAKECMDGOALS)
+PSPSDK = $(shell psp-config --pspsdk-path)
+include $(PSPSDK)/lib/build.mak
 
