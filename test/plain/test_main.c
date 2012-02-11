@@ -25,10 +25,10 @@
 
 
 
-#include "../common/platformInit.h"
 #include "test_framework.h"
 #include "../../dyncall/dyncall.h"
 #include <stdio.h>
+#include "../common/platformInit.h"
 
 /* ------------------------------------------------------------------------- 
  * test: identity function calls 

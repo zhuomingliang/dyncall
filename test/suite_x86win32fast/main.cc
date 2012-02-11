@@ -24,12 +24,12 @@
 */
 
 
-#include "../common/platformInit.h"
 #include "../../dyncall/dyncall.h"
 #include "config.h"
 #include "../../dyncall/dyncall_value.h"
 #include "../../dyncall/dyncall_macros.h"
 #include <math.h>
+#include "../common/platformInit.h"
 
 
 int   getId();

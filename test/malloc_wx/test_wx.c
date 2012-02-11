@@ -25,8 +25,8 @@
 
 
 #include "../../dyncallback/dyncall_alloc_wx.h"
-#include "../common/platformInit.h"
 #include <stdio.h>
+#include "../common/platformInit.h"
 
 
 int main()

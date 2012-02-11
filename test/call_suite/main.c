@@ -22,11 +22,11 @@
    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 */
-#include "../common/platformInit.h"
 #include "dyncall.h"
 #include "globals.h"
 #include <stdio.h>
 #include <string.h>
+#include "../common/platformInit.h"
 
 char  linebuf[1024];
 void* G_callvm;

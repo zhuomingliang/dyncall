@@ -24,13 +24,13 @@
 */
 
 
-#include "../common/platformInit.h"
 #include "config.h"
 #include <math.h>
 #include "../../dyncall/dyncall.h"
 #include "../../dyncall/dyncall_value.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "../common/platformInit.h"
 
 int       getId();
 DCpointer getFunc(int x);

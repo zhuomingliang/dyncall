@@ -78,49 +78,42 @@ void dcTest_deInitPlatform()
 
 PSP_MODULE_INFO("dyncall_test",0,1,1);
 
-/*  
-int exit_callback(int arg1, int arg2, void* common) 
+
+#define printf pspDebugScreenPrintf
+
+int exit_callback(int arg1, int arg2, void *common)
 {
   sceKernelExitGame();
   return 0;
 }
 
-int CallbackThread(SceSize args, void* argp) 
+int CallbackThread(SceSize args, void *argp)
 {
   int cbid;
-  cbid = sceKernelCreateCallback("Exit Callback", exit_callback, NULL);
+  cbid = sceKernelCreateCallback("Exit Callback", &exit_callback, NULL);
   sceKernelRegisterExitCallback(cbid);
   sceKernelSleepThreadCB();
   return 0;
 }
 
-int SetupCallbacks() 
-{
-  int thid = 0;
-  thid = sceKernelCreateThread("update_thread", CallbackThread, 0x11, 0xFA0, 0, 0);
-  if (thid >= 0) {
-    sceKernelStartThread(thid,0,0);
-  }
-  return thid;
-}
-*/
-
 void dcTest_initPlatform()
 {
-  /*
   pspDebugScreenInit();
-  int thid = sceKernelCreateThread("update_thread", CallbackThread, 0x11, 0xFA0, 0, 0);
-  if (thid >= 0) {
-    sceKernelStartThread(thid,0,0);
-  }
-  */
+  pspDebugScreenClear();
+
+  int thid = 0;
+  thid = sceKernelCreateThread("update_thread", &CallbackThread, 0x11, 0xFA0, THREAD_ATTR_USER, 0);
+  if (thid >= 0)
+      sceKernelStartThread(thid, 0, 0);
+
+  sceDisplayWaitVblankStart();
+  pspDebugScreenSetXY(0, 0);
 }
 
 void dcTest_deInitPlatform()
 {
-  /*
   sceKernelSleepThread();
-  */
+  sceKernelExitGame();
 }
 
 #else

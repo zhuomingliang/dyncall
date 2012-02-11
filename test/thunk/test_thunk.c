@@ -22,10 +22,10 @@
    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 */
-#include "../common/platformInit.h"
 #include "../../dyncall/dyncall.h"
 #include "../../dyncallback/dyncall_thunk.h"
 #include "../../dyncallback/dyncall_alloc_wx.h"
+#include "../common/platformInit.h"
 
 /**
  ** test: thunks with several allocation modes

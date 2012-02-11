@@ -26,9 +26,9 @@
 
 /* test dcCallF API */
 
-#include "../common/platformInit.h"
 #include "../../dyncall/dyncall_callf.h"
 #include <stdio.h>
+#include "../common/platformInit.h"
 
 /* sample void function */
 

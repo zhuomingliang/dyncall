@@ -24,11 +24,13 @@
 */
 
 
-#include "../common/platformInit.h"
 #include "../../dyncall/dyncall.h"
 #include "config.h"
 #include "../../dyncall/dyncall_value.h"
 #include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include "../common/platformInit.h"
 
 
 int   getId();
@@ -120,8 +122,6 @@ int powerfact(int x, int n)
   return static_cast<int>( pow((double)x,n)+powerfact(x,n-1) );
 }
 
-#include <stdio.h>
-#include <stdlib.h>
 
 bool run_range(int from, int to)
 {

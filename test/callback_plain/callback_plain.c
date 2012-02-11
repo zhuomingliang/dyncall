@@ -22,11 +22,11 @@
    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 */
-#include "../common/platformInit.h"
 #include "../../dyncallback/dyncall_thunk.h"
 #include "../../dyncallback/dyncall_callback_arm32_arm.h"
 #include "../../dyncallback/dyncall_callback.h"
 #include <stdio.h>
+#include "../common/platformInit.h"
 
 
 char cbHandler(DCCallback* cb, DCArgs* args, DCValue* result, void* userdata)

@@ -24,7 +24,6 @@
 */
 
 
-#include "../common/platformInit.h"
 #include "../../dyncall/dyncall.h"
 #include "config.h"
 #include "../../dyncall/dyncall_value.h"
@@ -32,6 +31,7 @@
 #include "funcinfo.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include "../common/platformInit.h"
 
 int   getId();
 DCpointer getFunc(int x);

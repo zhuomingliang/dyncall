@@ -25,7 +25,6 @@
 
 
 
-#include "../common/platformInit.h"
 #include "test_framework.h"
 #include "../../dyncall/dyncall.h"
 #include <cstdio>
@@ -33,6 +32,8 @@
 #include <stdio.h>  
 /* needed by SunPro .. otherwise printf not included */
 #endif
+#include "../common/platformInit.h"
+
 /* ------------------------------------------------------------------------- 
  * test: identity function calls 
  * ------------------------------------------------------------------------- */
