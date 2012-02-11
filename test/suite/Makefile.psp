@@ -1,6 +1,6 @@
 #//////////////////////////////////////////////////////////////////////////////
 #
-# Copyright (c) 2007,2009 Daniel Adler <dadler@uni-goettingen.de>, 
+# Copyright (c) 2007-2012 Daniel Adler <dadler@uni-goettingen.de>, 
 #                         Tassilo Philipp <tphilipp@potion-studios.com>
 #
 # Permission to use, copy, modify, and distribute this software for any
@@ -23,6 +23,7 @@ OBJS = case.o main.o
 CPPFLAGS += -I../../dyncall
 LIBDIR += ../../dyncall
 LIBS += -lm -ldyncall_s
+BUILD_PRX=1
 
 PSPSDK = $(shell psp-config --pspsdk-path)
 include $(PSPSDK)/lib/build.mak
