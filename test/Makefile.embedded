@@ -3,65 +3,65 @@ MAKE_CMD = ${MAKE} -f ${MAKEFILE}
 
 all: all-dyncall all-dyncallback all-dynload
 all-dynload:
-	cd nm ; ${MAKE_CMD}
-	cd resolve_self ; ${MAKE_CMD}
+	cd nm && ${MAKE_CMD}
+	cd resolve_self && ${MAKE_CMD}
 all-dyncall:
-	cd suite ; ${MAKE_CMD}
-	cd call_suite ; ${MAKE_CMD}
-	cd suite2 ; ${MAKE_CMD}
-	cd suite3 ; ${MAKE_CMD}
-	cd suite_floats ; ${MAKE_CMD}
-	cd ellipsis ; ${MAKE_CMD}
-	cd callf ; ${MAKE_CMD}
-	cd plain ; ${MAKE_CMD}
-	cd plain_c++ ; ${MAKE_CMD}
+	cd suite && ${MAKE_CMD}
+	cd call_suite && ${MAKE_CMD}
+	cd suite2 && ${MAKE_CMD}
+	cd suite3 && ${MAKE_CMD}
+	cd suite_floats && ${MAKE_CMD}
+	cd ellipsis && ${MAKE_CMD}
+	cd callf && ${MAKE_CMD}
+	cd plain && ${MAKE_CMD}
+	cd plain_c++ && ${MAKE_CMD}
 all-dyncallback:
-	cd thunk ; ${MAKE_CMD}
-	cd malloc_wx ; ${MAKE_CMD}
-	cd callback_plain ; ${MAKE_CMD}
-	cd callback_suite ; ${MAKE_CMD}
+	cd thunk && ${MAKE_CMD}
+	cd malloc_wx && ${MAKE_CMD}
+	cd callback_plain && ${MAKE_CMD}
+	cd callback_suite && ${MAKE_CMD}
 all-c:
-	cd plain ; ${MAKE_CMD}
-	cd syscall ; ${MAKE_CMD}
-	cd suite ; ${MAKE_CMD}
-	cd call_suite ; ${MAKE_CMD}
-	cd callf ; ${MAKE_CMD}
-	cd nm ; ${MAKE_CMD}
-	cd resolve_self ; ${MAKE_CMD}
-	cd thunk ; ${MAKE_CMD}
-	cd malloc_wx ; ${MAKE_CMD}
-	cd callback_plain ; ${MAKE_CMD}
-	cd callback_suite ; ${MAKE_CMD}
+	cd plain && ${MAKE_CMD}
+	cd syscall && ${MAKE_CMD}
+	cd suite && ${MAKE_CMD}
+	cd call_suite && ${MAKE_CMD}
+	cd callf && ${MAKE_CMD}
+	cd nm && ${MAKE_CMD}
+	cd resolve_self && ${MAKE_CMD}
+	cd thunk && ${MAKE_CMD}
+	cd malloc_wx && ${MAKE_CMD}
+	cd callback_plain && ${MAKE_CMD}
+	cd callback_suite && ${MAKE_CMD}
 all-win32:
-	cd suite_x86win32std  ; ${MAKE_CMD}
-	cd suite_x86win32fast ; ${MAKE_CMD}
-	cd suite2_x86win32std ; ${MAKE_CMD}
-	cd suite2_x86win32fast ; ${MAKE_CMD}
+	cd suite_x86win32std  && ${MAKE_CMD}
+	cd suite_x86win32fast && ${MAKE_CMD}
+	cd suite2_x86win32std && ${MAKE_CMD}
+	cd suite2_x86win32fast && ${MAKE_CMD}
 run-all-win32:
 	suite_X86win32std/suite_x86win32std
 	suite_X86win32fast/suite_x86win32fast
 	suite2_X86win32std/suite2_x86win32std
 	suite2_X86win32fast/suite2_x86win32fast
 all-unix:
-	cd syscall ; ${MAKE_CMD}
+	cd syscall && ${MAKE_CMD}
 clean:
-	cd plain ; ${MAKE_CMD} clean
-	cd plain_c++ ; ${MAKE_CMD} clean
-	cd syscall ; ${MAKE_CMD} clean
-	cd suite ; ${MAKE_CMD} clean
-	cd call_suite ; ${MAKE_CMD} clean
-	cd suite2 ; ${MAKE_CMD} clean
-	cd suite3 ; ${MAKE_CMD} clean
-	cd suite_floats ; ${MAKE_CMD} clean
-	cd callback_plain ; ${MAKE_CMD} clean
-	cd callback_suite ; ${MAKE_CMD} clean
-	cd ellipsis ; ${MAKE_CMD} clean
-	cd callf ; ${MAKE_CMD} clean
-	cd nm ; ${MAKE_CMD} clean
-	cd resolve_self ; ${MAKE_CMD} clean
-	cd thunk ; ${MAKE_CMD} clean
-	cd malloc_wx ; ${MAKE_CMD} clean
-	cd syscall ; ${MAKE_CMD} clean
+	cd plain && ${MAKE_CMD} clean
+	cd plain_c++ && ${MAKE_CMD} clean
+	cd syscall && ${MAKE_CMD} clean
+	cd suite && ${MAKE_CMD} clean
+	cd call_suite && ${MAKE_CMD} clean
+	cd suite2 && ${MAKE_CMD} clean
+	cd suite3 && ${MAKE_CMD} clean
+	cd suite_floats && ${MAKE_CMD} clean
+	cd callback_plain && ${MAKE_CMD} clean
+	cd callback_suite && ${MAKE_CMD} clean
+	cd ellipsis && ${MAKE_CMD} clean
+	cd callf && ${MAKE_CMD} clean
+	cd nm && ${MAKE_CMD} clean
+	cd resolve_self && ${MAKE_CMD} clean
+	cd thunk && ${MAKE_CMD} clean
+	cd malloc_wx && ${MAKE_CMD} clean
+	cd syscall && ${MAKE_CMD} clean
 bsd:
 	LDFLAGS="${LDFLAGS} -lm" ${MAKE_CMD} all
 linux:
