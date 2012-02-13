@@ -18,6 +18,12 @@ Build using buildsys/gmake and MinGW:
     .\configure.bat /target-x64 /tool-gcc
     make
 
+
+Build using Makefile.embedded and MinGW:
+
+    mingw32-make -f Makefile.embedded mingw32
+
+
 Build using CMake and Nmake:
 
   Put the appropriate tool-chain in path (32 or 64-bit version of MSVC), then:
