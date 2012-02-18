@@ -37,5 +37,9 @@ endif
 LINK_LIBS	= dynload_s 
 #dyncall_s
 
+ifdef BUILD_OS_linux
+LINK_LIBS	+= dl
+endif
+
 include $(TOP)/buildsys/gmake/epilog.gmake
 
