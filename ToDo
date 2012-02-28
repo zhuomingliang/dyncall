@@ -35,6 +35,7 @@ dyncall:
 - support for return values: aggregate return values
 - support for argument values: structures, half-precision, vector types, long double
 - varargs for x64, mips
+- add ARM Thumb2 support (armv7, armv7-m)
 
 dynload:
 --------
@@ -51,6 +52,7 @@ dyncallback:
 - add MIPS callbacks
 - finish PPC32 callbacks
 - add Plan9 support
+- add ARM Thumb/Thumb2 support (armv7, armv7-m, armv6-m?)
 
 urgent issues:
 --------------
