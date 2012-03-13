@@ -54,3 +54,7 @@ void dcbFreeCallback(DCCallback* pcb)
   dcFreeWX(pcb, sizeof(DCCallback));
 }
 
+void* dcbGetUserData(DCCallback* pcb)
+{
+  return pcb->userdata;
+}
