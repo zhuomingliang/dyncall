@@ -121,7 +121,7 @@ guess_os()
     CONFIG_OS="sunos"
   elif [ "$OS" = "OpenBSD" ]; then
     CONFIG_OS="openbsd"
-  elif [ "$OS" = "FreeBSD" ]; then
+  elif [ "$OS" = "FreeBSD" ] || [ "$OS" = "GNU/kFreeBSD" ]; then
     CONFIG_OS="freebsd"
   elif [ "$OS" = "NetBSD" ]; then
     CONFIG_OS="netbsd"

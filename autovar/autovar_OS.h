@@ -38,7 +38,7 @@
 #  endif
 #elif defined(__linux__) || defined(__linux) || defined(__gnu_linux__)
 #  define OS_Linux
-#elif defined(__FreeBSD__)
+#elif defined(__FreeBSD__) || defined(__FreeBSD_kernel__)
 #  define OS_FreeBSD
 #elif defined(__OpenBSD__)
 #  define OS_OpenBSD
