@@ -26,11 +26,13 @@ include $(GMAKE_TOP)/prolog.gmake
 DIRS	+= plain plain_c++ call_suite suite suite2 suite3 suite_floats callback_plain callback_suite ellipsis callf nm resolve_self thunk malloc_wx
 
 ifdef BUILD_ARCH_x86
+ifndef BUILD_OS_freebsd # Mainly for GNU/kFreeBSD - doesn't support MS ABI
 DIRS	+= syscall
 DIRS	+= suite_x86win32fast
 DIRS	+= suite_x86win32std
 DIRS	+= suite2_x86win32fast
 DIRS	+= suite2_x86win32std
+endif
 endif
 
 include $(GMAKE_TOP)/epilog.gmake
