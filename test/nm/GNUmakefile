@@ -33,6 +33,9 @@ LINK_LIBS	= dynload_s
 ifdef BUILD_OS_linux
 LINK_LIBS	+= dl
 endif
+ifdef BUILD_OS_freebsd # Mainly for GNU/kFreeBSD
+LINK_LIBS	+= dl
+endif
 
 include $(TOP)/buildsys/gmake/epilog.gmake
 
