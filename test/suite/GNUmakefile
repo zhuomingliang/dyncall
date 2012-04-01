@@ -40,6 +40,9 @@ endif
 ifdef BUILD_OS_sunos
 LINK_LIBS	+= m
 endif
+ifdef BUILD_OS_freebsd # Mainly for GNU/kFreeBSD
+LINK_LIBS	+= m
+endif
 
 include $(GMAKE_TOP)/epilog.gmake
 
