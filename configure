@@ -191,7 +191,7 @@ guess_arch()
       CONFIG_ARCH="x86"
     elif [ "$ARCH" = "amd64" ] || [ "$ARCH" = "x86_64" ] || [ "$ARCH" = "x64" ]; then
       CONFIG_ARCH="x64"
-    elif [ "$ARCH" = "acorn32" ] || [ "$ARCH" = "cats" ] || [ "$ARCH" = "shark" ] || [ "$ARCH" = "armv7l" ] || [ "$ARCH" = "armv5tejl" ]; then
+    elif [ "$ARCH" = "acorn32" ] || [ "$ARCH" = "cats" ] || [ "$ARCH" = "shark" ] || [ "$ARCH" = "armv6l" ] || [ "$ARCH" = "armv7l" ] || [ "$ARCH" = "armv5tejl" ]; then
       CONFIG_ARCH="arm32_arm"
     elif [ "$ARCH" = "BePC" ]; then
       CONFIG_ARCH="x86"
