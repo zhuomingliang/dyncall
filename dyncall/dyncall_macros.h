@@ -209,9 +209,13 @@
 
 #if defined(DC__Arch_ARM_ARM) || defined(DC__Arch_ARM_THUMB)
 # if defined(__ARM_EABI__) || defined(DC__OS_NDS)
-#  define DC__ABI_ARM_EABI
+#  if defined (__ARM_PCS_VFP) && (__ARM_PCS_VFP == 1)
+#    define DC__ABI_ARM_HF
+#  else
+#    define DC__ABI_ARM_EABI
+#  endif
 # elif defined(__APCS_32__)
-#  define DC__ABI_ARM_APCS32
+#  define DC__ABI_ARM_OABI
 # endif
 #endif /* ARM */
 

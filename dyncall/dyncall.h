@@ -62,6 +62,7 @@ typedef struct DCstruct_    DCstruct;
 #define DC_CALL_C_PPC32_OSX             9 /* alias for DC_CALL_C_PPC32_DARWIN */
 #define DC_CALL_C_ARM_ARM_EABI         10
 #define DC_CALL_C_ARM_THUMB_EABI       11
+#define DC_CALL_C_ARM_ARMHF            30
 #define DC_CALL_C_MIPS32_EABI          12
 #define DC_CALL_C_MIPS32_PSPSDK        DC_CALL_C_MIPS_EABI /* deprecated. */
 #define DC_CALL_C_PPC32_SYSV           13
