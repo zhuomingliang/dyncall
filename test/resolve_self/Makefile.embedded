@@ -3,14 +3,14 @@ OBJS = main.o
 
 TOP 	 = ../..
 CFLAGS  += -I${TOP}/dynload
-LDFLAGS += -L${TOP}/dynload -ldynload_s 
+LDLIBS   = -L${TOP}/dynload -ldynload_s ${LDFLAGS}
 
 all: ${APP}
 
 .PHONY: all clean install
 
 ${APP}: ${OBJS} 
-	${CC} ${OBJS} ${LDFLAGS} -o ${APP} 
+	${CC} ${OBJS} ${LDLIBS} -o ${APP} 
 
 clean:
 	rm -f ${APP} ${OBJS}

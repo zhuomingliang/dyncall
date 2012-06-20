@@ -3,7 +3,7 @@ OBJS = nm.o
 
 TOP = ../..
 CFLAGS  += -I${TOP}/dynload
-LDFLAGS += -L${TOP}/dynload -ldynload_s 
+LDLIBS   = -L${TOP}/dynload -ldynload_s ${LDFLAGS}
 # Works on: Darwin, NetBSD.
 # Linux: add '-ldl'
 
@@ -12,7 +12,7 @@ all: ${APP}
 .PHONY: all clean
 
 ${APP}: ${OBJS} 
-	${CC} ${OBJS} ${LDFLAGS} -o ${APP} 
+	${CC} ${OBJS} ${LDLIBS} -o $@
 
 clean:
 	rm -f ${APP} ${OBJS}
