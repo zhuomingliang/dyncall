@@ -53,7 +53,11 @@
 #    include "dyncall_callvm_arm32_arm.c"
 #  endif
 #elif defined(DC__Arch_ARM_THUMB)
-#  include "dyncall_callvm_arm32_thumb.c"
+#  if defined(DC__ABI_ARM_HF)
+#    include "dyncall_callvm_arm32_arm_armhf.c"
+#  else
+#    include "dyncall_callvm_arm32_thumb.c"
+#  endif
 #elif defined(DC__Arch_Sparc)
 #  include "dyncall_callvm_sparc.c"
 #elif defined(DC__Arch_Sparcv9)

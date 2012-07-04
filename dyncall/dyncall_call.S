@@ -52,7 +52,11 @@
 #    if defined(DC__OS_Darwin)
 #      include "dyncall_call_arm32_thumb_apple.s"
 #    else
-#      include "dyncall_call_arm32_thumb_gas.s"
+#      if defined(DC__ABI_ARM_HF)
+#        include "dyncall_call_arm32_thumb_armhf.S"
+#      else
+#        include "dyncall_call_arm32_thumb_gas.s"
+#      endif
 #    endif
 #  elif defined(DC__Arch_PowerPC)
 #    include "dyncall_call_ppc32.S"
