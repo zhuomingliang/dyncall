@@ -178,10 +178,8 @@
 # define DC__Arch_MIPS64
 #elif defined(_M_MRX000) || defined(__mips__) || defined(__mips) || defined(_mips)
 # define DC__Arch_MIPS
-#elif defined(__arm__) && !defined(__thumb__)
-# define DC__Arch_ARM_ARM
-#elif defined(__arm__) && defined(__thumb__)
-# define DC__Arch_ARM_THUMB
+#elif defined(__arm__) 
+# define DC__Arch_ARM
 #elif defined(__sh__)
 # define DC__Arch_SuperH
 #elif defined(__sparcv9) || defined(__sparc64__) || ( defined(__sparc) && defined(__arch64__) ) 
@@ -206,6 +204,12 @@
 
 
 /* Misc machine-dependent quirks. */
+
+#if defined(__arm__) && !defined(__thumb__)
+# define DC__Arch_ARM_ARM
+#elif defined(__arm__) && defined(__thumb__)
+# define DC__Arch_ARM_THUMB
+#endif
 
 #if defined(DC__Arch_ARM_ARM) || defined(DC__Arch_ARM_THUMB)
 # if defined(__ARM_EABI__) || defined(DC__OS_NDS)
