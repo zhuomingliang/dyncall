@@ -167,7 +167,7 @@ guess_arch()
       # We switch to x86_64 if it is darwin 10.
       OS_VERSION=`uname -r`
       OS_VERSION_MAJOR=`echo $OS_VERSION | sed 's/^\([0-9]*\).*/\1/'`
-      if [ "$OS_VERSION_MAJOR" = "10" ] || [ "$OS_VERSION_MAJOR" = "11" ]; then
+      if [ "$OS_VERSION_MAJOR" = "10" ] || [ "$OS_VERSION_MAJOR" = "11" ] || [ "$OS_VERSION_MAJOR" = "12" ]; then
         CONFIG_ARCH="x64"
       else
         CONFIG_ARCH="x86"
