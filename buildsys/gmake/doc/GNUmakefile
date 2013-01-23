@@ -18,6 +18,7 @@
 #//////////////////////////////////////////////////////////////////////////////
 
 TOP = ../../..
+include $(TOP)/buildsys/gmake/prolog.gmake
 TARGET_PDF = gmake-manual.pdf
-include $(TOP)/MakeRules
+include $(TOP)/buildsys/gmake/epilog.gmake
 

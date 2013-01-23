@@ -1,6 +1,6 @@
 %//////////////////////////////////////////////////////////////////////////////
 %
-% Copyright (c) 2007,2009 Daniel Adler <dadler@uni-goettingen.de>, 
+% Copyright (c) 2007-2013 Daniel Adler <dadler@uni-goettingen.de>, 
 %                         Tassilo Philipp <tphilipp@potion-studios.com>
 %
 % Permission to use, copy, modify, and distribute this software for any
@@ -29,6 +29,17 @@
 \author{Daniel Adler}
 \maketitle
 
+\section{Introduction}
+
+The GNU Make-based build system of dyncall was one of the first 
+build systems that we have developed side-by-side with the dyncall release.
+This document gives details on the configuration and build process.
+
+\paragraph{Note} The number of supported build tools for dyncall has grown.
+In particular the plain \file{Makefile.embedded} make files work across
+GNU,BSD and SUN make tools (see \file{README.Embedded}) and the CMake-based 
+(see \file{README.CMake}) are recommented because of simplicty and portability.
+
 \section{Usage}
 
 \subsection{Configuring the project}
@@ -56,9 +67,12 @@ INSTALL_DIR=/usr/local
 \subsection{Building the project}
 
 Type {\tt gmake} or {\tt make}\footnote{some platforms use a different Make tool which is accessible as
-{\tt make} from the command-line. Platforms that need to use {\tt gmake} are: Solaris and all BSD platforms.} on the shell.
+{\tt make} from the command-line. Platforms that need to use {\tt gmake} are: Solaris and many BSD platforms.} on the shell.
 
 \subsection{Phony targets}
+
+The following targets refer to top-level tasks and should be usable from within the command via
+{\tt make <TARGETNAME>}.
 
 \begin{tabular}{ll}
 Target  & Description				\\
@@ -71,11 +85,12 @@ Target  & Description				\\
 \end{tabular}
 
 
-\subsection{Project directory setup}
+\subsection{Creating new build task}
 
-Write up a \file{GNUmakefile} file in some project folder. Specify the
-relative path to the top-level project directory which contains the \file{buildsys} folder
-using the \var{TOP} variable. Your project settings are embedded between
+Create a task folder with sources that include the file \file{GNUmakefile}. 
+Specify the variable \var{TOP} that gives the relative path to the top-level 
+project directory which contains the \file{buildsys} folder (in which buildsys/gmake lives in). 
+Your project settings are embedded between
 two includes, namely the prolog and the epilog files.
 
 \begin{verbatim}
@@ -96,16 +111,23 @@ Specifies the target operating system or embedded run-time platform:
 \begin{tabular}{ll}
 Value         & Description           \\
 \hline
-\val{windows} & Microsoft Windows     \\
-\val{macosx}  & Mac OS X              \\
+\val{android} & Google Android              \\
+\val{beos}    & Haiku                       \\
+\val{cygwin}  & Cygwin on Microsoft Windows \\
+\val{darwin}  & Apple Mac OS X/iOS              \\
+\val{dragonfly} & DragonFly BSD             \\
+\val{freebsd} & FreeBSD or GNU/kFreeBSD \\
 \val{iphoneos}& iPhone OS             \\
 \val{linux}   & Linux                 \\
-\val{sunos}   & SunOS                 \\
-\val{freebsd} & FreeBSD		      \\
-\val{openbsd} & OpenBSD		      \\
-\val{netbsd}  & NetBSD		      \\
-\val{psp}     & Playstation Portable  \\
+\val{macosx}  & Mac OS X              \\
+\val{minix}   & Minix                 \\
+\val{msys}    & MinGW  on Microsoft Windows \\
 \val{nds}     & Nintendo DS           \\
+\val{netbsd}  & NetBSD		      \\
+\val{openbsd} & OpenBSD		      \\
+\val{psp}     & Playstation Portable Homebrew SDK \\
+\val{sunos}   & SunOS                 \\
+\val{windows} & Microsoft Windows     \\
 \end{tabular}
 
 \subsection{BUILD\_ARCH}
@@ -113,13 +135,23 @@ Value         & Description           \\
 Specifies the processor architecture:
 
 \begin{tabular}{ll}
-Value        & Description                 \\
+Value             & Description                 \\
 \hline
-\val{x86}    & X86 32-bit Architecture     \\
-\val{x64}    & X86 64-bit Architecture     \\
-\val{ppc32}  & PowerPC 32-bit Architecture \\
-\val{arm32}  & ARM32 Architecture          \\
-\val{mips32} & MIPS 32-bit Architecture    \\
+\val{arm}         & ARM                         \\
+\val{arm32}       & ARM 32-bit                  \\ 
+\val{arm32\_arm}   & ARM 32-bit ARM ISA          \\
+\val{arm32\_thumb} & ARM 32-bit Thumb ISA        \\
+\val{ia64}        & Itanium                     \\
+\val{mips32}      & MIPS 32-bit                 \\
+\val{mips32el}    & MIPS 32-bit (Little-Endian) \\
+\val{mips64el}    & MIPS 64-bit (Little-Endian) \\
+\val{ppc32}       & PowerPC 32-bit              \\
+\val{ppc64}       & PowerPC 64-bit              \\
+\val{sparc}       & SPARC 32-bit                \\
+\val{sparc64}     & SPARC 64-bit                \\
+\val{universal}   & Mac OS X Universal Binaries \\
+\val{x86}         & X86 32-bit                  \\
+\val{x64}         & X86 64-bit                  \\
 \end{tabular}
 
 \subsection{BUILD\_TOOL}
@@ -127,12 +159,14 @@ Value        & Description                 \\
 Specifies the build tool chain:
 
 \begin{tabular}{ll}
-Value      & Description             \\
+Value            & Description                       \\
 \hline
-\val{gcc}  & GNU Compiler Collection \\
-\val{msvc} & Microsoft Visual C++ (windows) \\
-\val{pspsdk} & Playstation Portable SDK \\
-\val{llvm_gcc} & LLVM with GCC Front-end \\
+\val{androidndk} & Android NDK                       \\ 
+\val{llvm\_gcc}  & LLVM with GCC Front-end           \\
+\val{gcc}        & GNU Compiler Collection           \\
+\val{pcc}        & Portable C Compiler               \\ 
+\val{msvc}       & Microsoft Visual C++ (windows)    \\
+\val{pspsdk}     & Playstation Portable Homebrew SDK \\
 \end{tabular}
 
 \subsection{BUILD\_ASM}
