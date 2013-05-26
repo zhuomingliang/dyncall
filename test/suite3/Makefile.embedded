@@ -4,10 +4,6 @@ TOP	 = ../..
 CFLAGS  += -I${TOP}/dyncall
 LDFLAGS += -L${TOP}/dyncall -ldyncall_s
 
-TOP = ../..
-CFLAGS = -I${TOP}/dyncall
-LDFLAGS = -L${TOP}/dyncall -ldyncall_s
-
 .PHONY: all clean autogen
 
 all: ${APP}

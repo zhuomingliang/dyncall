@@ -27,11 +27,13 @@
 
 #include "test_framework.h"
 #include "../../dyncall/dyncall.h"
-#include <cstdio>
-#ifdef __SUNPRO_CC
-#include <stdio.h>  
 /* needed by SunPro .. otherwise printf not included */
+#if defined(__SUNPRO_CC) || defined(__ANDROID__)
+#include <stdio.h>  
+#else
+#include <cstdio>
 #endif
+
 #include "../common/platformInit.h"
 
 /* ------------------------------------------------------------------------- 

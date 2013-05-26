@@ -27,9 +27,12 @@
 #include "config.h"
 #include "../../dyncall/dyncall.h"
 #include "../../dyncall/dyncall_value.h"
-#include <cstdarg>
-#if defined __SUNPRO_CC
+
+
+#if defined(__SUNPRO_CC) || defined(__ANDROID__)
 #include <stdarg.h>
+#else
+#include <cstdarg>
 #endif
 
 DCValue mValue[NARGS];
@@ -51,8 +54,6 @@ DCValue* getArg(int pos) { return &mValue[pos]; }
 
 int gID;
 int getId() { return gID; }
-
-#include <cstdarg>
 
 extern "C" {
 

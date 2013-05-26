@@ -11,10 +11,10 @@ all-dyncall:
 	cd suite2 && ${MAKE_CMD}
 	cd suite3 && ${MAKE_CMD}
 	cd suite_floats && ${MAKE_CMD}
-	cd ellipsis && ${MAKE_CMD}
 	cd callf && ${MAKE_CMD}
 	cd plain && ${MAKE_CMD}
-	cd plain_c++ && ${MAKE_CMD}
+#	cd plain_c++ && ${MAKE_CMD}
+#	cd ellipsis && ${MAKE_CMD}
 all-dyncallback:
 	cd thunk && ${MAKE_CMD}
 	cd malloc_wx && ${MAKE_CMD}

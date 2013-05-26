@@ -68,5 +68,11 @@
 #  define OS_Unknown
 #endif
 
+/** Platforms. */
+
+#if defined(__ANDROID__)
+#  define OS_Android
+#endif
+
 #endif /* AUTOVAR_OS */
 
