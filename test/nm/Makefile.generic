@@ -1,25 +1,18 @@
-APP = nm
-OBJS = nm.o
-
-TOP = ../..
-CFLAGS += -I${TOP}/dynload
-LDFLAGS += -L${TOP}/dynload -ldynload_s 
+APP     = nm
+OBJS    = nm.o
+SRCTOP  = ${VPATH}/../..
+BLDTOP  = ../..
+CFLAGS += -I${SRCTOP}/dynload
+LDLIBS += -L${BLDTOP}/dynload -ldynload_s 
 # Works on: Darwin, NetBSD.
 # Linux: add '-ldl'
-LINK = ${CC}
-
-all: ${APP}
-
 .PHONY: all clean install
-
-RM      ?= rm -f
-AR      ?= ar
-MKDIR	?= mkdir
-INSTALL	?= install -p
-
+all: ${APP}
 ${APP}: ${OBJS} 
-	${LINK} ${OBJS} ${LDFLAGS} -o ${APP} ${TARGET_ARCH}
-
+	${CC} ${CFLAGS} ${LDFLAGS} ${OBJS} ${LDLIBS} -o ${APP}
 clean:
-	${RM} ${APP} ${OBJS}
+	rm -f ${APP} ${OBJS}
+install:
+	mkdir -p ${PREFIX}/test
+	cp ${APP} ${PREFIX}/test
 

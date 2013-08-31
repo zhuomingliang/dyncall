@@ -1,24 +1,15 @@
-APP = callback_plain
-OBJS = callback_plain.o
-
-SRCTOP ?= ../..
-BLDTOP ?= ${SRCTOP}
-CFLAGS = -I${SRCTOP}/dyncall
-LDFLAGS = -L${BLDTOP}/dyncallback -ldyncallback_s
-LINK = ${CC}
-
-all: ${APP}
-
+APP     = callback_plain
+OBJS    = callback_plain.o
+SRCTOP  = ${VPATH}/../..
+BLDTOP  = ../..
+CFLAGS += -I${SRCTOP}/dyncall
+LDLIBS += -L${BLDTOP}/dyncallback -ldyncallback_s
 .PHONY: all clean install
-
-RM      ?= rm -f
-AR      ?= ar
-MKDIR	?= mkdir
-INSTALL	?= install -p
-
+all: ${APP}
 ${APP}: ${OBJS} 
-	${LINK} ${OBJS} ${LDFLAGS} -o ${APP} ${TARGET_ARCH}
-
+	${CC} ${CFLAGS} ${LDFLAGS} ${OBJS} ${LDLIBS} -o ${APP}
 clean:
-	${RM} ${APP} ${OBJS}
-
+	rm -f ${APP} ${OBJS}
+install:
+	mkdir -p ${PREFIX}/test
+	cp ${APP} ${PREFIX}/test

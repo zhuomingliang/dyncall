@@ -1,6 +1,5 @@
 #!/bin/sh
-
-
+#export PATH=`xcode-select -print-path`/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:${PATH}
 DEVELOPER=`xcode-select -print-path`
 # WORKS: P="${DEVELOPER}/Platforms/iPhoneOS.platform/Developer"
 P="${DEVELOPER}/Toolchains/XcodeDefault.xctoolchain"

@@ -1,23 +1,16 @@
-APP = callf
-OBJS = main.o
-
-TOP = ../..
-CFLAGS = -I${TOP}/dyncall
-LDFLAGS = -L${TOP}/dyncall -ldyncall_s
-LINK = ${CC}
-
-all: ${APP}
-
+APP     = callf
+OBJS    = main.o
+SRCTOP  = ${VPATH}/../..
+BLDTOP  = ../..
+CFLAGS += -I${SRCTOP}/dyncall
+LDLIBS += -L${BLDTOP}/dyncall -ldyncall_s
 .PHONY: all clean install
-
-RM      ?= rm -f
-AR      ?= ar
-MKDIR	?= mkdir
-INSTALL	?= install -p
-
+all: ${APP}
 ${APP}: ${OBJS} 
-	${LINK} ${OBJS} ${LDFLAGS} -o ${APP} ${TARGET_ARCH}
-
+	${CC} ${CFLAGS} ${LDFLAGS} ${OBJS} ${LDLIBS} -o ${APP}
 clean:
-	${RM} ${APP} ${OBJS}
+	rm -f ${APP} ${OBJS}
+install:
+	mkdir -p ${PREFIX}/test
+	cp ${APP} ${PREFIX}/test
 

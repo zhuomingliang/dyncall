@@ -1,23 +1,16 @@
-APP = malloc_wx
-OBJS = test_wx.o
-
-TOP = ../..
-CFLAGS = -I${TOP}/dyncallback -I${TOP}/dyncall
-LDFLAGS = -L${TOP}/dyncallback -ldyncallback_s
-LINK = ${CC}
-
-all: ${APP}
-
+APP     = malloc_wx
+OBJS    = test_wx.o
+SRCTOP  = ${VPATH}/../..
+BLDTOP  = ../..
+CFLAGS += -I${SRCTOP}/dyncallback -I${SRCTOP}/dyncall
+LDLIBS += -L${BLDTOP}/dyncallback -ldyncallback_s
 .PHONY: all clean install
-
-RM      ?= rm -f
-AR      ?= ar
-MKDIR	?= mkdir
-INSTALL	?= install -p
-
+all: ${APP}
 ${APP}: ${OBJS} 
-	${LINK} ${OBJS} ${LDFLAGS} -o ${APP} ${TARGET_ARCH}
-
+	${CC} ${CFLAGS} ${LDFLAGS} ${OBJS} ${LDLIBS} -o ${APP} 
 clean:
-	${RM} ${APP} ${OBJS}
+	rm -f ${APP} ${OBJS}
+install:
+	mkdir -p ${PREFIX}/test
+	cp ${APP} ${PREFIX}/test
 

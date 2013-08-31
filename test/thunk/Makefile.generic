@@ -1,19 +1,16 @@
-APP = thunk
-OBJS = test_thunk.o
-
-SRCTOP   = ../..
-BLDTOP   = ../..
-CFLAGS  += -I${SRCTOP}/dyncallback -I${SRCTOP}/dyncall
-LDFLAGS += -L${BLDTOP}/dyncallback -ldyncallback_s
-LINK = ${CC}
-
+APP     = thunk
+OBJS    = test_thunk.o
+SRCTOP  = ${VPATH}/../..
+BLDTOP  = ../..
+CFLAGS += -I${SRCTOP}/dyncallback -I${SRCTOP}/dyncall
+LDLIBS += -L${BLDTOP}/dyncallback -ldyncallback_s
+.PHONY: all clean install
 all: ${APP}
-
-.PHONY: all clean 
-
 ${APP}: ${OBJS} 
-	${CC} ${OBJS} ${LDFLAGS} -o ${APP} 
-
+	${CC} ${CFLAGS} ${LDFLAGS} ${OBJS} ${LDLIBS} -o ${APP} 
 clean:
-	${RM} ${APP} ${OBJS}
+	rm -f ${APP} ${OBJS}
+install:
+	mkdir -p ${PREFIX}/test
+	cp ${APP} ${PREFIX}/test
 

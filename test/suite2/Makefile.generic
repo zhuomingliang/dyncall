@@ -1,25 +1,18 @@
-APP = suite2
-OBJS = case.o main.o
-
-TOP = ../..
-CFLAGS = -I${TOP}/dyncall
-LDFLAGS = -L${TOP}/dyncall -ldyncall_s
-LINK = ${CXX}
-
+APP       = suite2
+OBJS      = case.o main.o
+SRCTOP    = ${VPATH}/../..
+BLDTOP    = ../..
+CXXFLAGS += -I${SRCTOP}/dyncall
+LDLIBS   += -L${BLDTOP}/dyncall -ldyncall_s
+.PHONY: all clean configure install
 all: ${APP}
-
-.PHONY: all clean install autogen
-
-RM      ?= rm -f
-AR      ?= ar
-MKDIR	?= mkdir
-INSTALL	?= install -p
-
 ${APP}: ${OBJS} 
-	${LINK} ${OBJS} ${LDFLAGS} -o ${APP} ${TARGET_ARCH}
-
+	${CXX} ${CXXFLAGS} ${LDFLAGS} ${OBJS} ${LDLIBS} -o ${APP} 
 clean:
-	${RM} ${APP} ${OBJS}
-
-autogen:
+	rm -f ${APP} ${OBJS}
+configure:
 	python mkcase.py 1>case.h 2>config.h
+install:
+	mkdir -p ${PREFIX}/test
+	cp ${APP} ${PREFIX}/test
+
