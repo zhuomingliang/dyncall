@@ -158,7 +158,7 @@ endif
 # --- last rule ---------------------------------------------------------------
 
 $(BUILD_DIR)/%$(APP_SUFFIX):
-	$(LINKCMD) $^ $(LDFLAGS) $(TARGET_ARCH) $(LDLIBS) $(OUTPUT_OPTION) 
+	$(LINKCMD) $(TARGET_ARCH) $^ $(LDFLAGS) $(LDLIBS) $(OUTPUT_OPTION) 
 
 # --- Dependencies ------------------------------------------------------------
 

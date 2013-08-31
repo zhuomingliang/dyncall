@@ -44,6 +44,8 @@
 #        include "dyncall_callback_ppc32_apple.s"
 #      elif defined(DC__Arch_ARM_ARM)
 #        include "dyncall_callback_arm32_arm_apple.s"
+#      elif defined(DC__Arch_ARM_THUMB)
+#        include "dyncall_callback_arm32_thumb_apple.s"
 #      endif
 #    else 
      /* other than Darwin.. */

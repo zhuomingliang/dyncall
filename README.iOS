@@ -3,12 +3,17 @@ DynCall for apple's iOS platforms (iPod touch, iPhone, iPad)
 
 Environment Setup for Cross-Compilation using iPhone SDK:
 
-  $ source buildsys/scripts/setenv-sdk-ios.sh
+  $ source ./buildsys/scripts/setenv-sdk-ios.sh
   
 
 Package Configuration
 
-  $ ./configure --target-iphoneos --with-iphonesdk=3.2
+  $ ./configure --target-iphoneos --with-iphonesdk=<MAJOR>.<MINOR>
+
+  
+Tested SDK Versions 
+
+  2.0 .. 4.0 , 6.1
 
 
 Building
@@ -22,13 +27,13 @@ Useful configure switches:
 
   --target-iphoneos
   
-  --with-iphoensdk=<version> (tested with 2.0 up to 4.0)
+  --with-iphoensdk=<version> (tested versions 2.0..4.0, 6.1)
 
   --tool-gcc (default)
   --tool-llvm-gcc
 
-  --target-arm32-arm
-  --target-arm32-thumb
+  --target-arm-arm
+  --target-arm-thumb
   --target-universal
 
 
@@ -37,15 +42,35 @@ Supported Tool-chains
   gcc and llvm-gcc
 
 
-Supported SDKs
-
-  SDKs starting with 2.0 up to 4.0 have been tested.
-
 
 Bugs
 
   No armv7 support.
 
+
+TODO
+  armv7[fks]
+
+
+Building with Makefile.embedded ..
+ 
+  ARMv7 for iOS 6.1
+ 
+  $ make -f Makefile.embedded ios61-os
+  $ cd test && make -f Makefile.embedded ios61-os
+  
+  ARMv7 (no thumb) for iOS 6.1
+
+  $ make -f Makefile.embedded ios61-os-nothumb
+  $ cd test && make -f Makefile.embedded ios61-os-nothumb
+
+  Simulator for iOS 6.1
+
+  $ make -f Makefile.embedded ios61-sim
+  $ cd test && make -f Makefile.embedded ios61-sim
+
+  Tested Mac OS X platforms: 10.[7,8]
+  Tested Xcode toolchains: 4.6
 
 Building with Makefile.generic ..
     

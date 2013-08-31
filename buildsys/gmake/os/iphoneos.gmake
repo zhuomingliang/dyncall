@@ -24,6 +24,8 @@ IPHONESDK_VERSION ?= $(CONFIG_IPHONESDK_VERSION)
 
 IPHONESDK_VERSION_MAJOR = $(shell echo $(IPHONESDK_VERSION) | sed 's/^\([0-9]*\).*/\1/')
 
+DEVELOPER = $(shell xcode-select -print-path)
+
 ifeq ("$(IPHONESDK_VERSION_MAJOR)","2")
 CC		  = gcc-4.0
 CXX		  = g++-4.0
@@ -44,8 +46,17 @@ IPHONESDK_ARCHS  += -arch armv6
 # IPHONESDK_ARCHS	 += -arch armv7 -mno-thumb
 endif
 
-TARGET_ARCH 	 += -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS${IPHONESDK_VERSION}.sdk 
+# @@@ TODO:
+ifeq ("$(IPHONESDK_VERSION_MAJOR)","6")
+IPHONESDK_ARCHS  += -arch armv7 -mno-thumb
+# IPHONESDK_ARCHS  += -arch armv7 
+endif
+
+TARGET_ARCH 	 += -isysroot ${DEVELOPER}/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS${IPHONESDK_VERSION}.sdk -miphoneos-version-min=6.1
 TARGET_ARCH	 += ${IPHONESDK_ARCHS}
+#CC="${CC} ${IPHONESDK_ARCHS}"
+#AS="${AS} ${IPHONESDK_ARCHS}"
+#LD="${LD} ${IPHONESDK_ARCHS}"
 
 include $(GMAKE_TOP)/os/darwin.gmake
 

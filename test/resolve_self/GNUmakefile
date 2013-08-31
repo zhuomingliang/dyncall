@@ -31,7 +31,10 @@ LINK_DIRS	= $(TOP)/dynload/$(BUILD_DIR)
 ifdef BUILD_OS_darwin
 LDFLAGS		=
 else
+ifdef BUILD_OS_iphoneos
+else
 LDFLAGS		= -Wl,-E
+endif
 endif
 #$(TOP)/dyncall/$(BUILD_DIR)
 LINK_LIBS	= dynload_s 

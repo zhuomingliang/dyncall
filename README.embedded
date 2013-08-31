@@ -37,6 +37,8 @@ sun                   SunOS and Sun Pro compiler
 sun-64bit             SunOS and Sun Pro compiler for sparc64(? amd64) 
 sun-gcc               SunOS and GCC compiler
 sun-gcc-64bit         SunOS and GCC compiler for sparc64 (? amd64)
+ios61                 iPhoneOS SDK 6.1 armv7  (untested!)
+ios61-nothumb         iPhoneOS SDK 6.1 armv7 -mno-thumb (untested!)
 
 Tweaking the build:
 -------------------
