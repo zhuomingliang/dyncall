@@ -15,6 +15,4 @@ run-tests: all
 distclean: clean
 	rm -f Makefile.config
 	find . -name "Makefile" | xargs rm
-install: all
-	mkdir -p ${PREFIX}/test
 
