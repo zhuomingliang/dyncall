@@ -157,6 +157,7 @@ void dc_callvm_call_arm32_thumb(DCCallVM* in_self, DCpointer target)
 }
 
 
+#if 0
 DClong dc_callvm_call_arm32_thumb_word(DCCallVM* in_self, DCpointer target)
 {
   DCCallVM_arm32_thumb* self = (DCCallVM_arm32_thumb*)in_self;
@@ -171,7 +172,7 @@ DClonglong dc_callvm_call_arm32_thumb_dword(DCCallVM* in_self, DCpointer target)
   // return dcCall_arm32_thumb_dword(target, dcVecData(&self->mVecHead), dcVecSize(&self->mVecHead));
   return ( (call_dword) dcCall_arm32_thumb ) (target, dcVecData(&self->mVecHead), dcVecSize(&self->mVecHead));
 }
-
+#endif
 
 
 DCCallVM_vt gVT_arm32_thumb =
@@ -219,15 +220,15 @@ DCCallVM_vt gVT_arm32_thumb_eabi =
 , &dc_callvm_argPointer_arm32_thumb
 , NULL /* argStruct */
 , (DCvoidvmfunc*)       &dc_callvm_call_arm32_thumb
-, (DCboolvmfunc*)       &dc_callvm_call_arm32_thumb_word
-, (DCcharvmfunc*)       &dc_callvm_call_arm32_thumb_word
-, (DCshortvmfunc*)      &dc_callvm_call_arm32_thumb_word
-, (DCintvmfunc*)        &dc_callvm_call_arm32_thumb_word
-, (DClongvmfunc*)       &dc_callvm_call_arm32_thumb_word
-, (DClonglongvmfunc*)   &dc_callvm_call_arm32_thumb_dword
-, (DCfloatvmfunc*)      &dc_callvm_call_arm32_thumb_word
-, (DCdoublevmfunc*)     &dc_callvm_call_arm32_thumb_dword
-, (DCpointervmfunc*)    &dc_callvm_call_arm32_thumb_word
+, (DCboolvmfunc*)       &dc_callvm_call_arm32_thumb
+, (DCcharvmfunc*)       &dc_callvm_call_arm32_thumb
+, (DCshortvmfunc*)      &dc_callvm_call_arm32_thumb
+, (DCintvmfunc*)        &dc_callvm_call_arm32_thumb
+, (DClongvmfunc*)       &dc_callvm_call_arm32_thumb
+, (DClonglongvmfunc*)   &dc_callvm_call_arm32_thumb
+, (DCfloatvmfunc*)      &dc_callvm_call_arm32_thumb
+, (DCdoublevmfunc*)     &dc_callvm_call_arm32_thumb
+, (DCpointervmfunc*)    &dc_callvm_call_arm32_thumb
 , NULL /* callStruct */
 };
 
