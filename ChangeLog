@@ -2,9 +2,12 @@ This file lists big/noteworthy changes, only...
 
 Version 0.8 (upcoming)
 buildsys:
-  o relaxed overly strict cygwin/msys platform guessing in configure script
   o made configure.bat guess x64 as target arch for x64 windows hosts
+  o simplified make-based build system, no more distinct GNU and BSD makefiles anymore
+  o fix for ARMv7 Thumb-2 code (tested on iPhone 4 CDMA / iOS 6.0.1)
+REMOVE?
   o updated some PSP makefiles for latest PSPSDK, fixes
+  o relaxed overly strict cygwin/msys platform guessing in configure script
 
 Version 0.7
 architecture:

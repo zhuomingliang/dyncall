@@ -21,6 +21,9 @@ build-system:
 - cmake mac os x universal binary builds with *.S does not build 
   multiple architectures
 
+doc:
+----
+- newest MikTeX version fails to build manual
 
 portasm:
 --------

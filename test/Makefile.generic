@@ -16,7 +16,7 @@ all clean install:
 	cd thunk && ${MAKE} $@
 	cd malloc_wx && ${MAKE} $@
 	cd callback_plain && ${MAKE} $@
-run-tests: tests
+run-tests: all
 	sh ${VPATH}/runalltests.sh | grep "result:"
 all-c:
 	cd plain && ${MAKE}
