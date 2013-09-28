@@ -71,12 +71,12 @@ other ways to pass parameters in order to suit specific calling conventions.\\
 \begin{itemize}
 \item A portable and extendable function call interface for the C programming 
 language.
-\item Ports to major platforms including Windows, Mac OS X, Linux, BSD derivates, Playstation Portable and Nintendo DS.
-\item Add-on language bindings to Python,R,Ruby.
+\item Ports to major platforms including Windows, Mac OS X, Linux, BSD derivates, iPhone and embedded devices and more, including lesser known and/or older platforms like Plan 9, Playstation Portable, Nintendo DS, etc..
+\item Add-on language bindings to Python, R, Ruby, Java, Lua, sh, ...
 \item High-level state machine design using C to model calling convention
 parameter transfer.
 \item One assembly \emph{hybrid} call routine per calling convention.
-\item Formatted call, ellipsis function API.
+\item Formatted call, vararg function API.
 \item Comprehensive test suite.
 \end{itemize}
 
@@ -116,6 +116,12 @@ double call_as_sqrt(void* funptr, double x)
   return r;
 }
 \end{lstlisting}
+
+As you can see, this is more code after all, but completely dynamic.
+And definitely less than generated glue-code for each function call, if
+used correctly.
+
+The following are examples from script bindings:
 
 \paragraph{Python example}
 
@@ -158,7 +164,7 @@ For details about the support consult the appendix.
 {\bf Minix}                    & \marknotx                    & \marknotx                  & \marknotx                        & \marknotx                        & \marknotx                     & \marknotx                           & \marknotx                           & \marknotx                   & \marknotx                   & \markimpl                  & \marknotx                  & \marknotx                      & \marknotx                    & \marknotx                      \\
 {\bf Linux}                    & \marknimp                    & \markimpl                  & \marknotx                        & \marknotx                        & \marknotx                     & \markimpl                           & \marknimp                           & \marknotx                   & \marknotx                   & \markimpl                  & \markimpl                  & \marknotx                      & \markimpl                    & \markimpl                      \\
 {\bf Mac OS X/iOS/Darwin}      & \marknotx                    & \markimpl                  & \marknotx                        & \marknotx                        & \marknotx                     & \markimpl                           & \marknimp                           & \marknotx                   & \marknotx                   & \markimpl                  & \markimpl                  & \marknotx                      & \marknotx                    & \marknotx                      \\
-{\bf FreeBSD}                  & \marknimp                    & \marknotx                  & \marknotx                        & \markunkn                        & \marknimp                     & \markimpl                           & \marknimp                           & \marknotx                   & \marknotx                   & \markimpl                  & \markimpl                  & \marknimp                      & \markunkn                    & \markunkn                      \\
+{\bf FreeBSD}                  & \marknimp                    & \markunkn                  & \markunkn                        & \markunkn                        & \marknimp                     & \markimpl                           & \marknimp                           & \marknotx                   & \marknotx                   & \markimpl                  & \markimpl                  & \marknimp                      & \markunkn                    & \markunkn                      \\
 {\bf NetBSD}                   & \marknimp                    & \markimpl                  & \markimpl                        & \markunkn                        & \marknimp                     & \markimpl                           & \marknimp                           & \marknimp                   & \marknimp                   & \markimpl                  & \markimpl                  & \marknimp                      & \markimpl                    & \markunkn                      \\
 {\bf OpenBSD}                  & \marknimp                    & \markunkn                  & \markunkn                        & \markimpl                        & \marknimp                     & \markunkn                           & \marknimp                           & \marknimp                   & \marknimp                   & \markimpl                  & \markimpl                  & \marknimp                      & \markimpl                    & \markimpl                      \\
 {\bf DragonFlyBSD}             & \marknotx                    & \marknotx                  & \marknotx                        & \marknotx                        & \marknotx                     & \marknotx                           & \marknotx                           & \marknotx                   & \marknotx                   & \markimpl                  & \markimpl                  & \marknotx                      & \marknotx                    & \marknotx                      \\

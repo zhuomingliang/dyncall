@@ -1,6 +1,0 @@
-all: manual.pdf
-
-manual.pdf:
-	pdflatex manual.tex
-	pdflatex manual.tex
-

@@ -45,21 +45,23 @@ another toolchain.
 \subsection{Supported/tested platforms and build systems}
 
 Building \product{dyncall} is a straightforward two-step process, first configure, then make. The
-library should be able to be built with the default operating systems' tools, so BSD make on BSD
-systems, GNU make on GNU and compatible, mk on Plan9, nmake on Windows, etc.. This is a detailed
-overview of platforms and their build tools that are known to build \product{dyncall}:\\
+library should be able to be built with the default operating systems' build tools, so BSD make on
+BSD and derived systems, GNU make on GNU and compatible, mk on Plan9, nmake on Windows, etc..
+This is a detailed overview of platforms and their build tools that are known to build
+\product{dyncall}:\\
 \\
 
 
-
-\begin{tabular}{l l}
-{\bf{\large Windows}}                 & nmake, CMake                                                                 \\
-{\bf{\large Unix-like}}               & GNU/BSD/Sun make                                                             \\
-{\bf{\large Plan9}}                   & mk                                                                           \\
-{\bf{\large Haiku/BeOS}}              & GNU make                                                                     \\
-{\bf{\large iOS/iPhone}}              & GNU make (and iPhone SDK on Mac OS X)                                        \\
-{\bf{\large Nintendo DS}}             & nmake (and devkitPro\cite{devkitPro} tools on Windows, see ./doc for readme) \\
-{\bf{\large Playstation Portable}}    & GNU make (and psptoolchain\cite{psptoolchain} tools)                         \\
+\begin{tabular}{l l l}
+{\bf{\large Platform}}             & Build Tool(s)    & Compiler, SDK                              \\
+\hline
+{\bf{\large Windows}}              & nmake            & cl, cygwin (gcc), mingw (gcc)              \\
+{\bf{\large Unix-like}}            & GNU/BSD/Sun make & gcc, clang, sunc                           \\
+{\bf{\large Plan9}}                & mk               & 8c                                         \\
+{\bf{\large Haiku/BeOS}}           & GNU make         & gcc                                        \\
+{\bf{\large iOS/iPhone}}           & GNU make         & gcc and iPhone SDK on Mac OS X             \\
+{\bf{\large Nintendo DS}}          & nmake            & devkitPro\cite{devkitPro} tools on Windows \\
+{\bf{\large Playstation Portable}} & GNU make         & psptoolchain\cite{psptoolchain} tools      \\
 
 \end{tabular}\\
 
@@ -76,50 +78,54 @@ overview of platforms and their build tools that are known to build \product{dyn
 ./configure [--option ...]
 \end{lstlisting}
 
-\paragraph{windows flavour}
+Available options (omit for defaults):
+
+\begin{tabular}{ll}	
+{\tt --help}                  & display help                             \\
+{\tt --prefix={\it path}}     & specify installation prefix (Unix shell) \\
+{\tt --target={\it platform}} & MacOSX,iPhoneOS,iPhoneSimulator,...      \\
+{\tt --sdk={\it version}}     & SDK version                              \\
+\end{tabular}
+
+\paragraph{Windows flavour, and cross-build from Windows (PSP, NDS, etc.)}
 
 \begin{lstlisting}
 .\configure [/option ...]
 \end{lstlisting}
 
-\paragraph{plan9 flavour}
+Available options:
+
+\begin{tabular}{ll}	
+{\tt /?}                    & display help \\
+{\tt /prefix {\it path}}    & set installation prefix (GNU make only) \\
+{\tt /prefix-bd {\it path}} & set build directory prefix (GNU make only) \\
+{\tt /target-x86}           & build for x86 architecture (default) \\
+{\tt /target-x64}           & build for x64 architecture \\
+{\tt /target-psp}           & build for PlayStation Portable (homebrew SDK) \\
+{\tt /target-nds-arm}       & build for Nintendo DS (devkitPro, ARM mode) \\
+{\tt /target-nds-thumb}     & build for Nintendo DS (devkitPro, THUMB mode) \\
+{\tt /tool-msvc}            & use Microsoft Visual C++ compiler (default) \\
+{\tt /tool-gcc}             & use GNU Compiler Collection \\
+{\tt /asm-ml}               & use Microsoft Macro Assembler (default) \\
+{\tt /asm-as}               & use the GNU Assembler \\
+{\tt /asm-nasm}             & use NASM Assembler \\
+{\tt /config-release}       & build release version (default) \\
+{\tt /config-debug}         & build debug version \\
+\end{tabular}
+
+
+\paragraph{Plan 9 flavour}
 
 \begin{lstlisting}
 ./configure.rc [--option ...]
 \end{lstlisting}
 
-
-Available options (not on Plan9, though):
+Available options (none, at the moment):
 
 \begin{tabular}{ll}	
-{\tt help}                         & display help \\
-{\tt prefix={\it path}}            & specify installation prefix (Unix shell) \\
-{\tt prefix} {\it path}            & specify installation prefix (Windows batch) \\
-{\tt prefix-bd={\it path}}         & specify build directory prefix (Unix shell) \\
-{\tt prefix-bd {\it path}}         & specify build directory prefix (Windows batch) \\
-{\tt target-x86}                   & build for x86 architecture \\
-{\tt target-x64}                   & build for x64 architecture \\
-{\tt target-ppc32}                 & build for ppc 32-bit architecture (not on windows batch)\\
-{\tt target-psp}                   & cross-compile build for Playstation Portable (homebrew SDK)\\
-{\tt target-arm-arm}               & build for ARM architecture (using ARM mode) \\
-{\tt target-arm-thumb}             & build for ARM architecture (using THUMB mode) \\
-{\tt target-nds-arm}               & cross-compile build for Nintendo DS (using ARM mode) \\
-{\tt target-nds-thumb}             & cross-compile build for Nintendo DS (using THUMB mode) \\
-{\tt target-cygwin}                & build for Cygwin platform \\
-{\tt target-windows}               & build for Windows platform (MinGW, etc.) \\
-{\tt target-macosx}                & build for Mac OS X platform \\
-{\tt target-iphoneos}              & build for iPhone OS platform \\
-{\tt target-universal}             & build universal binaries (for Mac OS X/Darwin) \\
-{\tt tool-gcc}                     & use GNU Compiler Collection tool-chain \\
-{\tt tool-msvc}                    & use Microsoft Visual C++ \\
-{\tt tool-pspsdk}                  & use PSP SDK tool-chain \\
-{\tt asm-as}                       & use the GNU Assembler \\
-{\tt asm-nasm}                     & use NASM Assembler \\
-{\tt asm-ml}                       & use Microsoft Macro Assembler \\
-{\tt with-iphonesdk={\it version}} & use iPhone SDK version \\
-{\tt config-release}               & build release version (default) \\
-{\tt config-debug}                 & build debug version \\
+{\tt --help} & display help \\
 \end{tabular}
+
 
 \item Build the static libraries \product{dyncall}, \product{dynload} and \product{dyncallback}
 \begin{lstlisting}
@@ -135,13 +141,15 @@ make install
 
 \item Optionally, build the test suite
 \begin{lstlisting}
-make tests                      # for {GNU,BSD} Make
-nmake /f Nmakefile test         # for NMake on Windows
-mk test                         # for mk on Plan9
+make tests                     # for {GNU,BSD} Make
+nmake /f Nmakefile tests       # for NMake on Windows
+mk tests                       # for mk on Plan9
 \end{lstlisting}% @@@ check Plan9, should work already
 \end{enumerate}
 
 \subsection{Build-tool specific notes}
+
+Some platforms require some manual tweaks:
 
 Problem: Build fails because CC and/or related are not set, or different compiler,
 linker, etc. should be used.
@@ -164,9 +172,6 @@ the example above).
 
 \begin{lstlisting}
 cmake -DCMAKE_INSTALL_PREFIX=<location>
-make -f Makefile
+make
 \end{lstlisting}
-
-The \verb@-f Makefile@ is required. Otherwise buildsys/gmake GNUmakefile's 
-would be used per default.
 
