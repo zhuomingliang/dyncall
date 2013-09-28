@@ -23,7 +23,8 @@ build-system:
 
 doc:
 ----
-- newest MikTeX version fails to build manual
+- newest MikTeX version fails to build manual (ignore? - texlive is much faster and we
+  don't need windows to build)
 
 portasm:
 --------

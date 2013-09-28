@@ -26,11 +26,11 @@ TOP = .
 DIRS  = dyncall
 AUTOS = ConfigVars
 
-#.PHONY: test doc
-test:V:
-	cd $target; $MK
+#.PHONY: tests doc
+tests:V:
+	cd test; $MK
 doc:V:
-	cd $target; $MK
+	cd $target/manual; $MK
 
 <$TOP/buildsys/mk/epilog.mk
 
