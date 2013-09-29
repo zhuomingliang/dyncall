@@ -20,24 +20,24 @@
 \newpage
 \section{Developers}
 
-\subsection{Project root}
+\subsection{Noteworthy files in the project root}
 \begin{verbatim}
-configure     -- configuration tool (unix-shell)
-configure.bat -- configuration tool (windows batch)
+configure     -- pre-make configuration tool (unix-shell)
+configure.bat -- pre-nmake configuration tool (windows batch)
+configure.rc  -- pre-mk configuration tool (Plan 9's rc)
 CMakeLists.txt-- top-level project information for CMake
-ConfigVars    -- configuration tool output
-BSDmakefile   -- BSD makefile
-GNUmakefile   -- GNU makefile
+Makefile      -- GNU/BSD makefile (output of ./configure)
 Nmakefile     -- MS nmake makefile
+mkfile        -- Plan 9 mkfile
 LICENSE       -- license information
-README.txt    -- general information
-buildsys/     -- build systems ({BSD,GNU,N}make) and extras
-doc/          -- manual
+buildsys/     -- build system details and extras
+doc/          -- platform specific readme's and manual
 dyncall/      -- dyncall library source code
 dyncallback/  -- dyncallback library source code
 dynload/      -- dynload library source code
 test/         -- test suites
 \end{verbatim}
+
 
 \subsection{Test suites}
 
@@ -94,6 +94,11 @@ counts are tested on void function calls.
 A script written in Python ({\tt mkcase.py}) generates the tests up to
 an upper MAXARG limit.
 This is a modified version of suite.
+
+\item [call_suite]
+General purpose test suite combining aspects from all others suites (usually enough for
+testing non-callback calls).
+A script written in Lua generates the tests.
 
 \item [callf]
 Tests the \emph{formatted call} \product{dyncall} C API.

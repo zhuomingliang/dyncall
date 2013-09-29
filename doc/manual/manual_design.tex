@@ -24,10 +24,11 @@
 \subsection{Design considerations}
 
 The \product{dyncall} library encapsulates function call invocation semantics
-that can depend on the compiler, operating system and architecture.
+that depend on the compiler, operating system and architecture.
 The core library is driven by a function call invocation engine, 
-namely the \emph{CallVM}, that encapsulates a call stack to foreign functions 
-and manages the following three phases that constitute a dyncall function call:
+named \emph{CallVM}, that encapsulates a call stack to foreign functions 
+and manages the following three phases that constitute a truly dynamic function
+call:
 
 \begin{enumerate}
 \item Specify the calling convention. Some run-time platforms, such as
@@ -35,7 +36,7 @@ Microsoft Windows on a 32-bit X86 architecture, even support multiple calling
 conventions.
 \item Specify the function call arguments in a specific order. The 
 interface design dictates a \emph{left to right} order for C and C++ function 
-calls in which the arguments are bounded.
+calls in which the arguments are bound.
 \item Specify the target function address, expected return value and 
 invoke the function call.
 \end{enumerate}
@@ -43,6 +44,6 @@ invoke the function call.
 The calling convention mode entirely depends on the way the foreign function
 has been compiled and specifies the low-level details on how a function
 actually expects input parameters (in memory, in registers or both) and how to
-return results.
+return its result(s).
 
 
