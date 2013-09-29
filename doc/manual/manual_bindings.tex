@@ -23,31 +23,33 @@
 Through binding of the \product{dyncall} library into a scripting environment,
 the scripting language can gain system programming status to a certain degree.\\
 The \product{dyncall} library provides bindings to Java\cite{Java},
-Lua\cite{Lua}, Python\cite{Python}, R\cite{R} and Ruby\cite{Ruby}.\\
+Lua\cite{Lua}, Python\cite{Python}, R\cite{R}, Ruby\cite{Ruby} and the command line.\\
 However, please note that some of these bindings are work-in-progress and not
 automatically tested, meaning it might require some additional work to make them
 work.
 
 \subsection{Common Architecture}
 
-The binding interface of the \product{dyncall} library to various scripting
+The binding interfaces of the \product{dyncall} library to various scripting
 languages share a common set of functionality to invoke a function call.
 
 \subsubsection{Dynamic loading of code}
 
 The helper library \emph{dynload} which accompanies the \product{dyncall}
 library provides an abstract interface to operating-system specific mechanisms
-for loading a code module.
+for loading and accessing executable code out of, but not limited to, shared
+libraries.
 
 \subsubsection{Functions}
 
 All bindings are based on a common interface convention providing a common set
-of the following 4 functions:
+of the following 4 functions (exact spelling depending on the binding's scripting
+environment):
 \begin{description}
-\item [load] loading a module of compiled code
-\item [free] unloading a module of compiled code
-\item [find] finding function pointer by symbolic names
-\item [call] invoking a function call
+\item [load] - load a module of compiled code
+\item [free] - unload a module of compiled code
+\item [find] - find function pointer by symbolic names
+\item [call] - invoke a function call
 \end{description}
 
 \pagebreak
@@ -57,9 +59,11 @@ of the following 4 functions:
 A signature is a character string that represents a function's arguments and
 return value types. It is used in the scripting language bindings invoke
 functions to perform automatic type-conversion of the languages' types to the
-low-level C/C++ data types.
+low-level C/C++ data types. This is an essential part of mapping the more flexible
+and often abstract data types provided in scripting languages conveniently to the
+strict machine-level data types used by C-libraries.
 The high-level C interface functions \capi{dcCallF()} and \capi{dcCallFV()}
-also make use of the \product{dyncall} signature string.\\
+of the \product{dyncall} library also make use of this signature string format.\\
 \\
 The format of a \product{dyncall} signature string is as depicted below:
 
@@ -107,16 +111,22 @@ Signature character & C/C++ data type \\
 \end{center}
 \end{table}
 
-While the size and encoding scheme (integer, float or double) is an important
-property for the \product{dyncall} library to establish the function in a
-correct way, the distinction between \capi{signed} and \capi{unsigned} integer
-data types (\capi{char}, \capi{short}, \capi{int}, \capi{long},
-\capi{long long}) in C is not of importance for the library itself. as these types share the same
-machine storage semantics in regard to register usage, size and alignment.
+%@@@
+%While the size and encoding scheme (integer, float or double) is an important
+%property for the \product{dyncall} library to establish the function call stack
+%correctly, the distinction between \capi{signed} and \capi{unsigned} integer
+%data types (\capi{char}, \capi{short}, \capi{int}, \capi{long},
+%\capi{long long}) is not of importance to the library itself. as these types share the same
+%machine storage semantics in regard to register usage, size and alignment.
+%
+%On a higher level, such as in the binding of a scripting environment, it is vital to have a
+%correct conversion between different storage schemas among scripting languages.  Therefore we
+%define also the unsigned/signed variants for a later use in the language binding part.
 
-On a higher level, such as in the binding of a scripting environment, it is vital to have a
-correct conversion between different storage schemas among scripting languages.  Therefore we
-define also the unsigned/signed variants for a later use in the language binding part.
+Please note that using a \sigchar{(} at the beginning of a signature string is possible,
+although not required. The character doesn't have any meaning and will simply be
+ignored. However, using it prevents annoying syntax highlighting problems with some code
+editors.
 
 \pagebreak
 
@@ -131,6 +141,7 @@ define also the unsigned/signed variants for a later use in the language binding
 void      & f1();                                     & \sigstr{)v}\\
 int       & f2(int, int);                             & \sigstr{ii)i}\\
 long long & f3(void*);                                & \sigstr{p)L}\\
+void      & f3(int**);                                & \sigstr{p)v}\\
 double    & f4(int, bool, char, double, const char*); & \sigstr{iBcdZ)d}\\
 \hline
 \end{tabular*}
