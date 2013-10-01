@@ -111,18 +111,6 @@ Signature character & C/C++ data type \\
 \end{center}
 \end{table}
 
-%@@@
-%While the size and encoding scheme (integer, float or double) is an important
-%property for the \product{dyncall} library to establish the function call stack
-%correctly, the distinction between \capi{signed} and \capi{unsigned} integer
-%data types (\capi{char}, \capi{short}, \capi{int}, \capi{long},
-%\capi{long long}) is not of importance to the library itself. as these types share the same
-%machine storage semantics in regard to register usage, size and alignment.
-%
-%On a higher level, such as in the binding of a scripting environment, it is vital to have a
-%correct conversion between different storage schemas among scripting languages.  Therefore we
-%define also the unsigned/signed variants for a later use in the language binding part.
-
 Please note that using a \sigchar{(} at the beginning of a signature string is possible,
 although not required. The character doesn't have any meaning and will simply be
 ignored. However, using it prevents annoying syntax highlighting problems with some code
