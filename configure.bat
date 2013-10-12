@@ -153,7 +153,7 @@ REM Check if DEVKITPRO is set.
 IF [%DEVKITPRO%]==[] (
 	ECHO ERROR: Environment variable DEVKITPRO must be set to absolute devkitPro path.
 ) ELSE (
-	conf-nds.bat
+	buildsys\scrips\conf-nds.bat
 )
 
 )
