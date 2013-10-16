@@ -60,7 +60,7 @@ Input:
 #define SHEAD ((16+6)*8)
 #define DHEAD  ((IREGS+FREGS)*8)+SREGS*4
 
-CALLVM_singleUseFlags = 28
+CALLVM_singleUseFlags = 24
 CALLVM_size    = 40
 CALLVM_dataoff = 48
 
