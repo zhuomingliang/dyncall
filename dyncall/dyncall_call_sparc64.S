@@ -252,14 +252,13 @@ dcCall_sparc64:
 .do_call:
 	call	%i0				/* Call target. */
     nop
-    or     %o0, %g0, %i0
-    or     %o1, %g0, %i1
-    or     %o2, %g0, %i2
-    or     %o3, %g0, %i3
-	return  %i7 + 8
+	jmpl %i7 + 8, %g0
     nop
 /*
-        or      %o0, %g0, %i0
+	return  %i7 + 8
+	jmpl %i7 + 8, %g0
+        nop
+
 	jmpl %i7 + 8, %g0
     nop
     restore
@@ -267,6 +266,12 @@ dcCall_sparc64:
 */
 
 /* 
+    or     %o0, %g0, %i0
+    or     %o1, %g0, %i1
+    or     %o2, %g0, %i2
+    or     %o3, %g0, %i3
+	return  %i7 + 8
+    nop
 
 Changes from v8:
 - fundamental data types
