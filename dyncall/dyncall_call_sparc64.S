@@ -247,13 +247,14 @@ dcCall_sparc64:
 	add     %l0, REGSIZE, %l0		/* Increment offset. */
 	sub     %i1, REGSIZE, %i1		/* Decrement copy size. */
 	cmp     %i1, 0
-    bgt     .next
-    nop
+	bgt     .next
+	nop
 .do_call:
 	call	%i0				/* Call target. */
-    nop
-	jmpl %i7 + 8, %g0
-    nop
+    	nop
+	or	%o0, %g0, %i0
+	jmpl	%i7 + 8, %g0
+    	restore
 /*
 	return  %i7 + 8
 	jmpl %i7 + 8, %g0
