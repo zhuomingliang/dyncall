@@ -186,6 +186,7 @@ dcCall_sparc:
 .do_call:
 	call    %i0						/* Call target. */
 	nop
-	jmpl    %i7 + 8, %g0			/* Return from proc. */
-	nop
-	
+    	or     %o0, %g0, %i0
+    	or     %o1, %g0, %i1
+	jmpl	%i7 + 8, %g0
+	restore
