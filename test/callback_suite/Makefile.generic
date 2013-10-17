@@ -28,7 +28,7 @@ config-stress1:
 	${MAKE} config
 
 clean-config: clean
-	rm ${AUTOS}
+	rm -f ${AUTOS}
 
 _auto_signatures.txt: 
 	${LUA} make-signatures.lua >$@
