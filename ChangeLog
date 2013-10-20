@@ -2,9 +2,20 @@ This file lists big/noteworthy changes, only...
 
 Version 0.8 (upcoming)
 buildsys:
+  o big simplification make-based build system, no more distinct GNU and BSD makefiles anymore
+  o support for in-source and out-of-source builds for make-based build systems
   o made configure.bat guess x64 as target arch for x64 windows hosts
-  o simplified make-based build system, no more distinct GNU and BSD makefiles anymore
+  o based more sources on portasm
+dyncall:
   o fix for ARMv7 Thumb-2 code (tested on iPhone 4 CDMA / iOS 6.0.1)
+  o bugfix for -O2 builds for SPARC-v9 and SPARC-v7 
+  o bigger refactoring and optimization of mips o32
+  o x64 optimization
+doc:
+  o cleanup of manual and corrections
+  o restructured folder layout for documentation
+tests:
+  o added arm/thumb interwork test suite
 REMOVE?
   o updated some PSP makefiles for latest PSPSDK, fixes
   o relaxed overly strict cygwin/msys platform guessing in configure script
