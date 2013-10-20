@@ -11,6 +11,9 @@ dyncall:
   o bugfix for -O2 builds for SPARC-v9 and SPARC-v7 
   o bigger refactoring and optimization of mips o32
   o x64 optimization
+dyncallback:
+  o added callback support for plan9
+  o big cleanup, removal of duplicate files after introduction of portasm
 doc:
   o cleanup of manual and corrections
   o restructured folder layout for documentation

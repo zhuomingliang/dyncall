@@ -1,6 +1,6 @@
 #//////////////////////////////////////////////////////////////////////////////
 #
-# Copyright (c) 2010 Daniel Adler <dadler@uni-goettingen.de>, 
+# Copyright (c) 2013 Daniel Adler <dadler@uni-goettingen.de>, 
 #                    Tassilo Philipp <tphilipp@potion-studios.com>
 #
 # Permission to use, copy, modify, and distribute this software for any
@@ -18,11 +18,13 @@
 #//////////////////////////////////////////////////////////////////////////////
 
 
-TOP		= ..
+TOP		= ../..
 <$TOP/buildsys/mk/prolog.mk
 
-# only C-stuff for now...
-DIRS = callf plain call_suite suite thunk malloc_wx callback_plain callback_suite  # plain_c++ is not included, b/c C++ on Plan9 is rather inexistant
-#DIRS = suite2 suite3 suite_floats ellipsis
+
+UNITS       = env handler sigstrings invokers do_test main print signature_utils
+APPLICATION = callback_suite
+LIBS        = $TOP/dyncallback/libdyncallback_s.a$O
+
 
 <$TOP/buildsys/mk/epilog.mk

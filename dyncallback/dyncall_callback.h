@@ -48,4 +48,4 @@ void*       dcbGetUserData (DCCallback* pcb);
 }
 #endif 
 
-#endif // DYNCALL_CALLBACK_H
+#endif /* DYNCALL_CALLBACK_H */
