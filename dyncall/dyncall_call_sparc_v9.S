@@ -5,9 +5,8 @@
 dcCall_v9:
 	or   %o0, %g0, %o3  /* o3: callvm   */
 	or   %o1, %g0, %o0  /* o0: target   */
-	ldx [%o3+160], %o1  /* o1: mVecSize */
-	add  %o3, 168, %o2  /* o2: stack    */
-	add  %o3, 16,  %o4  /* o4: regdata  */
+	ldx  [%o3+24], %o1  /* o1: mVecSize */
+	add   %o3, 32, %o2  /* o2: stack    */
 	/* Compute a matching stack size (approximate): o3 = align(o1+136,16) */
 
 	add  %o1, (16+1+6)*8+15, %o3
@@ -15,22 +14,22 @@ dcCall_v9:
 	neg  %o3            /* o3: -stacksize */
 	save %sp, %o3, %sp	
 
-	ldd     [%i4+8*0 ],%f0		/* Load double-precision float registers. */
-	ldd     [%i4+8*1 ],%f2
-	ldd     [%i4+8*2 ],%f4
-	ldd     [%i4+8*3 ],%f6
-	ldd     [%i4+8*4 ],%f8
-	ldd     [%i4+8*5 ],%f10
-	ldd     [%i4+8*6 ],%f12
-	ldd     [%i4+8*7 ],%f14
-	ldd     [%i4+8*8 ],%f16
-        ldd     [%i4+8*9 ],%f18
-	ldd     [%i4+8*10],%f20
-	ldd     [%i4+8*11],%f22
-	ldd     [%i4+8*12],%f24
-	ldd     [%i4+8*13],%f26
-	ldd     [%i4+8*14],%f28
-	ldd     [%i4+8*15],%f30
+	ldd     [%i2+8*0 ],%f0		/* Load double-precision float registers. */
+	ldd     [%i2+8*1 ],%f2
+	ldd     [%i2+8*2 ],%f4
+	ldd     [%i2+8*3 ],%f6
+	ldd     [%i2+8*4 ],%f8
+	ldd     [%i2+8*5 ],%f10
+	ldd     [%i2+8*6 ],%f12
+	ldd     [%i2+8*7 ],%f14
+	ldd     [%i2+8*8 ],%f16
+        ldd     [%i2+8*9 ],%f18
+	ldd     [%i2+8*10],%f20
+	ldd     [%i2+8*11],%f22
+	ldd     [%i2+8*12],%f24
+	ldd     [%i2+8*13],%f26
+	ldd     [%i2+8*14],%f28
+	ldd     [%i2+8*15],%f30
 	ldx	[%i2+8*0],%o0		/* Load output registers. */
 	ldx	[%i2+8*1],%o1
 	ldx	[%i2+8*2],%o2

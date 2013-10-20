@@ -32,12 +32,9 @@
 typedef struct 
 {
   DCCallVM     mInterface;	/*   0: +12:8 = 16*/
-  double       mFloatData[16];  /*  16: +(6*8) */
-  int          mFloatRegs;      /* 144: +4     */
-  int          mPadding;        /* 148: +4     */
-  DCVecHead    mVecHead;        /* 152: mTotalSize +8 */
-                                /* 160: mSize      +8 */
-                                /* 168: mData  */ 
+  DCVecHead    mVecHead;        /* 16   152: mTotalSize +8 */
+                                /* 24   160: mSize      +8 */
+                                /* 32  168: mData  */ 
 } DCCallVM_v9;
 
 DCCallVM* dcNewCallVM_v9(DCsize size);

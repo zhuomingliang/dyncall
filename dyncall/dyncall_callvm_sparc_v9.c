@@ -33,7 +33,6 @@ static void dc_callvm_reset_v9(DCCallVM* in_self)
 {
   DCCallVM_v9* self = (DCCallVM_v9*)in_self;
   dcVecResize(&self->mVecHead,0);
-  self->mFloatRegs = 0;
 }
 
 /* Construtor. */
@@ -56,8 +55,6 @@ static void dc_callvm_argLongLong_v9(DCCallVM* in_self, DClonglong x)
 {
   DCCallVM_v9* self = (DCCallVM_v9*)in_self;
   dcVecAppend(&self->mVecHead, &x, sizeof(DClonglong));
-  if (self->mFloatRegs < 16) 
-    self->mFloatRegs++;
 }
 
 /* all integers are promoted to 64-bit. */
@@ -72,8 +69,6 @@ static void dc_callvm_argDouble_v9(DCCallVM* in_self, DCdouble x)
 {
   DCCallVM_v9* self = (DCCallVM_v9*)in_self;
   dcVecAppend(&self->mVecHead, &x, sizeof(DCdouble));
-  if (self->mFloatRegs < 16) 
-    self->mFloatData[self->mFloatRegs++] = x;
 }
 
 static void dc_callvm_argDouble_v9_ellipsis(DCCallVM* in_self, DCdouble x)
