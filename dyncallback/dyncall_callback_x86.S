@@ -2,7 +2,7 @@
 
  Package: dyncall
  Library: dyncallback
- File: dyncallback/dyncall_callback_arch_x86.S
+ File: dyncallback/dyncall_callback_x86.S
  Description: Callback Thunk entry for x86
  License:
 

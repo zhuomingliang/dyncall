@@ -2,7 +2,7 @@
 
  Package: dyncall
  Library: dyncallback
- File: dyncallback/dyncall_callback_arch_x64.S
+ File: dyncallback/dyncall_callback_x64.S
  Description: Callback Thunk entry for x64 (portasm version)
  License:
 
