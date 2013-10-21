@@ -60,7 +60,7 @@ run-dyncall:
 	suite3/suite3
 	suite_floats/suite_floats
 	ellipsis/ellipsis
-	callfs/callf
+	callf/callf
 	syscall/syscall
 # BUG: need to disable on sparc: testStructSize not found
 #	cd plain && ${MAKE}
