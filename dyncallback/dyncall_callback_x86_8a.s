@@ -67,17 +67,33 @@ is_ll_ret:
 	JEQ   ll_ret;
 	CMPL  AX, $0x4c    /* 'L' @@@ compares return from handler, might be different from sig - design currently in discussion */
 	JEQ   ll_ret;
-	JMP   cont_ret
+	CMPL  AX, $0x66    /* 'f' @@@ compares return from handler, might be different from sig - design currently in discussion */
+	JEQ   f_ret;
+	CMPL  AX, $0x64    /* 'd' @@@ compares return from handler, might be different from sig - design currently in discussion */
+	JEQ   d_ret;
+	JMP   other_ret
+
 ll_ret:
-	MOVL 48(SP), DX    /* ptr to ret address space; 48 = stack size + caller's ret address */
-	MOVL (BX), CX
-	MOVL CX, (DX)
-	MOVL 4(BX), CX
-	MOVL CX, 4(DX)
-cont_ret:
-	MOVL (BX), AX      /* copy retval to AX (for 32bit values, no effect for 64bit) */
+	MOVL  48(SP), DX    /* ptr to ret address space; 48 = stack size + caller's ret address */
+	MOVL  (BX), CX
+	MOVL  CX, (DX)
+	MOVL  4(BX), CX
+	MOVL  CX, 4(DX)
+	JMP   cont_ret
+
+f_ret:
+	FMOVF (BX), F0
+	JMP   cont_ret
+
+d_ret:
+	FMOVD (BX), F0
+	JMP   cont_ret
+
+other_ret:
+	MOVL (BX), AX      /* 32bit non-fp are returned in AX */
 
 	/* epilog */
+cont_ret:
 	ADDL $44, SP       /* Cleanup stack */
 	POPL CX            /* hack to emulate RET without getting overly strict */
 	JMP CX             /* 'unbalanced PUSH/POP' warning/error from 8l */
