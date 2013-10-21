@@ -724,7 +724,8 @@ Name          & Brief description\\
 {\bf edi}     & scratch\\
 {\bf ebp}     & scratch\\
 {\bf esp}     & stack pointer\\
-{\bf st0-st7} & scratch\\
+{\bf st0}     & scratch, floating point return value\\
+{\bf st1-st7} & scratch\\
 \hline
 \end{tabular}
 \caption{Register usage on x86 plan9call calling convention}
@@ -746,7 +747,7 @@ Name          & Brief description\\
 \item return values of pointer or integral type (\textless=\ 32 bits) are returned via the eax register
 \item integers \textgreater\ 32 bits or structures are returned by the caller allocating the space and
 passing a pointer to the callee as a new, implicit first parameter (this means, on the stack)
-\item floating point types are returned via the st0 register
+\item floating point types are returned via the st0 register (called F0 in plan9 8a's terms)
 \end{itemize}
 
 
