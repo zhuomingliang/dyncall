@@ -19,7 +19,7 @@
 
 
 VER = 5.1.4
-LUA = lua-$VAR
+LUA = lua-$VER
 TGZ = $LUA.tar.gz
 
 all:V:
@@ -28,5 +28,7 @@ all:V:
 	cd $LUA/src
 	rm luac.c
 	pcc *.c
-	mv 8.out ../lua
+	mv 8.out ../../lua
+	cd ../..
+	rm -rf $LUA $TGZ
 
