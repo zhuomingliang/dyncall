@@ -27,7 +27,7 @@ set of supported types.
 \paragraph{C interface style conventions}
 
 This manual and the \product{dyncall} library's C interface {\tt "dyncall.h"}
-uses the following C source code style.
+use the following C source code style.
 
 
 \begin{table}[h]
@@ -59,16 +59,16 @@ Functions  & {\tt dc\group{function name}}  & camel-case & \capi{dcNewCallVM}, \
 \hline
 Type alias & C/C++ data type\\
 \hline
-DCbool  & \_Bool, bool\\
-DCchar  & char\\
-DCshort & short\\
-DCint   & int\\
-DClong  & long\\
+DCbool     & \_Bool, bool\\
+DCchar     & char\\
+DCshort    & short\\
+DCint      & int\\
+DClong     & long\\
 DClonglong & long long\\
-DCfloat & float\\
-DCdouble & double\\
-DCpointer & void*\\
-DCvoid    & void\\
+DCfloat    & float\\
+DCdouble   & double\\
+DCpointer  & void*\\
+DCvoid     & void\\
 \hline
 \end{tabular*}
 \caption{Supported C/C++ argument and return types}
@@ -104,15 +104,23 @@ void      dcFree(DCCallVM* vm);
 
 \lstinline{dcNewCallVM} creates a new \emph{CallVM} object, where
 \lstinline{size} specifies the size of the internal stack that will be
-allocated and used to bind the arguments to. Use \lstinline{dcFree} to
-destroy the \emph{CallVM} object.
+allocated and used to bind arguments to. Use \lstinline{dcFree} to
+destroy the \emph{CallVM} object.\\
+\\
+This will allocate memory using the system allocators or custom ones provided
+custom \capi{dcAllocMem} and \capi{dcFreeMem} macros are defined to override the
+default behaviour. See \capi{dyncall\_alloc.h} for defails.
 
-% \paragraph{Explicit allocation}
-% \capi{dcGetSizeOfCallVM()}
-% \capi{dcInitCallVM()}
-% \capi{dcShutdownCallVM()}
 
 \subsection{Error Reporting}
+
+\paragraph{Function}
+
+\begin{lstlisting}[language=c]
+DCint dcGetError (DCCallVM* vm);
+\end{lstlisting}
+
+Returns the most recent error state code out of the following:
 
 \paragraph{Errors}
 
@@ -130,14 +138,6 @@ Constant & Description\\
 \label{functioncalls}
 \end{center}
 \end{table}
-
-\paragraph{Function}
-
-\begin{lstlisting}[language=c]
-DCint dcGetError (DCCallVM* vm);
-\end{lstlisting}
-
-Returns either one of the error codes, outlined, above.
 
 \pagebreak
 
@@ -162,7 +162,8 @@ platform).
 Constant & Description\\
 \hline
 \lstinline@DC_CALL_C_DEFAULT@            & C default function call for current platform\\
-\lstinline@DC_CALL_C_ELLIPSIS@           & C ellipsis function call (variable arguments) \\
+\lstinline@DC_CALL_C_ELLIPSIS@           & C ellipsis function call (named arguments (before '...'))\\
+\lstinline@DC_CALL_C_ELLIPSIS_VARARGS@   & C ellipsis function call (variable/unnamed arguments (after '...'))\\
 \lstinline@DC_CALL_C_X86_CDECL@          & C x86 platforms standard call\\
 \lstinline@DC_CALL_C_X86_WIN32_STD@      & C x86 Windows standard call\\
 \lstinline@DC_CALL_C_X86_WIN32_FAST_MS@  & C x86 Windows Microsoft fast call\\
@@ -173,16 +174,24 @@ Constant & Description\\
 \lstinline@DC_CALL_C_X64_WIN64@          & C x64 Windows standard call\\
 \lstinline@DC_CALL_C_X64_SYSV@           & C x64 System V standard call\\
 \lstinline@DC_CALL_C_PPC32_DARWIN@       & C ppc32 Mac OS X standard call\\
+\lstinline@DC_CALL_C_PPC32_OSX@          & alias for DC\_CALL\_C\_PPC32\_DARWIN\\
 \lstinline@DC_CALL_C_PPC32_SYSV@         & C ppc32 SystemV standard call\\
+\lstinline@DC_CALL_C_PPC32_LINUX@        & alias for DC\_CALL\_C\_PPC32\_SYSV\\
 \lstinline@DC_CALL_C_ARM_ARM@            & C arm call (arm mode)\\
 \lstinline@DC_CALL_C_ARM_THUMB@          & C arm call (thumb mode)\\
 \lstinline@DC_CALL_C_ARM_ARM_EABI@       & C arm eabi call (arm mode)\\
 \lstinline@DC_CALL_C_ARM_THUMB_EABI@     & C arm eabi call (thumb mode)\\
+\lstinline@DC_CALL_C_ARM_ARMHF@          & C arm call (arm hardfloat - e.g. raspberry pi)\\
 \lstinline@DC_CALL_C_MIPS32_EABI@        & C mips32 eabi call\\
-\lstinline@DC_CALL_C_MIPS32_PSPSDK@      & C mips32 default PSP Homebrew SDK call (uses eabi)\\
+\lstinline@DC_CALL_C_MIPS32_PSPSDK@      & alias for DC\_CALL\_C\_MIPS32\_EABI (deprecated)\\
 \lstinline@DC_CALL_C_MIPS32_O32@         & C mips32 o32 call\\
 \lstinline@DC_CALL_C_MIPS64_N64@         & C mips64 n64 call\\
 \lstinline@DC_CALL_C_MIPS64_N32@         & C mips64 n32 call\\
+\lstinline@DC_CALL_C_SPARC32@            & C sparc32 call\\
+\lstinline@DC_CALL_C_SPARC64@            & C sparc64 call\\
+\lstinline@DC_CALL_SYS_DEFAULT@          & C default syscall for current platform\\
+\lstinline@DC_CALL_SYS_X86_INT80H_BSD@   & C syscall for x86 BSD platforms\\
+\lstinline@DC_CALL_SYS_X86_INT80H_LINUX@ & C syscall for x86 Linux\\
 \hline
 \end{tabular*}
 \caption{CallVM calling convention modes}
@@ -200,7 +209,6 @@ On many platforms, there is only one C calling convention.
 The X86 platform provides a rich family of different calling conventions.
 \\
 
-\pagebreak
 
 \subsection{Machine state reset}
 
@@ -208,9 +216,9 @@ The X86 platform provides a rich family of different calling conventions.
 void dcReset(DCCallVM* vm);
 \end{lstlisting}
 
-resets the internal stack of arguments and prepares it for the selected mode.
+Resets the internal stack of arguments and prepares it for the selected mode.
 This function should be called after setting the call mode (using dcMode), but
-prior to binding arguments to the CallVM. Use it when reusing a CallVM, too, as
+prior to binding arguments to the CallVM. Use it also when reusing a CallVM, as
 arguments don't get flushed automatically after a function call invocation.\\
 
 \subsection{Argument binding}
@@ -253,12 +261,13 @@ DCpointer  dcCallPointer (DCCallVM* vm, DCpointer funcptr);
 \end{lstlisting}
 
 \paragraph{Details}
-
+Calls the function specified by \emph{funcptr} with the arguments bound to
+the \emph{CallVM} and returns. Use the function that corresponds to the
+dynamically called function's return value.\\
+\\
 After the invocation of the foreign function call, the argument values are
 still bound and a second call using the same arguments can be issued. If you
 need to clear the argument bindings, you have to reset the \emph{CallVM}.
-
-\pagebreak
 
 \subsection{Formatted calls (ANSI C ellipsis interface)}
 
@@ -273,8 +282,8 @@ void dcVCallF(DCCallVM* vm, DCValue* result, DCpointer funcptr,
 
 \paragraph{Details}
 
-These functions can be used to operate dyncall via a printf-style functional 
-interface, using a signature string encoding the argument types and 
-return type. The return value will be stored in \lstinline{result}.
+These functions can be used to operate \product{dyncall} via a printf-style
+functional interface, using a signature string encoding the argument types and 
+return type. The return value will be stored in what \lstinline{result} points to..
 For more information about the signature format, refer to \ref{sigchar}.
 
