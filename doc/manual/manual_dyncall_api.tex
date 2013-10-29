@@ -103,7 +103,7 @@ void      dcFree(DCCallVM* vm);
 \end{lstlisting}
 
 \lstinline{dcNewCallVM} creates a new \emph{CallVM} object, where
-\lstinline{size} specifies the size of the internal stack that will be
+\lstinline{size} specifies the max size of the internal stack that will be
 allocated and used to bind arguments to. Use \lstinline{dcFree} to
 destroy the \emph{CallVM} object.\\
 \\
@@ -151,7 +151,7 @@ void dcMode (DCCallVM* vm, DCint mode);
 
 Sets the calling convention to use. Note that some mode/platform combination
 don't make any sense (e.g. using a PowerPC calling convention on a MIPS
-platform).
+platform) and are silently ignored.
 
 \paragraph{Modes}
 
