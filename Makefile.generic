@@ -1,4 +1,4 @@
-.PHONY: all clean install tests run-tests clean distclean
+.PHONY: all clean install tests docs run-tests clean distclean
 all install:
 	cd dyncall && ${MAKE} $@
 	cd dynload && ${MAKE} $@
@@ -10,6 +10,8 @@ clean:
 	cd test && ${MAKE} $@
 tests: all
 	cd test && ${MAKE} all
+docs:
+	cd doc && ${MAKE} all
 run-tests: all
 	cd test && ${MAKE} $@
 distclean: clean
