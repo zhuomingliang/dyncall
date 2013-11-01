@@ -85,7 +85,7 @@ BEGIN_PROC(dcCall_x64_sysv)
 	pop	RBP						/* Pseudo-epilog. */
 
 	ret
-END_PROC(dcCALl_x64_sysv)
+END_PROC(dcCall_x64_sysv)
 
 /*---------------------------------------------------------------------------
 

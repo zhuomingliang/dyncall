@@ -46,6 +46,10 @@
 #    include "dyncall_callback_arm32_arm_apple.s"
 #  elif defined(DC__Arch_ARM_THUMB)
 #    include "dyncall_callback_arm32_thumb_apple.s"
+#  elif defined(DC__Arch_AMD64)
+#    include "dyncall_callback_x64.S"
+#  elif defined(DC__Arch_Intel_x86)
+#    include "dyncall_callback_x86.S"
 #  endif
 #else 
 #  if defined(DC__Arch_Intel_x86)
