@@ -33,9 +33,9 @@
 
 struct DCCallback
 {
-  DCThunk            thunk;         /* offset  0, size 24 */
-  DCCallbackHandler* handler;       /* offset 24, size  4 */
-  void*              userdata;      /* offset 28, size  4 */
+  DCThunk            thunk;         /* offset  0, size 20 */
+  DCCallbackHandler* handler;       /* offset 20, size  4 */
+  void*              userdata;      /* offset 24, size  4 */
 };
 
 #endif /* DYNCALL_CALLBACK_MIPS_H */
