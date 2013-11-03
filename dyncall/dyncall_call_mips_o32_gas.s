@@ -76,7 +76,7 @@ dcCall_mips_o32:
 	/* load two double-precision floating-point argument registers ($f12, $f14) */
 
 	l.d     $f12, 0($5)
-        l.d     $f14, 8($5)
+	l.d     $f14, 8($5)
 	/* prepare call */
 
 
