@@ -33,20 +33,20 @@ void dcbInitThunk(DCThunk* p, void (*entry)())
   /*
     mips thunk code:
       lui $t4,      hi(p)
-      ori $t4, $t4, lo(p)
       lui $t5,      hi(entry)
+      ori $t5, $t5, lo(entry)
       jr  $t5
-      ori $t5, $t5, lo(entry) - branch delay slot
+      ori $t4, $t4, lo(p) - branch delay slot
   */
 
   p->data[0] = hi16(p);     /* lui $t4, hi(p) */
   p->data[1] = 0x3c0c;
-  p->data[2] = lo16(p);     /* ori $t4, $t4, lo(p) */
-  p->data[3] = 0x358c;
-  p->data[4] = hi16(entry); /* lui $t5, hi(entry) */
-  p->data[5] = 0x3c0d;
+  p->data[2] = hi16(entry); /* lui $t5, hi(entry) */
+  p->data[3] = 0x3c0d;
+  p->data[4] = lo16(entry); /* ori $t5, $t5, lo(entry) */
+  p->data[5] = 0x35ad;
   p->jump    = 0x01a00008;  /* jr $t5 */
-  p->bddt[0] = lo16(entry); /* ori $t5, $t5, lo(entry) - branch delay slot */
-  p->bddt[1] = 0x35ad;
+  p->bddt[0] = lo16(p);     /* ori $t4, $t4, lo(p) - branch delay slot */
+  p->bddt[1] = 0x358c;
 }
 
