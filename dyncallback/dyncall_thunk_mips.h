@@ -28,9 +28,9 @@
 
 struct DCThunk_
 {
-  unsigned short data[8];
+  unsigned short data[6];
   unsigned int   jump;
-  unsigned int   nop;
+  unsigned short bddt[2];
 };
 
 #endif /* DYNCALL_THUNK_MIPS_H */
