@@ -16,10 +16,6 @@
 
 build-system:
 -------------
-- cxx or cpp, overlay on OpenBSD/make  for cpp rule?
-- add dependencies to Makefile.{generic|embedded}
-- CPPFLAGS ?
-- out-of-source building  
 - cmake bites with buildsys/bsdmake and buildsys/gmake
 
   cmake generates Makefile files which have lower prio than {GNU|BSD}makefile's.
