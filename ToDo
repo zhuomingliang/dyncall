@@ -1,3 +1,18 @@
+0.8:
+----
+- README
+- ToDo
+- docs/README.*
+- Changelog up to date?
+- Platforms:
+  * PSP - build it (Tassilo), test (Daniel)
+  * Windows
+- mailing list announcements (html email?)
+- manual
+- Website:
+  * platform matrix (wie im Handbuch oder Daniels Disse)
+
+
 build-system:
 -------------
 - cxx or cpp, overlay on OpenBSD/make  for cpp rule?
