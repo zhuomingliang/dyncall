@@ -70,9 +70,7 @@ dyncallback:
 ------------
 - callback_plain's return value not correct anymore on NDS (maybe just broken testcode?)
 - add MIPS callbacks
-- finish PPC32 callbacks
-- add Plan9 support
-- add ARM Thumb/Thumb2 support (armv7, armv7-m, armv6-m?)
+- finish PPC32 callbacks (see bugs section, below)
 
 urgent issues:
 --------------
@@ -107,8 +105,7 @@ nice to have:
 
 bugs:
 -----
-- vararg function calls don't work for PPC32 System V ABI
-- callbacks don't work for PPC32 System V ABI
+- callbacks on ppc32 only work on apple (osx abi)
 - vararg function calls don't work for ARM THUMB mode (Daniel's new interface for modesetting for varag
   args should be used); adapt test/ellipsis
 
