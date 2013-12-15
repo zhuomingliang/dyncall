@@ -10,7 +10,7 @@ while [ $# -gt 0 ]; do
 cat <<EOF
 usage: $0 --prefix=<dir> var1=name1..
   --prefix=<dir>
-  --target=<platform>       MacOSX,iPhoneOS,iPhoneSimulator
+  --target=<platform>       MacOSX,iOS,iPhoneSimulator
   --sdk=<version>
 EOF
       exit 1
@@ -57,7 +57,9 @@ case ${TARGET:=`uname`} in
   MacOSX|Darwin)
     printf "AR=libtool\n" >>$C
     printf "ARFLAGS=-static -o\n" >>$C
-    if [ -z ${SDK} ]; then
+    if [ `uname -n` = 'iPhone' ]; then # building on iPhone itself, uname yields Darwin (gcc setup for current/correct arch)
+      printf "CC=gcc\n" >>$C
+    elif [ -z ${SDK} ]; then
       case `sw_vers -productVersion` in
         10.4.*)
           ARCHS="-arch ppc -arch i386 -arch x86_64" 
@@ -81,7 +83,7 @@ case ${TARGET:=`uname`} in
       printf "CXXFLAGS=-isysroot ${SDKROOT}\n" >>$C
     fi
     ;;
-  iPhoneOS)
+  iPhoneOS|iOS)
     SDKROOT="`xcode-select -print-path`/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS${SDK}.sdk"
     case "${SDK}" in
       4.3)
