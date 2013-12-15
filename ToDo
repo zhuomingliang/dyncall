@@ -1,42 +1,22 @@
 0.8:
 ----
-- README
-- ToDo
-- docs/README.*
-- Changelog up to date?
+- README (Tas)
+- docs/README.* (Tas)
+- Changelog up to date? (Tas)
 - Platforms:
   * PSP - build it (Tassilo), test (Daniel)
   * Windows
   * (re)test NDS
 - mailing list announcements (html email?)
-- manual
+- manual (Tas)
 - Website:
   * platform matrix (wie im Handbuch oder Daniels Disse)
 
 
 build-system:
 -------------
-- cmake bites with buildsys/bsdmake and buildsys/gmake
-
-  cmake generates Makefile files which have lower prio than {GNU|BSD}makefile's.
-  
-  buildsys/gmake fails if no top-level configure file is found with a
-   message to cmake users.
-
-  buildsys/bsdmake silently builds without configure file and
-   no cmake-based build files is used at all.
-
-  workaround:
-
-    make -f Makefile
-
 - cmake mac os x universal binary builds with *.S does not build 
   multiple architectures
-
-doc:
-----
-- newest MikTeX version fails to build manual (ignore? - texlive is much faster and we
-  don't need windows to build)
 
 portasm:
 --------
@@ -44,14 +24,10 @@ portasm:
 
 dyncall:
 --------
-- support for 'long double'
-- check if dcMode can be implemented in dcCallVM_XXX.c files directly...
-- port x64: split callvm into a sysv and a win64, both available at run-time
 - port ppc64
 - support for return values: aggregate return values
 - support for argument values: structures, half-precision, vector types, long double
-- varargs for x64, mips
-- add ARM Thumb2 support (armv7, armv7-m)
+- varargs for mips (might exist, but test all ABIs)
 
 dynload:
 --------
@@ -65,13 +41,12 @@ dynload:
 dyncallback:
 ------------
 - callback_plain's return value not correct anymore on NDS (maybe just broken testcode?)
-- add MIPS callbacks
+- add MIPS callbacks (thunks seem to be working, but maybe buggy)
 - finish PPC32 callbacks (see bugs section, below)
 
 urgent issues:
 --------------
 - finish SPARC/SPARC64 calling conventions in doc's callconv-appendix !!!
-  * fix stupid doublerulesepcolor crap after switching to colortbl
 - finish dyncallback doc, finish dynload doc, add both to troff doc
 - Haiku/gmake build doesn't build dynload due to the fact, that elf.h is not found
   on default installations (one has to install the system headers)
@@ -83,19 +58,15 @@ urgent issues:
   * or, alternatively, pack them separately and put them on the website, for releases
 - add note to documentation, that bindings are svn-only ATM
 - add pcc-support to doc
-- check why the iyonix, etc. platforms have been taken out of 'configure'
 - rename configure to configure.sh (so we would have .sh, .rc and .bat in the future)
-- not sure, but configure(.sh) --tool-xxx might overwrite --asm-xxx, in some cases
 
 nice to have:
 -------------
 - enhance manual with a couple of examples (e.g. calling MessageBoxA on windows, etc.)
 - update: microsoft visual c++ build files - integrate all test suites in solution file
-- rename iPhoneOS to iOS (mostly done)
 - maybe rename DC__Arch_PowerPC to ...PPC32 for coherency reasons (...PPC64)?
 - consistency: on x64 platforms: make both ABIs available ('win64','sysv') for all x64 OS ports
 - microsoft build enhancement: autodetect assembly via C preprocessor (like with .S gcc files)
-- enhancement: state-machine error reporting (stack overflow and invalid mode)? (e.g. dcError() )
 - test/thunk: some platforms do not allow for allocation of executable code on heap and stack -- 
   currently this test will crash, maybe we should collect information which platforms allow and which not.
 
@@ -103,7 +74,7 @@ bugs:
 -----
 - callbacks on ppc32 only work on apple (osx abi)
 - vararg function calls don't work for ARM THUMB mode (Daniel's new interface for modesetting for varag
-  args should be used); adapt test/ellipsis
+  args should be used); adapt test/ellipsis and/or retest
 
 missing implementations (descending priority):
 ----------------------------------------------
@@ -111,7 +82,7 @@ missing implementations (descending priority):
 - itanium
 - 68k, 88k, 6502, etc.
 - alpha
-- sh
+- superh
 - cell
 - blackfin
 - z80
@@ -130,4 +101,4 @@ available hardware for outstanding ports:
 - mips R5900: Daniel's PS2
 - mips (?): Daniel's router
 - sigmatel stmp3550b: Daniel's iPod Nano
-- spekul's sparc, sparc64
+
