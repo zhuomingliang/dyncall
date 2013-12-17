@@ -52,11 +52,11 @@ Usage:
 
   mkdir <build-dir>
   cd <build-dir>
-  ../<path-to-source>/configure2 [--prefix=<path>]
+  ../<path-to-source>/configure [--prefix=<path>]
   make
   make install [DESTDIR=<path>]
 
-The configure script 'configure2' writes 'Makefile' files that 
+The configure script 'configure' writes 'Makefile' files that 
 include 'Makefile.generic' and setup variables such as 
 VPATH, {SRC,BLD}{TOP,DIR}.
 
@@ -133,7 +133,7 @@ OpenBSD:
 - install: ok.
 
 Haiku Alpha 2:
-- dynlaod: unsupport, no elf.h header found.
+- dynload: unsupport, no elf.h header found.
 - dyn{call,callback}: ok.
   make -f Makefile.generic dyncall dyncallback
 - tests: ok
