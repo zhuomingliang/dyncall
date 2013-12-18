@@ -1,18 +1,13 @@
 cross-compile for PSP using PSP-SDK
 ===================================
 
-configure:
+Make sure the psp-sdk is installed and that the build tools (e.g. psp-gcc) are
+in your PATH. Also make sure that CPATH is set so that the psp-sdk's elf.h
+can be found.
 
-  ./configure --prefix=<path> --target-psp
-  .\configure.bat /prefix <path> /target-psp
-
+To build, use Makefile.embedded (see below) - no need to use ./configure.
 
 build:
   
-  make -f Makefile.psp
-
-
-install:
-
-  make -f Makefile.psp install
+  CPATH=/usr/local/lib/gcc/psp/4.6.2/plugin/include/config/mips/elf.h CC=psp-gcc make -f Makefile.embedded
 
