@@ -7,11 +7,11 @@ libdyncallback:
 	cd dyncallback && ${MAKE} all
 libdynload:
 	cd dynload && ${MAKE} all
-install-libdyncall:
+install-libdyncall: libdyncall
 	cd dyncall && ${MAKE} install
-install-libdyncallback:
+install-libdyncallback: libdyncallback
 	cd dyncallback && ${MAKE} install
-install-libdynload:
+install-libdynload: libdynload
 	cd dynload && ${MAKE} install
 clean:
 	cd dyncall && ${MAKE} $@
@@ -19,11 +19,11 @@ clean:
 	cd dyncallback && ${MAKE} $@
 	cd test && ${MAKE} $@
 tests: tests-libdyncall tests-libdyncallback tests-libdynload
-tests-libdyncall:
+tests-libdyncall: libdyncall
 	cd test && ${MAKE} all-dyncall
-tests-libdyncallback:
+tests-libdyncallback: libdyncallback
 	cd test && ${MAKE} all-dyncallback
-tests-libdynload:
+tests-libdynload: libdynload
 	cd test && ${MAKE} all-dynload
 docs:
 	cd doc && ${MAKE} all
