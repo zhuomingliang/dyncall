@@ -18,8 +18,13 @@ clean:
 	cd dynload && ${MAKE} $@
 	cd dyncallback && ${MAKE} $@
 	cd test && ${MAKE} $@
-tests: all
-	cd test && ${MAKE} all
+tests: tests-libdyncall tests-libdyncallback tests-libdynload
+tests-libdyncall:
+	cd test && ${MAKE} all-dyncall
+tests-libdyncallback:
+	cd test && ${MAKE} all-dyncallback
+tests-libdynload:
+	cd test && ${MAKE} all-dynload
 docs:
 	cd doc && ${MAKE} all
 run-tests: all
