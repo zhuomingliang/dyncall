@@ -1,8 +1,18 @@
-.PHONY: all clean install tests docs run-tests clean distclean
-all install:
-	cd dyncall && ${MAKE} $@
-	cd dynload && ${MAKE} $@
-	cd dyncallback && ${MAKE} $@
+.PHONY: all clean install tests docs run-tests clean distclean libdyncall libdyncallback libdynload
+all: libdyncall libdyncallback libdynload
+install: all install-libdyncall linstall-ibdyncallback linstall-ibdynload
+libdyncall:
+	cd dyncall && ${MAKE} all
+libdyncallback:
+	cd dyncallback && ${MAKE} all
+libdynload:
+	cd dynload && ${MAKE} all
+install-libdyncall:
+	cd dyncall && ${MAKE} install
+install-libdyncallback:
+	cd dyncallback && ${MAKE} install
+install-libdynload:
+	cd dynload && ${MAKE} install
 clean:
 	cd dyncall && ${MAKE} $@
 	cd dynload && ${MAKE} $@
