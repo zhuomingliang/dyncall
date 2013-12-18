@@ -113,6 +113,9 @@ case ${TARGET:=`uname`} in
     fi
     printf "LDLIBS=-lm\n" >>$C
     ;;
+  Minix)
+    printf "CC=gcc\n" >>$C
+    ;;
 esac
 BLDTOP="$PWD"
 
