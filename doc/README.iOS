@@ -8,7 +8,7 @@ Environment Setup for Cross-Compilation using iPhone SDK:
 
 Package Configuration
 
-  $ ./configure --target-iphoneos --with-iphonesdk=<MAJOR>.<MINOR>
+  $ ./configure --target=iOS --sdk=<MAJOR>.<MINOR>
 
   
 Tested SDK Versions 
@@ -25,31 +25,15 @@ Details:
 
 Useful configure switches:
 
-  --target-iphoneos
+  --target=[iOS|iPhoneSimulator]
   
-  --with-iphoensdk=<version> (tested versions 2.0..4.0, 6.1)
-
-  --tool-gcc (default)
-  --tool-llvm-gcc
-
-  --target-arm-arm
-  --target-arm-thumb
-  --target-universal
+  --sdk=<version> (tested versions 2.0..4.0, 6.1)
 
 
 Supported Tool-chains
 
   gcc and llvm-gcc
 
-
-
-Bugs
-
-  No armv7 support.
-
-
-TODO
-  armv7[fks]
 
 
 Building with Makefile.embedded ..
@@ -71,6 +55,7 @@ Building with Makefile.embedded ..
 
   Tested Mac OS X platforms: 10.[7,8]
   Tested Xcode toolchains: 4.6
+
 
 Building with Makefile.generic ..
     

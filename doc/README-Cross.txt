@@ -1,3 +1,5 @@
+@@@ Completely remove?
+
 Cross-compilation with gcc:
 
 set CC,AR,LD explicitly

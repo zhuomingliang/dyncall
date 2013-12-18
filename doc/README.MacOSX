@@ -4,23 +4,16 @@ In addition, the desired SDK can be choosen.
 Configure switches related to Mac OS X:
   
   Operating System:
-    --target-macosx (auto-detect)
+    --target=MacOSX (auto-detect)
   
   SDK:
-    --with-macosxsdk=<version> (auto-detect)
+    --sdk=<version> (auto-detect)
   
   Architecture:
-    --target-universal (default)
-    --target-x86
-    --target-x64
-    --target-ppc32
+    not specified, builds universal binaries depending on SDK version
   
-  Tool:
-    --tool-gcc (default)
-    --tool-llvm-gcc  
 
-
-Configure and Build for host platform:
+Configure and build for host platform:
 
   ./configure
   make
@@ -29,6 +22,5 @@ Configure and Build for host platform:
 
 Compile for Mac OS X 10.4u:
 
-  configure --target-macosx --with-macosxsdk=10.4u --target-ppc32
-
+  configure --target=MacOSX --sdk=10.4u
 

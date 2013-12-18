@@ -22,7 +22,7 @@ and works with various make's such as GNU, BSD and sun make.
 Generic Usage
 -------------
 
-[MAKEFILE=Makefile.generic] [g|bsd]make [-f Makefile.generic] [all|clean|autogen|install] [INSTALL_TOP=<path>]
+[g|bsd]make [-f Makefile.generic] [all|clean|install|...] [INSTALL_TOP=<path>]
 
 
 Embedded Mode
@@ -30,7 +30,11 @@ Embedded Mode
 Makefile.generic makefiles are taken "as-is" without the need for extra configuration.
 
 <VAR1>=<VALUE1> ... bsdmake -f Makefile.generic
-MAKEFILE=Makefile.generic <VAR1>=<VALUE1> ... gmake -f Makefile.generic
+<VAR1>=<VALUE1> ... gmake -f Makefile.generic
+
+(Note that setting an env var as above (<VAR1>=<VALUE1>) before running a command is
+shell specific. If your shell doesn't support this, set it according to the shell's
+style.)
 
 Example:
   dyncall libraries should compile fine on most platforms:
@@ -39,9 +43,10 @@ Example:
   $ bsdmake -f Makefile.generic
 
   GNUmake:
-  $ MAKEFILE=Makefile.generic make -f Makefile.generic
+  $ make -f Makefile.generic
 
-  The tests need sometimes special attention to additional 'usual' libraries such as math and dynamic linker run-time libs.
+  The tests sometimes require special attention to additional 'usual' libraries
+  such as math and dynamic linker run-time libs.
   $ LDFLAGS="-lm -ldl" make -f Makefile.generic
 
 
@@ -50,8 +55,7 @@ Configure Mode
 
 Usage:
 
-  mkdir <build-dir>
-  cd <build-dir>
+  cd <build-dir> # build-dir can be arbitrary
   ../<path-to-source>/configure [--prefix=<path>]
   make
   make install [DESTDIR=<path>]
@@ -60,7 +64,7 @@ The configure script 'configure' writes 'Makefile' files that
 include 'Makefile.generic' and setup variables such as 
 VPATH, {SRC,BLD}{TOP,DIR}.
 
-Two build types are supported: In-source and out-of-Sosurce.
+Two build types are supported: In-source and out-of-Source.
 
 in-source builds:
 Makefile's are created in parallel to the Makefile.generic files.
@@ -133,7 +137,7 @@ OpenBSD:
 - install: ok.
 
 Haiku Alpha 2:
-- dynload: unsupport, no elf.h header found.
+- dynload: elf.h header found, install system source for dynload support
 - dyn{call,callback}: ok.
   make -f Makefile.generic dyncall dyncallback
 - tests: ok
@@ -159,7 +163,6 @@ make -f Makefile.generic DESTDIR=<prefix>
 
 Todo: 
 -----
-- integrate with sun's make:
 - sun's make: CXX does not exist.. no rule for *.cpp files but *.cc.
-- TARGET_ARCH is predefined with -i386 on x86 and TARGET_MACH is predefined with -i86pc
+@@@ ? seems outdated- TARGET_ARCH is predefined with -i386 on x86 and TARGET_MACH is predefined with -i86pc
 
