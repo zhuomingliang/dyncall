@@ -115,6 +115,7 @@ case ${TARGET:=`uname`} in
     ;;
   Minix)
     printf "CC=gcc\n" >>$C
+    printf "CXX=g++\n">>$C
     printf "AR=ar\n"  >>$C
     ;;
 esac
