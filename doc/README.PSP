@@ -1,13 +1,26 @@
 cross-compile for PSP using PSP-SDK
 ===================================
 
-Make sure the psp-sdk is installed and that the build tools (e.g. psp-gcc) are
-in your PATH. Also make sure that CPATH is set so that the psp-sdk's elf.h
-can be found.
+Make sure the PSP SDK's is installed and that the build tools (e.g. psp-gcc) are
+in your PATH. Also make sure that your PSP SDK's include files are in your CPATH
 
-To build, use Makefile.embedded (see below) - no need to use ./configure.
 
-build:
+Status:
+-------
+
+- dyncall: tests run ok.
+- dyncallback: all good.
+- dynload: unsupported due to missing dynamic linker and ELF headers. (@@@ check)
   
-  CPATH=/usr/local/lib/gcc/psp/4.6.2/plugin/include/config/mips/elf.h CC=psp-gcc make -f Makefile.embedded
+
+
+Building:
+---------
+
+1) using configure and make:
+$ ./configure --target=PSP
+$ make libdyncall libdyncallback
+
+2) or using build script for gcc (using Makefile.generic):
+$ sh buildsys/scripts/batch-build-psp.sh
 

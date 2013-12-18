@@ -118,6 +118,11 @@ case ${TARGET:=`uname`} in
     printf "CXX=g++\n">>$C
     printf "AR=ar\n"  >>$C
     ;;
+  PSP)
+    printf "CC=psp-gcc\n" >>$C
+    printf "CXX=psp-g++\n">>$C
+    printf "AR=psp-ar\n"  >>$C
+    ;;
 esac
 BLDTOP="$PWD"
 
