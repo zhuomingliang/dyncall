@@ -3,6 +3,7 @@ This file lists big/noteworthy changes, only...
 Version 0.8 (upcoming)
 buildsys:
   o big simplification make-based build system, no more distinct GNU and BSD makefiles anymore
+  o new, much simpler ./configure for new make-based build-system
   o support for in-source and out-of-source builds for make-based build systems
   o made configure.bat guess x64 as target arch for x64 windows hosts
   o based more sources on portasm generation
