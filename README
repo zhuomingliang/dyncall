@@ -1,0 +1,11 @@
+dyncall
+=======
+
+The dyncall library provides a portable way to call C functions in a completely
+dynamic manner. In other words, instead of calling a function directly, the
+dyncall library provides a mechanism to push the function parameters manually
+and to issue the call afterwards.
+
+Please refer to http://www.dyncall.org, dyncall(3), the dyncall manual and
+platform-specific READMEs under doc/ for more information.
+
