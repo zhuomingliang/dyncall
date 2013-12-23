@@ -2,10 +2,12 @@
 Build using buildsys/nmake and MSVC:
 
   32-bit:
+    vcvarsall.bat x86
     .\configure.bat /target-x86
     nmake /fNmakefile
 
   64-bit:
+    vcvarsall.bat amd64
     .\configure.bat /target-x64
     nmake /fNmakefile
 
@@ -22,7 +24,7 @@ Build using buildsys/gmake and MinGW:
 
 Build using Makefile.embedded and MinGW:
 
-    mingw32-make -f Makefile.embedded mingw32
+    mingw32-make -f Makefile.embedded CC=gcc
 
 
 Build using CMake and Nmake:
@@ -38,6 +40,8 @@ Build using CMake and Visual Studio:
   32-bit:
     cmake .
     open DynCall.sln
+
+  BROKEN: SAFE EH.
 
   BROKEN: Rules to assemble MASM files are still missing.
 
