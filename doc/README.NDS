@@ -1,6 +1,7 @@
-Build instructions for Nintendo DS using devkitPro
-and NMake under Windows.
-==================================================
+Build instructions for DynCall on Nintendo DS
+   using devkitPro and NMake under Windows
+=============================================
+
 
 To build the library, you have to configure it first.
 Since the NDS build uses devkitPro and NMake, assure

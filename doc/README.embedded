@@ -1,5 +1,6 @@
-Makefile.embedded - hybrid DynCall makefiles for GNU, BSD and SUN make.
-===============================================================================
+Makefile.embedded - hybrid DynCall makefiles for GNU, BSD and SUN make
+======================================================================
+
 
 Brief overview
 --------------
@@ -45,7 +46,7 @@ Tweaking the build:
 $ VAR1=<VALUE1> VAR2=<VALUE2> .. make -f Makefile.embedded <variant>
 
 Adding a variant
-----------------
+-----------------
 Currently we deal with two files to specify a custom target.
 
 The top-level Makefile.embedded controls for building the libraries.
@@ -58,7 +59,7 @@ Useful variables are CXX, CC, CCC (Sun), CFLAGS, CCFLAGS (Sun),
 CXXFLAGS andLDFLAGS.
 
 Background
------------
+----------
 During the preparation for the public release of the R package 'rdyncall' I was 
 looking for a way to get DynCall integrated into an existing Make system such 
 as offered by R for build R packages. 

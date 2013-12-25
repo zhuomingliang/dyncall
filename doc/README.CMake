@@ -1,5 +1,6 @@
-Notes on building with CMake
-----------------------------
+Notes on building DynCall with CMake
+====================================
+
 
 Build with CMake (in-source)
 ----------------------------

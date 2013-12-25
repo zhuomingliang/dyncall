@@ -1,16 +1,23 @@
-Build using buildsys/nmake and MSVC:
+Bulding DynCall on Windows
+==========================
+
+
+Build using buildsys/nmake and MS Visual Studio Tools:
+------------------------------------------------------
 
   32-bit:
     vcvarsall.bat x86
     .\configure.bat /target-x86
-    nmake /fNmakefile
+    nmake /f Nmakefile
 
   64-bit:
     vcvarsall.bat amd64
     .\configure.bat /target-x64
-    nmake /fNmakefile
+    nmake /f Nmakefile
 
-Build using buildsys/gmake and MinGW:
+
+Build using buildsys/gmake and MinGW or Cygwin:
+-----------------------------------------------
 
   32-bit:
     .\configure.bat /target-x86 /tool-gcc
@@ -21,20 +28,23 @@ Build using buildsys/gmake and MinGW:
     make
 
 
-Build using Makefile.embedded and MinGW:
+Build using Makefile.embedded and MinGW or Cygwin:
+--------------------------------------------------
 
-    mingw32-make -f Makefile.embedded CC=gcc
+    make -f Makefile.embedded CC=gcc
 
 
 Build using CMake and Nmake:
+----------------------------
 
   Put the appropriate tool-chain in path (32 or 64-bit version of MSVC), then:
   
-    cmake -G "NMake Makefiles" ${DYNCALL_SOURCE_DIR}
+    cmake -G "NMake Makefiles" %DYNCALL_SOURCE_DIR%
     nmake
 
 
 Build using CMake and Visual Studio:
+------------------------------------
  
   32-bit:
     cmake .

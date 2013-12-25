@@ -1,5 +1,6 @@
-cross-compile for PSP using PSP-SDK
-===================================
+Cross-compile DynCall for PSP using PSP-SDK
+===========================================
+
 
 Make sure the PSP SDK's is installed and that the build tools (e.g. psp-gcc) are
 in your PATH. Also make sure that your PSP SDK's include files are in your CPATH

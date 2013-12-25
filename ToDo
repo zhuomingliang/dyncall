@@ -1,10 +1,8 @@
 0.8:
 ----
 - docs/README.* (Tas)
-- Changelog up to date? (Tas)
 - Platforms:
   * PSP - build it (Tassilo), test (Daniel)
-  * Windows
   * (re)test NDS
 - mailing list announcements (html email?)
 - manual (Tas)

@@ -1,4 +1,5 @@
-DynCall for apple's iOS platforms (iPod touch, iPhone, iPad)
+Building DynCall for apple's iOS platforms (iPod touch, iPhone, iPad)
+=====================================================================
 
 
 Environment Setup for Cross-Compilation using iPhone SDK:
@@ -37,12 +38,12 @@ Supported Tool-chains
 
 
 Building with Makefile.embedded ..
- 
+
   ARMv7 for iOS 6.1
- 
+
   $ make -f Makefile.embedded ios61-os
   $ cd test && make -f Makefile.embedded ios61-os
-  
+
   ARMv7 (no thumb) for iOS 6.1
 
   $ make -f Makefile.embedded ios61-os-nothumb
@@ -58,7 +59,7 @@ Building with Makefile.embedded ..
 
 
 Building with Makefile.generic ..
-    
+
   $ source buildsys/scripts/setenv-sdk-ios.sh
   $ source buildsys/scripts/setenv-cross-ios.sh
 
