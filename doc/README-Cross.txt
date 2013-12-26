@@ -1,20 +1,21 @@
-@@@ Completely remove?
+Cross-compilation of dyncall with gcc
+=====================================
 
-Cross-compilation with gcc:
+Make sure cross-compile tools are installed and in your path, and set the
+CC, AR and LD envvars, explicitly (where $PREFIX is arm-eabi, etc., depending
+on the toolchain to be used):
 
-set CC,AR,LD explicitly
+  $ export CC=$PREFIX-gcc
+  $ export AR=$PREFIX-ar
+  $ export LD=$PREFIX-ld
 
-export CC=$PREFIX-gcc
-export AR=$PREFIX-ar
-export LD=$PREFIX-ld
+Also set CXX if you want to build the tests:
 
-# required for tests:
-export CXX=$PREFIX-g++
+  $ export CXX=$PREFIX-g++
 
-./configure <flags>
 
-useful flags:
+Then, build dyncall - one way would be to simply use Makefile.embedded:
 
-  --target-windows      compiling for windows on cygwin
-  --target-x86          compiling for x86 on x64
+  $ make -f Makefile.embedded sun
+  $ (cd test; make -f Makefile.embedded)
 
