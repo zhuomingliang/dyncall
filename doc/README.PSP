@@ -11,7 +11,7 @@ Status:
 
 - dyncall: tests run ok.
 - dyncallback: all good.
-- dynload: unsupported due to missing dynamic linker and ELF headers. (@@@ check)
+- dynload: unsupported due to missing dynamic linker and ELF headers.
   
 
 

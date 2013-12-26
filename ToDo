@@ -1,6 +1,5 @@
 0.8:
 ----
-- docs/README.* (Tas)
 - Platforms:
   * PSP - build it (Tassilo), test (Daniel)
 - mailing list announcements (html email?)
@@ -41,6 +40,7 @@ dynload:
   in dyncall
 - get rid of Dl_info and friends (_GNU_SOURCE) in dynload/dynload_syms_elf.c
   for implementation of dlSymsNameFromValue(..)
+- check if PSP can support dynload (missing elf.h, dlfcn.h, etc.); fixup readme if successful
 
 dyncallback:
 ------------
