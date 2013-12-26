@@ -3,11 +3,18 @@
 - docs/README.* (Tas)
 - Platforms:
   * PSP - build it (Tassilo), test (Daniel)
-  * (re)test NDS
 - mailing list announcements (html email?)
 - manual (Tas)
 - Website:
   * platform matrix (wie im Handbuch oder Daniels Disse)
+- fix for NDS:
+    * ARM:
+      - callback_plain retval wrong (not only platform)
+    * THUMB:
+      - ellipsis (might be test itself, not respecting fixed part of args)
+      - retvals of call_suite (maybe all retvals, in general)
+      - callback_plain retval
+      - callf
 
 
 build-system:
