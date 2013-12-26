@@ -148,12 +148,10 @@ ECHO Build prefix:        %CONFIG_BUILDPREFIX%
 
 REM We have to transform some pathes for the nds/devkitPro build.
 IF [%CONFIG_OS%]==[nds] (
-
-REM Check if DEVKITPRO is set.
-IF [%DEVKITPRO%]==[] (
-	ECHO ERROR: Environment variable DEVKITPRO must be set to absolute devkitPro path.
-) ELSE (
-	buildsys\scrips\conf-nds.bat
-)
-
+	REM Check if DEVKITPRO is set.
+	IF [%DEVKITPRO%]==[] (
+		ECHO ERROR: Environment variable DEVKITPRO must be set to absolute devkitPro path.
+	) ELSE (
+		buildsys\scripts\conf-nds.bat
+	)
 )
