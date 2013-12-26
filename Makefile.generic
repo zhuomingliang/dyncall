@@ -18,6 +18,7 @@ clean:
 	cd dynload && ${MAKE} $@
 	cd dyncallback && ${MAKE} $@
 	cd test && ${MAKE} $@
+	cd doc && ${MAKE} $@
 tests: tests-libdyncall tests-libdyncallback tests-libdynload
 tests-libdyncall: libdyncall
 	cd test && ${MAKE} all-dyncall

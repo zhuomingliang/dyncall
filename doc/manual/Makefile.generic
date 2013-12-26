@@ -5,4 +5,4 @@ manual.pdf:
 	cd ${VPATH} && pdflatex -output-directory=${PWD} manual.tex
 
 clean:
-	for i in pdf aux lof log lol lot out toc; do rm manual.$$i || true; done
+	for i in pdf aux lof log lol lot out toc; do rm -f manual.$$i || true; done
