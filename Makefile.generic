@@ -1,6 +1,6 @@
 .PHONY: all clean install tests docs run-tests clean distclean libdyncall libdyncallback libdynload
 all: libdyncall libdyncallback libdynload
-install: all install-libdyncall linstall-ibdyncallback linstall-ibdynload
+install: all install-libdyncall install-libdyncallback install-libdynload
 libdyncall:
 	cd dyncall && ${MAKE} all
 libdyncallback:
