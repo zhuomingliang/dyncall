@@ -32,5 +32,5 @@ run-tests: all
 	cd test && ${MAKE} $@
 distclean: clean
 	rm -f Makefile.config
-	find . -name "Makefile" | xargs rm
+	find . -type f -name "Makefile.generic" | sed s/\.generic$$// | xargs rm
 
