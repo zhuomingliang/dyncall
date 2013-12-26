@@ -15,13 +15,16 @@ Status:
   
 
 
-Building:
----------
+There are currently two ways to build dyncall for PSP.
 
-1) using configure and make:
-$ ./configure --target=PSP
-$ make libdyncall libdyncallback
+Build using configure and make:
+-------------------------------
 
-2) or using build script for gcc (using Makefile.generic):
-$ sh buildsys/scripts/batch-build-psp.sh
+  $ ./configure --target=PSP
+  $ make libdyncall libdyncallback
+
+
+Build using build script for gcc (using Makefile.generic):
+----------------------------------------------------------
+  $ sh buildsys/scripts/batch-build-psp.sh
 
