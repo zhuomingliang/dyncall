@@ -18,6 +18,7 @@ dyncallback:
   o big cleanup, removal of duplicate files after introduction of portasm
 doc:
   o cleanup of manual and corrections
+  o added info about newly supported and/or tested platforms (e.g. FreeBSD on ARM)
   o restructured folder layout for documentation
 tests:
   o added arm/thumb interwork test suite
