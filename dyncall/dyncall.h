@@ -59,14 +59,14 @@ typedef struct DCstruct_    DCstruct;
 #define DC_CALL_C_X64_WIN64             7
 #define DC_CALL_C_X64_SYSV              8
 #define DC_CALL_C_PPC32_DARWIN          9
-#define DC_CALL_C_PPC32_OSX            DC_CALL_C_PPC32_OSX /* alias for DC_CALL_C_PPC32_DARWIN */
+#define DC_CALL_C_PPC32_OSX            DC_CALL_C_PPC32_DARWIN /* alias */
 #define DC_CALL_C_ARM_ARM_EABI         10
 #define DC_CALL_C_ARM_THUMB_EABI       11
 #define DC_CALL_C_ARM_ARMHF            30
 #define DC_CALL_C_MIPS32_EABI          12
 #define DC_CALL_C_MIPS32_PSPSDK        DC_CALL_C_MIPS32_EABI /* alias - deprecated. */
 #define DC_CALL_C_PPC32_SYSV           13
-#define DC_CALL_C_PPC32_LINUX          DC_CALL_C_PPC32_SYSV /* alias for DC_CALL_C_PPC32_SYSV */
+#define DC_CALL_C_PPC32_LINUX          DC_CALL_C_PPC32_SYSV /* alias */
 #define DC_CALL_C_ARM_ARM              14
 #define DC_CALL_C_ARM_THUMB            15
 #define DC_CALL_C_MIPS32_O32           16
