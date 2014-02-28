@@ -22,6 +22,8 @@ doc:
   o restructured folder layout for documentation
 tests:
   o added arm/thumb interwork test suite
+bindings:
+  o experimental Go support
 
 Version 0.7
 architecture:
