@@ -31,6 +31,9 @@ dyncall:
 - support for return values: aggregate return values
 - support for argument values: structures, half-precision, vector types, long double
 - varargs for mips (might exist, but test all ABIs)
+- consider automatic type-promotion for arguments passed through DC_CALL_C_ELLIPSIS_VARARGS;
+  this would make it easier to just pass arguments instead of having to know about the C
+  type promotions
 
 dynload:
 --------
