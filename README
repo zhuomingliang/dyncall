@@ -44,7 +44,7 @@ Supported Architectures and ABIs:
 Supported Operating Systems:
 ----------------------------
  - Android
- - BSDs 
+ - *BSD
  - Haiku
  - iOS
  - Linux
@@ -52,7 +52,9 @@ Supported Operating Systems:
  - Microsoft Windows
  - Minix
  - Nintendo DS Homebrew
+ - Plan9 / 9front
  - Playstation Portable Homebrew
+ - ReactOS
  - Solaris
 
 Building the library
