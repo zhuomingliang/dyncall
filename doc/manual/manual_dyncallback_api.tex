@@ -94,4 +94,6 @@ for dynamic iteration over the called-back-function's arguments (input) and
 callback's return value (output, to be set by handler).\\
 Finally, \capi{userdata} is a pointer to some user defined data that can be
 set when creating the callback object.
+The handler itself returns either 'i' or 'f' depending on whether the value
+stored in \capi{result} is of integral or floating point type.
 
