@@ -161,14 +161,14 @@ For information about the signature format, refer to the
 manual in PDF format.
 .Sh EXAMPLE
 Let's say, we want to make a call to the function:
-.Bd -literal
+.Bd -literal -offset indent
 	double sqrt(double x); 
 .Ed
 .Pp
 Using the
 .Nm
 library, this function would be called as follows: 
-.Bd -literal
+.Bd -literal -offset indent
 	double r;
 	DCCallVM* vm = dcNewCallVM(4096);
 	dcMode(vm, DC_CALL_C_DEFAULT);
