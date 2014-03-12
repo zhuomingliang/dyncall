@@ -30,9 +30,18 @@ void* dlLoadLibrary(const char* libpath);
 void  dlFreeLibrary(void* libhandle);
 \end{lstlisting}
 
+\lstinline{dlLoadLibrary} loads a dynamic library at \lstinline{libpath}
+and returns a handle to it for use in \lstinline{dlFreeLibrary} and
+\lstinline{dlFindSymbol} calls.
+
+\lstinline{dlFreeLibrary} frees the loaded library with handle \lstinline{pLib}.
+
 \subsection{Retrieving functions}
 
 \begin{lstlisting}[language=c]
 void* dlFindSymbol(void* libhandle, const char* symbol);
 \end{lstlisting}
 
+returns a pointer to a symbol with name \lstinline{pSymbolName} in the
+library with handle \lstinline{pLib}, or returns a null pointer if the symbol cannot
+be found.
