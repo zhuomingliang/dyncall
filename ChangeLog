@@ -27,6 +27,7 @@ tests:
 bindings:
   o godc: added bindings for Go
   o rbdc: fixed and extended ruby bindings
+  o shdc: renamed shell binding to shdc and added feature to list shared-objects' symbols
 
 Version 0.7
 architecture:
@@ -161,3 +162,4 @@ Version 0.2
 
 Version 0.1:
   o initial release
+
