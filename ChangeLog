@@ -25,7 +25,8 @@ doc:
 tests:
   o added arm/thumb interwork test suite
 bindings:
-  o godc: bindings for Go
+  o godc: added bindings for Go
+  o rbdc: fixed and extended ruby bindings
 
 Version 0.7
 architecture:

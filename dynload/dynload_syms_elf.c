@@ -175,9 +175,11 @@ DLSyms* dlSymsInit(const char* libPath)
 
 void dlSymsCleanup(DLSyms* pSyms)
 {
-  munmap( (void*) pSyms->pElf_Ehdr, pSyms->fileSize);
-  close(pSyms->file);
-  dlFreeMem(pSyms);
+  if(pSyms) {
+    munmap((void*) pSyms->pElf_Ehdr, pSyms->fileSize);
+    close(pSyms->file);
+    dlFreeMem(pSyms);
+  }
 }
 
 
