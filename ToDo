@@ -54,6 +54,18 @@ dyncallback:
 - add MIPS callbacks (thunks seem to be working, but maybe buggy)
 - finish PPC32 callbacks (see bugs section, below)
 
+bindings:
+---------
+- release bindings as standalone packages (already done for rbdc as a gem and rdyncall on cran)
+  * add note to documentation, where bindings are and that some bindings are svn-only ATM
+- add rdoc documentation to ruby gem
+- bring python up to latest
+- add pydoc for python
+- add manpage for shdc
+- add godoc for godc
+- bring java up to latest
+- add more bindings
+
 urgent issues:
 --------------
 - finish SPARC/SPARC64 calling conventions in doc's callconv-appendix !!!
@@ -64,11 +76,7 @@ urgent issues:
 - Solaris/gmake build doesn't build dynload and tests anymore (maybe not even dyncallback)
 - test arm32/ATPCS/THUMB (and then change Status in doc Appendix)
 - look over code and fix TODO or @@@ marks
-- consider moving bindings into dyncall/ such that releases include it in the future
-  * or, alternatively, pack them separately and put them on the website, for releases
-- add note to documentation, that bindings are svn-only ATM
 - add pcc-support to doc
-- rename configure to configure.sh (so we would have .sh, .rc and .bat in the future)
 
 nice to have:
 -------------
