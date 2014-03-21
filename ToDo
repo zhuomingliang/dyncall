@@ -62,8 +62,10 @@ bindings:
 - bring python up to latest
 - add pydoc for python
 - add manpage for shdc
+- add argf functionality to go (maybe introduce argf to dyncall, first)
 - add godoc for godc
 - bring java up to latest
+- add javadoc to java
 - add more bindings
 - add callback support for go, java, lua, python and ruby (and shell? how?)
 
