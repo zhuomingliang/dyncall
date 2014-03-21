@@ -3,7 +3,6 @@
 - Platforms:
   * PSP - build it (Tassilo), test (Daniel)
 - mailing list announcements (html email?)
-- manual (Tas)
 - Website:
   * platform matrix (wie im Handbuch oder Daniels Disse)
 - fix for NDS:
@@ -69,10 +68,16 @@ bindings:
 - add more bindings
 - add callback support for go, java, lua, python and ruby (and shell? how?)
 
+manual:
+-------
+- finish tex4ht manual generation (use \ifhtml and \ifnhtml, ...)
+- provide more examples on how to use dyncall, dynload and dyncallback
+  * e.g. enhance manual with a couple of examples (e.g. calling MessageBoxA on windows, etc.)
+- manuals for bindings (as stated in bindings-section, above)
+
 urgent issues:
 --------------
 - finish SPARC/SPARC64 calling conventions in doc's callconv-appendix !!!
-- finish dyncallback doc, finish dynload doc, add both to troff doc
 - Haiku/gmake build doesn't build dynload due to the fact, that elf.h is not found
   on default installations (one has to install the system headers)
   * add to doc
@@ -83,7 +88,6 @@ urgent issues:
 
 nice to have:
 -------------
-- enhance manual with a couple of examples (e.g. calling MessageBoxA on windows, etc.)
 - update: microsoft visual c++ build files - integrate all test suites in solution file
 - maybe rename DC__Arch_PowerPC to ...PPC32 for coherency reasons (...PPC64)?
 - consistency: on x64 platforms: make both ABIs available ('win64','sysv') for all x64 OS ports
@@ -119,7 +123,5 @@ available hardware for outstanding ports:
 -----------------------------------------
 - 68k: Tassilo's old Palm m100 (MC68EZ328 (16MHz))
 - sh4: Tassilo's Dreamcast
-- mips R5900: Daniel's PS2
-- mips (?): Daniel's router
 - sigmatel stmp3550b: Daniel's iPod Nano
 
