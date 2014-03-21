@@ -65,6 +65,7 @@ bindings:
 - add godoc for godc
 - bring java up to latest
 - add more bindings
+- add callback support for go, java, lua, python and ruby (and shell? how?)
 
 urgent issues:
 --------------
