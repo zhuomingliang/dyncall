@@ -35,6 +35,18 @@
 }
 
 
+% Conditional if tex4ht is on or not
+\newcommand{\ifhtml}[1]{%
+	\ifx  \HCode \defined%
+		#1%
+	\fi%
+}
+\newcommand{\ifnhtml}[1]{%
+	\ifx  \HCode \undefined%
+		#1%
+	\fi%
+}
+
 
 % Packages.
 \usepackage{a4wide}
@@ -48,7 +60,7 @@
 \usepackage{moreverb}
 \usepackage{listings}
 \usepackage{hyperref}
-\usepackage{watermark}
+\ifnhtml{\usepackage{watermark}}
 
 
 % Define own commands and style.
@@ -86,7 +98,8 @@
 	\vspace{6pt}%
 }%
 
-% Set a watermark.
+% Set a watermark, but not when running htlatex
+\ifnhtml{%
 \watermark{%
 \begingroup%
 \setlength{\unitlength}{1mm}%
@@ -94,6 +107,7 @@
 	\includegraphics[scale=1.0]{dyncall_watermark}%
 \end{picture}%
 \endgroup%
+}%
 }
 
 
