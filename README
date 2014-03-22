@@ -1,48 +1,50 @@
 dyncall - A Generic Dynamic FFI package
 =======================================
 
-The dyncall software distribution comprises a low-level toolkit for
-the implementation of Foreign Function Interfaces.
-It comprises abstractions to the Application Binary Interface of a
-number of hard- and software platforms.
+dyncall is a low-level toolkit providing a portable abstraction for 
+handling native code dynamically at run time.
+It comprises three independent components, available as C libraries, namely:
 
-The software package comprises three C libraries, namely:
+ - 'dyncall' for making function calls,
+ - 'dyncallback' or writing generic callback handlers, and
+ - 'dynload' for loading code.
 
- - Library dyncall for making function calls,
- - Library dyncallback or writing generic callback handlers, and
- - Library dynload for loading code.
+The package provides abstractions to the Application Binary Interface 
+of various hardware platforms such as IA32, AMD64, ARM, PowerPC, MIPS 
+and SPARC.
 
-The dyncall library provides a portable interface for calling 
-C functions from within dynamic execution environments, such as
-interpreters or application servers. 
-The dyncallback library allows to implement a callback handler in C
-for handling arbitrary C callbacks from within dynamic execution environments.
-The dynload library provides a thin abstraction layer for loading of code
-and also allows to enumerate the contents of shared librarys or DLLs.
+Our releases are deeply tested using a flexible test suite.
 
-Typical applications for dyncall are FFI (foreign function interface) packages
-for scripting languages to connect with the C/C++ world.
+A typical application for the use of dyncall is the back-end of a FFI 
+(foreign function interface) for scripting languages to connect with 
+the C/C++ world.
 
-The binary footprint of the whole package is approx. 20 kb.
+The binary footprint of the package is approx. 20 kb.
+A test suite and comprehensive documentation is available.
 
 
-Building the library
---------------------
+Building the libraries
+----------------------
 
 Prequisites: 
  - C compiler such as gcc,clang,sunpro or msvc.
  - Assembler such as gas (GNU/apple), fbe or masm.
- 
+ - Build system such as 'shell/make', CMake, nmake (windows) or mk (plan9).
+
+
 Supported Architectures and ABIs:
 ---------------------------------
+
  - x86     32/64-bit (cdecl, fastcall, stdcall, C++ this calls, Syscalls)
  - ARM     AArch32   (ARM/Thumb mode, v4t-v7, oabi/eabi, soft/hardfloat ABIs)
  - MIPS    32/64-bit (o32, n64, eabi)
  - PowerPC 32-bit    (Mac OS X, System V)
  - Sparc   32/64-bit (v7/8 and v9)
 
+
 Supported Operating Systems:
 ----------------------------
+
  - Android
  - *BSD
  - Haiku
@@ -57,9 +59,11 @@ Supported Operating Systems:
  - ReactOS
  - Solaris
 
-Building the library
---------------------
-Using `homebrewed' configure shell script and GNU/BSD/Sun make system.
+
+Building the libraries
+----------------------
+
+Using configure shell script and GNU/BSD/Sun make system.
 
 $ ./configure
 $ make
@@ -70,8 +74,9 @@ Testing:
 $ make tests
 $ make run-tests
 
-Out-of-source building:
-----------------------
+
+Build 'out-of-source'
+---------------------
 
 $ cd <build_dir>
 $ <src_dir>/configure --prefix=<install_dir>
@@ -85,6 +90,12 @@ Building using CMake
 $ cmake 
 $ make
 $ sudo make install
+
+
+Building on Windows
+-------------------
+
+See docs/README.Windows
 
 
 Please refer to http://www.dyncall.org, dyncall(3), the dyncall manual and
