@@ -68,7 +68,7 @@ void init()
     valueInt[i]      = DCint(i);
     valueLongLong[i] = DClonglong(i);
     valueDouble[i]   = DCdouble(i);
-    valuePointer[i]  = DCpointer(i);
+    valuePointer[i]  = DCpointer( (ptrdiff_t) i);
     valueFloat[i]    = DCfloat(i);
   }
 }
