@@ -130,14 +130,17 @@ case ${TARGET:=`uname`} in
     printf "AR=ar\n"  >>$C
     ;;
   PSP)
-    SDKROOT="`psp-gcc -print-search-dirs | grep '^libraries:' | sed -E 's%.*:([^:]*psp/lib[^:]*.*)%\1%'`/../sdk/"
-    SDKROOT=`realpath ${SDKROOT}`
+    SDKROOT="`psp-config --pspsdk-path`"
     printf "CC=psp-gcc\n" >>$C
-    printf "CXX=psp-g++\n">>$C
+    printf "CXX=psp-gcc\n">>$C # don't use psp-g++, buggy
     printf "AR=psp-ar\n"  >>$C
     printf "CFLAGS=-I${SDKROOT}/include/\n" >>$C
-    # Pulling in dyncall libs below is a hack, for some reason psp-ld is super-picky about order and even needs -lc.
-    printf "LDLIBS=${SDKROOT}/lib/lib*.a -L`dirname ${FULL}`/dyncall -L`dirname ${FULL}`/dyncallback -ldyncall_s -ldyncallback_s -lc -lm\n" >>$C
+    printf "CXXFLAGS=-I${SDKROOT}/include/\n" >>$C
+    # Pulling in dyncall libs below is a hack, for some reason psp-ld is super-picky about order.
+	# Use your C lib of choice, from the PSPSDK, or...
+    #printf "LDLIBS=-L${SDKROOT}/lib/ -L`dirname ${FULL}`/dyncall -L`dirname ${FULL}`/dyncallback -ldyncall_s -ldyncallback_s -lm -lpspdebug -lpspdisplay -lpspge -lpspctrl -lpspsdk -lstdc++ -lpsplibc -lpspnet -lpspnet_inet -lpspnet_apctl -lpspnet_resolver -lpsputility -lpspuser \n" >>$C
+	# ... newlib.
+    printf "LDLIBS=-L${SDKROOT}/lib/ -L`dirname ${FULL}`/dyncall -L`dirname ${FULL}`/dyncallback -ldyncall_s -ldyncallback_s -lm -lpspdebug -lpspdisplay -lpspge -lpspctrl -lpspsdk -lstdc++ -lc       -lpspnet -lpspnet_inet -lpspnet_apctl -lpspnet_resolver -lpsputility -lpspuser \n" >>$C
     ;;
 esac
 
