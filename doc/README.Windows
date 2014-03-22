@@ -15,6 +15,13 @@ Build using buildsys/nmake and MS Visual Studio Tools:
     .\configure.bat /target-x64
     nmake /f Nmakefile
 
+  Build/run tests:
+    cd test
+    nmake /f Nmakefile
+    
+    NOTE: if you encounter 'python'/'lua' not found messages (which is 
+     executed mistakenly for re-generation of test C code)
+     timestamps are wrong; workaround: run "svn revert -R ." several times.
 
 Build using buildsys/gmake and MinGW or Cygwin:
 -----------------------------------------------
@@ -31,7 +38,8 @@ Build using buildsys/gmake and MinGW or Cygwin:
 Build using Makefile.embedded and MinGW or Cygwin:
 --------------------------------------------------
 
-    make -f Makefile.embedded CC=gcc
+    > mingw32-make -f Makefile.embedded
+    $ make -f Makefile.embedded CC=gcc
 
 
 Build using CMake and Nmake:
