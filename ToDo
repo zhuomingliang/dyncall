@@ -1,5 +1,6 @@
 0.9:
 ----
+- make install should install manpages
 - mailing list announcements (html email?)
 - Website:
   * platform matrix (wie im Handbuch oder Daniels Disse)
