@@ -33,8 +33,8 @@ However, as the number of source files to be compiled for a given
 platform is small, it shouldn't be difficult to build it manually with
 another toolchain.
 \begin{itemize}
-\item C compiler to build the \product{dyncall} library (GCC, SunPro or Microsoft C/C++ compiler)
-\item C++ compiler to build the optional test cases (GCC, SunPro or Microsoft C/C++ compiler)
+\item C compiler to build the \product{dyncall} library (GCC, Clang, SunPro or Microsoft C/C++ compiler)
+\item C++ compiler to build the optional test cases (GCC, Clang, SunPro or Microsoft C/C++ compiler)
 \item BSD make, GNU make, Microsoft nmake or mk (on Plan9) as automated build tools
 \item Python (optional - for generation of some test cases)
 \item Lua (optional - for generation of some test cases)
@@ -55,7 +55,7 @@ This is a detailed overview of platforms and their build tools that are known to
 \begin{tabular}{l l l}
 {\bf{\large Platform}}             & Build Tool(s)    & Compiler, SDK                              \\
 \hline
-{\bf{\large Windows}}              & nmake            & cl, cygwin (gcc), mingw (gcc)              \\
+{\bf{\large Windows}}              & nmake,Visual Studio & cl, cygwin (gcc), mingw (gcc)              \\
 {\bf{\large Unix-like}}            & GNU/BSD/Sun make & gcc, clang, sunc                           \\
 {\bf{\large Plan9}}                & mk               & 8c                                         \\
 {\bf{\large Haiku/BeOS}}           & GNU make         & gcc                                        \\
@@ -83,7 +83,7 @@ Available options (omit for defaults):
 \begin{tabular}{ll}	
 {\tt --help}                  & display help                             \\
 {\tt --prefix={\it path}}     & specify installation prefix (Unix shell) \\
-{\tt --target={\it platform}} & MacOSX,iOS,iPhoneSimulator,...           \\
+{\tt --target={\it platform}} & MacOSX,iOS,iPhoneSimulator,PSP,...       \\
 {\tt --sdk={\it version}}     & SDK version                              \\
 \end{tabular}
 
