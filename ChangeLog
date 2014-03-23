@@ -19,6 +19,7 @@ dyncall:
 dyncallback:
   o added callback support for plan9
   o big cleanup, removal of duplicate files after introduction of portasm
+  o include path fixes for public facing APIs (removed relative paths)
 doc:
   o cleanup of manual and corrections
   o added info about newly supported and/or tested platforms (e.g. FreeBSD on ARM)
