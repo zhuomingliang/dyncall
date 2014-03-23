@@ -1,6 +1,9 @@
 This file lists big/noteworthy changes, only...
 
-Version 0.8 (upcoming)
+Version 0.9 (upcoming)
+...
+
+Version 0.8
 buildsys:
   o big simplification make-based build system, no more distinct GNU and BSD makefiles anymore
   o new, much simpler ./configure for new make-based build-system
