@@ -26,7 +26,7 @@
 #ifndef DYNCALL_ALLOC_WX_HPP
 #define DYNCALL_ALLOC_WX_HPP
 
-#include "../dyncall/dyncall_types.h"
+#include "dyncall_types.h"
 
 typedef int DCerror;
 

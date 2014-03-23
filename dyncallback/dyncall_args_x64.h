@@ -27,7 +27,7 @@
 #define DYNCALLBACK_ARGS_X64_H
 
 #include "dyncall_args.h"
-#include "../dyncall/dyncall_callvm_x64.h"  /* reuse structures */
+#include "dyncall_callvm_x64.h"  /* reuse structures */
 
 
 struct DCArgs
