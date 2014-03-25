@@ -2,8 +2,8 @@ APP     = call_suite
 OBJS    = globals.o invoke.o cases.o main.o
 SRCTOP  = ${VPATH}/../..
 BLDTOP  = ../..
-CFLAGS += -I ${SRCTOP}/dyncall
-LDLIBS += -L ${BLDTOP}/dyncall -ldyncall_s 
+CFLAGS += -I${SRCTOP}/dyncall
+LDLIBS += -L${BLDTOP}/dyncall -ldyncall_s 
 .PHONY: all clean install config config-random
 all: ${APP}
 ${APP}: ${OBJS} 
