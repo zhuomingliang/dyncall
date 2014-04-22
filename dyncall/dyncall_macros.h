@@ -138,6 +138,10 @@
 #elif defined(_MSC_VER)
 #define DC__C_MSVC
 
+/* LLVM clang. */
+#elif defined(__clang__)
+#define DC__C_CLANG
+
 /* The GNU Compiler Collection - GCC. */
 #elif defined(__GNUC__)
 #define DC__C_GNU
