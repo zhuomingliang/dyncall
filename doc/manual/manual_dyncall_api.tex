@@ -269,11 +269,13 @@ After the invocation of the foreign function call, the argument values are
 still bound and a second call using the same arguments can be issued. If you
 need to clear the argument bindings, you have to reset the \emph{CallVM}.
 
-\subsection{Formatted calls (ANSI C ellipsis interface)}
+\subsection{Formatted argument binding and calls (ANSI C ellipsis interface)}
 
 \paragraph{Functions}
 
 \begin{lstlisting}[language=c]
+void dcArgF (DCCallVM* vm, const DCsigchar* signature, ...);
+void dcVArgF(DCCallVM* vm, const DCsigchar* signature, va_list args);
 void dcCallF (DCCallVM* vm, DCValue* result, DCpointer funcptr, 
               const DCsigchar* signature, ...);
 void dcVCallF(DCCallVM* vm, DCValue* result, DCpointer funcptr, 
@@ -284,6 +286,10 @@ void dcVCallF(DCCallVM* vm, DCValue* result, DCpointer funcptr,
 
 These functions can be used to operate \product{dyncall} via a printf-style
 functional interface, using a signature string encoding the argument types and 
-return type. The return value will be stored in what \lstinline{result} points to..
+return type.
+\capi{dcArgF()} and \capi{dcVArgF()} just bind arguments to the \capi{DCCallVM}
+object, so any return value specified in the signature is ignored. \capi{dcCallF()}
+and \capi{dcVCallF()} also take a function pointer to call after binding the arguments.
+The return value will be stored in what \lstinline{result} points to.
 For more information about the signature format, refer to \ref{sigchar}.
 

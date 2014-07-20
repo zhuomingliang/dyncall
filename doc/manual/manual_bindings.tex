@@ -62,8 +62,9 @@ functions to perform automatic type-conversion of the languages' types to the
 low-level C/C++ data types. This is an essential part of mapping the more flexible
 and often abstract data types provided in scripting languages conveniently to the
 strict machine-level data types used by C-libraries.
-The high-level C interface functions \capi{dcCallF()} and \capi{dcCallFV()}
-of the \product{dyncall} library also make use of this signature string format.\\
+The high-level C interface functions \capi{dcCallF()}, \capi{dcVCallF()},
+\capi{dcArgF()} and \capi{dcVArgF()} of the \product{dyncall} library also make
+use of this signature string format.\\
 \\
 The format of a \product{dyncall} signature string is as depicted below:
 

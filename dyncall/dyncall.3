@@ -70,6 +70,10 @@ semantics
 .Ft DCpointer
 .Fn dcCallPointer "DCCallVM * vm" "DCpointer funcptr"
 .Ft void
+.Fn dcArgF "DCCallVM * vm" "const DCsigchar * signature" "..."
+.Ft void
+.Fn dcVArgF "DCCallVM * vm" "const DCsigchar * signature" "va_list args"
+.Ft void
 .Fn dcCallF "DCCallVM * vm" "DCValue * result" "DCpointer funcptr" "const DCsigchar * signature" "..."
 .Ft void
 .Fn dcVCallF "DCCallVM * vm" "DCValue * result" "DCpointer funcptr" "const DCsigchar * signature" "va_list args"
@@ -149,12 +153,18 @@ using the same arguments can be issued. Call
 .Fn reset
 to clear the internal argument stack.
 .Pp
+.Fn dcArgF ,
+.Fn dcVArgF ,
 .Fn dcCallF
 and
 .Fn dcVCallF
-can be used to issue a printf-style function call, using a signature
-string encoding the argument types and return type. The return value will be
-stored in
+can be used to bind arguments in a printf-style call, using a signature
+string encoding the argument types and return type. The former 2 only bind
+the arguments to the
+.Ar vm
+object (and ignore return types specified in the
+signature), whereas the latter two issue a call to the given function pointer,
+afterwards. The return value will be stored in
 .Ar result .
 For information about the signature format, refer to the
 .Nm

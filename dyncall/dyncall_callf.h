@@ -45,6 +45,9 @@
 
 #include <stdarg.h>
 
+void dcArgF (DCCallVM* vm, const DCsigchar* signature, ...);
+void dcVArgF(DCCallVM* vm, const DCsigchar* signature, va_list args);
+
 void dcCallF (DCCallVM* vm, DCValue* result, DCpointer funcptr, const DCsigchar* signature, ...);
 void dcVCallF(DCCallVM* vm, DCValue* result, DCpointer funcptr, const DCsigchar* signature, va_list args);
 

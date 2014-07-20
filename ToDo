@@ -12,6 +12,9 @@
       - retvals of call_suite (maybe all retvals, in general)
       - callback_plain retval
       - callf
+- syscalls for x64
+  * bsd
+  * linux
 
 
 build-system:

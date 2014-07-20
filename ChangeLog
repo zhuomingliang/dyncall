@@ -1,7 +1,11 @@
 This file lists big/noteworthy changes, only...
 
 Version 0.9 (upcoming)
-...
+dyncall:
+  o introduced dcArgF and dcVArgF for flexible/convenient argument binding (works
+    like dcCallF/dcVCallF without the function call)
+tests:
+  o callf test also tests new argf interface
 
 Version 0.8
 buildsys:
