@@ -35,9 +35,6 @@ dyncall:
 - consider automatic type-promotion for arguments passed through DC_CALL_C_ELLIPSIS_VARARGS;
   this would make it easier to just pass arguments instead of having to know about the C
   type promotions
-- add dcArgF, so CallF without the call; this would allow to use sig for building stack, only
-  and is more flexible; bindings would benefit if statically typed as it decouples call from
-  convenient stack building
 
 dynload:
 --------
@@ -63,12 +60,13 @@ bindings:
 - bring python up to latest
 - add pydoc for python
 - add manpage for shdc
-- add argf functionality to go (maybe introduce argf to dyncall, first)
+- expose callf-convenience functions to go
 - add godoc for godc
 - bring java up to latest
 - add javadoc to java
 - add more bindings
 - add callback support for go, java, lua, python and ruby (and shell? how?)
+- add call-conv-mode-support for rbdc through signature
 
 manual:
 -------
