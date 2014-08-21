@@ -35,7 +35,7 @@ Prequisites:
 Supported Architectures and ABIs:
 ---------------------------------
 
- - x86     32/64-bit (cdecl, fastcall, stdcall, C++ this calls, Syscalls)
+ - x86     32/64-bit (cdecl, fastcall, stdcall, C++ this calls, syscalls, plan9)
  - ARM     AArch32   (ARM/Thumb mode, v4t-v7, oabi/eabi, soft/hardfloat ABIs)
  - MIPS    32/64-bit (o32, n64, eabi)
  - PowerPC 32-bit    (Mac OS X, System V)
@@ -98,6 +98,12 @@ Building on Windows
 -------------------
 
 See doc/README.Windows
+
+
+Platform-specific build details
+-------------------------------
+
+See doc/README.*
 
 
 Building the manual
