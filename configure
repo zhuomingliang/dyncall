@@ -17,7 +17,7 @@ while [ $# -gt 0 ]; do
   shift 1
 # Shell common:
   case $X in
-    --help|-h)
+    --help|-h|-?)
 cat <<EOF
 usage: $0 --prefix=<dir> var1=name1..
   --prefix=<dir>
@@ -62,6 +62,9 @@ case ${TARGET:=`uname`} in
     printf "LDFLAGS=-lm\n" >>$C
     ;;
   FreeBSD)
+    if [ -z "${CFLAGS}" ]; then
+      printf "CFLAGS=-fPIC\n" >>$C
+    fi
     printf "LDFLAGS=-lm\n" >>$C
     printf "RM=rm -f\n" >>$C
     ;;
