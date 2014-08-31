@@ -7,6 +7,8 @@ dyncall:
   o added -fPIC by default for FreeBSD
 tests:
   o callf test also tests new argf interface
+bindings:
+  o erldc: Erlang binding (Author: Erik Mackdanz)
 
 Version 0.8
 buildsys:
