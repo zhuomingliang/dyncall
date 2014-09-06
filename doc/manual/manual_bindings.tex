@@ -23,7 +23,7 @@
 Through binding of the \product{dyncall} library into a scripting environment,
 the scripting language can gain system programming status to a certain degree.\\
 The \product{dyncall} library provides bindings to Java\cite{Java},
-Lua\cite{Lua}, Python\cite{Python}, R\cite{R}, Ruby\cite{Ruby} and the command line.\\
+Lua\cite{Lua}, Python\cite{Python}, R\cite{R}, Ruby\cite{Ruby}, Go\cite{Go}, Erlang\cite{Erlang} and the command line.\\
 However, please note that some of these bindings are work-in-progress and not
 automatically tested, meaning it might require some additional work to make them
 work.
@@ -214,7 +214,7 @@ to represent 64-bit integers (using only the 52-bit mantissa part).
 
 \subsection{Ruby language bindings}
 
-The Ruby gem {\tt rbdc}  implements the Ruby language bindings.
+The Ruby gem {\tt rbdc} implements the Ruby language bindings.
 
 \begin{table}[h]
 \begin{center}
@@ -238,4 +238,41 @@ Signature character & accepted Ruby data types\\
 \label{Rubysigchar}
 \end{center}
 \end{table}
+
+\subsection{Go language bindings}
+
+A Go binding is provided through the {\tt godc} package. Since Go's type system is basically a superset of C's, the type mapping from Go to C is straightforward.
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular*}{0.75\textwidth}{ll}
+\hline
+Signature character & accepted Go data types\\
+\hline
+\sigchar{B} & bool\\
+\sigchar{c}, \sigchar{C} & int8, uint8\\
+\sigchar{s}, \sigchar{S} & int16, uint16\\
+\sigchar{i}, \sigchar{I} & int, uint\
+\sigchar{j}, \sigchar{J} & int32, uint32\\
+\sigchar{l}, \sigchar{L} & int64, uint64\\
+\sigchar{f}              & float32\\
+\sigchar{d}              & float64\\
+\sigchar{p}, \sigchar{Z} & uintptr, unsafe.Pointer\\
+\sigchar{v}              & no return type\\
+\hline
+\end{tabular*}
+\caption{Type signature encoding for Go bindings}
+\label{Gosigchar}
+\end{center}
+\end{table}
+
+Note that passing a Go-{\tt string} directly to a C-function expecting a pointer is not directly possible. However, the binding comes with
+two helper functions, {\tt AllocCString(value string) unsafe.Pointer} and {\tt FreeCString(value unsafe.Pointer)} to help with converting
+a {\tt string} to an {\tt unsafe.Pointer} which then can be passed to {\tt ArgPointer(value unsafe.Pointer)}. Once you are done with this
+temporary string, free it using {\tt FreeCString(value unsafe.Pointer)}.
+
+
+\subsection{Erlang language bindings}
+
+An Erlang binding is provided through the {\tt erldc}-nif. At the moment, it doesn't expose the dyncall functions that make use of a signature.
 
