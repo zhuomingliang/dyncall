@@ -22,7 +22,7 @@
 
 Through binding of the \product{dyncall} library into a scripting environment,
 the scripting language can gain system programming status to a certain degree.\\
-The \product{dyncall} library provides bindings to Java\cite{Java},
+The \product{dyncall} library provides bindings to Erlang\cite{Erlang}, Java\cite{Java},
 Lua\cite{Lua}, Python\cite{Python}, R\cite{R}, Ruby\cite{Ruby}, Go\cite{Go}, Erlang\cite{Erlang} and the command line.\\
 However, please note that some of these bindings are work-in-progress and not
 automatically tested, meaning it might require some additional work to make them
@@ -141,6 +141,69 @@ double    & f4(int, bool, char, double, const char*); & \sigstr{iBcdZ)d}\\
 
 
 
+\subsection{Erlang language bindings}
+
+The OTP library application {\tt erldc} implements the Erlang language bindings.
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular*}{0.75\textwidth}{ll}
+\hline
+Signature character & accepted Erlang data types\\
+\hline
+\sigchar{B} & atoms 'true' and 'false' converted to bool\\
+\sigchar{c}, \sigchar{C} & integer cast to (unsigned) char\\
+\sigchar{s}, \sigchar{S} & integer cast to (unsigned) short\\
+\sigchar{i}, \sigchar{I} & integer cast to (unsigned) int\\
+\sigchar{j}, \sigchar{J} & integer cast to (unsigned) long\\
+\sigchar{l}, \sigchar{L} & integer cast to (unsigned) long long\\
+\sigchar{f}              & decimal cast to float\\
+\sigchar{d}              & decimal cast to double\\
+\sigchar{p}              & binary (previously returned from call\_ptr or callf) cast to void*\\
+\sigchar{Z}              & string cast to void*\\
+\sigchar{v}              & no return type\\
+\hline
+\end{tabular*}
+\caption{Type signature encoding for Erlang bindings}
+\label{Erlangsigchar}
+\end{center}
+\end{table}
+
+\pagebreak
+
+\subsection{Go language bindings}
+
+A Go binding is provided through the {\tt godc} package. Since Go's type system is basically a superset of C's, the type mapping from Go to C is straightforward.
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular*}{0.75\textwidth}{ll}
+\hline
+Signature character & accepted Go data types\\
+\hline
+\sigchar{B} & bool\\
+\sigchar{c}, \sigchar{C} & int8, uint8\\
+\sigchar{s}, \sigchar{S} & int16, uint16\\
+\sigchar{i}, \sigchar{I} & int, uint\\
+\sigchar{j}, \sigchar{J} & int32, uint32\\
+\sigchar{l}, \sigchar{L} & int64, uint64\\
+\sigchar{f}              & float32\\
+\sigchar{d}              & float64\\
+\sigchar{p}, \sigchar{Z} & uintptr, unsafe.Pointer\\
+\sigchar{v}              & no return type\\
+\hline
+\end{tabular*}
+\caption{Type signature encoding for Go bindings}
+\label{Gosigchar}
+\end{center}
+\end{table}
+
+Note that passing a Go-{\tt string} directly to a C-function expecting a pointer is not directly possible. However, the binding comes with
+two helper functions, {\tt AllocCString(value string) unsafe.Pointer} and {\tt FreeCString(value unsafe.Pointer)} to help with converting
+a {\tt string} to an {\tt unsafe.Pointer} which then can be passed to {\tt ArgPointer(value unsafe.Pointer)}. Once you are done with this
+temporary string, free it using {\tt FreeCString(value unsafe.Pointer)}.
+
+
 \subsection{Python language bindings}
 
 The python module {\tt pydc} implements the Python language bindings,
@@ -168,6 +231,8 @@ Signature character & accepted Python data types\\
 \label{Pysigchar}
 \end{center}
 \end{table}
+
+\pagebreak
 
 \subsection{R language bindings}
 
@@ -238,41 +303,3 @@ Signature character & accepted Ruby data types\\
 \label{Rubysigchar}
 \end{center}
 \end{table}
-
-\subsection{Go language bindings}
-
-A Go binding is provided through the {\tt godc} package. Since Go's type system is basically a superset of C's, the type mapping from Go to C is straightforward.
-
-\begin{table}[h]
-\begin{center}
-\begin{tabular*}{0.75\textwidth}{ll}
-\hline
-Signature character & accepted Go data types\\
-\hline
-\sigchar{B} & bool\\
-\sigchar{c}, \sigchar{C} & int8, uint8\\
-\sigchar{s}, \sigchar{S} & int16, uint16\\
-\sigchar{i}, \sigchar{I} & int, uint\
-\sigchar{j}, \sigchar{J} & int32, uint32\\
-\sigchar{l}, \sigchar{L} & int64, uint64\\
-\sigchar{f}              & float32\\
-\sigchar{d}              & float64\\
-\sigchar{p}, \sigchar{Z} & uintptr, unsafe.Pointer\\
-\sigchar{v}              & no return type\\
-\hline
-\end{tabular*}
-\caption{Type signature encoding for Go bindings}
-\label{Gosigchar}
-\end{center}
-\end{table}
-
-Note that passing a Go-{\tt string} directly to a C-function expecting a pointer is not directly possible. However, the binding comes with
-two helper functions, {\tt AllocCString(value string) unsafe.Pointer} and {\tt FreeCString(value unsafe.Pointer)} to help with converting
-a {\tt string} to an {\tt unsafe.Pointer} which then can be passed to {\tt ArgPointer(value unsafe.Pointer)}. Once you are done with this
-temporary string, free it using {\tt FreeCString(value unsafe.Pointer)}.
-
-
-\subsection{Erlang language bindings}
-
-An Erlang binding is provided through the {\tt erldc}-nif. At the moment, it doesn't expose the dyncall functions that make use of a signature.
-
