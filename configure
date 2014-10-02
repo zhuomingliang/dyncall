@@ -82,10 +82,13 @@ case ${TARGET:=`uname`} in
   MacOSX|Darwin)
 	# if Apple's libtool (not to be confused with GNU's) is available, which is according to libtool(1) "with -static [...] intended
 	# to replace ar(5) and ranlib", use it - if it is shadowed by some install of GNU's libtool assume that a foreign environment is
-	# intentionally used, and don't use it (not even by absolute path), falling back to default (likely to be 'ar rv' or so):
-    if libtool -V; then # Apple's libtool has -V for version, which GNU does not.
+	# intentionally used, and fall back to using 'ar rs' (the equivalent to 'libtool -static'), for compatibility:
+    if libtool -V >/dev/null 2>/dev/null; then # Apple's libtool has -V for version, which GNU does not.
     	printf "AR=libtool\n" >>$C
     	printf "ARFLAGS=-static -o\n" >>$C
+	else
+    	printf "AR=ar\n" >>$C
+    	printf "ARFLAGS=rs\n" >>$C
 	fi
     if [ `uname -n` = 'iPhone' ]; then # building on iPhone itself, uname yields Darwin (gcc setup for current/correct arch)
       printf "CC=gcc\n" >>$C
