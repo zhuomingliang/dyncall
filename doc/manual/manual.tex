@@ -163,19 +163,6 @@
 \newcommand{\marknotx}{\cellcolor{gray1}}
 
 
-% html output options (that need to come after \begin{document})..
-\ifhtml{
-% should this really rely on online content (dyncall's .css) even for an offline build? @@@
-	\Configure{@HEAD}{\HCode{<meta http-equiv="content-type" content="text/html; charset=utf-8"/>\Hnewline}}
-	\Configure{@HEAD}{\HCode{<meta name="resource-type" content="document"/>\Hnewline}}
-	\Configure{@HEAD}{\HCode{<meta name="keywords"      content="C, function, dynamic, call, calling, convention, VM, abstraction, closure"/>\Hnewline}}
-	\Configure{@HEAD}{\HCode{<meta name="distribution"  content="global"/>\Hnewline}}
-	\Configure{@HEAD}{\HCode{<link rel="stylesheet" id="dyn-fonts-css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin,latin-ext" type="text/css" media="all"/>\Hnewline}}
-	\Configure{@HEAD}{\HCode{<link rel="stylesheet" href="http://dyncall.org/data/main.css" type="text/css" media="all"/>\Hnewline}}
-	\Configure{@HEAD}{\HCode{<title>dyncall.org - dyncall Manual</title>\Hnewline}}
-}
-
-
 % table of contents config
 \setcounter{tocdepth}{3}
 
@@ -185,7 +172,6 @@
 % html output options (that need to come after \begin{document})..
 \ifhtml{
 	\Configure{tableofcontents*}{chapter}
-%	\Css{body{background-color:green;}}
 }
 
 % main document content -->
@@ -193,9 +179,11 @@
 \newpage
 \tableofcontents
 \newpage
-\listoftables
-\listoffigures
-\lstlistoflistings
+\ifnhtml{
+	\listoftables
+	\listoffigures
+	\lstlistoflistings
+}
 \newpage
 \input{manual_motivation}
 \input{manual_overview}

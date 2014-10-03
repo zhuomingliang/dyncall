@@ -6,11 +6,14 @@ manual.pdf:
 	cd ${VPATH} && pdflatex -output-directory=${PWD} manual.tex
 
 manual.html:
-	cd ${VPATH} && htlatex manual.tex "xhtml,uni-html4" " -cunihtf"
+	# Create tex4ht.env from default one, but with better bitmaps
+	cp $$(dirname $$(which tex4ht))/../share/texmf-dist/tex4ht/base/unix/tex4ht.env ${VPATH}/
+	cd ${VPATH} && sed -E -i '' 's/(Text|Graphics)(AlphaBits)=[1,2,3]([^0-9])/\1\2=4\3/g' tex4ht.env
+	cd ${VPATH} && htlatex manual.tex manual_tex4ht " -cunihtf"
 
 clean:
 	# pdf
 	for i in pdf aux lof log lol lot out toc; do rm -f manual.$$i || true; done
 	# html
 	for i in 4ct 4tc css dvi html idv lg tmp xref; do rm -f manual.$$i || true; done
-	for i in manual*x.png texput.log zzmanual.ps; do rm -f $$i || true; done
+	for i in manual*x.png manual*.html texput.log manual_*.log zzmanual.eps zzmanual.ps tex4ht.env; do rm -f $$i || true; done

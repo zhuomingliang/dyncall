@@ -134,9 +134,9 @@ def call_as_sqrt(funptr,x):
 
 \paragraph{R example}
 
-\begin{lstlisting}[language=R,caption=Dyncall R bindings example]
+\begin{lstlisting}[language=R,caption=Dyncall R bindings example,escapeinside={TEX}{XET}] % escapeinside is a workaround for issues with '<' in lstlisting+tex4ht
 library(rdyncall)
-call.as.sqrt <- function(funptr,x)
+call.as.sqrt TEX\textlessXET- function(funptr,x)
   .dyncall(funptr,"d)d", x)
 \end{lstlisting}
 
