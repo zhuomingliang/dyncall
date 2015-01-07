@@ -58,6 +58,8 @@
 #        include "dyncall_call_arm32_thumb_gas.s"
 #      endif
 #    endif
+#  elif defined(DC__Arch_ARM64)
+#    include "dyncall_call_arm64.S"
 #  elif defined(DC__Arch_PowerPC)
 #    include "dyncall_call_ppc32.S"
 #  elif defined(DC__Arch_MIPS) || defined(DC__Arch_MIPS64)

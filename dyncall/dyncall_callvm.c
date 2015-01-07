@@ -58,6 +58,8 @@
 #  else
 #    include "dyncall_callvm_arm32_thumb.c"
 #  endif
+#elif defined(DC__Arch_ARM64)
+#  include "dyncall_callvm_arm64.c"
 #elif defined(DC__Arch_Sparc)
 #  include "dyncall_callvm_sparc.c"
 #elif defined(DC__Arch_Sparcv9)

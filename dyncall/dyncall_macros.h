@@ -182,8 +182,10 @@
 # define DC__Arch_MIPS64
 #elif defined(_M_MRX000) || defined(__mips__) || defined(__mips) || defined(_mips)
 # define DC__Arch_MIPS
-#elif defined(__arm__) 
+#elif defined(__arm__)
 # define DC__Arch_ARM
+#elif defined(__aarch64__)
+# define DC__Arch_ARM64
 #elif defined(__sh__)
 # define DC__Arch_SuperH
 #elif defined(__sparcv9) || defined(__sparc64__) || ( defined(__sparc) && defined(__arch64__) ) 

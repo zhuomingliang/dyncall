@@ -75,6 +75,7 @@ typedef struct DCstruct_    DCstruct;
 #define DC_CALL_C_X86_PLAN9            19
 #define DC_CALL_C_SPARC32              20
 #define DC_CALL_C_SPARC64              21
+#define DC_CALL_C_ARM64                22
 #define DC_CALL_SYS_DEFAULT           200
 #define DC_CALL_SYS_X86_INT80H_LINUX  201
 #define DC_CALL_SYS_X86_INT80H_BSD    202
