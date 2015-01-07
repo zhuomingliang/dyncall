@@ -1,0 +1,72 @@
+%
+% Copyright (c) 2014,2015 Daniel Adler <dadler@uni-goettingen.de>, 
+%                         Tassilo Philipp <tphilipp@potion-studios.com>
+%
+% Permission to use, copy, modify, and distribute this software for any
+% purpose with or without fee is hereby granted, provided that the above
+% copyright notice and this permission notice appear in all copies.
+%
+% THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+% WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+% MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+% ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+% WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+% ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+% OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+%
+
+% ==================================================
+% ARM64
+% ==================================================
+\subsection{ARM64 Calling Convention}
+
+\paragraph{Overview}
+
+ARMv8 introduced the AArch64 calling convention.
+The word size is 64 bits.\\
+For more details, take a look at the Procedure Call Standard for the ARM 64-bit Architecture \cite{AArch64}.
+
+
+\paragraph{\product{dyncall} support}
+
+The \product{dyncall} library supports AArch64. @@@
+
+
+\paragraph{Registers and register usage}
+
+\begin{table}[h]
+\begin{tabular}{3 B}
+\hline
+Name         & Brief description\\
+\hline
+{\bf ...}     & fill in... @@@\\
+\hline
+\end{tabular}
+\caption{Register usage on arm64}
+\end{table}
+
+\paragraph{Parameter passing}
+
+\begin{itemize}
+\item @@@ fill in
+\end{itemize}
+
+\paragraph{Return values}
+\begin{itemize}
+\item @@@ fill in
+\end{itemize}
+
+\paragraph{Stack layout}
+
+Stack directly after function prolog:\\
+
+\begin{figure}[h]
+\begin{tabular}{5|3|1 1}
+                                         & \vdots &                                      &                              \\
+%@@@ fill in
+\end{tabular}
+\caption{Stack layout on arm64}
+\end{figure}
+
+\newpage
+
