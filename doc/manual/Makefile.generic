@@ -1,3 +1,6 @@
+# phony b/c of TEX's nature to need multiple runs for index, etc..
+.PHONY: manual.pdf manual.html
+
 all: manual.pdf
 
 manual.pdf:
