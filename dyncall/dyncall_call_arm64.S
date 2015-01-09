@@ -58,7 +58,7 @@ ENTRY_C(dcCall_arm64)
 
 // prolog:
 	
-	stp  x29, x30, [sp, -16]!	// allocate frame
+	stp  x29, x30, [sp, #-16]!	// allocate frame
 	mov  x29,  sp
 
 // load 64-bit floating-point registers
@@ -83,7 +83,7 @@ ENTRY_C(dcCall_arm64)
 
 .next:
 	cmp  x4, x2
-	bge  .done
+	b.ge  .done
 	
 	ldp  x7, x9, [x5], #16	// get pair from data
 	stp  x7, x9, [x6], #16	// put to stack
@@ -102,14 +102,14 @@ ENTRY_C(dcCall_arm64)
 	
 	// load register set
 
-	ldr  x0, [x10, 0]
-	ldr  x1, [x10, 8]
-	ldr  x2, [x10, 16]
-	ldr  x3, [x10, 24]
-	ldr  x4, [x10, 32]
-	ldr  x5, [x10, 40]
-	ldr  x6, [x10, 48]
-	ldr  x7, [x10, 56]
+	ldr  x0, [x10, #0]
+	ldr  x1, [x10, #8]
+	ldr  x2, [x10, #16]
+	ldr  x3, [x10, #24]
+	ldr  x4, [x10, #32]
+	ldr  x5, [x10, #40]
+	ldr  x6, [x10, #48]
+	ldr  x7, [x10, #56]
 	
 // call target:
 	

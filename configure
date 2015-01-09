@@ -103,7 +103,10 @@ case ${TARGET:=`uname`} in
         10.6.*)
           ARCHS="-arch i386 -arch x86_64"
           ;;
-        10.[78].*)
+        10.10.*)
+          ARCHS="-arch x86_64 -arch i386"
+          ;;
+        10.[789].*)
           ARCHS="-arch x86_64 -arch i386"
           ;;
       esac
@@ -124,6 +127,9 @@ case ${TARGET:=`uname`} in
         ;;
       6.1)
         ARCHS="-arch armv7"
+        ;;
+      8.1)
+        ARCHS="-arch arm64"
         ;;
     esac
     printf "ASFLAGS=${ARCHS} -isysroot ${SDKROOT}\n" >>$C
