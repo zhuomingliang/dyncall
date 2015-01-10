@@ -1,11 +1,13 @@
 all: manual.pdf
 
-manual.pdf: ${VPATH}/*.tex ${VPATH}/callconvs/*.tex
+sources: *.tex callconvs/*.tex dyncall_logo.* dyncall_watermark.*
+
+manual.pdf: sources
 	# run twice for toc on some tex installs
 	cd ${VPATH} && pdflatex -output-directory=${PWD} manual.tex
 	cd ${VPATH} && pdflatex -output-directory=${PWD} manual.tex
 
-manual.html: ${VPATH}/*.tex ${VPATH}/callconvs/*.tex
+manual.html: manual_tex4ht.cfg sources
 	# Create tex4ht.env from default one, but with better bitmaps
 	cp $$(dirname $$(which tex4ht))/../share/texmf-dist/tex4ht/base/unix/tex4ht.env ${VPATH}/
 	cd ${VPATH} && sed -E -i '' 's/(Text|Graphics)(AlphaBits)=[1,2,3]([^0-9])/\1\2=4\3/g' tex4ht.env
