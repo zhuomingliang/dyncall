@@ -32,6 +32,7 @@ For more details, take a look at the Procedure Call Standard for the ARM 64-bit 
 
 The \product{dyncall} library supports the ARM 64-bit AArch64 PCS ABI, for calls and callbacks.
 
+\subsubsection{AAPCS64 Calling Convention}
 
 \paragraph{Registers and register usage}
 
@@ -85,35 +86,35 @@ Stack directly after function prolog:\\
 \begin{figure}[h]
 \begin{tabular}{5|3|1 1}
 \hhline{~-~~}
-                                   & \vdots &                                      &                              \\
+                                   & \vdots &                                       &                              \\
+\hhline{~=~~}                                                                       
+register save area                 &        &                                       & \mrrbrace{5}{caller's frame} \\
+\hhline{~-~~}                                                                       
+local data                         &        &                                       &                              \\
+\hhline{~-~~}                                                                       
+\mrlbrace{13}{parameter area}      & \ldots & \mrrbrace{3}{stack parameters}        &                              \\
+                                   & \ldots &                                       &                              \\
+                                   & \ldots &                                       &                              \\
 \hhline{~=~~}
-register save area                 &        &                                      & \mrrbrace{5}{caller's frame} \\
-\hhline{~-~~}
-local data                         &        &                                      &                              \\
-\hhline{~-~~}
-\mrlbrace{7}{parameter area}       & \ldots & \mrrbrace{3}{stack parameters}       &                              \\
-                                   & \ldots &                                      &                              \\
-                                   & \ldots &                                      &                              \\
-\hhline{~=~~}
-                                   & x0     & \mrrbrace{4}{spill area (if needed)} & \mrrbrace{15}{current frame} \\
-                                   & x1     &                                      &                              \\
-                                   & \vdots &                                      &                              \\
-                                   & x2     &                                      &                              \\
-                                   & x7     &                                      &                              \\
-                                   & d0     &                                      &                              \\
-                                   & d1     &                                      &                              \\
-                                   & \vdots &                                      &                              \\
-                                   & d2     &                                      &                              \\
-                                   & d7     &                                      &                              \\
-\hhline{~-~~}
-register save area                 &        &                                      &                              \\
-\hhline{~-~~}
-local data                         &        &                                      &                              \\
-\hhline{~-~~}
-link and frame register            & x30    &                                      &                              \\
-                                   & x29    &                                      &                              \\
-\hhline{~-~~}
-parameter area                     & \vdots &                                      &                              \\
+                                   & x0     & \mrrbrace{10}{spill area (if needed)} & \mrrbrace{15}{current frame} \\
+                                   & x1     &                                       &                              \\
+                                   & \ldots &                                       &                              \\
+                                   & x2     &                                       &                              \\
+                                   & x7     &                                       &                              \\
+                                   & d0     &                                       &                              \\
+                                   & d1     &                                       &                              \\
+                                   & \ldots &                                       &                              \\
+                                   & d2     &                                       &                              \\
+                                   & d7     &                                       &                              \\
+\hhline{~-~~}                                                                       
+register save area                 &        &                                       &                              \\
+\hhline{~-~~}                                                                       
+local data                         &        &                                       &                              \\
+\hhline{~-~~}                                                                       
+link and frame register            & x30    &                                       &                              \\
+                                   & x29    &                                       &                              \\
+\hhline{~-~~}                                                                       
+parameter area                     & \vdots &                                       &                              \\
 \hhline{~-~~}
 \end{tabular}
 \caption{Stack layout on arm64}
