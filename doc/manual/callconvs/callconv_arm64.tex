@@ -43,7 +43,7 @@ ARM64 features thirty-one 64 bit general purpose registers, namely x0-x30. Also,
 Name          & Brief description\\
 \hline        
 {\bf x0-x7}   & parameters, scratch, return value\\
-{\bf x8}      & scratch, indirect result location pointer\\
+{\bf x8}      & indirect result location pointer\\
 {\bf x9-x15}  & scratch\\
 {\bf x16}     & permanent in some cases, can have special function (IP0), see doc\\
 {\bf x17}     & permanent in some cases, can have special function (IP1), see doc\\
@@ -62,7 +62,7 @@ Name          & Brief description\\
 \begin{itemize}
 \item stack parameter order: right-to-left
 \item caller cleans up the stack
-\item first 8 non-floating point arguments are passed using x0-x7
+\item first 8 integer arguments are passed using x0-x7
 \item first 8 floating point arguments are passed using d0-d7
 \item subsequent parameters are pushed onto the stack
 \item if the callee takes the address of one of the parameters and uses it to address other parameters (e.g. varargs) it has to copy - in its prolog - the first 8 integer and 8 floating-point registers to a reserved stack area adjacent to the other parameters on the stack (only the unnamed parameters require saving, though)
@@ -73,7 +73,9 @@ Name          & Brief description\\
 
 \paragraph{Return values}
 \begin{itemize}
-\item @@@ fill in
+\item integer return values use x0
+\item floating-point return values use d0
+\item otherwise, the caller allocates space, passes pointer to it to the callee through x8, and callee writes return value to this space
 \end{itemize}
 
 \paragraph{Stack layout}
