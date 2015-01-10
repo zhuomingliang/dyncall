@@ -1,14 +1,11 @@
-# phony b/c of TEX's nature to need multiple runs for index, etc..
-.PHONY: manual.pdf manual.html
-
 all: manual.pdf
 
-manual.pdf:
+manual.pdf: ${VPATH}/*.tex ${VPATH}/callconvs/*.tex
 	# run twice for toc on some tex installs
 	cd ${VPATH} && pdflatex -output-directory=${PWD} manual.tex
 	cd ${VPATH} && pdflatex -output-directory=${PWD} manual.tex
 
-manual.html:
+manual.html: ${VPATH}/*.tex ${VPATH}/callconvs/*.tex
 	# Create tex4ht.env from default one, but with better bitmaps
 	cp $$(dirname $$(which tex4ht))/../share/texmf-dist/tex4ht/base/unix/tex4ht.env ${VPATH}/
 	cd ${VPATH} && sed -E -i '' 's/(Text|Graphics)(AlphaBits)=[1,2,3]([^0-9])/\1\2=4\3/g' tex4ht.env
