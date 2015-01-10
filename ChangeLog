@@ -2,9 +2,14 @@ This file lists bigger/noteworthy changes, only...
 
 Version 0.9 (upcoming)
 dyncall:
+  o ARM64 support
   o introduced dcArgF and dcVArgF for flexible/convenient argument binding (works
     like dcCallF/dcVCallF without the function call)
   o added -fPIC by default for FreeBSD
+dyncallback:
+  o ARM64 support
+doc:
+  o added ARM64 support info and calling convention documentation
 tests:
   o callf test also tests new argf interface
 bindings:
