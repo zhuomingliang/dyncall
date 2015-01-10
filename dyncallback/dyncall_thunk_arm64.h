@@ -2,11 +2,11 @@
 
  Package: dyncall
  Library: dyncallback
- File: dyncallback/dyncall_callback.c
- Description: Callback - Implementation back-end selector
+ File: dyncallback/dyncall_thunk_arm64.h
+ Description: Thunk - Header for ARM64 / ARMv8 / AAPCS64
  License:
 
-   Copyright (c) 2007-2011 Daniel Adler <dadler@uni-goettingen.de>,
+   Copyright (c) 2007-2015 Daniel Adler <dadler@uni-goettingen.de>,
                            Tassilo Philipp <tphilipp@potion-studios.com>
 
    Permission to use, copy, modify, and distribute this software for any
@@ -23,25 +23,20 @@
 
 */
 
-#include "../dyncall/dyncall_macros.h"
+#ifndef DYNCALL_THUNK_ARM64_H
+#define DYNCALL_THUNK_ARM64_H
 
-#if defined(DC__Arch_Intel_x86)
-#include "dyncall_callback_x86.c"
-#elif defined (DC__Arch_AMD64)
-#include "dyncall_callback_x64.c"
-#elif defined (DC__Arch_PowerPC)
-#include "dyncall_callback_ppc32.c"
-#elif defined (DC__Arch_ARM_ARM)
-#include "dyncall_callback_arm32_arm.c"
-#elif defined (DC__Arch_ARM_THUMB)
-#include "dyncall_callback_arm32_thumb.c"
-#elif defined (DC__Arch_MIPS)
-#include "dyncall_callback_mips.c"
-#elif defined (DC__Arch_Sparc)
-#include "dyncall_callback_sparc32.c"
-#elif defined (DC__Arch_Sparcv9)
-#include "dyncall_callback_sparc64.c"
-#elif defined (DC__Arch_ARM64)
-#include "dyncall_callback_arm64.c"
-#endif
+struct DCThunk_
+{
+                                // off  size
+                                //-----|----------
+  unsigned int code[4];		//   0    16
+  void (*entry)();		//  16     8
+  void* reserved;         	//  24     8
+
+                                //  32 total size
+  
+};
+
+#endif /* DYNCALL_THUNK_ARM64_H */
 

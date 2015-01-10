@@ -2,11 +2,11 @@
 
  Package: dyncall
  Library: dyncallback
- File: dyncallback/dyncall_callback.c
- Description: Callback - Implementation back-end selector
+ File: dyncallback/dyncall_thunk_arm64.c
+ Description: Thunk - Implementation for ARM64 / ARMv8 / AAPCS64
  License:
 
-   Copyright (c) 2007-2011 Daniel Adler <dadler@uni-goettingen.de>,
+   Copyright (c) 2007-2015 Daniel Adler <dadler@uni-goettingen.de>,
                            Tassilo Philipp <tphilipp@potion-studios.com>
 
    Permission to use, copy, modify, and distribute this software for any
@@ -23,25 +23,42 @@
 
 */
 
-#include "../dyncall/dyncall_macros.h"
 
-#if defined(DC__Arch_Intel_x86)
-#include "dyncall_callback_x86.c"
-#elif defined (DC__Arch_AMD64)
-#include "dyncall_callback_x64.c"
-#elif defined (DC__Arch_PowerPC)
-#include "dyncall_callback_ppc32.c"
-#elif defined (DC__Arch_ARM_ARM)
-#include "dyncall_callback_arm32_arm.c"
-#elif defined (DC__Arch_ARM_THUMB)
-#include "dyncall_callback_arm32_thumb.c"
-#elif defined (DC__Arch_MIPS)
-#include "dyncall_callback_mips.c"
-#elif defined (DC__Arch_Sparc)
-#include "dyncall_callback_sparc32.c"
-#elif defined (DC__Arch_Sparcv9)
-#include "dyncall_callback_sparc64.c"
-#elif defined (DC__Arch_ARM64)
-#include "dyncall_callback_arm64.c"
-#endif
+
+#include "dyncall_thunk.h"
+
+/*
+
+Thunk Register: x9
+
+Thunk:
+	adr x9,  Thunk
+	ldr x10, .target
+	br  x10
+	nop
+.target:
+	.xword 0
+
+-- Encoded in:
+
+0000000000000000 <Thunk>:
+   0:	10000009 	adr	x9, 0 <Thunk>
+   4:	5800006a 	ldr	x10, 10 <.target>
+   8:	d61f0140 	br	x10
+   c:	d503201f 	nop
+
+0000000000000010 <.target>:
+  10:	76543210 	.word	0x76543210
+  14:	fedcba98 	.word	0xfedcba98
+*/
+
+void dcbInitThunk(DCThunk* p, void (*entry)())
+{
+  p->code[0] = 0x10000009; //   adr x9, 0
+  p->code[1] = 0x5800006a; //	ldr x9, entry
+  p->code[2] = 0xd61f0140; //   br  x9
+  p->code[3] = 0xd503201f; //   nop
+  p->entry   = entry;      // entry: 
+                           //   .xword 0
+}
 

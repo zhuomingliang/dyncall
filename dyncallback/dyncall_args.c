@@ -41,5 +41,7 @@
 #include "dyncall_args_sparc32.c"
 #elif defined (DC__Arch_Sparcv9)
 #include "dyncall_args_sparc64.c"
+#elif defined (DC__Arch_ARM64)
+#include "dyncall_args_arm64.c"
 #endif
 

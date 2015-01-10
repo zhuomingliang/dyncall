@@ -66,6 +66,8 @@
 #    include "dyncall_callback_sparc32.s"
 #  elif defined(DC__Arch_Sparcv9)
 #    include "dyncall_callback_sparc64.s"
+#  elif defined(DC__Arch_ARM64)
+#    include "dyncall_callback_arm64.s"
 #  endif
 #endif
 
