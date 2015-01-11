@@ -36,7 +36,7 @@ The \product{dyncall} library supports the ARM 64-bit AArch64 PCS ABI, for calls
 
 \paragraph{Registers and register usage}
 
-ARM64 features thirty-one 64 bit general purpose registers, namely x0-x30. Also, there is SP, a register with restricted use, used for the stack pointer. Additionally, there are thirty-two 128 bit registers v0-v31, to be used as SIMD and floating point registers, referred to as q0-q31, d0-d31 and s0-s31, respectively, depending on their use:\\
+ARM64 features thirty-one 64 bit general purpose registers, namely x0-x30. Also, there is SP, a register with restricted use, used for the stack pointer, and PC dedicated as program counter. Additionally, there are thirty-two 128 bit registers v0-v31, to be used as SIMD and floating point registers, referred to as q0-q31, d0-d31 and s0-s31, respectively, depending on their use:\\
 
 \begin{table}[h]
 \begin{tabular}{3 B}
@@ -53,6 +53,7 @@ Name          & Brief description\\
 {\bf x29}     & permanent, frame pointer\\
 {\bf x30}     & permanent, link register\\
 {\bf SP}      & permanent, stack pointer\\
+{\bf PC}      & program counter\\
 \hline
 \end{tabular}
 \caption{Register usage on arm64}
