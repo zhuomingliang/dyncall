@@ -28,7 +28,6 @@ portasm:
 
 dyncall:
 --------
-- port ppc64
 - support for return values: aggregate return values
 - support for argument values: structures, half-precision, vector types, long double
 - varargs for mips (might exist, but test all ABIs)
@@ -65,7 +64,7 @@ bindings:
 - bring java up to latest
 - add javadoc to java
 - add more bindings
-- add callback support for go, java, lua, python and ruby (and shell? how?)
+- add callback support for erlang, go, java, lua, python and ruby (and shell? how?)
 - add call-conv-mode-support for rbdc through signature
 
 manual:
@@ -84,12 +83,11 @@ urgent issues:
 - Solaris/gmake build doesn't build dynload and tests anymore (maybe not even dyncallback)
 - test arm32/ATPCS/THUMB (and then change Status in doc Appendix)
 - look over code and fix TODO or @@@ marks
-- add pcc-support to doc
+- add ppc-support to doc (both, 32 and 64, as well as little and big endian remarks)
 
 nice to have:
 -------------
 - update: microsoft visual c++ build files - integrate all test suites in solution file
-- maybe rename DC__Arch_PowerPC to ...PPC32 for coherency reasons (...PPC64)?
 - consistency: on x64 platforms: make both ABIs available ('win64','sysv') for all x64 OS ports
 - microsoft build enhancement: autodetect assembly via C preprocessor (like with .S gcc files)
 - test/thunk: some platforms do not allow for allocation of executable code on heap and stack -- 
@@ -103,7 +101,6 @@ bugs:
 
 missing implementations (descending priority):
 ----------------------------------------------
-- ppc64
 - itanium
 - 68k, 88k, 6502, etc.
 - alpha
