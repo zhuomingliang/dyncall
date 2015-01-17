@@ -45,7 +45,7 @@
 
   Call Kernel for ppc64
 
-  Input:	
+  Input:
     r3 : target address ptr 
     r4 : register data ptr (8 x GPR 64 bytes, 13 x FPR 64 bytes)
     r5 : stack data size  
@@ -82,13 +82,13 @@
 
 /* Constants */
 #if _CALL_ELF != 2
-STACK_MIN 	= 120  /* v1 */
-TOC_SAVE	= 40
-PARAM_SAVE	= 48
+STACK_MIN  = 120  /* v1 */
+TOC_SAVE   = 40
+PARAM_SAVE = 48
 #else
-STACK_MIN	= 40   /* v2 */
-TOC_SAVE	= 24
-PARAM_SAVE	= 32
+STACK_MIN  = 40   /* v2 */
+TOC_SAVE   = 24
+PARAM_SAVE = 32
 #endif
 
 .text
@@ -111,8 +111,8 @@ dcCall_ppc64:
 	addi  r2, r2,.TOC.-0b@l
 	.localentry dcCall_ppc64,.-dcCall_ppc64
 #endif
-	mflr r0			/* r0 = return address */
-	std  r0,16(r1)		/* store r0 to link-area */
+	mflr r0                 /* r0 = return address */
+	std  r0,16(r1)          /* store r0 to link-area */
 	std  r31,-8(r1)
 
 	/* compute aligned stack-size */
@@ -120,25 +120,25 @@ dcCall_ppc64:
 	/* add link area and align to 16 byte (+15) */
 	
 	/* r0 = stacksize + frame parameter(back-chain link, this callee's call return address) */
-	addi r0,r5,STACK_MIN+15	/* r0 = r5 + STACK_MIN + 15 */
-	rlwinm r0,r0,0,0,27  	/* r0 = r0 and -15 */
-	neg r0,r0 		/* r0 = -r0 */
-	stdux r1,r1,r0 		/* store r1 and decrement */
+	addi r0,r5,STACK_MIN+15 /* r0 = r5 + STACK_MIN + 15 */
+	rlwinm r0,r0,0,0,27     /* r0 = r0 and -15 */
+	neg r0,r0               /* r0 = -r0 */
+	stdux r1,r1,r0          /* store r1 and decrement */
 
 	/* copy stack data */
 
-	subi r6,r6,8		/* r6 = 8 bytes before source stack ptr */
+	subi r6,r6,8            /* r6 = 8 bytes before source stack ptr */
 	addi r7,r1,PARAM_SAVE-8 /* r7 = 8 bytes before target stack parameter-block */
 
-	srwi r5,r5,3		/* r5 = size in double words */
+	srwi r5,r5,3            /* r5 = size in double words */
 
-	cmpi cr0,r5,0		/* if stacksize != 0 .. */
+	cmpi cr0,r5,0           /* if stacksize != 0 .. */
 	beq  cr0,.copy_done
 
-	mtctr r5		/* copy loop */
+	mtctr r5                /* copy loop */
 
-.copy_next:	
-	ldu  r0, 8(r6)		
+.copy_next:
+	ldu  r0, 8(r6)
 	stdu r0, 8(r7)
 	bdnz .copy_next
 
@@ -146,7 +146,7 @@ dcCall_ppc64:
 
 	/* this call support using ctr branch register */
 
-	mr    r12, r3		/* r12 = target function */
+	mr    r12, r3           /* r12 = target function */
 	std   r2,TOC_SAVE(r1)
 #if _CALL_ELF != 2
 	ld    r2,8(r12)
@@ -155,7 +155,7 @@ dcCall_ppc64:
 #else
 	mtctr r12
 #endif
-	mr    r11, r4		/* r11 = reg data */
+	mr    r11, r4           /* r11 = reg data */
 
 	/* load 8 integer registers */
 	
@@ -184,13 +184,14 @@ dcCall_ppc64:
 	lfd  f12,152(r11)
 	lfd  f13,160(r11)
 
-	bctrl 			/* branch with this call support */
+	bctrl                    /* branch with this call support */
 
 	/* epilog */
 
 	ld   r2,TOC_SAVE(r1)
-	ld   r1, 0(r1)		/* restore stack */
+	ld   r1, 0(r1)          /* restore stack */
 	ld   r31,-8(r1)
 	ld   r0,16(r1)          /* r0 = return address */
-	mtlr r0			/* setup link register */
-	blr			/* return */
+	mtlr r0                 /* setup link register */
+	blr                     /* return */
+
