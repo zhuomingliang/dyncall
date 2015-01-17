@@ -22,23 +22,26 @@
 % ==================================================
 \subsection{PowerPC (64bit) Calling Convention}
 
-
-
 \paragraph{Overview}
 
-For in-depth details about the PowerPC (64bit) calling convention, take a look
-at Apple's official documentation \cite{ppcMacOSX}.
-@@@
+\begin{itemize}
+\item Word size is 64 bits
+\item Big endian (MSB) and litte endian (LSB) operating modes.
+\item Apple Mac OS X/Darwin PPC is specified in "Mac OS X ABI Function Call Guide"\cite{ppcMacOSX}. It uses Big Endian (MSB).
+\item Linux PPC 64-bit ABI is specified in "64-bit PowerPC ELF Application Binary Interface Supplement"\cite{ppcelf64abi} which is based on "System V ABI".
+\end{itemize}
 
 
 \paragraph{\product{dyncall} support}
 
-\product{dyncall} supports PPC64 for calls and callbacks on little and big endian platforms.
+\product{Dyncall} supports PowerPC (64bit) Big Endian and Little Endian ELF ABIs on System V systems (Linux, etc.). Mac OS X is not supported.
 
+
+\subsubsection{PPC64 ELF ABI}
 
 \paragraph{Registers and register usage}
 
-64bit PPC: only low 32 bits are saved and preserved
+@@@
 
 
 \paragraph{Parameter passing}
