@@ -39,7 +39,7 @@
 	.text
 #  define BEGIN_ASM
 #  define END_ASM 
-#  include "dyncall_macros.h"
+#  include "../../dyncall/dyncall_macros.h"
 #  if defined(DC__OS_Win32) || defined(DC__OS_Cygwin) || defined(DC__OS_MinGW) || defined(DC__OS_Darwin)
 #    define CSYM(X) _##X
 #  else
