@@ -2,8 +2,6 @@
 ----
 - make install should install manpages
 - mailing list announcements (html email?)
-- Website:
-  * platform matrix (wie im Handbuch oder Daniels Disse)
 - fix for NDS:
     * ARM:
       - callback_plain retval wrong (not only platform)
