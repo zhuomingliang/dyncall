@@ -47,7 +47,7 @@ LINK_SP     = 0
 LINK_CR     = 8
 LINK_LR     = 16
 LINK_OFFSET = 0
-#if _CALL_ELF == 2
+#if DC__ABI_PPC64_ELF_V == 2
 LINK_TOC    = 24
 LINK_SIZE   = 32
 #else
@@ -56,7 +56,7 @@ LINK_SIZE   = 48
 #endif
 /* Parameter area. */
 PAR_OFFSET = LINK_SIZE
-#if _CALL_ELF == 2
+#if DC__ABI_PPC64_ELF_V == 2
 PAR_SIZE = 0
 #else
 PAR_SIZE = 64
@@ -74,7 +74,7 @@ LOCALS_SIZE   = 2*SIZEOF_GPR
 FRAME_SIZE = ( (LOCALS_OFFSET+LOCALS_SIZE)+15 & (-16) )
 
 /* struct DCCallback */
-#if _CALL_ELF == 2
+#if DC__ABI_PPC64_ELF_V == 2
 DCB_THUNK      = 0
 DCB_HANDLER    = 48
 DCB_STACKCLEAN = 56
@@ -111,13 +111,13 @@ fcount   = ARGS_OFFSET+DCA_FCOUNT
 .text
 	.global dcCallbackThunkEntry
 	.type dcCallbackThunkEntry, @function
-#if _CALL_ELF != 2
+#if DC__ABI_PPC64_ELF_V != 2
 	.section .opd, "aw"
 	.align 3
 #endif
 
 dcCallbackThunkEntry:
-#if _CALL_ELF != 2
+#if DC__ABI_PPC64_ELF_V != 2
 	.quad .dcCallbackThunkEntry, .TOC.@tocbase, 0
 	.previous
 	.global .dcCallbackThunkEntry
@@ -166,7 +166,7 @@ dcCallbackThunkEntry:
 	/* branch-and-link to DCCallback.handler */
 	ld      r12,  DCB_HANDLER(r11)
 	std     r2, LINK_TOC(r1)
-#if _CALL_ELF != 2
+#if DC__ABI_PPC64_ELF_V != 2
 	ld      r2, 8(r12)
 	ld      r0, 0(r12)
 	mtctr   r0

@@ -24,6 +24,7 @@
 */
 
 #include "dyncall_macros.h"
+
 /* Plan9 */
 #if defined(DC__OS_Plan9)
 #  if defined(DC__Arch_Intel_x86)
@@ -74,3 +75,4 @@
 #    error Unsupported Architecture.
 #  endif
 #endif
+

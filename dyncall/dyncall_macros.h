@@ -213,7 +213,7 @@
 
 
 
-/* Misc machine-dependent quirks. */
+/* Misc machine-dependent quirks and ABIs. */
 
 #if defined(__arm__) && !defined(__thumb__)
 # define DC__Arch_ARM_ARM
@@ -245,6 +245,13 @@
 # endif
 #endif /* MIPS */
 
+#if defined(DC__Arch_PPC64)
+# if defined(_CALL_ELF)
+#  define DC__ABI_PPC64_ELF_V _CALL_ELF
+# else
+#  define DC__ABI_PPC64_ELF_V 0 // 0 means not explicitly set, otherwise this is 1 (big endian) and 2 (little endian)
+# endif
+#endif /* MIPS */
 
 
 /* Internal macro/tag. */

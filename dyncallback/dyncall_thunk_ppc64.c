@@ -31,7 +31,7 @@
 
 void dcbInitThunk(DCThunk* p, void (*entry)())
 {
-#if _CALL_ELF == 2
+#if DC__ABI_PPC64_ELF_V == 2
   /*
     ppc64 thunk code:
       lis    r11, HIST16(p)

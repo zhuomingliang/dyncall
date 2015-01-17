@@ -25,7 +25,7 @@
 #ifndef DYNCALL_THUNK_PPC64_H
 #define DYNCALL_THUNK_PPC64_H
 
-#if _CALL_ELF == 2
+#if DC__ABI_PPC64_ELF_V == 2
 struct DCThunk_
 {
   unsigned short addr_self_hist, code_load_hist;  /* offset:  0 */

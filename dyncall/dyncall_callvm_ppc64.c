@@ -76,13 +76,13 @@ static void dc_callvm_argDouble_ppc64(DCCallVM* in_self, DCdouble d)
     self->mRegData.mFloatData[self->mFloatRegs++] = d;
     if (self->mIntRegs < 8) {
       self->mRegData.mIntData[self->mIntRegs++] = *( (DClonglong*) &d );
-#if _CALL_ELF== 2
+#if DC__ABI_PPC64_ELF_V == 2
       return;
 #endif
     }
   } 
 
-#if _CALL_ELF == 2
+#if DC__ABI_PPC64_ELF_V == 2
   if (dcVecSize(&self->mVecHead) == 0) {
     dcVecSkip(&self->mVecHead,sizeof(DClonglong)*8);
   }
@@ -92,7 +92,7 @@ static void dc_callvm_argDouble_ppc64(DCCallVM* in_self, DCdouble d)
   dcVecAppend(&self->mVecHead,(DCpointer) &d,sizeof(DCdouble));
 }
 
-#if _CALL_ELF == 2
+#if DC__ABI_PPC64_ELF_V == 2
 static void dc_callvm_argDouble_ppc64_ellipsis(DCCallVM* in_self, DCdouble d)
 {
   DCCallVM_ppc64* self = (DCCallVM_ppc64*)in_self;
@@ -130,12 +130,12 @@ static void dc_callvm_argLongLong_ppc64(DCCallVM* in_self, DClonglong L)
   /* fillup integer register file */
   if (self->mIntRegs < 8) {
     self->mRegData.mIntData[self->mIntRegs++] = L;
-#if _CALL_ELF == 2
+#if DC__ABI_PPC64_ELF_V == 2
     return;
 #endif
   }
 
-#if _CALL_ELF == 2
+#if DC__ABI_PPC64_ELF_V == 2
   if (dcVecSize(&self->mVecHead) == 0) {
     dcVecSkip(&self->mVecHead,sizeof(DClonglong)*8);
   }
@@ -145,7 +145,7 @@ static void dc_callvm_argLongLong_ppc64(DCCallVM* in_self, DClonglong L)
   dcVecAppend(&self->mVecHead,&L,sizeof(DClonglong));
 }
 
-#if _CALL_ELF ==2
+#if DC__ABI_PPC64_ELF_V ==2
 static void dc_callvm_argLongLong_ppc64_ellipsis(DCCallVM* in_self, DClonglong L)
 {
   DCCallVM_ppc64* self = (DCCallVM_ppc64*)in_self;
@@ -239,7 +239,7 @@ DCCallVM_vt gVT_ppc64 =
 , NULL /* callStruct */
 };
 
-#if _CALL_ELF == 2
+#if DC__ABI_PPC64_ELF_V == 2
 DCCallVM_vt gVT_ppc64_ellipsis =
 {
   &dc_callvm_free_ppc64
@@ -278,7 +278,7 @@ void dc_callvm_mode_ppc64(DCCallVM* in_self, DCint mode)
     case DC_CALL_C_PPC64: 
     case DC_CALL_C_DEFAULT:
     case DC_CALL_C_ELLIPSIS:
-#if _CALL_ELF == 2
+#if DC__ABI_PPC64_ELF_V == 2
       vt = &gVT_ppc64;
       break;
     case DC_CALL_C_ELLIPSIS_VARARGS:

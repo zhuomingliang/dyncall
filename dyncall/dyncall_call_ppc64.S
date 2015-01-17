@@ -81,7 +81,7 @@
 */
 
 /* Constants */
-#if _CALL_ELF != 2
+#if DC__ABI_PPC64_ELF_V != 2
 STACK_MIN  = 120  /* v1 */
 TOC_SAVE   = 40
 PARAM_SAVE = 48
@@ -94,13 +94,13 @@ PARAM_SAVE = 32
 .text
 	.global dcCall_ppc64
 	.type dcCall_ppc64, @function
-#if _CALL_ELF != 2
+#if DC__ABI_PPC64_ELF_V != 2
 	.section .opd, "aw"
 	.align 3
 #endif
 
 dcCall_ppc64:
-#if _CALL_ELF != 2
+#if DC__ABI_PPC64_ELF_V != 2
 	.quad .dcCall_ppc64, .TOC.@tocbase, 0
 	.previous
 	.global .dcCall_ppc64
@@ -148,7 +148,7 @@ dcCall_ppc64:
 
 	mr    r12, r3           /* r12 = target function */
 	std   r2,TOC_SAVE(r1)
-#if _CALL_ELF != 2
+#if DC__ABI_PPC64_ELF_V != 2
 	ld    r2,8(r12)
 	ld    r0,0(r12)
 	mtctr r0
