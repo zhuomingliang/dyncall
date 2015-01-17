@@ -31,8 +31,10 @@
 # include "dyncall_thunk_x86.c"
 #elif defined(DC__Arch_AMD64)
 # include "dyncall_thunk_x64.c"
-#elif defined(DC__Arch_PowerPC)
+#elif defined(DC__Arch_PPC32)
 # include "dyncall_thunk_ppc32.c"
+#elif defined(DC__Arch_PPC64)
+# include "dyncall_thunk_ppc64.c"
 #elif defined(DC__Arch_ARM_ARM)
 #include "dyncall_thunk_arm32_arm.c"
 #elif defined(DC__Arch_ARM_THUMB)

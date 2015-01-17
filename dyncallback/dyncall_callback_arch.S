@@ -40,7 +40,7 @@
 #    error Unsupported Architecture on Plan9.
 #  endif
 #elif defined(DC__OS_Darwin)
-#  if defined(DC__Arch_PowerPC)
+#  if defined(DC__Arch_PPC32)
 #    include "dyncall_callback_ppc32_apple.s"
 #  elif defined(DC__Arch_ARM_ARM)
 #    include "dyncall_callback_arm32_arm_apple.s"
@@ -50,14 +50,18 @@
 #    include "dyncall_callback_x64.S"
 #  elif defined(DC__Arch_Intel_x86)
 #    include "dyncall_callback_x86.S"
+#  else // e.g. PowerPC G5, which is PPC64, etc.
+#    error Unsupported Architecture on Darwin/OS X.
 #  endif
 #else 
 #  if defined(DC__Arch_Intel_x86)
 #    include "dyncall_callback_x86.S"
 #  elif defined(DC__Arch_AMD64)
 #    include "dyncall_callback_x64.S"
-#  elif defined(DC__Arch_PowerPC)
+#  elif defined(DC__Arch_PPC32)
 #    include "dyncall_callback_ppc32.S"
+#  elif defined(DC__Arch_PPC64)
+#    include "dyncall_callback_ppc64.S"
 #  elif defined(DC__Arch_ARM_ARM)
 #    include "dyncall_callback_arm32_arm_gas.s"
 #  elif defined(DC__Arch_ARM_THUMB)

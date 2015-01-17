@@ -60,8 +60,10 @@
 #    endif
 #  elif defined(DC__Arch_ARM64)
 #    include "dyncall_call_arm64.S"
-#  elif defined(DC__Arch_PowerPC)
+#  elif defined(DC__Arch_PPC32)
 #    include "dyncall_call_ppc32.S"
+#  elif defined(DC__Arch_PPC64)
+#    include "dyncall_call_ppc64.S"
 #  elif defined(DC__Arch_MIPS) || defined(DC__Arch_MIPS64)
 #    include "dyncall_call_mips_gas.S"
 #  elif defined(DC__Arch_Sparcv9)

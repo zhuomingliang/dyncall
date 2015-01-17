@@ -56,7 +56,11 @@ case ${TARGET:=`uname`} in
     if [ -z "${CFLAGS}" ]; then
       printf "CFLAGS=-fPIC\n" >>$C
     fi
-    printf "LDFLAGS=-lm -ldl\n" >>$C
+    if [ `uname -m | cut -b-5` = 'ppc64' ]; then
+      printf "LDLIBS=-lm -ldl\n" >>$C
+    else
+      printf "LDFLAGS=-lm -ldl\n" >>$C
+    fi
     ;;
   OpenBSD)
     printf "LDFLAGS=-lm\n" >>$C

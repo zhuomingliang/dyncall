@@ -30,7 +30,7 @@
 #  include "dyncall_callvm_x86.c"
 #elif defined(DC__Arch_AMD64)
 #  include "dyncall_callvm_x64.c"
-#elif defined(DC__Arch_PowerPC)
+#elif defined(DC__Arch_PPC32)
 #  include "dyncall_callvm_ppc32.c"
 #elif defined(DC__Arch_PPC64)
 #  include "dyncall_callvm_ppc64.c"

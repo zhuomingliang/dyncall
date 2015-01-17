@@ -64,8 +64,10 @@ void   dcbInitThunk(DCThunk* p, void (*entry)());
 #include "dyncall_thunk_x86.h"
 #elif defined (DC__Arch_AMD64)
 #include "dyncall_thunk_x64.h"
-#elif defined (DC__Arch_PowerPC)
+#elif defined (DC__Arch_PPC32)
 #include "dyncall_thunk_ppc32.h"
+#elif defined (DC__Arch_PPC64)
+#include "dyncall_thunk_ppc64.h"
 #elif defined (DC__Arch_ARM_ARM)
 #include "dyncall_thunk_arm32_arm.h"
 #elif defined (DC__Arch_ARM_THUMB)

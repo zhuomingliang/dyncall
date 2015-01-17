@@ -175,9 +175,11 @@
 #elif defined(_M_IA64) || defined(__ia64__)
 # define DC__Arch_Itanium
 #elif defined(_M_PPC) || defined(__powerpc__) || defined(__powerpc) || defined(__POWERPC__) || defined(__ppc__) || defined(__power__)
-# define DC__Arch_PowerPC
-#elif defined(__ppc64__) || defined(_ARCH_PPC64) || defined(__power64__)
-# define DC__Arch_PPC64
+# if defined(__ppc64__) || defined(_ARCH_PPC64) || defined(__power64__) || defined(__powerpc64__)
+#   define DC__Arch_PPC64
+# else
+#   define DC__Arch_PPC32
+# endif
 #elif defined(__mips64__) || defined(__mips64)
 # define DC__Arch_MIPS64
 #elif defined(_M_MRX000) || defined(__mips__) || defined(__mips) || defined(_mips)
