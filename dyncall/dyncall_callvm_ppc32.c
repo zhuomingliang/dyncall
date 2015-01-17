@@ -31,10 +31,12 @@
   SUPPORTED CALLING CONVENTIONS
   ppc32/osx 
   ppc32/linux (sysv abi)
+  ppc32/syscall 
 
   REVISION
-  2007/12/11 initial support for Darwin ABI
+  2015/01/15 added syscall (tested on Linux)
   2009/01/09 added System V ABI support
+  2007/12/11 initial support for Darwin ABI
 
 */
 
@@ -266,6 +268,12 @@ void dc_callvm_call_ppc32_sysv(DCCallVM* in_self, DCpointer target)
   dcCall_ppc32_sysv( target, &self->mRegData, dcVecSize(&self->mVecHead) , dcVecData(&self->mVecHead));
 }
 
+void dc_callvm_call_ppc32_syscall(DCCallVM* in_self, DCpointer target)
+{
+  DCCallVM_ppc32* self = (DCCallVM_ppc32*) in_self;
+  dcCall_ppc32_syscall( target, &self->mRegData, dcVecSize(&self->mVecHead) , dcVecData(&self->mVecHead));
+}
+
 void dc_callvm_mode_ppc32(DCCallVM* in_self, DCint mode);
 
 DCCallVM_vt gVT_ppc32_darwin =
@@ -324,6 +332,35 @@ DCCallVM_vt gVT_ppc32_sysv =
 , NULL /* callStruct */
 };
 
+DCCallVM_vt gVT_ppc32_syscall =
+{
+  &dc_callvm_free_ppc32
+, &dc_callvm_reset_ppc32
+, &dc_callvm_mode_ppc32
+, &dc_callvm_argBool_ppc32
+, &dc_callvm_argChar_ppc32
+, &dc_callvm_argShort_ppc32 
+, &dc_callvm_argInt_ppc32_sysv
+, &dc_callvm_argLong_ppc32
+, &dc_callvm_argLongLong_ppc32_sysv
+, &dc_callvm_argFloat_ppc32_sysv
+, &dc_callvm_argDouble_ppc32_sysv
+, &dc_callvm_argPointer_ppc32
+, NULL /* argStruct */
+, (DCvoidvmfunc*)       &dc_callvm_call_ppc32_syscall
+, (DCboolvmfunc*)       &dc_callvm_call_ppc32_syscall
+, (DCcharvmfunc*)       &dc_callvm_call_ppc32_syscall
+, (DCshortvmfunc*)      &dc_callvm_call_ppc32_syscall
+, (DCintvmfunc*)        &dc_callvm_call_ppc32_syscall
+, (DClongvmfunc*)       &dc_callvm_call_ppc32_syscall
+, (DClonglongvmfunc*)   &dc_callvm_call_ppc32_syscall
+, (DCfloatvmfunc*)      &dc_callvm_call_ppc32_syscall
+, (DCdoublevmfunc*)     &dc_callvm_call_ppc32_syscall
+, (DCpointervmfunc*)    &dc_callvm_call_ppc32_syscall
+, NULL /* callStruct */
+};
+
+
 void dc_callvm_mode_ppc32(DCCallVM* in_self, DCint mode)
 {
   DCCallVM_ppc32* self = (DCCallVM_ppc32*) in_self;
@@ -350,6 +387,10 @@ void dc_callvm_mode_ppc32(DCCallVM* in_self, DCint mode)
 #endif
 
       vt = &gVT_ppc32_sysv;
+      break;
+
+    case DC_CALL_SYS_DEFAULT:
+      vt = &gVT_ppc32_syscall;
       break;
 
     default: 

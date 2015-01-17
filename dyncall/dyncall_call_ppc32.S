@@ -28,7 +28,7 @@
 
 /*
   Call Kernel Implementations for PowerPC.
-  Supported Calling Conventions: sysv, darwin
+  Supported Calling Conventions: sysv, darwin, syscall
 
 */
 
@@ -46,6 +46,7 @@
 	darwin, sysv
   
   ChangeLog:
+  2015-01-15: Added support for system calls.
   2011-04-03: Using portasm.
   2009-01-09: Added Support for System V ABI.
   2007-11-28: Initial Support for Darwin.
@@ -264,3 +265,26 @@ ENTRY_C(dcCall_ppc32_sysv)
 	blr			/* return */
 
 
+	.align 2
+
+GLOBAL_C(dcCall_ppc32_syscall)
+ENTRY_C(dcCall_ppc32_syscall)
+	mflr r0			/* r0 = return address */
+	stw  r0,4(r1)		/* store r0 to link-area */
+	li   r0, -8
+	stwux r1,r1,r0 		/* store r1 and decrement */
+	
+	mr   r0, r3		/* r0 = syscall number ( passed as 'target function' ) */
+	mr   r11, r4		/* r11 = reg data */
+	lwz  r3 , 0(r11)
+	lwz  r4 , 4(r11)
+	lwz  r5 , 8(r11)
+	lwz  r6 ,12(r11)
+	lwz  r7 ,16(r11)
+	sc
+
+	lwz  r1, 0(r1)		/* restore stack */
+	lwz  r0, 4(r1)		/* r0 = return address */
+	mtlr r0			/* setup link register */
+	blr
+	

@@ -6,7 +6,7 @@
  Description: public header for library dyncall
  License:
 
-   Copyright (c) 2007-2011 Daniel Adler <dadler@uni-goettingen.de>, 
+   Copyright (c) 2007-2015 Daniel Adler <dadler@uni-goettingen.de>, 
                            Tassilo Philipp <tphilipp@potion-studios.com>
 
    Permission to use, copy, modify, and distribute this software for any
@@ -29,6 +29,7 @@
   dyncall C API
 
   REVISION
+  2015/01/16 added SYS_PPC32 system call
   2007/12/11 initial
   
 */
@@ -79,6 +80,8 @@ typedef struct DCstruct_    DCstruct;
 #define DC_CALL_SYS_DEFAULT           200
 #define DC_CALL_SYS_X86_INT80H_LINUX  201
 #define DC_CALL_SYS_X86_INT80H_BSD    202
+#define DC_CALL_SYS_PPC32             210
+
 /* Error codes. */
 
 #define DC_ERROR_NONE                0
