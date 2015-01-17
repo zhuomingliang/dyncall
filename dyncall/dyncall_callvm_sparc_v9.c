@@ -25,7 +25,6 @@
 
 #include "dyncall_callvm_sparc_v9.h"
 #include "dyncall_call_sparc_v9.h"
-#include "dyncall_utils.h"
 #include "dyncall_alloc.h"
 
 /* Reset argument buffer. */

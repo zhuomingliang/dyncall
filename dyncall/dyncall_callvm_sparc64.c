@@ -25,7 +25,6 @@
 
 #include "dyncall_callvm_sparc64.h"
 #include "dyncall_call_sparc64.h"
-#include "dyncall_utils.h"
 #include "dyncall_alloc.h"
 
 #define IREGS 6
