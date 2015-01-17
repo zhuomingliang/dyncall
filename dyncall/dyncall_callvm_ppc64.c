@@ -145,7 +145,7 @@ static void dc_callvm_argLongLong_ppc64(DCCallVM* in_self, DClonglong L)
   dcVecAppend(&self->mVecHead,&L,sizeof(DClonglong));
 }
 
-#if DC__ABI_PPC64_ELF_V ==2
+#if DC__ABI_PPC64_ELF_V == 2
 static void dc_callvm_argLongLong_ppc64_ellipsis(DCCallVM* in_self, DClonglong L)
 {
   DCCallVM_ppc64* self = (DCCallVM_ppc64*)in_self;

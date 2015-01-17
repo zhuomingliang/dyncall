@@ -213,7 +213,7 @@
 
 
 
-/* Misc machine-dependent quirks and ABIs. */
+/* Misc machine-dependent modes, ABIs, etc.. */
 
 #if defined(__arm__) && !defined(__thumb__)
 # define DC__Arch_ARM_ARM
