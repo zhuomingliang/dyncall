@@ -24,12 +24,14 @@
 */
 #include "dyncall.h"
 #include <sys/syscall.h> 
+#include <assert.h>
 DCCallVM* callvm;
 
 void syscallvm_init()
 {
   callvm = dcNewCallVM(4096);
   dcMode(callvm, DC_CALL_SYS_DEFAULT);
+  assert( dcGetError(callvm) == 0 );
 }
 
 int syscall_write(int fd, char* buf, size_t len)
