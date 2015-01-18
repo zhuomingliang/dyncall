@@ -6,8 +6,8 @@
  Description: Thunk - Implementation for MIPS
  License:
 
-   Copyright (c) 2013 Daniel Adler <dadler@uni-goettingen.de>,
-                      Tassilo Philipp <tphilipp@potion-studios.com>
+   Copyright (c) 2013-2015 Daniel Adler <dadler@uni-goettingen.de>,
+                           Tassilo Philipp <tphilipp@potion-studios.com>
 
    Permission to use, copy, modify, and distribute this software for any
    purpose with or without fee is hereby granted, provided that the above
@@ -28,6 +28,10 @@
 unsigned short hi16(x) { return ( (unsigned short) (((unsigned int)x)>>16UL) ); }
 unsigned short lo16(x) { return ( (unsigned short)  ((unsigned int)x)        ); }
 
+#if defined(MIPSEB)
+#define DC_BIG_ENDIAN
+#endif
+
 void dcbInitThunk(DCThunk* p, void (*entry)())
 {
   /*
@@ -37,8 +41,23 @@ void dcbInitThunk(DCThunk* p, void (*entry)())
       ori $t5, $t5, lo(entry)
       jr  $t5
       ori $t4, $t4, lo(p) - branch delay slot
+
   */
 
+#if defined(DC_BIG_ENDIAN)
+
+  p->data[1] = hi16(p);     /* lui $t4, hi(p) */
+  p->data[0] = 0x3c0c;
+  p->data[3] = hi16(entry); /* lui $t5, hi(entry) */
+  p->data[2] = 0x3c0d;
+  p->data[5] = lo16(entry); /* ori $t5, $t5, lo(entry) */
+  p->data[4] = 0x35ad;
+  p->jump    = 0x01a00008;  /* jr $t5 */
+  p->bddt[1] = lo16(p);     /* ori $t4, $t4, lo(p) - branch delay slot */
+  p->bddt[0] = 0x358c;
+
+#else /* defined(DC_LITTLE_ENDIAN) */
+  
   p->data[0] = hi16(p);     /* lui $t4, hi(p) */
   p->data[1] = 0x3c0c;
   p->data[2] = hi16(entry); /* lui $t5, hi(entry) */
@@ -48,5 +67,8 @@ void dcbInitThunk(DCThunk* p, void (*entry)())
   p->jump    = 0x01a00008;  /* jr $t5 */
   p->bddt[0] = lo16(p);     /* ori $t4, $t4, lo(p) - branch delay slot */
   p->bddt[1] = 0x358c;
+
+#endif
+
 }
 
