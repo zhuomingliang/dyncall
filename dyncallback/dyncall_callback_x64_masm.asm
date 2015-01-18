@@ -47,13 +47,7 @@ OPTION PROLOGUE:NONE, EPILOGUE:NONE
  call qword ptr [RAX+CTX_handler]
  mov DL,AL
  mov RAX,qword ptr [RBP+FRAME_DCValue_sysv]
- cmp DL,102
- je return_f64
- cmp DL,100
- jne return_i64
-return_f64:
  movd XMM0,RAX
-return_i64:
  mov RSP,RBP
  pop RBP
  ret

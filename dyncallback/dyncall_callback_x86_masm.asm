@@ -46,19 +46,10 @@ OPTION PROLOGUE:NONE, EPILOGUE:NONE
  push ECX
  lea EDX,dword ptr [EBP+frame_DCValue]
  mov EBP,dword ptr [EBP+0]
- cmp AL,118
- je return_void
- cmp AL,100
- je return_f64
  cmp AL,102
  je return_f32
- cmp AL,108
- je return_i64
- cmp AL,76
- je return_i64
-return_i32:
- mov EAX,dword ptr [EDX+0]
- ret
+ cmp AL,100
+ je return_f64
 return_i64:
  mov EAX,dword ptr [EDX+0]
  mov EDX,dword ptr [EDX+4]
