@@ -112,16 +112,8 @@ BEGIN_PROC(dcCallback_x64_sysv)
 	
 	MOVB(AL,DL)
 	MOV(QWORD(RBP,FRAME_DCValue_sysv),RAX)
-
-	CMP(LIT(ASCII_f),DL)
-	JE(LOCAL(return_f64))
-	CMP(LIT(ASCII_d),DL)
-	JNE(LOCAL(return_i64))
-
-LOCAL(return_f64):
 	MOVD(RAX,XMM0)
 
-LOCAL(return_i64):
 	MOV(RBP,RSP)
 	POP(RBP)
 	RET()

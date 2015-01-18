@@ -84,21 +84,13 @@ BEGIN_PROC(dcCallbackThunkEntry)
 	LEA(DWORD(EBP,frame_DCValue), EDX)
 	MOVL(DWORD(EBP,0), EBP)			/* EBP = parent frame */
 	/* handle return value */
-	CMP(LIT(ASCII_v),AL)
-	JE(LOCAL(return_void))
-	CMP(LIT(ASCII_d),AL)
-	JE(LOCAL(return_f64))
+	
 	CMP(LIT(ASCII_f),AL)
 	JE(LOCAL(return_f32))
-	CMP(LIT(ASCII_l),AL)
-	JE(LOCAL(return_i64))
-	CMP(LIT(ASCII_L),AL)
-	JE(LOCAL(return_i64))
+	CMP(LIT(ASCII_d),AL)
+	JE(LOCAL(return_f64))
 	
 	/* All int cases <= 32 bits (+ pointer & string cases) fall in the 32 bits int case*/
-LOCAL(return_i32):
-	MOVL(DWORD(EDX,0),EAX)
-	RET()
 LOCAL(return_i64):
 	MOVL(DWORD(EDX,0),EAX)
 	MOVL(DWORD(EDX,4),EDX)
