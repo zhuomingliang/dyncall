@@ -6,7 +6,7 @@
  Description: Callback - Header for ppc32
  License:
 
-   Copyright (c) 2007-2011 Daniel Adler <dadler@uni-goettingen.de>,
+   Copyright (c) 2007-2015 Daniel Adler <dadler@uni-goettingen.de>,
                            Tassilo Philipp <tphilipp@potion-studios.com>
 
    Permission to use, copy, modify, and distribute this software for any
@@ -33,11 +33,11 @@
 
 struct DCCallback
 {
-  DCThunk            thunk;         /* offset  0, size 40 */
-  DCCallbackHandler* handler;       /* offset 40, size  4 */
-  size_t             stack_cleanup; /* offset 44, size  4 */
-  void*              userdata;      /* offset 48, size  4 */
-};
+  DCThunk            thunk;         /* offset  0, size 24 */
+  DCCallbackHandler* handler;       /* offset 24, size  4 */
+  size_t             stack_cleanup; /* offset 28, size  4 */
+  void*              userdata;      /* offset 32, size  4 */
+};                                  /*      total size 36 */                                  
 
 #endif /* DYNCALL_CALLBACK_PPC32_H */
 

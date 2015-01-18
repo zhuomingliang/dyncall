@@ -3,10 +3,10 @@
  Package: dyncall
  Library: dyncallback
  File: dyncallback/dyncall_thunk_ppc32.h
- Description: Thunk - Header for ppc32
+ Description: Thunk - Header for ppc32 (darwin/sysv)
  License:
 
-   Copyright (c) 2007-2011 Daniel Adler <dadler@uni-goettingen.de>,
+   Copyright (c) 2007-2015 Daniel Adler <dadler@uni-goettingen.de>,
                            Tassilo Philipp <tphilipp@potion-studios.com>
 
    Permission to use, copy, modify, and distribute this software for any
@@ -28,11 +28,11 @@
 
 struct DCThunk_
 {
-  unsigned short code_load_hi, addr_self_hi;  /* offset:  0 */
-  unsigned short code_load_lo, addr_self_lo;  /* offset:  4 */
-  unsigned int   code_jump[3];                /* offset:  8 */
-  void          (*addr_entry)();              /* offset: 20 */
-};
+  unsigned short code_load_hi, addr_self_hi;  /* offset:  0  size: 4  */
+  unsigned short code_load_lo, addr_self_lo;  /* offset:  4  size: 4  */
+  unsigned int   code_jump[3];                /* offset:  8  size: 12 */
+  void          (*addr_entry)();              /* offset: 20  size:  4 */
+};                                            /*       total size: 24 */
 
 #define DCTHUNK_SIZE_PPC32 24
 

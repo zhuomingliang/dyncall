@@ -3,10 +3,10 @@
  Package: dyncall
  Library: dyncallback
  File: dyncallback/dyncall_callback_ppc32_apple.s
- Description: Callback Thunk - Implementation for PowerPC 32-bit on Darwin/Apple's as
+ Description: Callback Thunk - PowerPC 32-bit System V ABI
  License:
 
-   Copyright (c) 2007-2011 Daniel Adler <dadler@uni-goettingen.de>,
+   Copyright (c) 2007-2015 Daniel Adler <dadler@uni-goettingen.de>,
                            Tassilo Philipp <tphilipp@potion-studios.com>
 
    Permission to use, copy, modify, and distribute this software for any
@@ -27,12 +27,13 @@
 	.text
 	.align 2
 
-/* Callback Thunk Entry code for Apple Mac OS X PowerPC 32-bit. */
+/* Callback Thunk Entry code for PowerPC 32-bit Darwin/Apple Mac OS X. */
+
 
 /* Stack Frame Layout: 
 	
-       206 DCValue ( )
-	56 DCArgs (32+104+4+8 = 150)
+       204 DCValue ( )
+	56 DCArgs (32+104+4+8 = 148)
 	24 Parameter area ( 4*8 = 32 )
 	0  Linkage area   ( 24 )
 

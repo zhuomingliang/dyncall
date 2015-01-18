@@ -6,7 +6,7 @@
  Description: Callback's Arguments VM - Implementation back-end selector
  License:
 
-   Copyright (c) 2007-2011 Daniel Adler <dadler@uni-goettingen.de>,
+   Copyright (c) 2007-2015 Daniel Adler <dadler@uni-goettingen.de>,
                            Tassilo Philipp <tphilipp@potion-studios.com>
 
    Permission to use, copy, modify, and distribute this software for any
@@ -30,7 +30,11 @@
 #elif defined (DC__Arch_AMD64)
 #include "dyncall_args_x64.c"
 #elif defined (DC__Arch_PPC32)
-#include "dyncall_args_ppc32.c"
+# if defined (DC__OS_Darwin)
+#   include "dyncall_args_ppc32.c"
+# else
+#   include "dyncall_args_ppc32_sysv.c"
+# endif
 #elif defined (DC__Arch_PPC64)
 #include "dyncall_args_ppc64.c"
 #elif defined (DC__Arch_ARM_ARM)

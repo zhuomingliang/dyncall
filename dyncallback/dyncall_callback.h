@@ -6,7 +6,7 @@
  Description: Callback - Interface
  License:
 
-   Copyright (c) 2007-2011 Daniel Adler <dadler@uni-goettingen.de>,
+   Copyright (c) 2007-2015 Daniel Adler <dadler@uni-goettingen.de>,
                            Tassilo Philipp <tphilipp@potion-studios.com>
 
    Permission to use, copy, modify, and distribute this software for any
@@ -31,6 +31,8 @@
 #include "dyncall_value.h"
 
 typedef struct DCCallback DCCallback;
+
+// TODO: return value is the type encoded as a signature char (character of the set [vBcCsSiIjJlLfd]).
 
 typedef char (DCCallbackHandler)(DCCallback* pcb, DCArgs* args, DCValue* result, void* userdata);
 

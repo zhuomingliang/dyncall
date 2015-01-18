@@ -32,7 +32,11 @@
 #elif defined(DC__Arch_AMD64)
 # include "dyncall_thunk_x64.c"
 #elif defined(DC__Arch_PPC32)
-# include "dyncall_thunk_ppc32.c"
+# if defined(DC__OS_Darwin)
+#   include "dyncall_thunk_ppc32.c"
+# else
+#   include "dyncall_thunk_ppc32_sysv.c"
+# endif
 #elif defined(DC__Arch_PPC64)
 # include "dyncall_thunk_ppc64.c"
 #elif defined(DC__Arch_ARM_ARM)
