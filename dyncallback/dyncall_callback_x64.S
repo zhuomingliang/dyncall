@@ -107,16 +107,15 @@ BEGIN_PROC(dcCallback_x64_sysv)
 	PUSH(LIT(0))				/* align to 16 bytes */
 	CALL_REG(QWORD(RAX,CTX_handler))
 
-	/* pass return type via registers */
-	/* distinguish two basic classes 'integer' and 'float' */
+	/* pass return type via registers, handle ints and floats */
 	
-	MOVB(AL,DL)
 	MOV(QWORD(RBP,FRAME_DCValue_sysv),RAX)
 	MOVD(RAX,XMM0)
 
 	MOV(RBP,RSP)
 	POP(RBP)
 	RET()
+
 END_PROC(dcCallback_x64_sysv)
 
 GLOBAL(dcCallback_x64_win64)
@@ -165,6 +164,7 @@ BEGIN_PROC(dcCallback_x64_win64)
 	SUB(LIT(4*8),RSP)                      /* make room for spill area and call */
 	CALL_REG(QWORD(RAX,CTX_handler))
 
+	/* pass return type via registers, handle ints and floats */
 	
 	MOV(QWORD(RBP,FRAME_DCValue_win64),RAX)
 	MOVD(RAX,XMM0)

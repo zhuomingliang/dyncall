@@ -1,6 +1,3 @@
-
-
-
 .CODE
 
 dcCall_x64_sysv PROC

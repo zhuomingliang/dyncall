@@ -45,7 +45,6 @@ OPTION PROLOGUE:NONE, EPILOGUE:NONE
  mov RDX,RSP
  push 0
  call qword ptr [RAX+CTX_handler]
- mov DL,AL
  mov RAX,qword ptr [RBP+FRAME_DCValue_sysv]
  movd XMM0,RAX
  mov RSP,RBP
