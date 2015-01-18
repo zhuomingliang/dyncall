@@ -48,8 +48,8 @@ char handler(DCCallback* that, DCArgs* input, DCValue* output, void* userdata)
       case DC_SIGCHAR_USHORT:   Args[pos].S = dcbArgUShort   (input); break;
       case DC_SIGCHAR_INT:      Args[pos].i = dcbArgInt      (input); break;
       case DC_SIGCHAR_UINT:     Args[pos].I = dcbArgUInt     (input); break;
-      case DC_SIGCHAR_LONG:     Args[pos].l = dcbArgLong     (input); break;
-      case DC_SIGCHAR_ULONG:    Args[pos].L = dcbArgULong    (input); break;
+      case DC_SIGCHAR_LONG:     Args[pos].j = dcbArgLong     (input); break;
+      case DC_SIGCHAR_ULONG:    Args[pos].J = dcbArgULong    (input); break;
       case DC_SIGCHAR_LONGLONG: Args[pos].l = dcbArgLongLong (input); break;
       case DC_SIGCHAR_ULONGLONG:Args[pos].L = dcbArgULongLong(input); break;
       case DC_SIGCHAR_FLOAT:    Args[pos].f = dcbArgFloat    (input); break; 
@@ -81,20 +81,20 @@ char handler(DCCallback* that, DCArgs* input, DCValue* output, void* userdata)
 #endif
 
   switch(ch) {
-    case DC_SIGCHAR_BOOL:     return 'i';
-    case DC_SIGCHAR_CHAR:     return 'i';
-    case DC_SIGCHAR_UCHAR:    return 'i';
-    case DC_SIGCHAR_SHORT:    return 'i';
-    case DC_SIGCHAR_USHORT:   return 'i';
+    case DC_SIGCHAR_BOOL:     return 'B';
+    case DC_SIGCHAR_CHAR:     return 'c';
+    case DC_SIGCHAR_UCHAR:    return 'C';
+    case DC_SIGCHAR_SHORT:    return 's';
+    case DC_SIGCHAR_USHORT:   return 'S';
     case DC_SIGCHAR_INT:      return 'i';
-    case DC_SIGCHAR_UINT:     return 'i';
-    case DC_SIGCHAR_LONG:     return (sizeof(long) == 4) ? 'i' : 'l';
-    case DC_SIGCHAR_ULONG:    return (sizeof(long) == 4) ? 'i' : 'l';
+    case DC_SIGCHAR_UINT:     return 'I';
+    case DC_SIGCHAR_LONG:     return 'j'; 
+    case DC_SIGCHAR_ULONG:    return 'J'; 
     case DC_SIGCHAR_LONGLONG: return 'l';
     case DC_SIGCHAR_ULONGLONG:return 'l';
     case DC_SIGCHAR_FLOAT:    return 'f';
     case DC_SIGCHAR_DOUBLE:   return 'd';
-    case DC_SIGCHAR_POINTER:  return (sizeof(void*) == 4) ? 'i' : 'l';
+    case DC_SIGCHAR_POINTER:  return 'p';
     default: assert(0); return 'v';
   }
 }
