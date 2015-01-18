@@ -80,7 +80,7 @@ int Compare(const char* signature)
     GetReferenceArg(&ref, ch, pos);
     isequal = CompareValues( ch, &ref, &Args[pos] );
     if ( !isequal ) {
-      if (OptionVerbose) { total = 0; fprintf(stdout, " @%d ", pos); }
+      if (OptionVerbose) { total = 0; fprintf(stdout, " @%d[%c] ", pos, ch); }
       else return 0;
     }
     ++ pos;
