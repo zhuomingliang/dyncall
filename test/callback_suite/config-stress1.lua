@@ -1,10 +1,20 @@
 -- section 'main' --------------------------------------------------------------
                   
-nsigs     = 6         -- number of test cases
 mode      = "designed"    -- generator mode: 'random', 'ordered' or 'designed' type sequences
 designfile= "stress1.cfg" -- design file 
+
+function nlines()
+  local cnt = 0
+  for l in io.open(designfile):lines() do
+    cnt = cnt + 1
+  end
+  return cnt
+end
+
+nsigs     = nlines()    -- number of test cases
+
 minargs   = 0           -- minimum num. of supported arguments (>= 0)
-maxargs   = 10          -- maximum num. of supported arguments (>= minargs)
+maxargs   = 20          -- maximum num. of supported arguments (>= minargs)
 
 -- section 'types' (not used by 'designed') ------------------------------------
 
