@@ -109,7 +109,7 @@ Input:
 	xor	r0, r0, r0		/* init register counters */
 	stw	r0, SP_ICNT(r1)
 	stw	r0, SP_FCNT(r1)
-	stw     r0, SP_RESULT(r1)
+	stw     r0, SP_RESULT(r1)	/* init result object */
         stw     r0, SP_RESULT + 4(r1)
 					/* invoke callback handler */
 	mr	r3, r11	                /* arg 1: DCCallback* pcb (r11 is thunk pointer) */
@@ -126,31 +126,14 @@ Input:
 	beq	.f32
 	cmpi	cr0, r3, 'd
 	beq	.f64
-	cmpi    cr0, r3, 'c
-	beq     .i8
-	cmpi    cr0, r3, 'C
-	beq     .i8
-	cmpi    cr0, r3, 's
-	beq     .i16
-	cmpi    cr0, r3, 'S
-	beq     .i16
 .i64:
 	lwz    r3, SP_RESULT     (r1)
-	lwz    r4, SP_RESULT + 4 (r1)
+	lwz    r4, SP_RESULT + 4 (r1) 
 .end:
 	lwz    r1, SP_PREV(r1)	/* restore stack pointer */
 	lwz    r0, SP_LR(r1)	/* load link register with return address */
 	mtlr   r0
 	blr			/* branch back to link register */
-.i8:
-	lbz    r3, SP_RESULT (r1)
-	b      .end
-.i16:
-	lhz    r3, SP_RESULT (r1)
-        b      .end
-.i32:	
-	lwz	r3, SP_RESULT(r1)	
-	b	.end
 .f32:	
 	lfs	f1, SP_RESULT(r1)
 	b	.end

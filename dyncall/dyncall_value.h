@@ -6,7 +6,7 @@
  Description: Value variant type
  License:
 
-   Copyright (c) 2007-2011 Daniel Adler <dadler@uni-goettingen.de>, 
+   Copyright (c) 2007-2015 Daniel Adler <dadler@uni-goettingen.de>, 
                            Tassilo Philipp <tphilipp@potion-studios.com>
 
    Permission to use, copy, modify, and distribute this software for any
@@ -49,10 +49,17 @@ typedef union DCValue_ DCValue;
 union DCValue_
 {
   DCbool        B;
+#if defined (DC__Arch_PPC32) && defined(_BIG_ENDIAN)
+  struct { DCchar  c_pad[3]; DCchar  c; };
+  struct { DCuchar C_pad[3]; DCuchar C; };
+  struct { DCshort s_pad;    DCshort s; };
+  struct { DCshort S_pad;    DCshort S; };
+#else
   DCchar        c;
   DCuchar       C;
   DCshort       s;
   DCushort      S;
+#endif
   DCint         i;
   DCuint        I;
   DClong        j;
