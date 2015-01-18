@@ -390,6 +390,7 @@ void dc_callvm_mode_ppc32(DCCallVM* in_self, DCint mode)
       break;
 
     case DC_CALL_SYS_DEFAULT:
+    case DC_CALL_SYS_PPC32:
       vt = &gVT_ppc32_syscall;
       break;
 
