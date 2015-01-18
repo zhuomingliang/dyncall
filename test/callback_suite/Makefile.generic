@@ -4,7 +4,7 @@ SRCTOP   = ${VPATH}/../..
 BLDTOP   = ../..
 CFLAGS  += -I${SRCTOP}/dyncall -I${SRCTOP}/dyncallback
 LDLIBS  += -L${BLDTOP}/dyncall -ldyncall_s -L${BLDTOP}/dyncallback -ldyncallback_s
-LUA      = lua-5.1
+LUA      = lua
 AUTOS    = _auto_config.h _auto_sigstrings.h _auto_invokers.h \
 		   _auto_invoke_macros.h _auto_invoke_table.h _auto_signatures.txt
 

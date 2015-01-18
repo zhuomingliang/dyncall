@@ -4,6 +4,7 @@ SRCTOP  = ${VPATH}/../..
 BLDTOP  = ../..
 CFLAGS += -I${SRCTOP}/dyncall
 LDLIBS += -L${BLDTOP}/dyncall -ldyncall_s 
+LUA     = lua
 .PHONY: all clean install config config-random
 all: ${APP}
 ${APP}: ${OBJS} 
