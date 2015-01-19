@@ -48,23 +48,24 @@ As documentation for this EABI is unofficial, this port is currently experimenta
 \begin{table}[h]
 \begin{tabular}{lll}
 \hline
-Name                                   & Alias                   & Brief description\\
-\hline
-{\bf \$0}                              & {\bf \$zero}            & Hardware zero \\
-{\bf \$1}                              & {\bf \$at}              & Assembler temporary \\
-{\bf \$2-\$3}                          & {\bf \$v0-\$v1}         & Integer results \\
-{\bf \$4-\$11}                         & {\bf \$a0-\$a7}         & Integer arguments\\
-{\bf \$12-\$15,\$24,\$25}              & {\bf \$t4-\$t7,\$8,\$9} & Integer temporaries \\
-{\bf \$16-\$23}                        & {\bf \$s0-\$s7}         & Preserved \\
-{\bf \$26-\$27}                        & {\bf \$kt0-\$kt1}       & Reserved for kernel \\
-{\bf \$28}                             & {\bf \$gp}              & Global pointer \\
-{\bf \$29}                             & {\bf \$sp}              & Stack pointer \\
-{\bf \$30}                             & {\bf \$s8}              & Frame pointer \\
-{\bf \$31}                             & {\bf \$ra}              & Return address \\
-{\bf hi, lo}                           &                         & Multiply/divide special registers \\
-{\bf \$f0,\$f2}                        &                         & Float results \\
-{\bf \$f1,\$f3,\$f4-\$f11,\$f20-\$f23} &                         & Float temporaries \\
-{\bf \$f12-\$f19}                      &                         & Float arguments \\
+Name                                   & Alias                     & Brief description\\
+\hline                                                             
+{\bf \$0}                              & {\bf \$zero}              & Hardware zero \\
+{\bf \$1}                              & {\bf \$at}                & Assembler temporary \\
+{\bf \$2-\$3}                          & {\bf \$v0-\$v1}           & Integer results \\
+{\bf \$4-\$11}                         & {\bf \$a0-\$a7}           & Integer arguments\\
+{\bf \$12-\$15,\$24,\$25}              & {\bf \$t4-\$t7,\$t8,\$t9} & Integer temporaries \\
+{\bf \$25}                             & {\bf \$t9}                & Integer temporary, hold the address of the called function for all PIC calls (by convention) \\
+{\bf \$16-\$23}                        & {\bf \$s0-\$s7}           & Preserved \\
+{\bf \$26,\$27}                        & {\bf \$kt0,\$kt1}         & Reserved for kernel \\
+{\bf \$28}                             & {\bf \$gp}                & Global pointer \\
+{\bf \$29}                             & {\bf \$sp}                & Stack pointer \\
+{\bf \$30}                             & {\bf \$s8}                & Frame pointer \\
+{\bf \$31}                             & {\bf \$ra}                & Return address \\
+{\bf hi, lo}                           &                           & Multiply/divide special registers \\
+{\bf \$f0,\$f2}                        &                           & Float results \\
+{\bf \$f1,\$f3,\$f4-\$f11,\$f20-\$f23} &                           & Float temporaries \\
+{\bf \$f12-\$f19}                      &                           & Float arguments \\
 \end{tabular}
 \caption{Register usage on mips32 eabi calling convention}
 \end{table}
