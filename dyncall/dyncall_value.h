@@ -49,7 +49,7 @@ typedef union DCValue_ DCValue;
 union DCValue_
 {
   DCbool        B;
-#if defined (DC__Arch_PPC32) && defined(_BIG_ENDIAN)
+#if defined (DC__Arch_PPC32) && defined(DC__Endian_BIG)
   struct { DCchar  c_pad[3]; DCchar  c; };
   struct { DCuchar C_pad[3]; DCuchar C; };
   struct { DCshort s_pad;    DCshort s; };

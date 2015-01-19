@@ -64,7 +64,7 @@ char handler(DCCallback* that, DCArgs* input, DCValue* output, void* userdata)
   /* currently, no void result is supported by the suite */
   GetReferenceResult(output, ch);
 
-#if defined (DC__Arch_PPC64) && defined (_BIG_ENDIAN)
+#if defined(DC__Arch_PPC64) && defined(DC__Endian_BIG)
   switch (ch) {
     case DC_SIGCHAR_BOOL:     output->l = ((long long)output->B); break;
     case DC_SIGCHAR_CHAR:     output->l = ((long long)output->c); break;

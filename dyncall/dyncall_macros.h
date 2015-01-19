@@ -249,9 +249,34 @@
 # if defined(_CALL_ELF)
 #  define DC__ABI_PPC64_ELF_V _CALL_ELF
 # else
-#  define DC__ABI_PPC64_ELF_V 0 // 0 means not explicitly set, otherwise this is 1 (big endian) and 2 (little endian)
+#  define DC__ABI_PPC64_ELF_V 0 /* 0 means not explicitly set, otherwise this is 1 (big endian) and 2 (little endian) */
 # endif
 #endif /* MIPS */
+
+
+/* Endian detection. */
+#if defined(DC__Arch_Intel_x86) || defined(DC__Arch_AMD64) /* always little */
+# define DC__Endian_LITTLE
+#elif defined(DC__Arch_Sparc)                              /*always big until v9*/
+# define DC__Endian_BIG
+#else                                                      /* all others are bi-endian */
+/* @@@check flags used on following bi-endianness archs:
+DC__Arch_ARM
+DC__Arch_ARM64
+DC__Arch_Itanium
+DC__Arch_MIPS
+DC__Arch_MIPS64
+DC__Arch_PPC32
+DC__Arch_PPC64
+DC__Arch_Sparcv9
+DC__Arch_SuperH
+*/
+# if (defined(DC__Arch_PPC64) && (DC__ABI_PPC64_ELF_V == 1)) || defined(_BIG_ENDIAN) || defined(MIPSEB)
+#  define DC__Endian_BIG
+# elif (defined(DC__Arch_PPC64) && (DC__ABI_PPC64_ELF_V == 2)) || defined(_LITTLE_ENDIAN) || defined(MIPSEL)
+#  define DC__Endian_LITTLE
+# endif /* no else, leave unset if not sure */
+#endif
 
 
 /* Internal macro/tag. */

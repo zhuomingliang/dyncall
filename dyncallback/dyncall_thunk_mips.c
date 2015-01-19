@@ -28,10 +28,6 @@
 unsigned short hi16(x) { return ( (unsigned short) (((unsigned int)x)>>16UL) ); }
 unsigned short lo16(x) { return ( (unsigned short)  ((unsigned int)x)        ); }
 
-#if defined(MIPSEB)
-#define DC_BIG_ENDIAN
-#endif
-
 void dcbInitThunk(DCThunk* p, void (*entry)())
 {
   /*
@@ -44,7 +40,7 @@ void dcbInitThunk(DCThunk* p, void (*entry)())
 
   */
 
-#if defined(DC_BIG_ENDIAN)
+#if defined(DC__Endian_BIG)
 
   p->data[1] = hi16(p);     /* lui $t4, hi(p) */
   p->data[0] = 0x3c0c;
@@ -56,7 +52,7 @@ void dcbInitThunk(DCThunk* p, void (*entry)())
   p->bddt[1] = lo16(p);     /* ori $t4, $t4, lo(p) - branch delay slot */
   p->bddt[0] = 0x358c;
 
-#else /* defined(DC_LITTLE_ENDIAN) */
+#else /* defined(DC__Endian_LITTLE) */
   
   p->data[0] = hi16(p);     /* lui $t4, hi(p) */
   p->data[1] = 0x3c0c;

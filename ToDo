@@ -10,10 +10,6 @@
       - retvals of call_suite (maybe all retvals, in general)
       - callback_plain retval
       - callf
-- syscalls for x64
-  * bsd
-  * linux
-
 
 build-system:
 -------------
@@ -32,6 +28,11 @@ dyncall:
 - consider automatic type-promotion for arguments passed through DC_CALL_C_ELLIPSIS_VARARGS;
   this would make it easier to just pass arguments instead of having to know about the C
   type promotions
+- syscalls for x64
+  * bsd
+  * linux
+- other syscalls
+
 
 dynload:
 --------
@@ -93,7 +94,7 @@ nice to have:
 
 bugs:
 -----
-- callbacks on ppc32 only work on apple (osx abi)
+- callbacks on ppc32 only work on linux and apple (osx abi), but not BSD
 - vararg function calls don't work for ARM THUMB mode (Daniel's new interface for modesetting for varag
   args should be used); adapt test/ellipsis and/or retest
 
