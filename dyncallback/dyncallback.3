@@ -82,9 +82,9 @@ result is a pointer to a DCValue object in order to store the callback's
 return value (output, to be set by handler). Finally,
 .Ar userdata is a pointer to some user defined data that can be
 set when creating the callback object.
-The handler itself returns either 'i' or 'f' depending on whether the value
-stored in
-.Ar result is of integral or floating point type.
+The handler itself returns a signature character (see manual for format)
+specifying the data type used for
+.Ar result .
 .Sh EXAMPLE
 Let's say, we want to create a callback object and call it. For simplicity, this
 example will omit passing it as a function pointer to a function (e.g. compar
