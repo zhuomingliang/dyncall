@@ -28,14 +28,14 @@
 	.text
 	.align 2
 
-// Struct DCCallback
+/* Struct DCCallback */
 
 DCB_THUNK 	= 0
 DCB_HANDLER     = 24
 DCB_CLEANUP     = 28
 DCB_USERDATA    = 32
 
-// Struct DCArgs
+/* Struct DCArgs */
 
 ARGS_IREGS = 0
 ARGS_FREGS = ARGS_IREGS + 4*8
@@ -44,11 +44,11 @@ ARGS_ICNT  = ARGS_SP    + 4
 ARGS_FCNT  = ARGS_ICNT  + 4
 ARGS_SIZE  = ARGS_FCNT  + 4
 
-// Struct DCValue 
+/* Struct DCValue  */
 
 RESULT_SIZE = 8
 
-// Stack Offsets:
+/* Stack Offsets: */
 
 SP_PREV   = 0
 SP_LR     = (SP_PREV  + 4)
