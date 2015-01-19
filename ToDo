@@ -1,5 +1,6 @@
 0.9:
 ----
+- ppc32 callback fixes on bsd
 - make install should install manpages
 - mailing list announcements (html email?)
 - fix for NDS:
@@ -47,7 +48,7 @@ dynload:
 dyncallback:
 ------------
 - callback_plain's return value not correct anymore on NDS (maybe just broken testcode?)
-- add MIPS callbacks (thunks seem to be working, but maybe buggy)
+- add MIPS callbacks for eabi, n32, o32 (thunks are working)
 - finish PPC32 callbacks (see bugs section, below)
 
 bindings:
