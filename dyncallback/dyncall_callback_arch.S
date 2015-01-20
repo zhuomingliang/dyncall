@@ -50,6 +50,8 @@
 #    include "dyncall_callback_x64.S"
 #  elif defined(DC__Arch_Intel_x86)
 #    include "dyncall_callback_x86.S"
+#  elif defined(DC__Arch_ARM64)
+#    include "dyncall_callback_arm64.s"
 #  else // e.g. PowerPC G5, which is PPC64, etc.
 #    error Unsupported Architecture on Darwin/OS X.
 #  endif

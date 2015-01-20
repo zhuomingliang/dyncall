@@ -29,9 +29,12 @@
 //   handler  |  32  |   8
 //   userdata |  40  |   8
 
-.global dcCallbackThunkEntry
+#include "../portasm/portasm-arm.S"
 
-dcCallbackThunkEntry:
+.align 4
+GLOBAL_C(dcCallbackThunkEntry)
+ENTRY_C(dcCallbackThunkEntry)
+
 // input:
 //  x9: DCCallback* pcb
 //  x0..x7 ?? GP regs
