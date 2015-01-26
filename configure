@@ -56,14 +56,10 @@ case ${TARGET:=`uname`} in
     if [ -z "${CFLAGS}" ]; then
       printf "CFLAGS=-fPIC\n" >>$C
     fi
-    if [ `uname -m | cut -b-5` = 'ppc64' ]; then
-      printf "LDLIBS=-lm -ldl\n" >>$C
-    else
-      printf "LDFLAGS=-lm -ldl\n" >>$C
-    fi
+    printf "LDLIBS=-lm -ldl\n" >>$C
     ;;
   OpenBSD)
-    printf "LDFLAGS=-lm\n" >>$C
+    printf "LDLIBS=-lm\n" >>$C
     ;;
   DragonFly)
     if [ -z "${CFLAGS}" ]; then
@@ -74,13 +70,13 @@ case ${TARGET:=`uname`} in
     if [ -z "${CFLAGS}" ]; then
       printf "CFLAGS=-fPIC\n" >>$C
     fi
-    printf "LDFLAGS=-lm\n" >>$C
+    printf "LDLIBS=-lm\n" >>$C
     ;;
   FreeBSD)
     if [ -z "${CFLAGS}" ]; then
       printf "CFLAGS=-fPIC\n" >>$C
     fi
-    printf "LDFLAGS=-lm\n" >>$C
+    printf "LDLIBS=-lm\n" >>$C
     printf "RM=rm -f\n" >>$C
     ;;
   MacOSX|Darwin)
