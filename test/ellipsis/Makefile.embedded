@@ -3,15 +3,15 @@ OBJS = ellipsis.o main.o
 
 TOP      = ../..
 CFLAGS  += -I${TOP}/dyncall
-LDFLAGS += -L${TOP}/dyncall -ldyncall_s
+LDFLAGS += -L${TOP}/dyncall
+LDLIBS  += -ldyncall_s
 
 all: ${APP}
-
 
 .PHONY: all clean install
 
 ${APP}: ${OBJS} 
-	${CXX} ${OBJS} ${LDFLAGS} -o ${APP} 
+	${CXX} ${OBJS} ${LDFLAGS} ${LDLIBS} -o ${APP} 
 
 clean:
 	rm -f ${APP} ${OBJS}

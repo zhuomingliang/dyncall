@@ -1,16 +1,17 @@
 APP = callf
 OBJS = main.o
 
-TOP 	= ../..
+TOP      = ../..
 CFLAGS  += -I${TOP}/dyncall
-LDFLAGS += -L${TOP}/dyncall -ldyncall_s
+LDFLAGS += -L${TOP}/dyncall
+LDLIBS  += -ldyncall_s
 
 all: ${APP}
 
 .PHONY: all clean
 
 ${APP}: ${OBJS} 
-	${CC} ${OBJS} ${LDFLAGS} -o ${APP} 
+	${CC} ${OBJS} ${LDFLAGS} ${LDLIBS} -o ${APP} 
 
 clean:
 	rm -f ${APP} ${OBJS}

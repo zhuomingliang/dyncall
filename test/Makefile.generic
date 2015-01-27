@@ -74,6 +74,6 @@ all-dyncallback:
 	cd callback_suite && ${MAKE}
 
 linux:
-	LDFLAGS="-lm -ldl" ${MAKE} all
+	LDLIBS="-lm -ldl" ${MAKE} all
 bsd:
-	LDFLAGS="-lm" ${MAKE} all
+	LDLIBS="-lm" ${MAKE} all

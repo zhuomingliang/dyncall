@@ -1,16 +1,17 @@
 APP = resolve_self
 OBJS = main.o
 
-TOP 	 = ../..
+TOP      = ../..
 CFLAGS  += -I${TOP}/dynload
-LDLIBS   = -L${TOP}/dynload -ldynload_s ${LDFLAGS}
+LDFLAGS += -L${TOP}/dynload
+LDLIBS  += -ldynload_s
 
 all: ${APP}
 
 .PHONY: all clean install
 
 ${APP}: ${OBJS} 
-	${CC} ${OBJS} ${LDLIBS} -o ${APP} 
+	${CC} ${OBJS} ${LDFLAGS} ${LDLIBS} -o ${APP} 
 
 clean:
 	rm -f ${APP} ${OBJS}

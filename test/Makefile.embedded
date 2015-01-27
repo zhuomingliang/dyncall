@@ -62,11 +62,11 @@ clean:
 	cd malloc_wx && ${MAKE_CMD} clean
 	cd syscall && ${MAKE_CMD} clean
 bsd:
-	LDFLAGS="${LDFLAGS} -lm" ${MAKE_CMD} all
+	LDLIBS="${LDLIBS} -lm" ${MAKE_CMD} all
 linux:
-	LDFLAGS="${LDFLAGS} -lm -ldl" ${MAKE_CMD} all
+	LDLIBS="${LDLIBS} -lm -ldl" ${MAKE_CMD} all
 linux64:
-	CFLAGS="${CFLAGS} -m64" CXXFLAGS="${CXXFLAGS} -m64" CCFLAGS="${CXXFLAGS} -m64" LDFLAGS="${LDFLAGS} -m64 -lm -ldl" ${MAKE_CMD} all-c
+	CFLAGS="${CFLAGS} -m64" CXXFLAGS="${CXXFLAGS} -m64" CCFLAGS="${CXXFLAGS} -m64" LDFLAGS="${LDFLAGS} -m64" LDLIBS="${LDLIBS} -lm -ldl" ${MAKE_CMD} all-c
 mingw32:
 	${MAKE_CMD} CC="gcc" all
 osx:
@@ -78,13 +78,13 @@ osx-universal:
 osx-i386:
 	OSX_ARCH="-arch i386" ${MAKE_CMD} osx-template
 sun:
-	CXX=CC LDFLAGS="${LDFLAGS} -lm" ${MAKE_CMD} all
+	CXX=CC LDLIBS="${LDLIBS} -lm" ${MAKE_CMD} all
 sun-64bit:
-	CXX=CC CFLAGS="${CFLAGS} -m64" CXXFLAGS="${CXXFLAGS} -m64" CCFLAGS="${CXXFLAGS} -m64" LDFLAGS="${LDFLAGS} -m64 -lm" ${MAKE_CMD} all
+	CXX=CC CFLAGS="${CFLAGS} -m64" CXXFLAGS="${CXXFLAGS} -m64" CCFLAGS="${CXXFLAGS} -m64" LDFLAGS="${LDFLAGS} -m64" LDLIBS="${LDLIBS} -lm" ${MAKE_CMD} all
 sun-gcc:
-	CC=gcc CCC=g++ CXX=g++ LDFLAGS="${LDFLAGS} -lm" ${MAKE_CMD} all
+	CC=gcc CCC=g++ CXX=g++ LDLIBS="${LDLIBS} -lm" ${MAKE_CMD} all
 sun-gcc-64bit:
-	CC=gcc CCC=g++ CXX=g++ CFLAGS="${CFLAGS} -m64" CXXFLAGS="${CXXFLAGS} -m64" CCFLAGS=-m64 LDFLAGS="${LDFLAGS} -m64 -lm" ${MAKE_CMD} all
+	CC=gcc CCC=g++ CXX=g++ CFLAGS="${CFLAGS} -m64" CXXFLAGS="${CXXFLAGS} -m64" CCFLAGS=-m64 LDFLAGS="${LDFLAGS} -m64" LDLIBS="${LDLIBS} -lm" ${MAKE_CMD} all
 ios-sdkroot:
 	\
   CC="${CC} ${IOS_ARCH} -miphoneos-version-min=${IOS_SDK}"\

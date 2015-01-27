@@ -1,10 +1,11 @@
 APP = suite2_x86win32std
 OBJS = case.o main.o
 
-TOP = ../..
-CFLAGS = -I${TOP}/dyncall
-LDFLAGS = -L${TOP}/dyncall -ldyncall_s
-LINK = ${CXX}
+TOP     = ../..
+CFLAGS  = -I${TOP}/dyncall
+LDFLAGS = -L${TOP}/dyncall
+LDLIBS  = -ldyncall_s
+LINK    = ${CXX}
 
 all: ${APP}
 
@@ -12,11 +13,11 @@ all: ${APP}
 
 RM      ?= rm -f
 AR      ?= ar
-MKDIR	?= mkdir
-INSTALL	?= install -p
+MKDIR   ?= mkdir
+INSTALL ?= install -p
 
 ${APP}: ${OBJS} 
-	${LINK} ${OBJS} ${LDFLAGS} -o ${APP} ${TARGET_ARCH}
+	${LINK} ${OBJS} ${LDFLAGS} ${LDLIBS} -o ${APP} ${TARGET_ARCH}
 
 clean:
 	${RM} ${APP} ${OBJS}
