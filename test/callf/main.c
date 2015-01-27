@@ -35,14 +35,14 @@
 int vf_iii(int x,int y,int z)
 {
   int r = (x == 1 && y == 2 && z == 3);
-  printf("%d %d %d: %d\n", x, y, z, r);
+  printf("%d %d %d: %d", x, y, z, r);
   return r;
 }
 
 int vf_ffiffiffi(float a, float b, int c, float d, float e, int f, float g, float h, int i)
 {
   int r = (a == 1.f && b == 2.f && c == 3 && d == 4.f && e == 5.f && f == 6 && g == 7.f && h == 8.f && i == 9);
-  printf("%f %f %d %f %f %d %f %f %d: %d\n", a, b, c, d, e, f, g, h, i, r);
+  printf("%f %f %d %f %f %d %f %f %d: %d", a, b, c, d, e, f, g, h, i, r);
   return r;
 }
 
@@ -67,29 +67,29 @@ int main(int argc, char* argv[])
   r = ret.i && r;
 
   dcReset(vm);
-  printf("callf ffiffiffi)i: ");
+  printf("\ncallf ffiffiffi)i: ");
   dcCallF(vm, &ret, (void*)&vf_ffiffiffi, "ffiffiffi)i", 1.f, 2.f, 3, 4.f, 5.f, 6, 7.f, 8.f, 9);
   r = ret.i && r;
 
 
   /* arg binding then call using 'formatted' API */
   dcReset(vm);
-  printf("argf iii)i       then call: ");
+  printf("\nargf iii)i       then call: ");
   dcArgF(vm, "iii)i", 1, 2, 3);
   r = r && dcCallInt(vm, (void*)&vf_iii);
 
   dcReset(vm);
-  printf("argf iii         then call: ");
+  printf("\nargf iii         then call: ");
   dcArgF(vm, "iii", 1, 2, 3);
   r = r && dcCallInt(vm, (void*)&vf_iii);
 
   dcReset(vm);
-  printf("argf ffiffiffi)i then call: ");
+  printf("\nargf ffiffiffi)i then call: ");
   dcArgF(vm, "ffiffiffi)i", 1.f, 2.f, 3, 4.f, 5.f, 6, 7.f, 8.f, 9);
   r = r && dcCallInt(vm, (void*)&vf_ffiffiffi);
 
   dcReset(vm);
-  printf("argf ffiffiffi   then call: ");
+  printf("\nargf ffiffiffi   then call: ");
   dcArgF(vm, "ffiffiffi", 1.f, 2.f, 3, 4.f, 5.f, 6, 7.f, 8.f, 9);
   r = r && dcCallInt(vm, (void*)&vf_ffiffiffi);
 
@@ -97,7 +97,7 @@ int main(int argc, char* argv[])
   /* free vm */
   dcFree(vm);
 
-  printf("result: callf: %d\n", r);
+  printf("\nresult: callf: %d\n", r);
 
   dcTest_deInitPlatform();
   
