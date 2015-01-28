@@ -32,6 +32,7 @@ static void dcArgF_impl(DCCallVM* vm, const DCsigchar** sigptr, va_list args)
 {
   const DCsigchar* ptr = *sigptr;
   DCsigchar ch;
+  dcReset(vm);
   while((ch=*ptr++) != '\0' && ch != DC_SIGCHAR_ENDARG) {
     switch(ch) {
       case DC_SIGCHAR_BOOL:      dcArgBool    (vm, (DCbool)           va_arg(args, DCint     )); break;
@@ -69,7 +70,6 @@ void dcArgF(DCCallVM* vm, const DCsigchar* signature, ...)
 void dcVCallF(DCCallVM* vm, DCValue* result, DCpointer funcptr, const DCsigchar* signature, va_list args)
 {
   const DCsigchar* ptr = signature;
-  dcReset(vm);
   dcArgF_impl(vm, &ptr, args);
 
   switch(*ptr) {
