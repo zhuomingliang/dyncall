@@ -30,10 +30,9 @@
 // Shareable implementation for argument binding used in ArgF and CallF  below.
 static void dcArgF_impl(DCCallVM* vm, const DCsigchar** sigptr, va_list args)
 {
-  const DCsigchar* ptr = *sigptr;
   DCsigchar ch;
   dcReset(vm);
-  while((ch=*ptr++) != '\0' && ch != DC_SIGCHAR_ENDARG) {
+  while((ch=*(*sigptr)++) != '\0' && ch != DC_SIGCHAR_ENDARG) {
     switch(ch) {
       case DC_SIGCHAR_BOOL:      dcArgBool    (vm, (DCbool)           va_arg(args, DCint     )); break;
       case DC_SIGCHAR_CHAR:      dcArgChar    (vm, (DCchar)           va_arg(args, DCint     )); break;
