@@ -61,12 +61,7 @@ case ${TARGET:=`uname`} in
   OpenBSD)
     printf "LDLIBS=-lm\n" >>$C
     ;;
-  DragonFly)
-    if [ -z "${CFLAGS}" ]; then
-      printf "CFLAGS=-fPIC\n" >>$C
-    fi
-    ;;
-  NetBSD)
+  DragonFly|NetBSD)
     if [ -z "${CFLAGS}" ]; then
       printf "CFLAGS=-fPIC\n" >>$C
     fi
