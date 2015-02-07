@@ -66,7 +66,7 @@ int main()
 
   printf("about to callback...\n");
   cb = dcbNewCallback("ifsdl)s", &cbHandler, &userdata);
-  result = ((short(*)(int, float, short, double, long long))cb)(123, 23.f, 3, 1.82, 9909llu);
+  result = ((short(*)(int, float, short, double, long long))cb)(123, 23.f, 3, 1.82, 9909ull);
   dcbFreeCallback(cb);
   printf("successfully returned from callback\n");
   printf("return value (should be 1234): %d\n", result);
