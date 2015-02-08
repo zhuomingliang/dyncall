@@ -24,7 +24,7 @@
 */
 
 #include "dyncall.h"
-#include <stdio.h>
+#include "../common/platformInit.h"
 
 // This program demonstrates the need for 'unsigned' integers and the
 // ability to implement zero/sign extensions for small integers.

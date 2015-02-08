@@ -67,11 +67,19 @@ run-dyncall:
 all-dynload:
 	cd nm && ${MAKE}
 	cd resolve_self && ${MAKE}
+run-dynload:
+	#nm/nm
+	resolve_self/resolve_self
 all-dyncallback:
 	cd thunk && ${MAKE}
 	cd malloc_wx && ${MAKE}
 	cd callback_plain && ${MAKE}
 	cd callback_suite && ${MAKE}
+run-dyncallback:
+	thunk/thunk
+	malloc_wx/malloc_wx
+	callback_plain/callback_plain
+	callback_suite/callback_suite
 
 linux:
 	LDLIBS="-lm -ldl" ${MAKE} all

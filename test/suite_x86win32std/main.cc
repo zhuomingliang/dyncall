@@ -29,6 +29,7 @@
 #include "../../dyncall/dyncall_value.h"
 #include <math.h>
 #include "../common/platformInit.h"
+#include "../common/platformInit.c" /* Impl. for functions only used in this translation unit */
 
 
 int   getId();

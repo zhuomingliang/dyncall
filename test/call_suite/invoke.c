@@ -24,7 +24,8 @@
 */
 #include "dyncall.h"
 #include "globals.h"
-#include <stdio.h>
+#include "../common/platformInit.h"
+
 int invoke(char const* signature, void* t)
 {
   DCCallVM   * p = (DCCallVM*) G_callvm;

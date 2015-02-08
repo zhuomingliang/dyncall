@@ -25,7 +25,7 @@
 #include "../../dynload/dynload.h"
 #include "../../dyncall/dyncall_macros.h"
 #include <assert.h>
-#include <stdio.h>
+#include "../common/platformInit.h"
 
 #ifdef DC_WINDOWS
 #define DLL_EXPORT __declspec( dllexport )

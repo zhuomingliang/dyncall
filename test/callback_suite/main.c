@@ -23,12 +23,13 @@
 
 */
 #include <assert.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include "_auto_config.h"
 #include "env.h"
 #include "print.h"
 #include "../common/platformInit.h"
+#include "../common/platformInit.c" /* Impl. for functions only used in this translation unit */
+
 
 const char* appname = "unknown";
 

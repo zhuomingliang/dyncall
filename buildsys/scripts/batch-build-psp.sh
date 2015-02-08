@@ -9,5 +9,6 @@ cd `dirname $0`/../../
 # build libs and tests, but exclude dynload
 
 ./configure --target=PSP
-make libdyncall libdyncallback tests-libdyncallback tests-libdyncall
+#no callback for mips, yet, but build 'empty' libdyncallback to make linker happy
+make libdyncall libdyncallback tests-libdyncall # tests-libdyncallback
 

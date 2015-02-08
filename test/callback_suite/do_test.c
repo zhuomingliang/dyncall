@@ -30,7 +30,7 @@
 #include "signature_utils.h"
 #include "env.h"
 #include "print.h"
-#include <stdio.h>
+#include "../common/platformInit.h"
 
 int CompareValues(char type, DCValue* a, DCValue* b)
 {

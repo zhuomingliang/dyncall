@@ -6,7 +6,7 @@
  Description: 
  License:
 
-   Copyright (c) 2007-2011 Daniel Adler <dadler@uni-goettingen.de>, 
+   Copyright (c) 2007-2015 Daniel Adler <dadler@uni-goettingen.de>, 
                            Tassilo Philipp <tphilipp@potion-studios.com>
 
    Permission to use, copy, modify, and distribute this software for any
@@ -24,99 +24,38 @@
 */
 
 
+#ifndef PLATFORMINIT_H
+#define PLATFORMINIT_H
+
 
 #include "../../dyncall/dyncall_macros.h"
 
 #if defined(DC__OS_NDS)
-
-#include <nds.h>
-#include <stdio.h>
-
-void dcTest_initPlatform()
-{
-  powerOn(POWER_ALL);
-
-  /* Interrupt handlers. */
-  /*irqInit();*/
-  /*irqSet(IRQ_VBLANK, OnIrq);*/
-
-  /* Use the touch screen for output. */
-  videoSetMode(MODE_FB0);
-  vramSetBankA(VRAM_A_LCD);
-  videoSetModeSub(MODE_0_2D | DISPLAY_BG0_ACTIVE);
-  vramSetBankC(VRAM_C_SUB_BG);
-  REG_BG0CNT_SUB = BG_MAP_BASE(31);
-
-  /* Set the colour of the font. */
-  /* BG_PALETTE_SUB[255] = RGB15(25, 11, 9); */
-
-  /* consoleInitDefault((u16*)SCREEN_BASE_BLOCK_SUB(31), (u16*)CHAR_BASE_BLOCK_SUB(0), 16); */
-  consoleDemoInit();
-}
-
-
-void dcTest_deInitPlatform()
-{
-  /* Main loop - console style. */
-  while(1) {
-    swiWaitForVBlank();
-  }
-}
-
+#  include <nds.h>
+#  include <stdio.h>
 #elif defined(DC__OS_PSP)
-
-#include <pspkernel.h>
-#include <pspdebug.h>
-#include <pspdisplay.h>
-
-PSP_MODULE_INFO("dyncall_test",0,1,1);
-
-
-#define printf pspDebugScreenPrintf
-
-int exit_callback(int arg1, int arg2, void *common)
-{
-  sceKernelExitGame();
-  return 0;
-}
-
-int CallbackThread(SceSize args, void *argp)
-{
-  int cbid;
-  cbid = sceKernelCreateCallback("Exit Callback", &exit_callback, NULL);
-  sceKernelRegisterExitCallback(cbid);
-  sceKernelSleepThreadCB();
-  return 0;
-}
-
-void dcTest_initPlatform()
-{
-  pspDebugScreenInit();
-  pspDebugScreenClear();
-
-  int thid = 0;
-  thid = sceKernelCreateThread("update_thread", &CallbackThread, 0x11, 0xFA0, THREAD_ATTR_USER, 0);
-  if (thid >= 0)
-      sceKernelStartThread(thid, 0, 0);
-
-  sceDisplayWaitVblankStart();
-  pspDebugScreenSetXY(0, 0);
-}
-
-void dcTest_deInitPlatform()
-{
-  sceKernelSleepThread();
-  sceKernelExitGame();
-}
-
+#  include <pspkernel.h>
+#  include <pspdebug.h>
+#  include <pspdisplay.h>
+#  define printf pspDebugScreenPrintf
+/* All other platforms, usually just pulling in standard headers and empty init function. */
 #else
-
-void dcTest_initPlatform()
-{
-}
-
-void dcTest_deInitPlatform()
-{
-}
-
+#  if defined(__cplusplus)
+#    if defined(__SUNPRO_CC) || defined(__ANDROID__) /* needed by SunPro .. otherwise printf not included */
+#      include <stdio.h>
+#    else
+#      include <cstdio>
+#    endif
+#  else
+#    include <stdio.h>
+#  endif
 #endif
+
+
+/* Init/shutdown forwards, should be used by every (portable) test. */
+void dcTest_initPlatform();
+void dcTest_deInitPlatform();
+
+
+#endif /* PLATFORMINIT_H */
+

@@ -23,7 +23,8 @@
 
 */
 #include <stddef.h>
-#include <stdio.h>
+#include "../common/platformInit.h"
+
 void arm();
 void thumb();
 

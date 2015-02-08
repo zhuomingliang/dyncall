@@ -24,9 +24,10 @@
 */
 #include "dyncall.h"
 #include "globals.h"
-#include <stdio.h>
 #include <string.h>
 #include "../common/platformInit.h"
+#include "../common/platformInit.c" /* Impl. for functions only used in this translation unit */
+
 
 char  linebuf[1024];
 void* G_callvm;

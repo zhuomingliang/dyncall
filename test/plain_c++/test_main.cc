@@ -27,14 +27,9 @@
 
 #include "test_framework.h"
 #include "../../dyncall/dyncall.h"
-/* needed by SunPro .. otherwise printf not included */
-#if defined(__SUNPRO_CC) || defined(__ANDROID__)
-#include <stdio.h>  
-#else
-#include <cstdio>
-#endif
-
 #include "../common/platformInit.h"
+#include "../common/platformInit.c" /* Impl. for functions only used in this translation unit */
+
 
 /* ------------------------------------------------------------------------- 
  * test: identity function calls 

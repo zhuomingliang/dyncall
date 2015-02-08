@@ -28,8 +28,7 @@
 #include "../../dyncall/dyncall.h"
 #include "../../dyncall/dyncall_signature.h"
 #include "../../dyncall/dyncall_struct.h"
-#include <stdio.h>
-//#include "../common/platformInit.h"
+#include "../common/platformInit.h"
 
 #define DC_TEST_INT_EQUAL(expected, computed) { \
 	if (expected != computed) \
