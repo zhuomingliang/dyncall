@@ -1,6 +1,10 @@
+#!/bin/sh
+
+cd `dirname $0`/../../
+
 # Build libraries.
 
-make -f Makefile.generc clean all
+make -f Makefile.generic clean all
 
 # Build tests: dynload tests need '-ldl'.
 

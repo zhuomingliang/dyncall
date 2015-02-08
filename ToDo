@@ -11,6 +11,8 @@
       - retvals of call_suite (maybe all retvals, in general)
       - callback_plain retval
       - callf
+- fix Minix/x86 callbacks (see callback_suite)
+- fix Linux/rpi callbacks (call_suite)
 
 build-system:
 -------------
