@@ -85,3 +85,7 @@ linux:
 	LDLIBS="-lm -ldl" ${MAKE} all
 bsd:
 	LDLIBS="-lm" ${MAKE} all
+
+pack:
+	${VPATH}/pack-tests.sh 
+	
