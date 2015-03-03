@@ -1,7 +1,7 @@
 #!/bin/sh
 # script to package some tests for quick deployment (useful for embedded stuff)
 
-TESTS="callf ellipsis malloc_wx plain plain_c++ suite suite2 suite3 suite_floats callback_plain callback_suite"
+TESTS="callf call_suite ellipsis malloc_wx plain plain_c++ suite suite2 suite3 suite_floats callback_plain callback_suite"
 # addition test:
 #
 # callback_plain callback_suite callf
