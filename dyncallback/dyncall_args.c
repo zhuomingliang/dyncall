@@ -48,6 +48,10 @@
 #elif defined (DC__Arch_Sparcv9)
 #include "dyncall_args_sparc64.c"
 #elif defined (DC__Arch_ARM64)
-#include "dyncall_args_arm64.c"
+#  if defined (DC__OS_Darwin)
+#    include "dyncall_args_arm64_apple.c"
+#  else
+#    include "dyncall_args_arm64.c"
+#  endif
 #endif
 
