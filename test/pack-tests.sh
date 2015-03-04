@@ -1,22 +1,19 @@
 #!/bin/sh
-# script to package some tests for quick deployment (useful for embedded stuff)
-
-TESTS="callf call_suite ellipsis malloc_wx plain plain_c++ suite suite2 suite3 suite_floats callback_plain callback_suite"
-# addition test:
-#
-# callback_plain callback_suite callf
-# ellipsis
-# malloc_wx thunk
-# nm
-# plain suite suite2 suite3
-# suite2_x86win32fast suite2_x86win32std suite_x86win32fast suite_x86win32std
+# pack-script for embedded testing.
 
 DATE=`date +%s`
 NAME="dyncall-tests-${DATE}"
 
 mkdir -p _work/${NAME}
-for I in $TESTS ; do
+printf "#!/bin/sh" >_work/${NAME}/run.sh
+# printf "#!/bin/sh\n" >_work/${NAME}/run.sh
+for I in $* ; do
 cp $I/$I _work/${NAME}
+printf "./$I\n" >>_work/${NAME}/run.sh
+printf "%-20s <- %-20s\n" "$I" "$PWD/$I/$I" >>_work/${NAME}/CONTENTS.txt
 done
 mkdir -p _packed
+chmod +x _work/${NAME}/run.sh
 tar -cvzf _packed/${NAME}.tar.gz -C _work ${NAME}
+printf "finished: tests are in ${PWD}/_packed/${NAME}.tar.gz, execute run-all.sh\n"
+

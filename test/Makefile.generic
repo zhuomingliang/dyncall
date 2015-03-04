@@ -1,23 +1,12 @@
-.PHONY: all clean run-tests install
-all clean install:
-	cd call_suite && ${MAKE} $@ 
-	cd callback_suite && ${MAKE} $@ 
-	cd plain && ${MAKE} $@
-	cd plain_c++ && ${MAKE} $@
-	cd suite && ${MAKE} $@
-	cd suite2 && ${MAKE} $@
-	cd suite3 && ${MAKE} $@
-	cd suite_floats && ${MAKE} $@
-	cd ellipsis && ${MAKE} $@
-	cd callf && ${MAKE} $@
-	cd syscall && ${MAKE} $@
-	cd nm && ${MAKE} $@
-	cd resolve_self && ${MAKE} $@
-	cd thunk && ${MAKE} $@
-	cd malloc_wx && ${MAKE} $@
-	cd callback_plain && ${MAKE} $@
+ALL=call_suite callback_suite plain plain_c++ suite suite2 suite3 suite_floats ellipsis callf syscall nm resolve_self thunk malloc_wx callback_plain
+ALL_C=plain call_suite suite callf syscall nm resolve_self thunk malloc_wx callback_plain callback_suite
+.PHONY: all clean run-tests install distclean ${ALL} 
+all clean install: 
+	${MAKE} TARGET=$@ ${ALL}
+${ALL}:
+	cd $@ && ${MAKE} ${TARGET}
 run-tests: all
-	sh ${VPATH}/runalltests.sh | grep "result:"
+	${VPATH}/run-build.sh ${ALL} | grep "result:"
 all-c:
 	cd plain && ${MAKE}
 	cd call_suite && ${MAKE}
@@ -86,6 +75,8 @@ linux:
 bsd:
 	LDLIBS="-lm" ${MAKE} all
 
-pack:
-	${VPATH}/pack-tests.sh 
-	
+pack: ${ALL}
+	${VPATH}/pack-tests.sh ${ALL}
+
+distclean:
+	rm -rf _work _pack	
