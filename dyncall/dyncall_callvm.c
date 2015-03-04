@@ -59,11 +59,17 @@
 #    include "dyncall_callvm_arm32_thumb.c"
 #  endif
 #elif defined(DC__Arch_ARM64)
-#  include "dyncall_callvm_arm64.c"
+#  if defined(DC__OS_Darwin)
+#    include "dyncall_callvm_arm64_apple.c"
+#  else
+#    include "dyncall_callvm_arm64.c"
+#  endif
 #elif defined(DC__Arch_Sparc)
 #  include "dyncall_callvm_sparc.c"
 #elif defined(DC__Arch_Sparcv9)
 #  include "dyncall_callvm_sparc_v9.c"
+#elif defined(DC__Arch_RiscV)
+#  include "dyncall_callvm_riscv.c"
 #else
 #  error unsupported platform
 #endif

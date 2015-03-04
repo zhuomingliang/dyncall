@@ -44,6 +44,7 @@ typedef struct
 #define dcVecData(p)        ( (unsigned char*) (((DCVecHead*)(p))+1) )
 #define dcVecAt(p,index)    ( dcVecData(p)+index )
 #define dcVecSize(p)        ( (p)->mSize )
+#define dcVecAlign(p,align) (p)->mSize=( (p)->mSize + align-1 ) & -align
 
 /*
 #include <string.h>
