@@ -1,4 +1,5 @@
 ALL=call_suite callback_suite plain plain_c++ suite suite2 suite3 suite_floats ellipsis callf syscall nm resolve_self thunk malloc_wx callback_plain
+PACK=call_suite callback_suite plain plain_c++ suite suite2 suite3 suite_floats ellipsis callf resolve_self callback_plain
 ALL_C=plain call_suite suite callf syscall nm resolve_self thunk malloc_wx callback_plain callback_suite
 .PHONY: all clean run-tests install distclean ${ALL} 
 all clean install: 
@@ -75,8 +76,8 @@ linux:
 bsd:
 	LDLIBS="-lm" ${MAKE} all
 
-pack: ${ALL}
-	${VPATH}/pack-tests.sh ${ALL}
+pack: ${PACK}
+	${VPATH}/pack-tests.sh ${PACK}
 
 distclean:
-	rm -rf _work _pack	
+	rm -rf _work _packed

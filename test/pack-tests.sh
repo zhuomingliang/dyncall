@@ -5,8 +5,7 @@ DATE=`date +%s`
 NAME="dyncall-tests-${DATE}"
 
 mkdir -p _work/${NAME}
-printf "#!/bin/sh" >_work/${NAME}/run.sh
-# printf "#!/bin/sh\n" >_work/${NAME}/run.sh
+printf "#!/bin/sh\n" >_work/${NAME}/run.sh
 for I in $* ; do
 cp $I/$I _work/${NAME}
 printf "./$I\n" >>_work/${NAME}/run.sh
