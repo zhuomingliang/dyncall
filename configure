@@ -19,10 +19,15 @@ while [ $# -gt 0 ]; do
   case $X in
     --help|-h|-?)
 cat <<EOF
-usage: $0 --prefix=<dir> var1=name1..
+usage: $0 --<option>=<value> <var>=<value> ..
+
   --prefix=<dir>
-  --target=<platform>       MacOSX,iOS,iPhoneSimulator
-  --sdk=<version>
+  --target=<platform>       uname/special targets: MacOSX,iOS,iPhoneSimulator
+  --sdk=<version>           Mac OS X/iOS SDK version (e.g. '6.1' or '10.9.3')
+                            Tested iOS SDK versions: 4.3, 6.1, 8.1 
+
+Useful variables CC, CXX, CFLAGS, CXXFLAGS, etc..
+
 EOF
       exit 1
       ;;
@@ -41,7 +46,7 @@ EOF
       printf "${X}\n" >>$C
       k=`printf "${X}" | cut -d = -f 1`
       v=`printf "${X}" | cut -d = -f 2`
-      export $k=$v
+      export $k="$v"
       ;;
 # Others fail:
     *)
@@ -116,17 +121,19 @@ case ${TARGET:=`uname`} in
     ;;
   iPhoneOS|iOS)
     SDKROOT="`xcode-select -print-path`/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS${SDK}.sdk"
-    case "${SDK}" in
-      4.3)
-        ARCHS="-arch armv6"
-        ;;
-      6.1)
-        ARCHS="-arch armv7"
-        ;;
-      8.1)
-        ARCHS="-arch arm64"
-        ;;
-    esac
+    if [ -z "${ARCHS}" ]; then
+      case "${SDK}" in
+        [45].*)
+          ARCHS="-arch armv6"
+          ;;
+        [67].*)
+          ARCHS="-arch armv7"
+          ;;
+        8.*)
+          ARCHS="-arch armv7 -arch arm64"
+          ;;
+      esac
+    fi
     printf "ASFLAGS=${ARCHS} -isysroot ${SDKROOT}\n" >>$C
     printf "CFLAGS=${ARCHS} -isysroot ${SDKROOT}\n" >>$C
     printf "CXXFLAGS=${ARCHS} -isysroot ${SDKROOT}\n" >>$C
